@@ -13,5 +13,25 @@
 
 Route::get('/', function()
 {
+	if (Auth::check()) {
+		return Redirect::intended('hello')->with('username', Auth::user()->username);
+	} else {
+		return View::make('login');
+	}
+});
+
+Route::get('/hello', function()
+{
 	return View::make('hello');
 });
+
+Route::get('/hash/{pass}', function($pass)
+{
+	return Hash::make($pass);
+});
+
+Route::resource('users', 'UserController');
+
+Route::resource('login', 'UserController@login');
+
+Route::resource('logout', 'UserController@logout');
