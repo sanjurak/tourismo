@@ -1,6 +1,6 @@
 <?php
 
-class UserController extends BaseController {
+class ReservationsController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,33 +9,7 @@ class UserController extends BaseController {
 	 */
 	public function index()
 	{
-		 $users = User::all();
-
-    	 return View::make('login')->with('users', $users);
-	}
-
-	public function login()
-	{
-		 $userdata = array(
-				'username' 	=> Input::get('username'),
-				'password' 	=> Input::get('password')
-		 );
-
-		 if (Auth::attempt($userdata))
-		 {
-    	    // The user is being remembered...
-		    return Redirect::intended('homepage')->with('username', $userdata['username']);
-		 }
-		 else {
-		 	return Redirect::back();
-		 }
-		 
-	}
-
-	public function logout()
-	{
-		Auth::logout();
-		return Redirect::intended('/');
+		return View::make('reservations');
 	}
 
 	/**
@@ -101,6 +75,5 @@ class UserController extends BaseController {
 	{
 		//
 	}
-
 
 }

@@ -14,7 +14,7 @@
 Route::get('/', function()
 {
 	if (Auth::check()) {
-		return Redirect::intended('hello')->with('username', Auth::user()->username);
+		return Redirect::intended('homepage')->with('username', Auth::user()->username);
 	} else {
 		return View::make('login');
 	}
@@ -23,6 +23,11 @@ Route::get('/', function()
 Route::get('/hello', function()
 {
 	return View::make('hello');
+});
+
+Route::get('/homepage', function()
+{
+	return View::make('homepage');
 });
 
 Route::get('/hash/{pass}', function($pass)
@@ -34,4 +39,7 @@ Route::resource('users', 'UserController');
 
 Route::resource('login', 'UserController@login');
 
-Route::resource('logout', 'UserController@logout');
+Route::get('logout', array( 'as' => 'logout', 'uses' => 'UserController@logout'));
+
+Route::get('reservations', array('as'=>'reservations', 'uses'=>'ReservationsController@index'));
+
