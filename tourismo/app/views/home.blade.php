@@ -11,6 +11,12 @@
 <body>
 	<div id='header'>
 		@yield('header')
+		<div id='logout' style="float:right">
+			@if (Auth::check())
+				{{ Session::get('username') }}
+				{{ HTML::linkRoute('logout', 'sign out') }}
+			@endif
+		</div>
 	</div>
     <div id="content">
         @yield('content')

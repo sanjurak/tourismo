@@ -34,7 +34,9 @@
 </head>
 <body>
 	<div id='header'>
-		<a href="/logout">sign out</a>
+		@if (Auth::check())
+			{{ HTML::linkRoute('logout', 'sign out') }}
+		@endif
 	</div>
        <h1>Tourismo</h1>
 

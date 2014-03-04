@@ -39,7 +39,11 @@ Route::resource('users', 'UserController');
 
 Route::resource('login', 'UserController@login');
 
-Route::get('logout', array( 'as' => 'logout', 'uses' => 'UserController@logout'));
+Route::get('login', array('as'=>'login', 'uses'=>'UserController@login'));
+
+Route::get('logout', array('as'=>'logout', 'uses'=>'UserController@logout'));
 
 Route::get('reservations', array('as'=>'reservations', 'uses'=>'ReservationsController@index'));
+
+Route::get('passangers', array('as'=>'passangers', 'uses'=>'PassangersController@index'));
 

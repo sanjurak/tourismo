@@ -6,9 +6,10 @@
 <div class='row'>
 	<div id='rezervacije' class="span4">
 		{{HTML::linkRoute('reservations', 'Rezervacije')}}
-		
 	</div>
-	<div id='putnici' class="span4">Putnici</div>
+	<div id='putnici' class="span4">
+		{{HTML::linkRoute('passangers', 'Putnici')}}
+	</div>
 	<div id='destinacije' class="span4">Destinacije</div>
 </div>
 <div class="row">
