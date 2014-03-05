@@ -45,5 +45,7 @@ Route::get('logout', array('as'=>'logout', 'uses'=>'UserController@logout'));
 
 Route::get('reservations', array('as'=>'reservations', 'uses'=>'ReservationsController@index'));
 
+Route::get('destinations', array('as'=>'destinations', 'uses'=>'DestinationsController@index'));
+
 Route::get('passangers', array('as'=>'passangers', 'uses'=>'PassangersController@index'));
 

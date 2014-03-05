@@ -9,20 +9,20 @@
 	
 </head>
 <body>
-	<div id='header'>
+	<div id='header' class="row">
 		@yield('header')
-		<div id='logout' style="float:right">
+		<div id='logout' class="label label-default pull-right">
 			@if (Auth::check())
 				{{ Session::get('username') }}
 				{{ HTML::linkRoute('logout', 'sign out') }}
 			@endif
 		</div>
 	</div>
-    <div id="content">
+    <div id="content" class="row">
         @yield('content')
        </div>
 
-       <div id='footer'>
+       <div id='footer' class="row">
        		@yield('footer')
        </div>
     </body>
