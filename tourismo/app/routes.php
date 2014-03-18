@@ -35,12 +35,12 @@ Route::get('/hash/{pass}', function($pass)
 	return Hash::make($pass);
 });
 
-Route::resource('users', 'UserController');
+// Route::resource('users', 'UserController');
 
-Route::resource('login', 'UserController@login');
+// Route::resource('login', 'UserController@login');
 
-Route::get('login', array('as'=>'login', 'uses'=>'UserController@login'));
-
+// Route::get('login', array('as'=>'login', 'uses'=>'UserController@login'));
+Route::post('login', array('as'=>'login', 'uses'=>'UserController@login'));
 Route::get('logout', array('as'=>'logout', 'uses'=>'UserController@logout'));
 
 Route::get('reservations', array('as'=>'reservations', 'uses'=>'ReservationsController@index'));
@@ -48,4 +48,10 @@ Route::get('reservations', array('as'=>'reservations', 'uses'=>'ReservationsCont
 Route::get('destinations', array('as'=>'destinations', 'uses'=>'DestinationsController@index'));
 
 Route::get('passangers', array('as'=>'passangers', 'uses'=>'PassangersController@index'));
+
+Route::get('arangements', array('as'=>'arangements', 'uses'=>'ArangementsController@index'));
+
+Route::get('payments', array('as'=>'payments', 'uses'=>'PaymentsController@index'));
+
+Route::get('reports', array('as'=>'reports', 'uses'=>'ReportsController@index'));
 

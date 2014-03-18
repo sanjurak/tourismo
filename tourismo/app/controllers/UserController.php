@@ -24,7 +24,8 @@ class UserController extends BaseController {
 		 if (Auth::attempt($userdata))
 		 {
     	    // The user is being remembered...
-		    return Redirect::intended('homepage')->with('username', $userdata['username']);
+    	    Session::put('username', $userdata['username']);
+		    return Redirect::intended('homepage');
 		 }
 		 else {
 		 	return Redirect::back();

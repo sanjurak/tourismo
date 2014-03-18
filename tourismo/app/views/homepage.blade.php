@@ -25,21 +25,39 @@
 	<div class="tile-area">
 	    <div class="tile-group six">
 	       <a href="reservations">
-	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp" data-click="transform">
+	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
 	          <div class="tile-content"><center><p>Rezervacije</p></center></div>
 	          <div class="tile-content"><center><p>Reservations</p></center></div>
 	        </div>
 	      </a>
 	      <a href="passangers">
-	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp" data-click="transform">
+	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
 	          <div class="tile-content"><center><p>Putnici</p></center></div>
 	          <div class="tile-content"><center><p>Passangers</p></center></div>
 	        </div>
 	      </a>
 	      <a href="destinations">
-	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp" data-click="transform">
+	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
 	          <div class="tile-content"><center><p>Destinacije</p></center></div>
 	          <div class="tile-content"><center><p>Destinations</p></center></div>
+	        </div>
+	      </a>
+	      <a href="arangements">
+	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
+	          <div class="tile-content"><center><p>Aranžmani</p></center></div>
+	          <div class="tile-content"><center><p>Arangements</p></center></div>
+	        </div>
+	      </a>
+	      <a href="payments">
+	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
+	          <div class="tile-content"><center><p>Plaćanja</p></center></div>
+	          <div class="tile-content"><center><p>Payments</p></center></div>
+	        </div>
+	      </a>
+	      <a href="reports">
+	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
+	          <div class="tile-content"><center><p>Izveštaji</p></center></div>
+	          <div class="tile-content"><center><p>Reports</p></center></div>
 	        </div>
 	      </a>
 		</div>

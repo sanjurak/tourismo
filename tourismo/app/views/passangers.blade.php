@@ -1,4 +1,4 @@
-@extends('home')
+@extends('layout')
 @section('content')
 <?php
 	$passangers = Passanger::all();
