@@ -9,7 +9,8 @@ class DestinationsController extends \BaseController {
 	 */
 	public function index()
 	{
-		return View::make('destinations');
+		$destinations = Destination::all();
+		return View::make('destinations', array('destinations' => $destinations));
 	}
 
 	/**
@@ -62,7 +63,9 @@ class DestinationsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$column = Input::get('name');
+		$value = Input::get('value');
+		Destination::where('id','=',$id)->update(array($column => $value));
 	}
 
 	/**
@@ -76,4 +79,15 @@ class DestinationsController extends \BaseController {
 		//
 	}
 
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @return Response
+	 */
+	public function basicSearch()
+	{
+		$searchTerm = Input::get('search_item');
+		$destinations = Destination::where('country','LIKE','%'.$searchTerm.'%')->orWhere('town','LIKE','%'.$searchTerm.'%')->get();
+		return View::make('destinations', array('destinations' => $destinations));
+	}
 }

@@ -3,16 +3,19 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Tourismo</title>
-	{{HTML::style('bootstrap/css/bootstrap.css')}}
-	{{HTML::style('bootstrap/css/bootstrap-responsive.css')}}
-	{{HTML::style('bootstrap/css/metro-bootstrap.css')}}
-	{{HTML::style('bootstrap/css/metro-bootstrap-responsive.css')}}
-	{{HTML::script('bootstrap/js/bootstrap.js')}}
 	{{HTML::script('bootstrap/js/jquery-2.1.0.min.js')}}
 	{{HTML::script('bootstrap/js/jquery.widget.min.js')}}
 	{{HTML::script('bootstrap/js/jquery-ui.js')}}
 	{{HTML::script('bootstrap/js/jquery.ui.widget.js')}}
+	{{HTML::script('bootstrap/js/bootstrap.js')}}
+	{{HTML::style('bootstrap/css/bootstrap.css')}}
+	{{HTML::style('bootstrap/css/bootstrap-responsive.css')}}
+	{{HTML::style('bootstrap/css/metro-bootstrap.css')}}
+	{{HTML::style('bootstrap-editable/css/bootstrap-editable.css')}}
+	{{HTML::style('bootstrap/css/metro-bootstrap-responsive.css')}}
 	{{HTML::script('bootstrap/js/metro-loader.js')}}
+	{{HTML::script('bootstrap-editable/js/bootstrap-editable.js')}}
+	{{HTML::script('scripts/Site.js')}}
 </head>
 <body>
 	<div id='header' class="metro">

@@ -55,3 +55,7 @@ Route::get('payments', array('as'=>'payments', 'uses'=>'PaymentsController@index
 
 Route::get('reports', array('as'=>'reports', 'uses'=>'ReportsController@index'));
 
+Route::post('basicSearch', array('as' => 'basicSearch', 'uses' => 'DestinationsController@basicSearch'));
+
+Route::post('destinationEdit/{id}', array('as' => 'destinationEdit', 'uses' => 'DestinationsController@update'));
+
