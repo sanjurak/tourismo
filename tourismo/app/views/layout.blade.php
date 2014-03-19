@@ -2,44 +2,23 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Tourismo</title>
-	<style>
-		@import url(//fonts.googleapis.com/css?family=Lato:700);
-
-		body {
-			margin:0;
-			font-family:'Lato', sans-serif;
-			text-align:center;
-			color: #999;
-		}
-
-		.welcome {
-			width: 300px;
-			height: 200px;
-			position: absolute;
-			left: 50%;
-			top: 50%;
-			margin-left: -150px;
-			margin-top: -100px;
-		}
-
-		a, a:visited {
-			text-decoration:none;
-		}
-
-		h1 {
-			font-size: 32px;
-			margin: 16px 0 0 0;
-		}
-	</style>
+	{{HTML::style('bootstrap/css/bootstrap.css')}}
+	{{HTML::style('bootstrap/css/bootstrap-responsive.css')}}
+	{{HTML::style('bootstrap/css/metro-bootstrap.css')}}
+	{{HTML::style('bootstrap/css/metro-bootstrap-responsive.css')}}
+	{{HTML::script('bootstrap/js/bootstrap.js')}}
+	{{HTML::script('bootstrap/js/jquery-2.1.0.min.js')}}
+	{{HTML::script('bootstrap/js/jquery.widget.min.js')}}
+	{{HTML::script('bootstrap/js/jquery-ui.js')}}
+	{{HTML::script('bootstrap/js/jquery.ui.widget.js')}}
+	{{HTML::script('bootstrap/js/metro-loader.js')}}
 </head>
-<body>
+<body class="metro">
 	<div id='header'>
 		@if (Auth::check())
 			{{ HTML::linkRoute('logout', 'sign out') }}
 		@endif
 	</div>
-       <h1>Tourismo</h1>
-
         @yield('content')
     </body>
 </html>
