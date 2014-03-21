@@ -23,7 +23,7 @@
 		<div id='korisnici' class="span4, tile double">Korisnici</div>
 	</div> -->
 	<div class="tile-area">
-	    <div class="tile-group six">
+	    <div class="tile-group nine">
 	       <a href="reservations">
 	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
 	          <div class="tile-content"><center><p>Rezervacije</p></center></div>
@@ -58,6 +58,12 @@
 	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
 	          <div class="tile-content"><center><p>Izveštaji</p></center></div>
 	          <div class="tile-content"><center><p>Reports</p></center></div>
+	        </div>
+	      </a>
+	      <a href="accommodation">
+	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
+	          <div class="tile-content"><center><p>Smeštaj</p></center></div>
+	          <div class="tile-content"><center><p>Accommodation</p></center></div>
 	        </div>
 	      </a>
 		</div>

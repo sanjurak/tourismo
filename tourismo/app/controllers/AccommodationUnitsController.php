@@ -1,6 +1,6 @@
 <?php
 
-class DestinationsController extends \BaseController {
+class AccommodationUnitsController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,8 +9,7 @@ class DestinationsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$destinations = Destination::all();
-		return View::make('destinations')->nest('destPartial','dstPartial', array('destinations' => $destinations));
+		//
 	}
 
 	/**
@@ -63,9 +62,7 @@ class DestinationsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$column = Input::get('name');
-		$value = Input::get('value');
-		Destination::where('id','=',$id)->update(array($column => $value));
+		//
 	}
 
 	/**
@@ -79,15 +76,4 @@ class DestinationsController extends \BaseController {
 		//
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @return Response
-	 */
-	public function basicSearch()
-	{
-		$searchTerm = e(Input::get('search_item',''));
-		$destinations = Destination::where('country','LIKE','%'.$searchTerm.'%')->orWhere('town','LIKE','%'.$searchTerm.'%')->get();
-		return View::make('dstPartial', array('destinations' => $destinations));
-	}
 }

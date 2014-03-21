@@ -3,14 +3,14 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class Destination extends Eloquent {
+class Categories extends Eloquent {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'destinations';
+	protected $table = 'categories';
 
 	
 	/**
@@ -23,8 +23,5 @@ class Destination extends Eloquent {
 		return $this->id;
 	}
 
-	public function accomodations()
-	{
-		return $this->hasMany('Accomodations');
-	}
+
 }

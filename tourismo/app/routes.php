@@ -49,7 +49,7 @@ Route::get('destinations', array('as'=>'destinations', 'uses'=>'DestinationsCont
 
 Route::get('passangers', array('as'=>'passangers', 'uses'=>'PassangersController@index'));
 
-Route::get('arangements', array('as'=>'arangements', 'uses'=>'ArangementsController@index'));
+Route::get('arangements', array('as'=>'arangements', 'uses'=>'TravelDealController@index'));
 
 Route::get('payments', array('as'=>'payments', 'uses'=>'PaymentsController@index'));
 
@@ -59,3 +59,4 @@ Route::post('basicSearch', array('as' => 'basicSearch', 'uses' => 'DestinationsC
 
 Route::post('destinationEdit/{id}', array('as' => 'destinationEdit', 'uses' => 'DestinationsController@update'));
 
+Route::get('accommodation', array('as' => 'accommodation', 'uses' => 'AccommodationController@index'));
