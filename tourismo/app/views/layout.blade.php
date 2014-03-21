@@ -18,7 +18,7 @@
 		@if (Auth::check())
 			{{ HTML::linkRoute('logout', 'sign out') }}
 		@endif
-	</div>
+	</div class="container">
         @yield('content')
     </body>
 </html>
