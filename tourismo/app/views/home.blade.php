@@ -17,7 +17,7 @@
 	{{HTML::script('bootstrap-editable/js/bootstrap-editable.js')}}
 	{{HTML::script('scripts/Site.js')}}
 </head>
-<body>
+<body class="metro">
 	<div id='header' class="metro">
 		@yield('header')
 		<nav class="navigation-bar dark">
@@ -47,7 +47,7 @@
 		    </nav>
 		</nav>
 	</div>
-    <div id="content" class="metro">
+    <div id="content" class="container">
         @yield('content')
        </div>
 

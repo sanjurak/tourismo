@@ -48,6 +48,7 @@ Route::get('reservations', array('as'=>'reservations', 'uses'=>'ReservationsCont
 Route::get('destinations', array('as'=>'destinations', 'uses'=>'DestinationsController@index'));
 
 Route::get('passangers', array('as'=>'passangers', 'uses'=>'PassangersController@index'));
+Route::post('storePassanger', array('as'=>'storePassanger', 'uses'=>'PassangersController@store'));
 
 Route::get('arangements', array('as'=>'arangements', 'uses'=>'ArangementsController@index'));
 

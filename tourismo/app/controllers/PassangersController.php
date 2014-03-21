@@ -29,7 +29,20 @@ class PassangersController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$passanger = new Passanger;
+		$passanger->name = Input::get('name');
+		$passanger->surname = Input::get('surname');
+		$passanger->address = Input::get('address');
+		$passanger->gender = Input::get('gender');
+		$passanger->tel = Input::get('tel');
+		$passanger->mob = Input::get('mob');
+		$passanger->passport = Input::get('passport');
+		var_dump(Input::get('birth_date'));
+		if ((string)Input::get('birth_date') != "0000-00-00") {
+			$passanger->birth_date = Input::get('birth_date');
+		}
+		$passanger->save();
+		return Redirect::intended('passangers');
 	}
 
 	/**
