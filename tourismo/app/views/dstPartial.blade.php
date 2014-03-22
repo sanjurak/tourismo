@@ -1,4 +1,9 @@
+<script type="text/javascript">
+$(function(){
 
+	$(".editableC").editable();
+});
+</script>
 <table class="table table-hover">
 		<tr>
 			<th>Kategorija</th>

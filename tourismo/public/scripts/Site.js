@@ -11,17 +11,52 @@ $(document).ready(function(){
 		$("#basic").val('');		
 	});
 
-	$("#bsearch").click(function(){
-		var term = $("#basic").val();
+	$("#basic").selectize({
+        valueField: 'name',
+        labelField: 'name',
+        searchField: ['name'],
+        options: [],
+        create: false,
+        render: {
+            option: function(item, escape) {
+                return '<div>' +escape(item.name)+'</div>';
+            }
+        },
+        optgroups: [
+            {value: 'town', label: 'Gradovi'},
+            {value: 'country', label: 'Zemlje'}
+        ],
+        optgroupField: 'class',
+        optgroupOrder: ['country','town'],
+        load: function(query, callback) {
+            if (!query.length) return callback();
+            $.ajax({
+                url: 'autocompleteDST',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    q: query
+                },
+                error: function() {
+                    callback();
+                },
+                success: function(res) {
+                    callback(res.data);
+                }
+            });
+        },
+        onChange: function(){
+            var term = this.items[0];
 		$.ajax({
 			url:"basicSearch",
 			type:"POST",
 			data: {search_item: term },
 			dataType:"html",
 			success: function(data){
-				alert(data);
 				$("#list_view").empty().html(data);
 			}
 		});
-	});
+        }
+    });
+
 });

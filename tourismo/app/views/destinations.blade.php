@@ -1,12 +1,11 @@
 @extends('home')
 @section('content')
 
-TODO::napraviti AJAX forme
 <div id="basicsearch">
-	<div class='form-search'>
-		Pretraživanje prema nazivu zemlje ili grada:
-		<input type="text" name='search_item' id='basic' class='search-query' />
-		<button id='bsearch' class='btn btn-primary'>Traži</button>
+	<div class=' '>
+		
+		<select name='search_item' id='basic' placeholder="Pretraživanje prema nazivu zemlje ili grada" class='form-controlx	x	'></select>
+
 		<br/>
 		 <button class="btn btn-small" id="advanced">Napredna pretraga</button>
 		 <button class="btn btn-small" id="breset">Resetuj pretragu</button>

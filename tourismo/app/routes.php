@@ -58,6 +58,10 @@ Route::get('reports', array('as'=>'reports', 'uses'=>'ReportsController@index'))
 
 Route::post('basicSearch', array('as' => 'basicSearch', 'uses' => 'DestinationsController@basicSearch'));
 
+Route::get('basicSearch/{search_item}', array('as' => 'basicSearch', 'uses' => 'DestinationsController@Search'));
+
 Route::post('destinationEdit/{id}', array('as' => 'destinationEdit', 'uses' => 'DestinationsController@update'));
+
+Route::get('autocompleteDST', array('as' => 'autocompleteDST', 'uses' => 'DestinationsController@autosearch'));
 
 Route::get('accommodation', array('as' => 'accommodation', 'uses' => 'AccommodationController@index'));

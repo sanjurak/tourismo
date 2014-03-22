@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html">
 	<title>Tourismo</title>
 	{{HTML::script('bootstrap/js/jquery-2.1.0.min.js')}}
 	{{HTML::script('bootstrap/js/jquery.widget.min.js')}}
@@ -11,9 +12,12 @@
 	{{HTML::style('bootstrap/css/bootstrap.css')}}
 	{{HTML::style('bootstrap/css/bootstrap-responsive.css')}}
 	{{HTML::style('bootstrap/css/metro-bootstrap.css')}}
-	{{HTML::style('bootstrap-editable/css/bootstrap-editable.css')}}
 	{{HTML::style('bootstrap/css/metro-bootstrap-responsive.css')}}
+	{{HTML::style('selectize/css/selectize.css')}}
+	{{HTML::style('selectize/css/selectize.bootstrap2.css')}}
+	{{HTML::style('bootstrap-editable/css/bootstrap-editable.css')}}
 	{{HTML::script('bootstrap/js/metro-loader.js')}}
+	{{HTML::script('selectize/js/standalone/selectize.js')}}
 	{{HTML::script('bootstrap-editable/js/bootstrap-editable.js')}}
 	{{HTML::script('scripts/Site.js')}}
 </head>
