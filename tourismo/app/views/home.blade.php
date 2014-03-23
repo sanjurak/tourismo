@@ -22,6 +22,10 @@
 	{{HTML::script('scripts/Site.js')}}
 	{{HTML::script('scripts/functions.js')}}
 	{{HTML::style('styles/Site.css')}}
+
+	{{HTML::script('jquery-validator/js/jquery.validationEngine.js')}}
+	{{HTML::script('jquery-validator/js/languages/jquery.validationEngine-srb.js')}}
+	{{HTML::style('jquery-validator/css/validationEngine.jquery.css')}}
 </head>
 <body class="metro">
 	<div id='header' class="metro">
@@ -54,8 +58,10 @@
 		</nav>
 	</div>
     <div id="content" class="container">
-        @yield('content')
-       </div>
+    	<div class="grid">
+       			 @yield('content')
+  		</div>
+     </div>
 
        <div id='footer' class="row">
        		@yield('footer')

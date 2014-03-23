@@ -1,10 +1,9 @@
 $(document).ready(function(){
 
 	$(".editableC").editable();
-	$("#advancedSearch").hide();
-
+    
 	$("#advanced").click(function(){
-		$("#advancedSearch").slideDown();
+		$("#advancedSearch").slideToggle();
 	});
 
 	$("#advancedSearchForm").submit(function(event){
@@ -59,12 +58,17 @@ $(document).ready(function(){
         }
     });
 
+$("#addNewDstForm").validationEngine();
 $("#addNewDst").click(function(){
 	$("#addNewDstForm").trigger('submit');
 });
 
 $("#addNewDstForm").submit(function(event){
 		event.preventDefault();
-		NewDestination($(this));
+        if($(this).validate())
+		  NewDestination($(this));
 	});
+
+
+
 });
