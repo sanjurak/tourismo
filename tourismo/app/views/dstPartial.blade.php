@@ -14,7 +14,12 @@ $(function(){
 		</tr>
 @foreach($destinations as $destination)
 	<tr>
-		<td>TO DO::letovanje, zimovanje ...</td>
+		<td>			
+			@foreach ($destination->traveldeals as $deal)
+				<div>{{$deal->category->name}}</div>
+			
+			@endforeach
+		</td>
 		<td>
 			<a href="#" class="editableC" id="country" data-type="text" data-pk= {{$destination->id}} data-url="/destinationEdit/{{$destination->id}}" data-title="Unesite naziv zemlje">
 				{{$destination->country}}
@@ -30,7 +35,12 @@ $(function(){
 						{{$destination->description}}
 			</a>
 		</td>
-		<td>TO DO::spisak agencija koje nude destinaciju, lonkovano ka aranzmanima</td>
+		<td>
+			@foreach ($destination->traveldeals as $deal)
+				<div>{{$deal->organizer->name}}</div>
+			
+			@endforeach
+		</td>
 	</tr>
 @endforeach
 </table>

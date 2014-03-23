@@ -1,0 +1,15 @@
+#body{
+	font-size: 12px;
+	font-family: Ariel;
+}
+
+form{
+	font-size: 12px;
+}
+
+form:legend{
+	font-size: 12px;
+}
+#basic{
+	width:300px;
+}

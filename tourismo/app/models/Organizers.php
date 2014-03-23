@@ -11,6 +11,7 @@ class Organizers extends Eloquent {
 	 * @var string
 	 */
 	protected $table = 'organizers';
+	protected $primaryKey = 'pib';
 
 	
 	/**
@@ -20,8 +21,12 @@ class Organizers extends Eloquent {
 	 */
 	public function getAuthIdentifier()
 	{
-		return $this->id;
+		return $this->pib;
 	}
 
+	public function traveldeals()
+	{
+		return $this->hasMany('Travel_deals');
+	}
 
 }

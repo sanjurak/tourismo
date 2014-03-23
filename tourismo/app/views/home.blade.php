@@ -20,6 +20,8 @@
 	{{HTML::script('selectize/js/standalone/selectize.js')}}
 	{{HTML::script('bootstrap-editable/js/bootstrap-editable.js')}}
 	{{HTML::script('scripts/Site.js')}}
+	{{HTML::script('scripts/functions.js')}}
+	{{HTML::style('styles/Site.css')}}
 </head>
 <body class="metro">
 	<div id='header' class="metro">

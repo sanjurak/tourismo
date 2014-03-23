@@ -3,14 +3,14 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class Accomodation_units extends Eloquent {
+class Travel_deals extends Eloquent {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'accomodation_units';
+	protected $table = 'travel_deals';
 
 	
 	/**
@@ -23,9 +23,18 @@ class Accomodation_units extends Eloquent {
 		return $this->id;
 	}
 
-	public function accomodation()
+	public function organizer()
 	{
-		return $this->belongsTo('Accomodations')
+		return $this->belongsTo('Organizers');
 	}
 
+	public function category()
+	{
+		return $this->belongsTo('Categories');
+	}
+
+	public function destination()
+	{
+		return $this->belongsTo('Destination');
+	}
 }

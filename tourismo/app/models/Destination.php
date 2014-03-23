@@ -27,4 +27,9 @@ class Destination extends Eloquent {
 	{
 		return $this->hasMany('Accomodations');
 	}
+
+	public function traveldeals()
+	{
+		return $this->hasMany('Travel_deals');
+	}
 }

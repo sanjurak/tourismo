@@ -7,8 +7,16 @@ $(document).ready(function(){
 		$("#advancedSearch").slideDown();
 	});
 
+	$("#advancedSearchForm").submit(function(event){
+		event.preventDefault();
+		AdvancedSearch($(this));
+	})
+
 	$("#breset").click(function(){
-		$("#basic").val('');		
+		var selectize = $("#basic")[0].selectize;
+		selectize.clear();
+		selectize.clearOptions();
+		Search("*");		
 	});
 
 	$("#basic").selectize({
@@ -47,16 +55,16 @@ $(document).ready(function(){
         },
         onChange: function(){
             var term = this.items[0];
-		$.ajax({
-			url:"basicSearch",
-			type:"POST",
-			data: {search_item: term },
-			dataType:"html",
-			success: function(data){
-				$("#list_view").empty().html(data);
-			}
-		});
+			Search(term);
         }
     });
 
+$("#addNewDst").click(function(){
+	$("#addNewDstForm").trigger('submit');
+});
+
+$("#addNewDstForm").submit(function(event){
+		event.preventDefault();
+		NewDestination($(this));
+	});
 });

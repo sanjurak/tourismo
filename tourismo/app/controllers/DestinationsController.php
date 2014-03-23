@@ -18,7 +18,12 @@ class DestinationsController extends \BaseController {
 	public function index()
 	{
 		$destinations = Destination::all();
-		return View::make('destinations')->nest('destPartial','dstPartial', array('destinations' => $destinations));
+
+		$categories = array('0' => 'Izaberite kategoriju') + Categories::lists("name","id");
+		$countries = array('0' => "Izaberite zemlju") + Destination::lists("country","country");
+		$towns = array('0' => "Izaberite grad") + Destination::lists("town","country");
+		$organizers = array('0' => 'Izaberite agenciju') + Organizers::lists("name","pib");
+		return View::make('destinations', array( 'categories' => $categories, 'countries' => $countries, 'towns' => $towns, 'organizers' => $organizers))->nest('destPartial','dstPartial', array('destinations' => $destinations));
 	}
 
 	public function autosearch()
@@ -55,7 +60,19 @@ class DestinationsController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$country = Input::get('country');
+		$town = Input::get('town');
+		$description = Input::get('description');
+
+		$destination = new Destination;
+		$destination->country = $country;
+		$destination->town = $town;
+		$destination->description = $description;
+
+		$destination->Save();
+
+		$insertedId = $destination->id;
+		return Response::json(array('data'=>$insertedId));
 	}
 
 	/**
@@ -112,13 +129,50 @@ class DestinationsController extends \BaseController {
 	public function basicSearch()
 	{
 		$searchTerm = Input::get('search_item','');
-		$destinations = Destination::where('country','LIKE','%'.$searchTerm.'%')->orWhere('town','LIKE','%'.$searchTerm.'%')->get();
+		$destinations = null;
+		if($searchTerm == "*")
+			$destinations = Destination::all();
+		else
+			$destinations = Destination::where('country','LIKE','%'.$searchTerm.'%')->orWhere('town','LIKE','%'.$searchTerm.'%')->get();
 		return View::make('dstPartial', array('destinations' => $destinations));
 	}
 
+	public function advancedSearch()
+	{
+		$category = Input::get('categories');
+		$country = Input::get('countries');
+		$town = Input::get('towns');
+		$organizer = Input::get('organizers');
+
+		$destinations = Destination::query();
+
+		if($category != 0)
+			$destinations->whereHas('traveldeals', function($q) use ($category){
+				$q->where('category_id',$category);
+			});
+
+		if($organizer != 0)
+			$destinations->whereHas('traveldeals', function($q) use ($organizer){
+				$q->where('organizer_id',$organizer);
+			});
+
+		if($country != '0')
+			$destinations->where('country','LIKE', '%'.$country.'%');
+
+		if($town != '0')
+			$destinations->where('town','LIKE','%'.$town.'%');
+
+		return View::make('dstPartial', array('destinations' => $destinations->get()));
+	}
+
+//test za pretragu; ne koristi se u aplikaciji
 	public function Search($search_item)
 	{
-		$destinations = Destination::where('country','LIKE','%'.$search_item.'%')->orWhere('town','LIKE','%'.$search_item.'%')->get();
+		$destinations = null;
+		if($search_item == "*")
+			$destinations = Destination::all();
+		else
+			$destinations = Destination::where('country','LIKE','%'.$search_item.'%')->orWhere('town','LIKE','%'.$search_item.'%')->get();
 		return View::make('dstPartial', array('destinations' => $destinations));
 	}
 

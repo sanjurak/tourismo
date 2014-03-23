@@ -28,5 +28,9 @@ class Accomodations extends Eloquent {
 		return $this->hasMany('Accomodation_units');
 	}
 
-
+	
+	public function destination()
+	{
+		return $this->belongsTo('Destination','foreign_key','destination_id');
+	}
 }

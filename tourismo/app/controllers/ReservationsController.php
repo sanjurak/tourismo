@@ -19,7 +19,7 @@ class ReservationsController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		
 	}
 
 	/**
