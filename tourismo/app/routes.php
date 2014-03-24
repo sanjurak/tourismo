@@ -43,29 +43,33 @@ Route::get('/hash/{pass}', function($pass)
 Route::post('login', array('as'=>'login', 'uses'=>'UserController@login'));
 Route::get('logout', array('as'=>'logout', 'uses'=>'UserController@logout'));
 
-Route::get('reservations', array('as'=>'reservations', 'uses'=>'ReservationsController@index'));
+Route::group(array('before' => 'auth'), function(){
+	Route::get('reservations', array('as'=>'reservations', 'uses'=>'ReservationsController@index'));
 
-Route::get('destinations', array('as'=>'destinations', 'uses'=>'DestinationsController@index'));
+	Route::get('destinations', array('as'=>'destinations', 'uses'=>'DestinationsController@index'));
 
-Route::get('passangers', array('as'=>'passangers', 'uses'=>'PassangersController@index'));
-Route::post('storePassanger', array('as'=>'storePassanger', 'uses'=>'PassangersController@store'));
+	Route::get('passangers', array('as'=>'passangers', 'uses'=>'PassangersController@index'));
+	Route::post('storePassanger', array('as'=>'storePassanger', 'uses'=>'PassangersController@store'));
 
-Route::get('arangements', array('as'=>'arangements', 'uses'=>'TravelDealController@index'));
+	Route::get('arangements', array('as'=>'arangements', 'uses'=>'TravelDealController@index'));
 
-Route::get('payments', array('as'=>'payments', 'uses'=>'PaymentsController@index'));
+	Route::get('payments', array('as'=>'payments', 'uses'=>'PaymentsController@index'));
 
-Route::get('reports', array('as'=>'reports', 'uses'=>'ReportsController@index'));
+	Route::get('reports', array('as'=>'reports', 'uses'=>'ReportsController@index'));
 
-Route::post('basicSearch', array('as' => 'basicSearch', 'uses' => 'DestinationsController@basicSearch'));
+	Route::post('basicSearch', array('as' => 'basicSearch', 'uses' => 'DestinationsController@basicSearch'));
 
-Route::post('advancedSearch', array('as' => 'advancedSearch', 'uses' => 'DestinationsController@advancedSearch'));
+	Route::post('advancedSearch', array('as' => 'advancedSearch', 'uses' => 'DestinationsController@advancedSearch'));
 
-Route::get('basicSearch/{search_item}', array('as' => 'basicSearch', 'uses' => 'DestinationsController@Search'));
+	Route::get('basicSearch/{search_item}', array('as' => 'basicSearch', 'uses' => 'DestinationsController@Search'));
 
-Route::post('destinationEdit/{id}', array('as' => 'destinationEdit', 'uses' => 'DestinationsController@update'));
+	Route::post('destinationEdit/{id}', array('as' => 'destinationEdit', 'uses' => 'DestinationsController@update'));
 
-Route::post('addDestination', array('as' => 'addDestination', 'uses' => 'DestinationsController@store'));
+	Route::post('addDestination', array('as' => 'addDestination', 'uses' => 'DestinationsController@store'));
 
-Route::get('autocompleteDST', array('as' => 'autocompleteDST', 'uses' => 'DestinationsController@autosearch'));
+	Route::get('autocompleteDST', array('as' => 'autocompleteDST', 'uses' => 'DestinationsController@autosearch'));
 
-Route::get('accommodation', array('as' => 'accommodation', 'uses' => 'AccommodationController@index'));
+	Route::get('accommodation', array('as' => 'accommodation', 'uses' => 'AccommodationController@index'));
+});
+
+
