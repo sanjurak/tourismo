@@ -1,8 +1,20 @@
-
-function Search(term)
+function SearchPsg(term)
 {
 	$.ajax({
-			url:"basicSearch",
+			url:"basicPsgSearch",
+			type:"POST",
+			data: {search_item: term },
+			dataType:"html",
+			success: function(data){
+				$("#passangersData").empty().html(data);
+			}
+		});
+}
+
+function SearchDst(term)
+{
+	$.ajax({
+			url:"basicDstSearch",
 			type:"POST",
 			data: {search_item: term },
 			dataType:"html",

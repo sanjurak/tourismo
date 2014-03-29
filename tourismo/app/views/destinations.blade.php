@@ -3,10 +3,10 @@
 
 	<div id="basicsearch" class="row">
 		<div class='form-search'>
-			<select name='search_item' id='basic' placeholder="Pretraživanje prema nazivu zemlje ili grada" class='form-control'></select>
+			<select name='search_item' id='basicDstSearch' placeholder="Pretraživanje prema nazivu zemlje ili grada" class='form-control'></select>
 		</div>
 		<div class="">
-			 <a role="button" class="btn btn-default btn-small" id="breset">Resetuj pretragu</a>
+			 <a role="button" class="btn btn-default btn-small" id="bresetDst">Resetuj pretragu</a>
 			 <a role="button" class="btn btn-small" id="advanced">Napredna pretraga</a>
 		</div>
 	</div>
@@ -32,7 +32,7 @@
 
 <div class="row">
 	<div id="list_view" class="span12">
-	{{$destPartial}}
+	{{ $destPartial }}
 	</div>
 </div>
 

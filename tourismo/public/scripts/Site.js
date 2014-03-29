@@ -11,14 +11,14 @@ $(document).ready(function(){
 		AdvancedSearch($(this));
 	})
 
-	$("#breset").click(function(){
-		var selectize = $("#basic")[0].selectize;
+	$("#bresetDst").click(function(){
+		var selectize = $("#basicDstSearch")[0].selectize;
 		selectize.clear();
 		selectize.clearOptions();
-		Search("*");		
+		SearchDst("*");		
 	});
 
-	$("#basic").selectize({
+	$("#basicDstSearch").selectize({
         valueField: 'name',
         labelField: 'name',
         searchField: ['name'],
@@ -54,21 +54,110 @@ $(document).ready(function(){
         },
         onChange: function(){
             var term = this.items[0];
-			Search(term);
+			SearchDst(term);
         }
     });
 
-$("#addNewDstForm").validationEngine();
-$("#addNewDst").click(function(){
-	$("#addNewDstForm").trigger('submit');
+    $("#bresetPsg").click(function(){
+        var selectize = $("#basicPsgSearch")[0].selectize;
+        selectize.clear();
+        selectize.clearOptions();
+        SearchPsg("*");        
+    });
+
+    $("#basicPsgSearch").selectize({
+        valueField: 'name',
+        labelField: 'name',
+        searchField: ['name'],
+        options: [],
+        create: false,
+        render: {
+            option: function(item, escape) {
+                return '<div>' +escape(item.name)+'</div>';
+            }
+        },
+        optgroups: [
+            {value: 'name', label: 'Ime'},
+            {value: 'surname', label: 'Prezime'},
+            {value: 'address', label: 'Adresa'},
+            {value: 'jmbg', label: 'jmbg'}
+        ],
+        optgroupField: 'class',
+        optgroupOrder: ['jmbg','name','surname','address'],
+        load: function(query, callback) {
+            if (!query.length) return callback();
+            $.ajax({
+                url: 'autocompletePSG',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    q: query
+                },
+                error: function() {
+                    callback();
+                },
+                success: function(res) {
+                    callback(res.data);
+                }
+            });
+        },
+        onChange: function(){
+            var term = this.items[0];
+            SearchPsg(term);
+        }
+    });
+
+    $("#addNewPsgForm").validationEngine();
+
+    $("#addNewPsgForm").submit(function(event){
+            if($(this).validate())
+                return true;
+            else
+                return false;//event.preventDefault();
+        });
+
+    $("#addNewFullPsgForm").validationEngine();
+
+    $("#addNewFullPsgForm").submit(function(event){
+            if($(this).validate())
+                return true;
+            else
+                return false;//event.preventDefault();
+        });
+
+    $("#addNewDstForm").validationEngine();
+
+    $("#addNewDst").click(function(){
+        $("#addNewDstForm").trigger('submit');
+    });
+
+    $("#addNewDstForm").submit(function(event){
+            event.preventDefault();
+            if($(this).validate())
+              NewDestination($(this));
+        });
+
+    $('.input-append').click(function(event)
+        {
+            event.preventDefault();
+        });
+
+    $('#birth_datepicker input').click(function(event){
+            event.preventDefault();
+        });
+
+    $('#birth_datepicker input').datepicker({
+        format: "yyyy/mm/dd",
+        viewMode: 2,
+        autoclose: true
+    });
+
+    $('#birth_datepicker span').click(function(){
+       $('#birth_datepicker input').datepicker('show');
+    });
+
+
 });
 
-$("#addNewDstForm").submit(function(event){
-		event.preventDefault();
-        if($(this).validate())
-		  NewDestination($(this));
-	});
 
 
-
-});

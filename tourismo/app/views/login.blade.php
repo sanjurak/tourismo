@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-     {{ Form::open(array('url' => 'login')) }}
+     {{ Form::open(array('url' => 'loginpost')) }}
 	  Username: <br/>
 	  {{ Form::text('username') }} <br/>
 	  Password: <br/>

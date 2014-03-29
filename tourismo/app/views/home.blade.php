@@ -26,6 +26,9 @@
 	{{HTML::script('jquery-validator/js/jquery.validationEngine.js')}}
 	{{HTML::script('jquery-validator/js/languages/jquery.validationEngine-srb.js')}}
 	{{HTML::style('jquery-validator/css/validationEngine.jquery.css')}}
+
+	{{HTML::script('datepicker/js/bootstrap-datepicker.js')}}
+	{{HTML::style('datepicker/css/datepicker.css')}}
 </head>
 <body class="metro">
 	<div id='header' class="metro">
