@@ -1,6 +1,8 @@
 $(document).ready(function(){
 
 	$(".editableC").editable();
+
+    $("#addDstModal").hide();
     
 	$("#advanced").click(function(){
 		$("#advancedSearch").slideToggle();
@@ -8,15 +10,27 @@ $(document).ready(function(){
 
 	$("#advancedSearchForm").submit(function(event){
 		event.preventDefault();
-		AdvancedSearch($(this));
-	})
+		AdvancedSearch($(this), "advancedSearch");
+	});
+
+    $("#advancedSearchFormOrg").submit(function(event){
+        event.preventDefault();
+        AdvancedSearch($(this), "advancedSearchOrg");
+    });
 
 	$("#breset").click(function(){
 		var selectize = $("#basic")[0].selectize;
 		selectize.clear();
 		selectize.clearOptions();
-		Search("*");		
+		Search("*","basicSearch");		
 	});
+
+    $("#bresetOrg").click(function(){
+        var selectize = $("#basicOrg")[0].selectize;
+        selectize.clear();
+        selectize.clearOptions();
+        Search("*","basicSearchOrg");      
+    });
 
 	$("#basic").selectize({
         valueField: 'name',
@@ -54,21 +68,66 @@ $(document).ready(function(){
         },
         onChange: function(){
             var term = this.items[0];
-			Search(term);
+			Search(term, "basicSearch");
+        }
+    });
+
+$("#basicOrg").selectize({
+        valueField: 'name',
+        labelField: 'name',
+        searchField: ['name'],
+        options: [],
+        create: false,
+        render: {
+            option: function(item, escape) {
+                return '<div>' +escape(item.name)+'</div>';
+            }
+        },
+        optgroups: [
+            {value: 'names', label: 'Naziv'},
+            {value: 'email', label: 'EMail'},
+            {value: 'address', label: 'Adresa'},
+            {value: 'web', label: 'Web sajt'}
+        ],
+        optgroupField: 'class',
+        optgroupOrder: ['name','email','address','web'],
+        load: function(query, callback) {
+            if (!query.length) return callback();
+            $.ajax({
+                url: 'autocompleteORG',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    q: query
+                },
+                error: function() {
+                    callback();
+                },
+                success: function(res) {
+                    callback(res.data);
+                }
+            });
+            //Search(query,"basicSearchOrg");
+        },
+        onChange: function(){
+            var term = this.items[0];
+            Search(term,"basicSearchOrg");
         }
     });
 
 $("#addNewDstForm").validationEngine();
-$("#addNewDst").click(function(){
-	$("#addNewDstForm").trigger('submit');
-});
+
 
 $("#addNewDstForm").submit(function(event){
 		event.preventDefault();
-        if($(this).validate())
+        var valid = $(this).validationEngine("validate");
+        if(valid)
 		  NewDestination($(this));
-	});
+});
 
 
+$("#addNewDst").click(function(){
+    $("#addNewDstForm").trigger('submit');
+});
 
 });

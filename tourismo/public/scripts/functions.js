@@ -1,8 +1,8 @@
 
-function Search(term)
+function Search(term, url)
 {
 	$.ajax({
-			url:"basicSearch",
+			url:url,
 			type:"POST",
 			data: {search_item: term },
 			dataType:"html",
@@ -24,11 +24,11 @@ function ResetSearch(url, resetId)
 		});
 }
 
-function AdvancedSearch(form)
+function AdvancedSearch(form, url)
 {
-	$data = form.serialize();
+	var data = form.serialize();
 	$.ajax({
-		url: 'advancedSearch',
+		url: url,
 		type: 'POST',
 		data: form.serialize(),
 		success: function(data)
@@ -52,4 +52,19 @@ function NewDestination(form)
 			alert("ERROR "+msg);
 		}
 	});
+
+function EditOrganizator(form)
+{
+	$,ajax({
+		url: "organizatorEditAll",
+		type: "POST",
+		data: form.serialize(),
+		success: function(data){
+			window.location.href = "organizators";
+		},
+		error: function(msg){
+			alert("ERROR: "  + msg);
+		}
+	});
+}
 }

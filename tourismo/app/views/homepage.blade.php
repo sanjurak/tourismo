@@ -66,6 +66,12 @@
 	          <div class="tile-content"><center><p>Accommodation</p></center></div>
 	        </div>
 	      </a>
+	      <a href="organizators">
+	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
+	          <div class="tile-content"><center><p>Organizatori</p></center></div>
+	          <div class="tile-content"><center><p>Organizers</p></center></div>
+	        </div>
+	      </a>
 		</div>
 	</div>
 </div>
