@@ -11,14 +11,14 @@
 |
 */
 
-Route::get('/', function()
+Route::get('/', array('as'=>'loginpage', function()
 {
 	if (Auth::check()) {
 		return Redirect::intended('homepage')->with('username', Auth::user()->username);
 	} else {
 		return View::make('login');
 	}
-});
+}));
 
 Route::get('/hello', function()
 {
@@ -40,7 +40,12 @@ Route::get('/hash/{pass}', function($pass)
 // Route::resource('login', 'UserController@login');
 
 // Route::get('login', array('as'=>'login', 'uses'=>'UserController@login'));
-Route::post('login', array('as'=>'login', 'uses'=>'UserController@login'));
+Route::post('loginpost', array('as'=>'loginpost', 'uses'=>'UserController@login'));
+Route::any('login', array('as'=>'login', function()
+	{
+		return Redirect::route('loginpage');
+	}));
+
 Route::get('logout', array('as'=>'logout', 'uses'=>'UserController@logout'));
 
 Route::group(array('before' => 'auth'), function(){
@@ -50,6 +55,12 @@ Route::group(array('before' => 'auth'), function(){
 
 	Route::get('passangers', array('as'=>'passangers', 'uses'=>'PassangersController@index'));
 	Route::post('storePassanger', array('as'=>'storePassanger', 'uses'=>'PassangersController@store'));
+	Route::get('deletePassanger/{id}', array('as'=>'deletePassanger/{id}', 'uses'=>'PassangersController@destroy'));
+	Route::post('passangerEdit/{id}', array('as'=>'passangerEdit', 'uses'=>'PassangersController@update'));
+	Route::get('autocompletePSG', array('as' => 'autocompletePSG', 'uses' => 'PassangersController@autosearch'));
+	Route::post('basicPsgSearch', array('as' => 'basicPsgSearch', 'uses' => 'PassangersController@basicSearch'));
+	Route::get('basicPsgSearch/{search_item}', array('as' => 'basicPsgSearch', 'uses' => 'PassangersController@Search'));
+	Route::get('passangerDetails', array('as' => 'passangerDetails', 'uses' => 'PassangersController@details'));
 
 	Route::get('arangements', array('as'=>'arangements', 'uses'=>'TravelDealController@index'));
 
@@ -61,7 +72,7 @@ Route::group(array('before' => 'auth'), function(){
 
 	Route::post('advancedSearch', array('as' => 'advancedSearch', 'uses' => 'DestinationsController@advancedSearch'));
 
-	Route::get('basicSearch/{search_item}', array('as' => 'basicSearch', 'uses' => 'DestinationsController@Search'));
+	Route::get('basicDstSearch/{search_item}', array('as' => 'basicSearch', 'uses' => 'DestinationsController@Search'));
 
 	Route::post('destinationEdit/{id}', array('as' => 'destinationEdit', 'uses' => 'DestinationsController@update'));
 

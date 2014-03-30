@@ -200,7 +200,7 @@
 			</div>
 
 			<div class="modal-footer">  
-				<a id="deleteOrgConfirmed" class="btn btn-success">Sačuvaj</a>  
+				<a id="deleteOrgConfirmed" class="btn btn-success">Obriši</a>  
 				<a  id="closeDelOrg" class="btn" data-dismiss="modal">Odustani</a>  
 					
 			</div> 

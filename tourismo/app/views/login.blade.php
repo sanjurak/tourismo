@@ -1,11 +1,30 @@
 @extends('layout')
 
 @section('content')
-     {{ Form::open(array('url' => 'login')) }}
-	  Username: <br/>
-	  {{ Form::text('username') }} <br/>
-	  Password: <br/>
-	  {{ Form::password('password') }} <br/><br/>
-	  {{ Form::submit('Submit') }}
-	 {{ Form::close() }}
+
+<div class="row" style="height:20px;"></div>
+<div class="row">
+	<div class="container">
+		<div class="text-right span4 valign">
+			<img src="images/clock_logo.png" />
+		</div>
+		<div class="span8 text-left">
+	     {{ Form::open(array('url' => 'loginpost')) }}
+		 <div class="control-group">
+			  <label class="control-label" for="username">Username: </label>
+			  <div class="controls">
+			  	{{ Form::text('username') }}
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="password">Password:</label>
+			<div class="controls">{{ Form::password('password') }}</div>
+		</div>
+		<div class="control-group">
+			 <div class="controls">{{ Form::submit('Login',['class' => 'btn btn-primary btn-medium openbutton']) }}</div>
+		</div>
+		 {{ Form::close() }}
+		 </div>
+	</div>
+</div>
 @stop

@@ -1,3 +1,15 @@
+function SearchPsg(term)
+{
+	$.ajax({
+			url:"basicPsgSearch",
+			type:"POST",
+			data: {search_item: term },
+			dataType:"html",
+			success: function(data){
+				$("#passangersData").empty().html(data);
+			}
+		});
+}
 
 function Search(term, url)
 {
