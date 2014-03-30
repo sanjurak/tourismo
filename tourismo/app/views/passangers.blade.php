@@ -1,6 +1,6 @@
 @extends('home')
 @section('content')
-{{HTML::script('scripts/passangers.js')}}
+
 <h1><a href="homepage"><i class="icon-circle-arrow-left large"></i></a>
 	Putnici
 </h1>
@@ -11,12 +11,13 @@
 	</div>
 	<div class="">
 		 <a role="button" class="btn btn-default btn-small" id="bresetPsg">Resetuj pretragu</a>
+		 <a role="button" class="btn btn-default btn-small" id="addNewPsg" data-toggle="modal" href="#psgDetailModal">Dodaj novog putnika</a>
 	</div>
 </div>
 
 {{ $passangers->links() }}
 
-{{ Form::open(array('url' => 'storePassanger', 'name' => 'addNewPsgForm', 'id' => 'addNewPsgForm' )) }}
+<!-- {{ Form::open(array('url' => 'storePassanger', 'name' => 'addNewPsgForm', 'id' => 'addNewPsgForm' )) }}
 <table class="table striped">
 	<tr>
 	<td><div class="input-control text">
@@ -27,7 +28,7 @@
 	</div></td>
 	<td><div class="input-control text">
 		<input type="text" name="address" value="" id="address" class="validate[required]" placeholder="Adresa" tabindex="3"/>
-	</div></td>
+	</div></td> -->
 	<!-- 
 	<td style="padding:3px"><div class="input-control select" style="padding:0px">
 		<select name="gender" id="gender">
@@ -49,14 +50,14 @@
 		<input type="text" name="passport" value="" placeholder="Broj Pasoša" tabindex="8"/>
 	</div></td>
 	 -->
-	 <td><div class="input-control text">
+	<!--  <td><div class="input-control text">
 		<input type="text" name="jmbg" value="" placeholder="JMBG" tabindex="4"/>
 	</div></td>
 	<td><button type="submit" class="btn btn-primary input" tabindex="5" style="height:100%;font-size:30px">+</td>
 	</tr>
 </table>
 
-{{ Form::close() }}
+{{ Form::close() }} -->
 
 <div  id="passangersData">
 	{{ $psgPartial }}
@@ -110,6 +111,7 @@
 						</div></td>
 					</tr>
 				</table>
+				<input type="hidden" name="id" id="id"/>
 			</div>
 
 			<div class="modal-footer">  

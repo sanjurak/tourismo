@@ -31,13 +31,13 @@ class PassangersController extends \BaseController {
 	public function store()
 	{
 		$passanger = new Passanger;
-		$jmbg = Passanger::where('jmbg','=',Input::get('jmbg'));
-		if($jmbg->count() > 0) {
+		$psg = Passanger::find(Input::get('id'));
+		if($psg != null) {
 			$birth_date = date('Y-m-d', strtotime(Input::get('birth_date')));
 			if ((string)$birth_date == "1970-01-01") {
 				$birth_date = '';
 			}
-			Passanger::find($jmbg->firstOrFail()->id)->update(array(
+			$psg->update(array(
 				'jmbg' => Input::get('jmbg'),
 				'name' => Input::get('name'),
 				'surname' => Input::get('surname'),
@@ -58,8 +58,6 @@ class PassangersController extends \BaseController {
 			$passanger->mob = Input::get('mob');
 			$passanger->passport = Input::get('passport');
 			$birth_date = date('Y-m-d', strtotime(Input::get('birth_date')));
-			// $birth_date = new DateTime();
-			// $birth_date = Input::get('birth_date');
 			if ((string)$birth_date != "1970-01-01") {
 				$passanger->birth_date = $birth_date;
 			}
