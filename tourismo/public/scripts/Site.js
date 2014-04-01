@@ -1,6 +1,8 @@
 $(document).ready(function(){
 
 	$(".editableC").editable();
+
+    $("#addDstModal").hide();
     
 	$("#advanced").click(function(){
 		$("#advancedSearch").slideToggle();
@@ -8,17 +10,29 @@ $(document).ready(function(){
 
 	$("#advancedSearchForm").submit(function(event){
 		event.preventDefault();
-		AdvancedSearch($(this));
-	})
+		AdvancedSearch($(this), "advancedSearch");
+	});
+
+    $("#advancedSearchFormOrg").submit(function(event){
+        event.preventDefault();
+        AdvancedSearch($(this), "advancedSearchOrg");
+    });
 
 	$("#bresetDst").click(function(){
 		var selectize = $("#basicDstSearch")[0].selectize;
 		selectize.clear();
 		selectize.clearOptions();
-		SearchDst("*");		
+		Search("*","basicSearch");		
 	});
 
-	$("#basicDstSearch").selectize({
+    $("#bresetOrg").click(function(){
+        var selectize = $("#basicOrg")[0].selectize;
+        selectize.clear();
+        selectize.clearOptions();
+        Search("*","basicSearchOrg");      
+    });
+
+	$("#basic").selectize({
         valueField: 'name',
         labelField: 'name',
         searchField: ['name'],
@@ -54,9 +68,62 @@ $(document).ready(function(){
         },
         onChange: function(){
             var term = this.items[0];
-			SearchDst(term);
+			Search(term, "basicSearch");
         }
     });
+
+$("#basicOrg").selectize({
+        valueField: 'name',
+        labelField: 'name',
+        searchField: ['name'],
+        options: [],
+        create: false,
+        render: {
+            option: function(item, escape) {
+                return '<div>' +escape(item.name)+'</div>';
+            }
+        },
+        optgroups: [
+            {value: 'names', label: 'Naziv'},
+            {value: 'email', label: 'EMail'},
+            {value: 'address', label: 'Adresa'},
+            {value: 'web', label: 'Web sajt'}
+        ],
+        optgroupField: 'class',
+        optgroupOrder: ['name','email','address','web'],
+        load: function(query, callback) {
+            if (!query.length) return callback();
+            $.ajax({
+                url: 'autocompleteORG',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    q: query
+                },
+                error: function() {
+                    callback();
+                },
+                success: function(res) {
+                    callback(res.data);
+                }
+            });
+            //Search(query,"basicSearchOrg");
+        },
+        onChange: function(){
+            var term = this.items[0];
+            Search(term,"basicSearchOrg");
+        }
+    });
+
+$("#addNewDstForm").validationEngine();
+
+
+$("#addNewDstForm").submit(function(event){
+		event.preventDefault();
+        var valid = $(this).validationEngine("validate");
+        if(valid)
+		  NewDestination($(this));
+});
 
     $("#bresetPsg").click(function(){
         var selectize = $("#basicPsgSearch")[0].selectize;
@@ -121,7 +188,7 @@ $(document).ready(function(){
     $("#addNewFullPsgForm").validationEngine();
 
     $("#addNewFullPsgForm").submit(function(event){
-            if($(this).validate())
+            if($(this).validationEngine("validate"))
                 return true;
             else
                 return false;//event.preventDefault();
@@ -158,6 +225,9 @@ $(document).ready(function(){
        $('#birth_datepicker input').datepicker('show');
     });
 
+$("#addNewDst").click(function(){
+    $("#addNewDstForm").trigger('submit');
+});
 
 });
 

@@ -2,37 +2,45 @@
 @section('content')
 
 	<div id="basicsearch" class="row">
-		<div class='form-search'>
-			<select name='search_item' id='basicDstSearch' placeholder="Pretraživanje prema nazivu zemlje ili grada" class='form-control'></select>
-		</div>
-		<div class="">
-			 <a role="button" class="btn btn-default btn-small" id="bresetDst">Resetuj pretragu</a>
-			 <a role="button" class="btn btn-small" id="advanced">Napredna pretraga</a>
+		<div class="container">
+			<div class='form-search'>
+				<select name='search_item' id='basic' placeholder="Pretraživanje prema nazivu zemlje ili grada" class='form-control'></select>
+			</div>
+			<div class="">
+				 <a role="button" class="btn btn-default btn-small" id="breset">Resetuj pretragu</a>
+				 <a role="button" class="btn btn-small" id="advanced">Napredna pretraga</a>
+			</div>
 		</div>
 	</div>
-
 	<div id="advancedSearch" class="row">
-		<div class="span12">
-			{{ Form::open(array('id' => 'advancedSearchForm', 'class' => 'form-inline form-search')) }}
-			<label>Kategorija:</label> {{Form::select('categories',$categories,'0',array('class' => 'input-medium'))}} 
-			<label>Zemlja:</label> {{Form::select('countries',$countries,'0',array('class' => 'input-medium'))}}
-			<label>Grad:</label> {{Form::select('towns',$towns,'0',array('class' => 'input-medium'))}} 
-			<label>Agencija:</label> {{Form::select('organizers',$organizers,'0',array('class' => 'input-medium'))}} 
-			{{ Form::submit('Traži',['class' => 'btn btn-primary']) }}
-			 {{ Form::close() }}
+		<div class="container">
+			<fieldset>
+				<legend>Napredna pretraga destinacija</legend>
+				{{ Form::open(array('id' => 'advancedSearchForm', 'class' => 'form-inline form-search')) }}
+				<div class="row">
+					<div class="span3"><label>Kategorija:</label> {{Form::select('categories',$categories,'0',array('class' => 'input-medium'))}} </div>
+					<div class="span3"><label>Zemlja:</label> {{Form::select('countries',$countries,'0',array('class' => 'input-medium'))}}</div>
+					<div class="span3"><label>Grad:</label> {{Form::select('towns',$towns,'0',array('class' => 'input-medium'))}} </div>
+					<div class="span3"><label>Agencija:</label> {{Form::select('organizers',$organizers,'0',array('class' => 'input-medium'))}} </div>
+				</div>
+				<div class="row">
+					<div class="span4 pull-left">{{ Form::submit('Traži',['class' => 'btn btn-primary']) }}</div>
+				</div>
+				 {{ Form::close() }}
+			 </fieldset>
 		 </div>
 	</div>
 
 
 <div class="row">
-	<div class="span12">
+	<div class="container">
 		<a class="btn btn-primary btn-small pull-right" role="button" data-toggle="modal" href="#addDstModal" id="novaDst">Dodaj novu destinaciju</a>
 	</div>
 </div>
 
 <div class="row">
-	<div id="list_view" class="span12">
-	{{ $destPartial }}
+	<div id="list_view" class="container">
+	{{$destPartial}}
 	</div>
 </div>
 

@@ -68,7 +68,7 @@ Route::group(array('before' => 'auth'), function(){
 
 	Route::get('reports', array('as'=>'reports', 'uses'=>'ReportsController@index'));
 
-	Route::post('basicDstSearch', array('as' => 'basicSearch', 'uses' => 'DestinationsController@basicSearch'));
+	Route::post('basicSearch', array('as' => 'basicSearch', 'uses' => 'DestinationsController@basicSearch'));
 
 	Route::post('advancedSearch', array('as' => 'advancedSearch', 'uses' => 'DestinationsController@advancedSearch'));
 
@@ -81,6 +81,24 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('autocompleteDST', array('as' => 'autocompleteDST', 'uses' => 'DestinationsController@autosearch'));
 
 	Route::get('accommodation', array('as' => 'accommodation', 'uses' => 'AccommodationController@index'));
+
+	Route::get('organizators', array('as' => 'organizators', 'uses' => 'OrganizersController@index'));
+
+	Route::get('autocompleteORG', array('as' => 'autocompleteORG', 'uses' => 'OrganizersController@autosearch'));
+
+	Route::post('basicSearchOrg', array('as' => 'basicSearchOrg', 'uses' => 'OrganizersController@basicSearch'));
+
+	Route::post('advancedSearchOrg', array('as' => 'advancedSearchOrg', 'uses' => 'OrganizersController@advancedSearch'));
+	
+	Route::post('organizatorEdit/{id}', array('as' => 'organizatorEdit', 'uses' => 'OrganizersController@update'));
+
+	Route::post('organizatorEditAll/{id}', array('as' => 'organizatorEditAll', 'uses' => 'OrganizersController@updateAll'));
+
+	Route::post('organizatorAdd', array('as' => 'organizatorAdd', 'uses' => 'OrganizersController@store'));
+
+	Route::post('organizatorDelete/{id}', array('as' => 'organizatorDelete', 'uses' => 'OrganizersController@destroy'));
+
+	
 });
 
 

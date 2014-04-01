@@ -11,6 +11,11 @@ form:legend{
 	font-size: 12px;
 }
 
+.valign{
+	display:inline-block;
+	vertical-align: middle;
+}
+
 #advancedSearch{
 	display: none;
 }

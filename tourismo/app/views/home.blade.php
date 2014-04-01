@@ -29,6 +29,8 @@
 
 	{{HTML::script('datepicker/js/bootstrap-datepicker.js')}}
 	{{HTML::style('datepicker/css/datepicker.css')}}
+
+	@yield("javascripts")
 </head>
 <body class="metro">
 	<div id='header' class="metro">
@@ -60,10 +62,8 @@
 		    </nav>
 		</nav>
 	</div>
-    <div id="content" class="container">
-    	<div class="grid">
+    <div id="content"class="container metro">
        			 @yield('content')
-  		</div>
      </div>
 
        <div id='footer' class="row">

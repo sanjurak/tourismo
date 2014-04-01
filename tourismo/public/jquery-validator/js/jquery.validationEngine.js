@@ -22,6 +22,7 @@
 		*/
 		init: function(options) {
 			var form = this;
+			//form.bind("validate");
 			if (!form.data('jqv') || form.data('jqv') == null ) {
 				options = methods._saveOptions(form, options);
 				// bind all formError elements to close on click
@@ -108,14 +109,15 @@
 
 			if (element.is("form") || element.hasClass("validationEngineContainer")) 
 			{
-				if (element.hasClass('validating')) 
+				if (!element.hasClass('validating')) 
 				{
 					// form is already validating.
 					// Should abort old validation and start new one. I don't know how to implement it.
-					return false;
-				} 
-				else {
+					//return false;
 					element.addClass('validating');
+				} 
+				//else {
+				//	element.addClass('validating');
 					var options = element.data('jqv');
 					var valid = methods._validateFields(this);
 
@@ -128,7 +130,7 @@
 					} else if (!valid && options.onFailure) {
 						options.onFailure();
 					}
-				}
+				//}
 			} 
 			else if (element.is('form') || element.hasClass('validationEngineContainer')) 
 			{
