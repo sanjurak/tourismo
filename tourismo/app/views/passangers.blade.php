@@ -11,7 +11,7 @@
 	</div>
 	<div class="">
 		 <a role="button" class="btn btn-default btn-small" id="bresetPsg">Resetuj pretragu</a>
-		 <a role="button" class="btn btn-default btn-small" id="addNewPsg" data-toggle="modal" href="#psgDetailModal">Dodaj novog putnika</a>
+		 <a role="button" class="passangerDetails btn btn-default btn-small" id="addNewPsg" data-toggle="modal" href="#psgDetailModal">Dodaj novog putnika</a>
 	</div>
 </div>
 
@@ -58,7 +58,7 @@
 </table>
 
 {{ Form::close() }} -->
-
+<p/>
 <div  id="passangersData">
 	{{ $psgPartial }}
 </div>
@@ -98,6 +98,7 @@
 					<tr>
 						<td><div class="input-control select">
 							<select name="gender" id="gender">
+								<option value="" disabled selected="selected" style='display:none;'>Pol...</option>
 								<option value="m">m</option>
 								<option value="f">f</option>
 							</select>

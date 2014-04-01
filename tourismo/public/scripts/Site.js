@@ -77,13 +77,15 @@ $(document).ready(function(){
             }
         },
         optgroups: [
+            {value: 'name_surname_address', label: 'Ime Prezime Adresa'},
+            {value: 'name_surname', label: 'Ime Prezime'},
             {value: 'name', label: 'Ime'},
             {value: 'surname', label: 'Prezime'},
             {value: 'address', label: 'Adresa'},
             {value: 'jmbg', label: 'jmbg'}
         ],
         optgroupField: 'class',
-        optgroupOrder: ['jmbg','name','surname','address'],
+        optgroupOrder: ['jmbg','name_surname_address','name_surname','name','surname','address'],
         load: function(query, callback) {
             if (!query.length) return callback();
             $.ajax({
