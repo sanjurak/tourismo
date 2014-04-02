@@ -117,20 +117,23 @@ class PassangersController extends \BaseController {
 	{
 		$query = Input::get('q','');
 
-		 //if(!$query && $query == '') return Response::json(array(), 400);
-
-		 $jmbgs = Passanger::where('jmbg','LIKE',$query)->get(array('jmbg AS name'))->toArray();
+		 $jmbgs = Passanger::where('jmbg','LIKE',$query.'%')->get(array('jmbg AS name'))->toArray();
 		 $names = Passanger::where('name','LIKE','%'.$query.'%')->get(array('name AS name'))->toArray();
 		 $surnames = Passanger::where('surname','LIKE','%'.$query.'%')->get(array('surname AS name'))->toArray();
 		 $addresses = Passanger::where('address','LIKE','%'.$query.'%')->get(array('address AS name'))->toArray();
 
+		 $names_surnames = Passanger::whereRaw("CONCAT (name,' ',surname) LIKE '$query%'")->select(DB::Raw("CONCAT (name,' ',surname) AS name"))->get()->toArray();
+		 $names_surnames_addresses = Passanger::whereRaw("CONCAT (name,' ',surname,' ',address) LIKE '$query%'")->select(DB::Raw("CONCAT (name,' ',surname,' ',address) AS name"))->get()->toArray();
+		 
 		 $jmbgs = $this->appendValue($jmbgs,'jmbg','class');
 		 $names = $this->appendValue($names,'name','class');
 		 $surnames = $this->appendValue($surnames,'surname','class');
 		 $addresses = $this->appendValue($addresses,'address','class');
+		 $names_surnames = $this->appendValue($names_surnames,'name_surname','class');
+		 $names_surnames_addresses = $this->appendValue($names_surnames_addresses,'name_surname_address','class');
 
-		 $data = array_merge($jmbgs, $names, $surnames, $addresses);
-
+		// var_dump($all_surnames);
+		 $data = array_merge($jmbgs, $names, $surnames, $addresses, $names_surnames, $names_surnames_addresses);
 		 return Response::json(array('data' => $data));
 	}
 
@@ -152,17 +155,28 @@ class PassangersController extends \BaseController {
 	{
 		$searchTerm = Input::get('search_item','');
 		$passangers = null;
+		
 		if($searchTerm == "*")
 			$passangers = Passanger::all();
-		else
+		else {
 			$passangers = Passanger::where('jmbg','LIKE','%'.$searchTerm.'%')->orWhere('name','LIKE','%'.$searchTerm.'%')->orWhere('surname','LIKE','%'.$searchTerm.'%')->orWhere('address','LIKE','%'.$searchTerm.'%')->get();
+			if (count($passangers) == 0) {
+				$passangers = Passanger::whereRaw("CONCAT (name,' ',surname) LIKE '$searchTerm%'")->get();
+				if (count($passangers) == 0) {
+					$passangers = Passanger::whereRaw("CONCAT (name,' ',surname,' ',address) LIKE '$searchTerm%'")->get();
+			}
+			}
+		}
 		return View::make('psgPartial', array('passangers' => $passangers));
 	}
 
 	public function details()
 	{
 		$id = Input::get('psg_id','');
-		$passanger = Passanger::findOrFail($id);
-		return Response::json(array('data' => $passanger->toJson()));
+		$passanger = Passanger::find($id);
+		if ($passanger == null) {
+			return '{"data":null}';
+		} else
+			return Response::json(array('data' => $passanger->toJson()));
 	}
 }

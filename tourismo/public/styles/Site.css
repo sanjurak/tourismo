@@ -32,3 +32,6 @@ form:legend{
 .selectize-control{
 	max-width: 100%;
 }
+
+#gender option { color: black; }
+.empty { color: gray; }
