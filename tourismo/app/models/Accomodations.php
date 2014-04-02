@@ -31,6 +31,6 @@ class Accomodations extends Eloquent {
 	
 	public function destination()
 	{
-		return $this->belongsTo('Destination','foreign_key','destination_id');
+		return $this->belongsTo('Destination');
 	}
 }

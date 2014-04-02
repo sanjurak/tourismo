@@ -48,6 +48,8 @@
 		                <li><a href="arangements">Aranžmani</a></li>
 		                <li><a href="payments">Plaćanja</a></li>
 		                <li><a href="reports">Izveštaji</a></li>
+		                <li><a href="accommodation">Smeštaj</a></li>
+		                <li><a href="organizators">Organizatori</a></li>
 		            </ul>
 		        </div>
 		        <span class="element-divider place-right"></span>

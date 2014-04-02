@@ -122,5 +122,5 @@ $(document).ready(function(){
 	$("#closeDelOrg").click(function(event){
 		event.preventDefault();
 		$("#deleteOrgModal").modal("close");
-	})
+	});
 });

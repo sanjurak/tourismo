@@ -12,6 +12,14 @@ class AccommodationUnitsController extends \BaseController {
 		//
 	}
 
+	public function typeUnitsList()
+	{
+		$query = Input::get('q','');
+		$types = Accomodation_units::where("name","LIKE","%".$query."%")->get(array("name"))->toArray();
+
+		return Response::json(array('data' => $types));
+	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 *
