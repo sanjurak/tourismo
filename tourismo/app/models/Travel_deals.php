@@ -25,7 +25,7 @@ class Travel_deals extends Eloquent {
 
 	public function organizer()
 	{
-		return $this->belongsTo('Organizers');
+		return $this->belongsTo('OrganizerS');
 	}
 
 	public function category()
@@ -36,5 +36,10 @@ class Travel_deals extends Eloquent {
 	public function destination()
 	{
 		return $this->belongsTo('Destination');
+	}
+
+	public function accomodations()
+	{
+		return $this->belongsTo('Accomodations');
 	}
 }

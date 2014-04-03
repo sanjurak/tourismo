@@ -9,7 +9,8 @@ class TravelDealController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$travel_deals = Travel_deals::paginate(10);
+		return View::make('travel_deals', array('travel_deals' => $travel_deals))->nest('trvlDealsPartial','trvlDealsPartial', array('travel_deals' => $travel_deals));
 	}
 
 	/**
