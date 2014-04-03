@@ -154,7 +154,9 @@ class AccommodationsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$acc = Accomodations::findOrFail($id);
+		$units = $acc->units();
+		return View::make('editUnitsPartial', array('units' => $units->get()));
 	}
 
 	/**
@@ -178,7 +180,14 @@ class AccommodationsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		 $acc = Accomodations::findOrFail($id);
+		 $acc->delete();
+	}
+
+	public function getUnitsArray($id)
+	{
+		 $acc =  Accomodations::findOrFail($id);
+		 return $acc->units()->toArray();
 	}
 
 }

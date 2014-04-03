@@ -40,6 +40,25 @@ class AccommodationUnitsController extends \BaseController {
 		//
 	}
 
+	public function storeArray($accId)
+	{
+
+		$units = $_POST["Unit"];
+
+		if(is_array($units))
+		{
+			foreach ($units as $unit) {
+				$newUnit = new Accomodation_units;
+				$newUnit->accommodations_id = $accId;
+				$newUnit->name = $unit["name"];
+				$newUnit->capacity = $unit["capacity"];
+				$newUnit->number = $unit["number"];
+
+				$newUnit->Save();
+			}
+		}
+	}
+
 	/**
 	 * Display the specified resource.
 	 *
@@ -71,6 +90,20 @@ class AccommodationUnitsController extends \BaseController {
 	public function update($id)
 	{
 		//
+	}
+
+
+	public function updateArray()
+	{
+		$units = $_POST["Units"];
+
+		if(is_array($units))
+		{
+			foreach ($units as $unit) {
+				$id = $unit["id"];
+				Accomodation_units::where("id","=",$id)->update(array("name" => $unit["name"], "capacity" => $unit["capacity"], "number" => $unit["number"]));
+			}
+		}
 	}
 
 	/**

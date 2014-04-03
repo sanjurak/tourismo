@@ -103,7 +103,7 @@ $(document).ready(function(){
 
 	});
 
-	$("#deleteOrgConfirmed").click(function(event){
+	$("#deleteConfirmed").click(function(event){
 			event.preventDefault();
 			
 
@@ -119,7 +119,7 @@ $(document).ready(function(){
 			});
 	});
 
-	$("#closeDelOrg").click(function(event){
+	$("#deleteCanceled").click(function(event){
 		event.preventDefault();
 		$("#deleteOrgModal").modal("close");
 	});

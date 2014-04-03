@@ -83,6 +83,14 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('accommodation', array('as' => 'accommodation', 'uses' => 'AccommodationsController@index'));
 	
 	Route::post('accommodationEdit/{id}', array('as' => 'accommodationEdit', 'uses' => 'AccommodationsController@update'));
+	
+	Route::post('unitsEdit/{id}', array('as' => 'unitsEdit', 'uses' => 'AccommodationsController@edit'));
+
+	Route::post('unitsEditSave', array('as' => 'unitsEditSave', 'uses' => 'AccommodationUnitsController@updateArray'));
+
+	Route::post('addUnits/{accId}', array('as' => 'addUnit', 'uses' => 'AccommodationUnitsController@storeArray'));
+	
+	Route::post('accommodationDelete/{id}', array('as' => 'accommodationDelete', 'uses' => 'AccommodationsController@destroy'));
 
 	Route::get('accommodationDstList', array('as' => 'accommodationDstList', 'uses' => 'AccommodationsController@dstList'));
 	

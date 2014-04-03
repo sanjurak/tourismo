@@ -200,8 +200,8 @@
 			</div>
 
 			<div class="modal-footer">  
-				<a id="deleteOrgConfirmed" class="btn btn-success">Obriši</a>  
-				<a  id="closeDelOrg" class="btn" data-dismiss="modal">Odustani</a>  
+				<a id="deleteConfirmed" class="btn btn-success">Obriši</a>  
+				<a  id="deleteCanceled" class="btn" data-dismiss="modal">Odustani</a>  
 					
 			</div> 
 		</div>

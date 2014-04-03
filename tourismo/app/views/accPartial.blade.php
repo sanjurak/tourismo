@@ -25,7 +25,17 @@ $(function(){
 				{{$accomodation->destination->town}},{{$accomodation->destination->country}}
 			</a>
 		</td>
-		<td></td>
+		<td>
+			<span data-content="{{$accomodation->unitsHTML}}" acc-id={{$accomodation->id}} data-html="true" data-trigger="hover" rel="tooltip" class="btn btn-default unit">
+				<i class="icon-home"></i>
+			</span>
+			<a href="#" data-content="Dodaj novu smestajnu jedinicu" data-id={{$accomodation->id}} class="btn btn-warning addUnit" data-trigger="hover" rel="tooltip">
+				<span class="icon-plus-sign"></span>
+			</a>	
+			<a href="#" class="btn btn-danger deleteAcc" data-id={{$accomodation->id}}} data-content="Brisanje podataka o smeštaju" data-trigger="hover" rel="tooltip">
+				<span class="icon-trash"></span>
+			</a>	
+		</td>
 	</tr>
 @endforeach
 </table>

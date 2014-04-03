@@ -78,11 +78,10 @@
 		<fieldset>
 			<legend>Smestajna jedinica</legend>
 					    	<!--<select name='nameUnit[]' class='nameUnitModNew' placeholder="Tip smeštajne jedinice" class='form-control'></select>-->
-		    	 <input type="text" id="nameUnitModNew" class="form-control validate[required]" placeholder="Tip smeštajne jedinice:">
-
-		      <input type="text" id="capacityUnitModNew" class="form-control validate[required]" placeholder="Kapacitet">
-		      <input type="text" id="numberUnitModNew" class="form-control validate[required]" placeholder="Broj jedinica">
-
+		    	<input type="text" id="nameUnitModNew" class="input-large input-size validate[required]" placeholder="Tip jedinice">
+		      <input type="text" id="capacityUnitModNew" class="input-large input-size validate[required]" placeholder="Kapacitet">
+		      <input type="text" id="numberUnitModNew" class="input-large input-size validate[required]" placeholder="Broj jedinica">
+		      <a href="#" id="removeUnit" class="pull-right"><span class="icon icon-remove-sign"></span></a>
 		</fieldset>
 
 		  </div>
@@ -90,21 +89,69 @@
 
 <div class="row">
 	<div class="span7">
+		<div id="editUnitsModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">			
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">x</a>
+		<h3>Izmena podataka o smeštajnim jedinicama</h3>
+		<h1></h1>
+	</div>
+
+	<div  id="editModal" class="modal-body">
+
+	</div>
+
+	<div class="modal-footer">  
+		<a id="editSave" class="btn btn-success">Sačuvaj</a>  
+		<a  id="editCancel" class="btn" data-dismiss="modal">Odustani</a>  
+			
+	</div> 
+</div>
+	
+	</div>
+</div>
+
+<div class="row">
+	<div class="span7">
+		<div id="addUnitModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">			
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal">x</a>
+				<h3>Dodavanje novih smeštajnih jedinica</h3>
+				<input type="hidden" name="accomodation_id" id="accId" /> 
+			</div>
+
+			<div class="modal-body">
+				<form id="newUnitsForm" name="newUnitsForm" class="form-horizontal">
+				 <div class="control-group" id="newunits"> </div>
+		 	 <a href="#" id="addNewUnit" class="btn">Dodaj smeštajnu jedinicu</a>
+		</form>
+			</div>
+
+			<div class="modal-footer">  
+				<a id="addUnitConfirmed" class="btn btn-success">Sačuvaj</a>  
+				<a  id="addUnitCanceled" class="btn" data-dismiss="modal">Odustani</a>  
+					
+			</div> 
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="span7">
 		<div id="deleteAccModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">			
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">x</a>
-				<h3><span class="icon icon-warning-sign"></span>Upozorenje!</h3>
+				<h3><span class="icon-large icon-warning-sign"></span>Upozorenje!</h3>
 			</div>
 
 			<div class="modal-body">
 				Potvrda brisanja smestaja...
-				<input type="hidden" id="pibDel" name="pibDel" />
+				<input type="hidden" id="idDel" name="id" />
 
 			</div>
 
 			<div class="modal-footer">  
-				<a id="deleteAccConfirmed" class="btn btn-success">Obriši</a>  
-				<a  id="closeDelOrg" class="btn" data-dismiss="modal">Odustani</a>  
+				<a id="deleteConfirmed" class="btn btn-success">Obriši</a>  
+				<a  id="deleteCanceled" class="btn" data-dismiss="modal">Odustani</a>  
 					
 			</div> 
 		</div>
