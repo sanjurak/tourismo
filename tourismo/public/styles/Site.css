@@ -24,13 +24,22 @@ form:legend{
 	width:300px;
 }
 
-.modal-body{
-	max-height: 800px;
-	overflow: visible;
+.modal .modal-body{
+	max-height: 400px;
+	max-width:700px;
+	overflow-y: auto;
 }
 
 .selectize-control{
 	max-width: 100%;
+}
+
+.input-size{
+	width:150px;
+}
+
+#unitsId legend{
+	font-size:14px;
 }
 
 #gender option { color: black; }

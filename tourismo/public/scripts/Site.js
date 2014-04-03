@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+   $("[rel='tooltip']").popover();
+
 	$(".editableC").editable();
 
     $("#addDstModal").hide();

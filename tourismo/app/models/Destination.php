@@ -11,6 +11,7 @@ class Destination extends Eloquent {
 	 * @var string
 	 */
 	protected $table = 'destinations';
+	protected $appends = array('name');
 
 	
 	/**
@@ -21,6 +22,11 @@ class Destination extends Eloquent {
 	public function getAuthIdentifier()
 	{
 		return $this->id;
+	}
+
+	public function getNameAttribute()
+	{
+		return $this->town .", " . $this->country;
 	}
 
 	public function accomodations()

@@ -80,7 +80,29 @@ Route::group(array('before' => 'auth'), function(){
 
 	Route::get('autocompleteDST', array('as' => 'autocompleteDST', 'uses' => 'DestinationsController@autosearch'));
 
-	Route::get('accommodation', array('as' => 'accommodation', 'uses' => 'AccommodationController@index'));
+	Route::get('accommodation', array('as' => 'accommodation', 'uses' => 'AccommodationsController@index'));
+	
+	Route::post('accommodationEdit/{id}', array('as' => 'accommodationEdit', 'uses' => 'AccommodationsController@update'));
+	
+	Route::post('unitsEdit/{id}', array('as' => 'unitsEdit', 'uses' => 'AccommodationsController@edit'));
+
+	Route::post('unitsEditSave', array('as' => 'unitsEditSave', 'uses' => 'AccommodationUnitsController@updateArray'));
+
+	Route::post('addUnits/{accId}', array('as' => 'addUnit', 'uses' => 'AccommodationUnitsController@storeArray'));
+	
+	Route::post('accommodationDelete/{id}', array('as' => 'accommodationDelete', 'uses' => 'AccommodationsController@destroy'));
+
+	Route::get('accommodationDstList', array('as' => 'accommodationDstList', 'uses' => 'AccommodationsController@dstList'));
+	
+	Route::post('accommodationAdd', array('as' => 'accommodationAdd', 'uses' => 'AccommodationsController@store'));
+
+	Route::get('autocompleteACC', array('as' => 'autocompleteACC', 'uses' => 'AccommodationsController@autocompleteSearch'));
+
+	Route::get('typeListAcc', array('as' => 'typeListAcc', 'uses' => 'AccommodationsController@typeList'));
+	
+	Route::post('basicSearchAcc', array('as' => 'basicSearchAcc', 'uses' => 'AccommodationsController@basicSearch'));
+
+	Route::get('typeUnitsListAcc', array('as' => 'typeUnitsListAcc', 'uses' => 'AccommodationUnitsController@typeUnitsList'));
 
 	Route::get('organizators', array('as' => 'organizators', 'uses' => 'OrganizersController@index'));
 
