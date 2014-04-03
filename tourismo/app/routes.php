@@ -59,11 +59,13 @@ Route::group(array('before' => 'auth'), function(){
 	Route::post('passangerEdit/{id}', array('as'=>'passangerEdit', 'uses'=>'PassangersController@update'));
 	Route::get('autocompletePSG', array('as' => 'autocompletePSG', 'uses' => 'PassangersController@autosearch'));
 	Route::post('basicPsgSearch', array('as' => 'basicPsgSearch', 'uses' => 'PassangersController@basicSearch'));
-	Route::get('basicPsgSearch/{search_item}', array('as' => 'basicPsgSearch/{search_item}', 'uses' => 'PassangersController@basicSearch'));
 	Route::get('passangerDetails', array('as' => 'passangerDetails', 'uses' => 'PassangersController@details'));
 
 	Route::get('traveldeals', array('as'=>'traveldeals', 'uses'=>'TravelDealController@index'));
-
+	Route::get('autocompleteTrvlDlsCat', array('as' => 'autocompleteTrvlDlsCat', 'uses' => 'TravelDealController@autosearchCat'));
+	Route::get('autocompleteTrvlDlsDst', array('as' => 'autocompleteTrvlDlsDst', 'uses' => 'TravelDealController@autosearchDst'));
+	Route::post('basicTrvlDlsSearch', array('as' => 'basicTrvlDlsSearch', 'uses' => 'TravelDealController@basicSearch'));
+	
 	Route::get('payments', array('as'=>'payments', 'uses'=>'PaymentsController@index'));
 
 	Route::get('reports', array('as'=>'reports', 'uses'=>'ReportsController@index'));

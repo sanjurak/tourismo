@@ -45,7 +45,7 @@
 		                <li><a href="reservations">Rezervacije</a></li>
 		                <li><a href="passangers">Putnici</a></li>
 		                <li><a href="destinations">Destinacije</a></li>
-		                <li><a href="arangements">Aranžmani</a></li>
+		                <li><a href="traveldeals">Aranžmani</a></li>
 		                <li><a href="payments">Plaćanja</a></li>
 		                <li><a href="reports">Izveštaji</a></li>
 		                <li><a href="accommodation">Smeštaj</a></li>

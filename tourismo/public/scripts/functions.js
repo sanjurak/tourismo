@@ -24,6 +24,22 @@ function Search(term, url)
 		});
 }
 
+function SearchTrvlDls(cat, dst)
+{
+	$.ajax({
+		url: 'basicTrvlDlsSearch',
+		type: 'POST',
+		data: {
+			cat_item: cat,
+			dst_item: dst
+		},
+		dataType: 'html',
+		success: function(data){
+			$('#list_view').empty().html(data);
+		}
+	});
+}
+
 function ResetSearch(url, resetId)
 {
 	$.ajax({
