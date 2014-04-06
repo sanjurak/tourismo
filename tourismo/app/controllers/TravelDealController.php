@@ -76,4 +76,14 @@ class TravelDealController extends \BaseController {
 		//
 	}
 
+	public function addNew()
+	{
+		$category = Input::get('category');
+		$organizer = Input::get("organizer");
+		$destination = Input::get("destination");
+		$accomodation = Input::get("accomodation");
+		$transportation = Input::get("transportation");
+		$service = Input::get("service");
+	}
+
 }

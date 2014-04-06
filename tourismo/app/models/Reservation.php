@@ -3,7 +3,7 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class Reservations extends Eloquent {
+class Reservation extends Eloquent {
 
 	/**
 	 * The database table used by the model.
@@ -23,5 +23,10 @@ class Reservations extends Eloquent {
 		return $this->id;
 	}
 
+	public function traveldeal()
+	{
+		return $this->belongsTo('Travel_deals','travel_deal_id');
+	}
+	
 
 }
