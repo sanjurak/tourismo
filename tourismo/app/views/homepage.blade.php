@@ -41,10 +41,10 @@
 	          <div class="tile-content"><center><p>Destinations</p></center></div>
 	        </div>
 	      </a>
-	      <a href="arangements">
+	      <a href="traveldeals">
 	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
 	          <div class="tile-content"><center><p>Aranžmani</p></center></div>
-	          <div class="tile-content"><center><p>Arangements</p></center></div>
+	          <div class="tile-content"><center><p>Travel Deals</p></center></div>
 	        </div>
 	      </a>
 	      <a href="payments">

@@ -59,4 +59,9 @@ class Travel_deals extends Eloquent {
 		$response["service"] = $this->service;
 		return $response;
 	}
+
+	public function accomodations()
+	{
+		return $this->belongsTo('Accomodations');
+	}
 }

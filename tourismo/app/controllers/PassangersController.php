@@ -157,7 +157,7 @@ class PassangersController extends \BaseController {
 		$passangers = null;
 		
 		if($searchTerm == "*")
-			$passangers = Passanger::all();
+			$passangers = Passanger::paginate(10);
 		else {
 			$passangers = Passanger::where('jmbg','LIKE','%'.$searchTerm.'%')->orWhere('name','LIKE','%'.$searchTerm.'%')->orWhere('surname','LIKE','%'.$searchTerm.'%')->orWhere('address','LIKE','%'.$searchTerm.'%')->get();
 			if (count($passangers) == 0) {
