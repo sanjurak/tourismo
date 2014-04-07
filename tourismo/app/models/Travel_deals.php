@@ -38,6 +38,28 @@ class Travel_deals extends Eloquent {
 		return $this->belongsTo('Destination', 'destination_id');
 	}
 
+	public function accomodationUnit()
+	{
+		return $this->belongsTo('Accomodation_units','accomodation_unit_id');
+	}
+
+	public function reservations()
+	{
+		return $this->hasMany('Reservation');
+	}
+
+	public function getTravelDeal()
+	{
+		$response = array();
+		$response["category"] = $this->category->name;
+		$response["organizer"] = $this->organizer->name;
+		$response["destination"] = $this->destination->name;
+		$response["accomodation"] = $this->accomodationUnit->name ."/".$this->accomodationUnit->capacity;
+		$response["transportation"] = $this->transportation;
+		$response["service"] = $this->service;
+		return $response;
+	}
+
 	public function accomodations()
 	{
 		return $this->belongsTo('Accomodations', 'accomodations_id');

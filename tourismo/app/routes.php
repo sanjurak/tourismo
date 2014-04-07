@@ -50,6 +50,15 @@ Route::get('logout', array('as'=>'logout', 'uses'=>'UserController@logout'));
 
 Route::group(array('before' => 'auth'), function(){
 	Route::get('reservations', array('as'=>'reservations', 'uses'=>'ReservationsController@index'));
+	
+	Route::get('createReservation', array('as'=>'createReservation', 'uses'=>'ReservationsController@create'));
+
+	Route::get('getTravelDeal/{id}', array('as'=>'getTravelDeal', 'uses'=>'ReservationsController@getTravelDeal'));
+
+	Route::get('categoriesRes', array('as' => 'categoriesRes','uses' => 'ReservationsController@getCategories'));
+	Route::get('destinationsRes', array('as' => 'destinationsRes','uses' => 'ReservationsController@getDestinations'));
+	Route::get('organizersesRes', array('as' => 'organizersRes','uses' => 'ReservationsController@getOrganizers'));
+	Route::get('accomodationsRes', array('as' => 'accomodationsRes','uses' => 'ReservationsController@getAccomodations'));
 
 	Route::get('destinations', array('as'=>'destinations', 'uses'=>'DestinationsController@index'));
 

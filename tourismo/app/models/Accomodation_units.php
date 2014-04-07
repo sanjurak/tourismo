@@ -25,7 +25,12 @@ class Accomodation_units extends Eloquent {
 
 	public function accomodation()
 	{
-		return $this->belongsTo('Accomodations');
+		return $this->belongsTo('Accomodations','accomodations_id');
+	}
+
+	public function travelDeal()
+	{
+		$this->hasOne('Travel_deals');
 	}
 
 }

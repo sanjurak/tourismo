@@ -111,6 +111,16 @@ class TravelDealController extends \BaseController {
 		return Redirect::back();
 	}
 
+	public function addNew()
+	{
+		$category = Input::get('category');
+		$organizer = Input::get("organizer");
+		$destination = Input::get("destination");
+		$accomodation = Input::get("accomodation");
+		$transportation = Input::get("transportation");
+		$service = Input::get("service");
+	}
+
 	public function autosearchCat()
 	{
 		$query = Input::get('q','');
