@@ -62,9 +62,12 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('passangerDetails', array('as' => 'passangerDetails', 'uses' => 'PassangersController@details'));
 
 	Route::get('traveldeals', array('as'=>'traveldeals', 'uses'=>'TravelDealController@index'));
+	Route::post('storeTravelDeal', array('as'=>'storeTravelDeal', 'uses'=>'TravelDealController@store'));
+	Route::get('deleteTravelDeal/{id}', array('as'=>'deleteTravelDeal/{id}', 'uses'=>'TravelDealController@destroy'));
 	Route::get('autocompleteTrvlDlsCat', array('as' => 'autocompleteTrvlDlsCat', 'uses' => 'TravelDealController@autosearchCat'));
 	Route::get('autocompleteTrvlDlsDst', array('as' => 'autocompleteTrvlDlsDst', 'uses' => 'TravelDealController@autosearchDst'));
 	Route::post('basicTrvlDlsSearch', array('as' => 'basicTrvlDlsSearch', 'uses' => 'TravelDealController@basicSearch'));
+	Route::get('travelDealDetails', array('as' => 'travelDealDetails', 'uses' => 'TravelDealController@details'));
 	
 	Route::get('payments', array('as'=>'payments', 'uses'=>'PaymentsController@index'));
 

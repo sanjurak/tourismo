@@ -25,21 +25,21 @@ class Travel_deals extends Eloquent {
 
 	public function organizer()
 	{
-		return $this->belongsTo('Organizers');
+		return $this->belongsTo('Organizers', 'organizer_id');
 	}
 
 	public function category()
 	{
-		return $this->belongsTo('Categories');
+		return $this->belongsTo('Categories', 'category_id', 'id');
 	}
 
 	public function destination()
 	{
-		return $this->belongsTo('Destination');
+		return $this->belongsTo('Destination', 'destination_id');
 	}
 
 	public function accomodations()
 	{
-		return $this->belongsTo('Accomodations');
+		return $this->belongsTo('Accomodations', 'accomodations_id');
 	}
 }

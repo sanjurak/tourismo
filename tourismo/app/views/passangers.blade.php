@@ -17,47 +17,6 @@
 
 {{ $passangers->links() }}
 
-<!-- {{ Form::open(array('url' => 'storePassanger', 'name' => 'addNewPsgForm', 'id' => 'addNewPsgForm' )) }}
-<table class="table striped">
-	<tr>
-	<td><div class="input-control text">
-		<input type="text" name="name" value="" id="name" class="validate[required]" placeholder="Ime" tabindex="1"/>
-	</div></td>
-	<td><div class="input-control text">
-		<input type="text" name="surname" value="" id="surname" class="validate[required]" placeholder="Prezime" tabindex="2"/>
-	</div></td>
-	<td><div class="input-control text">
-		<input type="text" name="address" value="" id="address" class="validate[required]" placeholder="Adresa" tabindex="3"/>
-	</div></td> -->
-	<!-- 
-	<td style="padding:3px"><div class="input-control select" style="padding:0px">
-		<select name="gender" id="gender">
-			<option value="m" tabindex="4">m</option>
-			<option value="f">f</option>
-		</select>
-	</div></td>
-	<td style="padding:3px"><div class="input-control text" style="padding:0px">
-		<input type="text" name="tel" value="" placeholder="Telefon" tabindex="5"/>
-	</div></td>
-	<td style="padding:3px"><div class="input-control text" style="padding:0px">
-		<input type="text" name="mob" value="" placeholder="Mobilni" tabindex="6"/>
-	</div></td>
-	<td style="padding:3px"><div class="input-control text input-append date" id="birth_datepicker" style="padding:0px">
-		<input type="text" style="height:100%" class="span2" name="birth_date" placeholder="yyyy/mm/dd" tabindex="7"/>
-		<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
-	</div></td>
-	<td style="padding:3px"><div class="input-control text" style="padding:0px">
-		<input type="text" name="passport" value="" placeholder="Broj Pasoša" tabindex="8"/>
-	</div></td>
-	 -->
-	<!--  <td><div class="input-control text">
-		<input type="text" name="jmbg" value="" placeholder="JMBG" tabindex="4"/>
-	</div></td>
-	<td><button type="submit" class="btn btn-primary input" tabindex="5" style="height:100%;font-size:30px">+</td>
-	</tr>
-</table>
-
-{{ Form::close() }} -->
 <p/>
 <div  id="passangersData">
 	{{ $psgPartial }}

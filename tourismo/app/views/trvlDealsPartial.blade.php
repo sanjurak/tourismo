@@ -48,7 +48,7 @@ $(function(){
 				{{ $travel_deal->price_eur }}
 			</td>
 			<td>
-				<a class="trvlDealsDetails btn btn-primary pull-right" name="{{$travel_deal->id}}" role="button" data-toggle="modal" href="#trvlDealsDetailModal">
+				<a class="trvlDealsDetails btn btn-primary pull-right" name="{{$travel_deal->id}}" role="button" data-toggle="modal" href="#trvlDlsDetailModal">
 				<span class="icon-edit"></span>
 			</td>
 			<td>
