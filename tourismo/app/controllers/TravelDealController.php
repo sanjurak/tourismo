@@ -81,12 +81,19 @@ class TravelDealController extends \BaseController {
 
 	public function addNew()
 	{
-		$category = Input::get('category');
-		$organizer = Input::get("organizer");
-		$destination = Input::get("destination");
-		$accomodation = Input::get("accomodation");
-		$transportation = Input::get("transportation");
-		$service = Input::get("service");
+		$traveldeal = new Travel_deals;
+		$traveldeal->category_id = Input::get('category');
+		$traveldeal->organizer_id = Input::get("organizer");
+		$traveldeal->destination_id = Input::get("destination");
+		$traveldeal->accomodation_unit_id = Input::get("accomodation");
+		$traveldeal->transportation = Input::get("transportation");
+		$traveldeal->service = Input::get("service");
+		$traveldeal->price_din =  Input::get("priceDin");
+		$traveldeal->price_eur =  Input::get("priceEur");
+
+		$traveldeal->Save();
+
+		return $traveldeal;
 	}
 
 	public function autosearchCat()

@@ -15,6 +15,18 @@ class ReservationsController extends \BaseController {
 		return View::make('reservations')->nest('reservationsPartial','reservationsPartial', array('reservations' => $reservations));
 	}
 
+	public function InitializeTD()
+	{
+		return Response::json(array('data' => Travel_deals::get()->toArray()));
+	}
+
+	public function initializePS()
+	{
+		$psg =  Passanger::select(DB::raw('CONCAT (name," ",surname," JMBG: ",jmbg," Pasoš: ",passport) as passanger, id'))
+		->get(array("passanger","id"))->toArray();
+		
+		return Response::json(array('data' => $psg));
+	}
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -22,27 +34,13 @@ class ReservationsController extends \BaseController {
 	 */
 	public function create()
 	{
-		$traveldeals = Travel_deals::join('categories','travel_deals.category_id','=','categories.id')
-									->join('destinations','destinations.id','=','travel_deals.destination_id')
-									->join('organizers','organizers.pib','=','travel_deals.organizer_id')
-									->join('accomodation_units','accomodation_units.id','=','travel_deals.accomodation_unit_id')
-									->select(DB::raw('CONCAT (categories.name,", ",organizers.name,", ",destinations.town," ",destinations.country,", ",transportation,", ", service,",",accomodation_units.name,"/",accomodation_units.capacity) as traveldeal, travel_deals.id as id'))
-									->lists("traveldeal","id");
-		$traveldeals = array("0" => "Izaberite aranžman") + $traveldeals;
 
-		return View::make('createReservationPartial', array("traveldeals" => $traveldeals));
+		return View::make('createReservationPartial');
 		
 	}
 
 	public function getTravelDeal($id)
 	{
-		/*$traveldeals = Travel_deals::join('categories','travel_deals.category_id','=','categories.id')
-									->join('destinations','destinations.id','=','travel_deals.destination_id')
-									->join('organizers','organizers.pib','=','travel_deals.organizer_id')
-									->join('accomodation_units','accomodation_units.id','=','travel_deals.accomodation_unit_id')
-									->where('travel_deals.id','=',$id)
-									->select(DB::raw("categories.name as category","organizers.name as organizer", 'CONCAT ("destinations.town",",", "destinations.country") as destination', "transportation", "service", 'CONCAT ("accomodation_units.name","-",accomodation_units.capacity") as accomodation'))
-									->get(array('category','organizer','destination','transportation','service','accomodation'));*/
 		$traveldeals = Travel_deals::find($id)->getTravelDeal();
 		//dd($traveldeals);
 
@@ -61,18 +59,31 @@ class ReservationsController extends \BaseController {
 	public function getDestinations()
 	{
 		$query = Input::get('q','');
+		$acc = Input::get('acc','');
 
-		$destinations = Destination::where('town','LIKE','%'.$query.'%')->orWhere('country','LIKE','%'.$query.'%')->get(array('town','country','id'))->toArray();
+		$destinations = Destination::query();
 
-		//dd($destinations);
-		return Response::json(array('data' => $destinations));
+		if( $acc != null ||$acc != '')
+		{
+				$destinations->join("accomodations","destinations.id","=","accomodations.destination_id")
+								->where("accomodations.id","=", function($q) use ($acc){
+									$q->from("accomodations")->join("accomodation_units","accomodations.id","=","accomodation_units.accommodations_id")
+										->where("accomodation_units.id","=",$acc)->select("accomodations.id");
+								});
+		}
+		
+		$destinations->where(function($q) use ($query){
+				$q->where('town','LIKE','%'.$query.'%')->orWhere('country','LIKE','%'.$query.'%');
+			});
+
+		return Response::json(array('data' => $destinations->get(array('town','country','destinations.id as id'))->toArray()));
 	}
 
 	public function getOrganizers()
 	{
 		$query = Input::get('q','');
 
-		$organizers = organizers::where('name','LIKE','%'.$query.'%')->get(array('name','id'))->toArray();
+		$organizers = organizers::where('name','LIKE','%'.$query.'%')->get(array('name','pib'))->toArray();
 
 		return Response::json(array('data' => $organizers));
 	}
@@ -80,14 +91,67 @@ class ReservationsController extends \BaseController {
 	public function getAccomodations()
 	{
 		$query = Input::get('q','');
+		$dst = Input::get('dst','');
+
+		$accomodations = Accomodations::query();
+
+		if($dst != null || $dst != "")
+		{
+			$accomodations->join("destinations","accomodations.destination_id","=","destinations.id")
+							->where("destinations.id","=",$dst);
+		}
+
+		$accomodations->join('accomodation_units','accomodations.id','=','accomodation_units.accommodations_id')
+										->where(function($q) use ($query){
+											$q->where('accomodations.name','LIKE','%'.$query.'%')->orWhere('accomodations.type','LIKE','%'.$query.'%')
+										->orWhere('accomodation_units.name','LIKE','%'.$query.'%');
+										})->select(DB::raw('CONCAT (accomodations.type,", ",accomodations.name,", ",accomodation_units.name,"/",accomodation_units.capacity) as name, accomodation_units.id'));
+					
+
+		return Response::json(array('data' => $accomodations->get(array('name', 'id'))->toArray()));
+	}
+
+
+//OVO TREBA PREBACITI U MODELE
+	public function accomodationAddRes()
+	{
+		$type = Input::get("type");
+		$name = Input::get("name");
+		$dest = Input::get("destination_id");
+
+		//units
+
+		$units = $_POST["Unit"];
+	
+
+		$acc = new Accomodations;
+		$acc->type = $type;
+		$acc->name = $name;
+		$acc->destination_id = $dest;
+
+		$acc->Save();
+
+		//return $units;
+
+		if(is_array($units))
+		{
+			foreach ($units as $unit) {
+				$newUnit = new Accomodation_units;
+				$newUnit->name = $unit['name'];
+				$newUnit->capacity = $unit['capacity'];
+				$newUnit->number = $unit['number'];
+
+				$newUnit->accommodations_id = $acc->id;
+
+				$newUnit->Save();
+			}
+		}
 
 		$accomodations = Accomodations::join('accomodation_units','accomodations.id','=','accomodation_units.accommodations_id')
-										->where('accomodations.name','LIKE','%'.$query.'%')->orWhere('accomodations.type','LIKE','%'.$query.'%')
-										->orWhere('accomodation_units.name','LIKE','%'.$query.'%')
-										->select(DB::raw('CONCAT (accomodations.type,", ",accomodations.name,", ",accomodation_units.name,"/",accomodation_units.capacity) as name, accomodation_units.id'))
-										->get(array('name', 'id'))
-										->toArray();
-		return Response::json(array('data' => $accomodations));
+										->where("accomodations.id","=", $acc->id)
+										->select(DB::raw('CONCAT (accomodations.type,", ",accomodations.name,", ",accomodation_units.name,"/",accomodation_units.capacity) as name, accomodation_units.id'));
+		return Response::json(array('data' => $accomodations->get(array('name', 'id'))->toArray()));
+
 	}
 	/**
 	 * Store a newly created resource in storage.

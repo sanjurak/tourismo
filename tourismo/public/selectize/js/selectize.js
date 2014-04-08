@@ -1796,17 +1796,6 @@
 				self.addOption(data);
 				self.setCaret(caret);
 				self.addItem(value);
-				self.refreshOptions(self.settings.mode !== 'single');
-			});
-	
-			var output = setup.apply(this, [input, create]);
-			if (typeof output !== 'undefined') {
-				create(output);
-			}
-	
-			return true;
-		},
-	
 		/**
 		 * Re-renders the selected item lists.
 		 */
@@ -1832,6 +1821,17 @@
 			var invalid = self.isRequired && !self.items.length;
 			if (!invalid) self.isInvalid = false;
 			self.$control_input.prop('required', invalid);
+				self.refreshOptions(self.settings.mode !== 'single');
+			});
+	
+			var output = setup.apply(this, [input, create]);
+			if (typeof output !== 'undefined') {
+				create(output);
+			}
+	
+			return true;
+		},
+	
 			self.refreshClasses();
 		},
 	

@@ -50,4 +50,6 @@ class Accomodations extends Eloquent {
 		Accomodation_units::where("accommodations_id","=",$this->id)->delete();
 		return parent::delete();
 	}
+
+	
 }

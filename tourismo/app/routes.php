@@ -57,8 +57,11 @@ Route::group(array('before' => 'auth'), function(){
 
 	Route::get('categoriesRes', array('as' => 'categoriesRes','uses' => 'ReservationsController@getCategories'));
 	Route::get('destinationsRes', array('as' => 'destinationsRes','uses' => 'ReservationsController@getDestinations'));
-	Route::get('organizersesRes', array('as' => 'organizersRes','uses' => 'ReservationsController@getOrganizers'));
+	Route::get('organizersRes', array('as' => 'organizersRes','uses' => 'ReservationsController@getOrganizers'));
 	Route::get('accomodationsRes', array('as' => 'accomodationsRes','uses' => 'ReservationsController@getAccomodations'));
+	Route::get('initializeTD', array('as' => 'initializeTD','uses' => 'ReservationsController@initializeTD'));
+	Route::get('initializePS', array('as' => 'initializePS','uses' => 'ReservationsController@initializePS'));
+	Route::post('accommodationAddRes', array('as' => 'accommodationAddRes','uses' => 'ReservationsController@accomodationAddRes'));
 
 	Route::get('destinations', array('as'=>'destinations', 'uses'=>'DestinationsController@index'));
 
@@ -74,6 +77,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('autocompleteTrvlDlsCat', array('as' => 'autocompleteTrvlDlsCat', 'uses' => 'TravelDealController@autosearchCat'));
 	Route::get('autocompleteTrvlDlsDst', array('as' => 'autocompleteTrvlDlsDst', 'uses' => 'TravelDealController@autosearchDst'));
 	Route::post('basicTrvlDlsSearch', array('as' => 'basicTrvlDlsSearch', 'uses' => 'TravelDealController@basicSearch'));
+	Route::post('addTravelDeal', array('as' => 'addTravelDeal', 'uses' => 'TravelDealController@addNew'));
 	
 	Route::get('payments', array('as'=>'payments', 'uses'=>'PaymentsController@index'));
 
@@ -130,6 +134,10 @@ Route::group(array('before' => 'auth'), function(){
 	Route::post('organizatorAdd', array('as' => 'organizatorAdd', 'uses' => 'OrganizersController@store'));
 
 	Route::post('organizatorDelete/{id}', array('as' => 'organizatorDelete', 'uses' => 'OrganizersController@destroy'));
+
+
+	/////KATEGORIJE
+	Route::post('newCategory', array('as' => 'newCategory', 'uses' => 'CategoriesController@store'));
 
 	
 });

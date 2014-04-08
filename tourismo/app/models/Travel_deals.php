@@ -11,6 +11,7 @@ class Travel_deals extends Eloquent {
 	 * @var string
 	 */
 	protected $table = 'travel_deals';
+	protected $appends = array("name","accomodation");
 
 	
 	/**
@@ -60,8 +61,14 @@ class Travel_deals extends Eloquent {
 		return $response;
 	}
 
-	public function accomodations()
+	public function getNameAttribute()
 	{
-		return $this->belongsTo('Accomodations');
+		return $this->category->name . ", " . $this->organizer->name .", " . $this->destination->name .", ". $this->accomodation .", ". $this->accomodationUnit->name ."/".$this->accomodationUnit->capacity .", ". $this->transportation .", ". $this->service;
+	}
+
+	public function getAccomodationAttribute()
+	{
+		$accomodation = Accomodations::find($this->accomodationUnit->accommodations_id);
+		return $accomodation->type." ".$accomodation->name;
 	}
 }

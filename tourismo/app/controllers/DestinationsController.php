@@ -71,8 +71,7 @@ class DestinationsController extends \BaseController {
 
 		$destination->Save();
 
-		$insertedId = $destination->id;
-		return Response::json(array('data'=>$insertedId));
+		return $destination;
 	}
 
 	/**

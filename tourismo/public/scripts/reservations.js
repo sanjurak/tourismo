@@ -1,7 +1,5 @@
 $(function(){
 
-	
-
 	$("#newReservation").click(function(event){
 		event.preventDefault();
 

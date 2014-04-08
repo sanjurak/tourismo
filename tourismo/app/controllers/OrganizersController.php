@@ -138,8 +138,7 @@ class OrganizersController extends \BaseController {
 
 		$organizator->Save();
 
-		$insertedId = $organizator->pib;
-		return Response::json(array('data' => $insertedId));
+		return $organizator;
 	}
 
 	/**

@@ -29,7 +29,17 @@ class CategoriesController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$name = Input::get("name");
+		$current = Input::get("current",true);
+		
+		$category = new Categories;
+
+		$category->name = $name;
+		$category->current = $current;
+
+		$category->Save();
+
+		return $category;
 	}
 
 	/**
