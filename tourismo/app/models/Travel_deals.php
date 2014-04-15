@@ -26,17 +26,17 @@ class Travel_deals extends Eloquent {
 
 	public function organizer()
 	{
-		return $this->belongsTo('Organizers');
+		return $this->belongsTo('Organizers', 'organizer_id');
 	}
 
 	public function category()
 	{
-		return $this->belongsTo('Categories');
+		return $this->belongsTo('Categories', 'category_id', 'id');
 	}
 
 	public function destination()
 	{
-		return $this->belongsTo('Destination');
+		return $this->belongsTo('Destination', 'destination_id');
 	}
 
 	public function accomodationUnit()
@@ -63,6 +63,7 @@ class Travel_deals extends Eloquent {
 
 	public function getNameAttribute()
 	{
+<<<<<<< HEAD
 		return $this->category->name . ", " . $this->organizer->name .", " . $this->destination->name .", ". $this->accomodation .", ". $this->accomodationUnit->name ."/".$this->accomodationUnit->capacity .", ". $this->transportation .", ". $this->service;
 	}
 
@@ -70,5 +71,8 @@ class Travel_deals extends Eloquent {
 	{
 		$accomodation = Accomodations::find($this->accomodationUnit->accommodations_id);
 		return $accomodation->type." ".$accomodation->name;
+=======
+		return $this->belongsTo('Accomodations', 'accomodations_id');
+>>>>>>> f8c62af9dcb0de3fdc8e01cd26deeba4f50bbb66
 	}
 }

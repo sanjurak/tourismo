@@ -25,6 +25,6 @@ class Categories extends Eloquent {
 
 	public function traveldeals()
 	{
-		return $this->hasMany('Travel_deals');
+		return $this->hasMany('Travel_deals', 'category_id', 'id');
 	}
 }
