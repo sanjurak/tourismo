@@ -46,7 +46,7 @@ class TravelDealController extends \BaseController {
 				'category_id' => $category_id,
 				'organizer_id' => $organizer_id,
 				'destination_id' => $destination_id,
-				'accomodations_id' => $accomodations_id,
+				'accomodation_unit_id' => Accomodation_units::where('accomodations_id', '=', $accomodations_id)->get()->id,
 				'transportation' => Input::get('transportation'),
 				'service' => Input::get('service'),
 				'price_din' => Input::get('price_din'),
@@ -56,7 +56,7 @@ class TravelDealController extends \BaseController {
 			$travel_deal->category_id = $category_id;
 			$travel_deal->organizer_id = $organizer_id;
 			$travel_deal->destination_id = $destination_id;
-			$travel_deal->accomodations_id =  $accomodations_id;
+			$travel_deal->accomodation_unit_id = Accomodation_units::where('accomodations_id', '=', $accomodations_id)->get()->id;
 			$travel_deal->transportation = Input::get('gender');
 			$travel_deal->service = Input::get('tel');
 			$travel_deal->price_din = Input::get('mob');
@@ -107,7 +107,7 @@ class TravelDealController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		Passanger::destroy($id);
+		Travel_deals::destroy($id);
 		return Redirect::back();
 	}
 
@@ -248,9 +248,11 @@ class TravelDealController extends \BaseController {
 			$displayTD = App::make('DisplayTrvlDeal');
 			$destinationObj = Destination::where('id', '=', $travel_deal->destination_id)->get();
 			$destination = $destinationObj->toArray()[0]['town'].', '.$destinationObj->toArray()[0]['country'];
-			$accomodation = Accomodations::where('id', '=', $travel_deal->accomodations_id)->get();
-			$accom_type = $accomodation->toArray()[0]['type'];
-			$accom_name = $accomodation->toArray()[0]['name'];
+			$accomodation_unit = Accomodation_units::find($travel_deal->accomodation_unit_id);
+			$accomodation_id = $accomodation_unit->accommodations_id;
+			$accomodation = Accomodations::find($accomodation_id);
+			$accom_type = $accomodation->type;
+			$accom_name = $accomodation->name;
 			$displayTD->id = $travel_deal->id;
 			$displayTD->category = Categories::where('id', '=', $travel_deal->category_id)->get()->toArray()[0]['name'];
 			$displayTD->organizer = Organizers::where('pib', '=', $travel_deal->organizer_id)->get()->toArray()[0]['name'];

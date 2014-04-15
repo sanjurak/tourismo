@@ -63,7 +63,6 @@ class Travel_deals extends Eloquent {
 
 	public function getNameAttribute()
 	{
-<<<<<<< HEAD
 		return $this->category->name . ", " . $this->organizer->name .", " . $this->destination->name .", ". $this->accomodation .", ". $this->accomodationUnit->name ."/".$this->accomodationUnit->capacity .", ". $this->transportation .", ". $this->service;
 	}
 
@@ -71,8 +70,19 @@ class Travel_deals extends Eloquent {
 	{
 		$accomodation = Accomodations::find($this->accomodationUnit->accommodations_id);
 		return $accomodation->type." ".$accomodation->name;
-=======
-		return $this->belongsTo('Accomodations', 'accomodations_id');
->>>>>>> f8c62af9dcb0de3fdc8e01cd26deeba4f50bbb66
+		// return $this->belongsTo('Accomodations', 'accomodations_id');
+	}
+
+	public function getAccomodationNameAttribute()
+	{
+		$accomodation = Accomodations::find($this->accomodationUnit->accommodations_id);
+		return $accomodation->name;
+	}
+
+	public function getAccomodationTypeAttribute()
+	{
+		$accomodation = Accomodations::find($this->accomodationUnit->accommodations_id);
+		return $accomodation->type;
+		// return $this->belongsTo('Accomodations', 'accomodations_id');
 	}
 }
