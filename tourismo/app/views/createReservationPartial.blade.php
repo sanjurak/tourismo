@@ -113,18 +113,23 @@
 	</div>
 </div>
 
-<div class="row">
-	<div class="span12">
-		<div class="container">
+
+<div class="span12">
+	<div class="container">
 		<fieldset>
 			<legend>Detalji putnika</legend>
 			<div class="container">
 				<div class="row">
 					<div class="container">
-						<div class="span12 pull-left">						
-							<select name='passangeres' id='passangersSel' placeholder="Putnici" class='form-control'></select>
-							<a href="#" class="btn btn-small btn-default pull-right" id="addTravelDeal">Dodaj novog putnika</a>
+						<div class="row">
+							<div class="span10">						
+								<select name='passangeres' id='passangersSel' placeholder="Putnici" class='form-control'></select>
+							</div>	
+							<div class="span2 pull-left">						
+								<a href="#" class="btn btn-small btn-default pull-right" id="addTravelDeal">Dodaj novog putnika</a>
+							</div>							
 						</div>
+						
 					</div>
 				</div>
 				<div class="row">
@@ -136,7 +141,6 @@
 				</div>
 			</div>
 		</fieldset>
-	</div>
 	</div>
 </div>
 
@@ -288,7 +292,7 @@
 		<fieldset>
 			<legend>Smestajna jedinica</legend>
 		    	<input type="text" id="nameUnitModNew" class="input-large input-size validate[required]" placeholder="Tip jedinice">
-		      <input type="text" id="capacityUnitModNew" class="input-large input-size validate[required]" placeholder="Kapacitet">
+		      <input type="text" id="capacityUnitModNew" class="input-large input-size validate[required]" placeholder="Broj kreveta">
 		      <input type="text" id="numberUnitModNew" class="input-large input-size validate[required]" placeholder="Broj jedinica">
 		      <a href="#" id="removeUnit" class="pull-right"><span class="icon icon-remove-sign"></span></a>
 		</fieldset>

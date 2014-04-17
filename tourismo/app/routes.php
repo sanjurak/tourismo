@@ -79,11 +79,11 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('autocompleteTrvlDlsCat', array('as' => 'autocompleteTrvlDlsCat', 'uses' => 'TravelDealController@autosearchCat'));
 	Route::get('autocompleteTrvlDlsDst', array('as' => 'autocompleteTrvlDlsDst', 'uses' => 'TravelDealController@autosearchDst'));
 	Route::post('basicTrvlDlsSearch', array('as' => 'basicTrvlDlsSearch', 'uses' => 'TravelDealController@basicSearch'));
-<<<<<<< HEAD
+
 	Route::post('addTravelDeal', array('as' => 'addTravelDeal', 'uses' => 'TravelDealController@addNew'));
-=======
+
 	Route::get('travelDealDetails', array('as' => 'travelDealDetails', 'uses' => 'TravelDealController@details'));
->>>>>>> f8c62af9dcb0de3fdc8e01cd26deeba4f50bbb66
+
 	
 	Route::get('payments', array('as'=>'payments', 'uses'=>'PaymentsController@index'));
 

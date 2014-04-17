@@ -83,7 +83,7 @@ class ReservationsController extends \BaseController {
 	{
 		$query = Input::get('q','');
 
-		$organizers = organizers::where('name','LIKE','%'.$query.'%')->get(array('name','pib'))->toArray();
+		$organizers = Organizers::where('name','LIKE','%'.$query.'%')->get(array('name','pib'))->toArray();
 
 		return Response::json(array('data' => $organizers));
 	}
