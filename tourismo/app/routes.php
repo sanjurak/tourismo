@@ -83,7 +83,6 @@ Route::group(array('before' => 'auth'), function(){
 	Route::post('addTravelDeal', array('as' => 'addTravelDeal', 'uses' => 'TravelDealController@addNew'));
 
 	Route::get('travelDealDetails', array('as' => 'travelDealDetails', 'uses' => 'TravelDealController@details'));
-
 	
 	Route::get('payments', array('as'=>'payments', 'uses'=>'PaymentsController@index'));
 

@@ -30,10 +30,10 @@ $(function(){
 				{{ $travel_deal->destination->name }}
 			</td>
 			<td>
-				{{ $travel_deal->accomodations->type }}
+				{{ $travel_deal->accomodationType }}
 			</td>
 			<td>
-				{{ $travel_deal->accomodations->name }}
+				{{ $travel_deal->accomodationName }}
 			</td>
 			<td>
 				{{ $travel_deal->transportation }}

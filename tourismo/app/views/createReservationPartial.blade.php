@@ -144,6 +144,36 @@
 	</div>
 </div>
 
+<div class="span12">
+	<div class="container">
+		<fieldset>
+			<legend>Detalji plaćanja</legend>
+			<div class="container">
+				<div class="row">
+					<div class="container">
+						<div class="row">
+							<div class="span10">						
+								
+							</div>	
+							<div class="span2 pull-left">						
+								
+							</div>							
+						</div>
+						
+					</div>
+				</div>
+				<div class="row">
+					<div class="container">
+						<div class="span12">						
+							<div id="passangers"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+	</div>
+</div>
+
 <div class="row">
 	<div class="span7">
 		<div id="addCategoryModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">			
