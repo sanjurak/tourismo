@@ -147,5 +147,7 @@ $(document).ready(function(){
                 return false;//event.preventDefault();
     });
 
-
+    $( "#accordion" ).accordion({
+      collapsible: true
+    });
 });

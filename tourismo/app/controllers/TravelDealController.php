@@ -34,7 +34,16 @@ class TravelDealController extends \BaseController {
 	{
 		$travel_deal = new Travel_deals;
 		$trvl_dl = Travel_deals::find(Input::get('id'));
-		$category_id = Categories::where('name', 'LIKE', Input::get('category'))->get()->toArray()[0]['id'];
+		$categories = Categories::where('name', 'LIKE', Input::get('category'))->get();
+		$category_id = 0;
+		if ($categories->count() > 0)
+			$category_id = $categories->toArray()[0]['id'];
+		else {
+			$category = new Categories;
+			$category->name = Input::get('category');
+			$category->save();
+			$category_id = $category->id;
+		}
 		$organizer_id = Organizers::where('name', 'LIKE', Input::get('organizer'))->get()->toArray()[0]['pib'];
 		$dsts = explode(', ', Input::get('destination'));
 		$destination_id = Destination::where('town', 'LIKE', $dsts[0])->where('country', 'LIKE', $dsts[1])->get()->toArray()[0]['id'];

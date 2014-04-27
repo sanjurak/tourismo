@@ -9,7 +9,7 @@
 			<img src="images/clock_logo.png" />
 		</div>
 		<div class="span8 text-left">
-	     {{ Form::open(array('url' => 'loginpost')) }}
+	     {{ Form::open(array('url' => 'loginpost', 'id' => 'loginForm')) }}
 		 <div class="control-group">
 			  <label class="control-label" for="username">Username: </label>
 			  <div class="controls">

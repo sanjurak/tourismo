@@ -1,6 +1,6 @@
 <?php
 
-class PassangersController extends \BaseController {
+class PaymentsController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,8 +9,8 @@ class PassangersController extends \BaseController {
 	 */
 	public function index()
 	{
-		$passangers = Passanger::paginate(10);
-		return View::make('passangers', array('passangers' => $passangers))->nest('psgPartial','psgPartial', array('passangers' => $passangers));
+		$payments = Payment::paginate(10);
+		return View::make('payments', array('payments' => $payments))->nest('paymentsPartial','paymentsPartial', array('payments' => $payments));
 	}
 
 	/**
@@ -30,44 +30,8 @@ class PassangersController extends \BaseController {
 	 */
 	public function store()
 	{
-		$passanger = new Passanger;
-		$psg = Passanger::find(Input::get('id'));
-		if($psg != null) {
-			$birth_date = date('Y-m-d', strtotime(Input::get('birth_date')));
-			if ((string)$birth_date == "1970-01-01") {
-				$birth_date = '';
-			}
-			$psg->update(array(
-				'jmbg' => Input::get('jmbg'),
-				'name' => Input::get('name'),
-				'surname' => Input::get('surname'),
-				'address' => Input::get('address'),
-				'gender' => Input::get('gender'),
-				'tel' => Input::get('tel'),
-				'mob' => Input::get('mob'),
-				'passport' => Input::get('passport'),
-				'birth_date' => $birth_date
-			));
-		} else {
-			$passanger->jmbg = Input::get('jmbg');
-			$passanger->name = Input::get('name');
-			$passanger->surname = Input::get('surname');
-			$passanger->address = Input::get('address');
-			$passanger->gender = Input::get('gender');
-			$passanger->tel = Input::get('tel');
-			$passanger->mob = Input::get('mob');
-			$passanger->passport = Input::get('passport');
-			$birth_date = date('Y-m-d', strtotime(Input::get('birth_date')));
-			if ((string)$birth_date != "1970-01-01") {
-				$passanger->birth_date = $birth_date;
-			}
-			$passanger->save();
-		}
-		return Redirect::back();
-	}
-
-	public function addNew() {
-		$passanger = new Passanger;
+		$payment = new Payment;
+		
 		$passanger->jmbg = Input::get('jmbg');
 		$passanger->name = Input::get('name');
 		$passanger->surname = Input::get('surname');
@@ -80,13 +44,13 @@ class PassangersController extends \BaseController {
 		if ((string)$birth_date != "1970-01-01") {
 			$passanger->birth_date = $birth_date;
 		}
-
 		$passanger->save();
-
-		$psg = Passanger::select(DB::raw('CONCAT (name," ",surname," JMBG: ",jmbg," Pasoš: ",passport) as passanger, id'))
-		->where('id','=',$passanger->id)->get(array("passanger","id"))->toArray();
 		
-		return Response::json(array('data' => $psg));
+		return Redirect::back();
+	}
+
+	public function addNew() {
+		
 	}
 
 	/**
@@ -121,7 +85,7 @@ class PassangersController extends \BaseController {
 	{
 		$column = Input::get('name');
 		$value = Input::get('value');
-		Passanger::where('id','=',$id)->update(array($column => $value));
+		Payments::where('id','=',$id)->update(array($column=>$value));
 	}
 
 	/**
@@ -132,8 +96,7 @@ class PassangersController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		Passanger::destroy($id);
-		return Redirect::back();
+
 	}
 
 	public function autosearch()
@@ -195,11 +158,11 @@ class PassangersController extends \BaseController {
 
 	public function details()
 	{
-		$id = Input::get('psg_id','');
-		$passanger = Passanger::find($id);
-		if ($passanger == null) {
+		$id = Input::get('payment_id','');
+		$payment = Paayment::find($id);
+		if ($payment == null) {
 			return '{"data":null}';
 		} else
-			return Response::json(array('data' => $passanger->toJson()));
+			return Response::json(array('data' => $payment->toJson()));
 	}
 }

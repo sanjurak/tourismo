@@ -21,6 +21,8 @@ class UserController extends BaseController {
 				'password' 	=> Input::get('password')
 		 );
 
+		 Session::put('exchRate', Input::get('exchRate'));
+
 		 if (Auth::attempt($userdata))
 		 {
     	    // The user is being remembered...
