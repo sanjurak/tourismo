@@ -21,10 +21,8 @@
 			<div class="controls">{{ Form::password('password') }}</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="exchRate">Kurs Eur na dan:</label>
-			<div class="controls">
-				<input type="text" id='exchRate' name="exchRate"  class="validate[required]"/>
-			</div>
+			<label class="control-label" for="kurs">Kurs:</label>
+			<div class="controls">{{ Form::text('exchangerate') }}</div>
 		</div>
 		<div class="control-group">
 			 <div class="controls">{{ Form::submit('Login',['class' => 'btn btn-primary btn-medium openbutton']) }}</div>
