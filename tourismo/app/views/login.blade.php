@@ -9,7 +9,7 @@
 			<img src="images/clock_logo.png" />
 		</div>
 		<div class="span8 text-left">
-	     {{ Form::open(array('url' => 'loginpost')) }}
+	     {{ Form::open(array('url' => 'loginpost', 'id' => 'loginForm')) }}
 		 <div class="control-group">
 			  <label class="control-label" for="username">Username: </label>
 			  <div class="controls">
@@ -19,6 +19,12 @@
 		<div class="control-group">
 			<label class="control-label" for="password">Password:</label>
 			<div class="controls">{{ Form::password('password') }}</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="exchRate">Kurs Eur na dan:</label>
+			<div class="controls">
+				<input type="text" id='exchRate' name="exchRate"  class="validate[required]"/>
+			</div>
 		</div>
 		<div class="control-group">
 			 <div class="controls">{{ Form::submit('Login',['class' => 'btn btn-primary btn-medium openbutton']) }}</div>

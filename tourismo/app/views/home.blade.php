@@ -52,7 +52,6 @@
 		                <li><a href="organizators">Organizatori</a></li>
 		            </ul>
 		        </div>
-		        <span class="element-divider place-right"></span>
 		        <div id='logout' class="element place-right">
 					@if (Auth::check())
 						{{ Session::get('username') }}
@@ -60,6 +59,10 @@
 		                	<span>logout</span>
 		            	</a>
 					@endif
+				</div>
+		       	<span class="element-divider place-right"></span>
+		        <div id='exrate' class="element place-right">
+					Kurs EUR na dan: {{ floatval(Session::get('exchRate')) }} din
 				</div>
 		    </nav>
 		</nav>

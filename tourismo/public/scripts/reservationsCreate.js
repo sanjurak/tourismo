@@ -1,6 +1,7 @@
 $(function(){
 		$("#traveldealDetails").hide();
-		$("#traveldealNew").hide();
+        $("#traveldealNew").hide();
+		$("#passangerNew").hide();
 		$("#addCategoryModal").hide();
 		$("#addOrganizerModal").hide();
 		$("#addDestinationModal").hide();
@@ -373,7 +374,49 @@ $(function(){
         	var item = this.options[this.items[0]];
         	this.close();
 
-        	$("<div>"+item.passanger+"</div>").appendTo("#passangers");
+        	$("<div>"+item.passanger+"</div>").appendTo("#passangersDetails");
         }
 	});
+
+    $('#birth_datepicker input').click(function(event){
+            event.preventDefault();
+        });
+
+    $('#birth_datepicker input').datepicker({
+        format: "yyyy/mm/dd",
+        viewMode: 2,
+        autoclose: true
+    });
+
+    $('#birth_datepicker span').click(function(){
+       $('#birth_datepicker input').datepicker('show');
+    });
+
+    $("#addNewPsg").click(function(event){
+        event.preventDefault();
+        if($("#passangerNew").is(":hidden")) {
+            $("#passangersDetails").slideUp();
+            $("#passangerNew").slideDown();
+        } else {
+            $("#passangerNew").slideUp();
+            $("#passangersDetails").slideDown();
+        }
+    });
+
+    $("#btnAddNewPsg").click(function(event){
+        event.preventDefault();
+
+        $.ajax({
+            url:'addPassanger',
+            type: 'POST',
+            data: $("#passangerNewForm").serialize(),
+            success: function(data){
+                $("#passangerNew").slideUp();
+                var selectize = $("#passangersSel")[0].selectize;
+                selectize.addOption(data);
+                selectize.refreshOptions();
+                selectize.addItem(data.passanger);
+            }
+        })
+    });
 });

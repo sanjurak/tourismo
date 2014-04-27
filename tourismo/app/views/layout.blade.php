@@ -12,6 +12,11 @@
 	{{HTML::script('bootstrap/js/jquery.widget.min.js')}}
 	{{HTML::script('bootstrap/js/jquery.ui.widget.js')}}
 	{{HTML::script('bootstrap/js/metro-loader.js')}}
+	{{HTML::script('scripts/Site.js')}}
+
+	{{HTML::script('jquery-validator/js/jquery.validationEngine.js')}}
+	{{HTML::script('jquery-validator/js/languages/jquery.validationEngine-srb.js')}}
+	{{HTML::style('jquery-validator/css/validationEngine.jquery.css')}}
 
 	{{HTML::style('styles/Site.css')}}
 </head>

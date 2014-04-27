@@ -1,6 +1,17 @@
 $(document).ready(function(){
 
-   $("[rel='tooltip']").popover();
+
+    $("#loginForm").validationEngine();
+
+    $("#loginForm").submit(function(event){
+            if($(this).validationEngine("validate"))
+                return true;
+            else
+                return false;
+        });
+
+
+    $("[rel='tooltip']").popover();
 
 	$(".editableC").editable();
 

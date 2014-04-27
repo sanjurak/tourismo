@@ -72,6 +72,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('autocompletePSG', array('as' => 'autocompletePSG', 'uses' => 'PassangersController@autosearch'));
 	Route::post('basicPsgSearch', array('as' => 'basicPsgSearch', 'uses' => 'PassangersController@basicSearch'));
 	Route::get('passangerDetails', array('as' => 'passangerDetails', 'uses' => 'PassangersController@details'));
+	Route::post('addPassanger', array('as' => 'addPassanger', 'uses' => 'PassangersController@addNew'));
 
 	Route::get('traveldeals', array('as'=>'traveldeals', 'uses'=>'TravelDealController@index'));
 	Route::post('storeTravelDeal', array('as'=>'storeTravelDeal', 'uses'=>'TravelDealController@store'));
