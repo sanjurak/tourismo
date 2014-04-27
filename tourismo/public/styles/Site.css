@@ -45,3 +45,11 @@ form:legend{
 #gender option { color: black; }
 #categoriesSelect option { color: black; }
 .empty { color: gray; }
+
+.medium-width{
+	min-width:150px;
+}
+
+.wide600{
+	width:600px;
+}

@@ -1,6 +1,6 @@
 {{HTML::script('scripts/reservationsCreate.js')}}
 <style type="text/css">
-	#unitsId, #traveldealNew, #traveldealDetails{
+	#paymentItem, #unitsId, #traveldealNew, #traveldealDetails{
 		display:none;
 	}
 </style>
@@ -120,17 +120,12 @@
 			<legend>Detalji putnika</legend>
 			<div class="container">
 				<div class="row">
-					<div class="container">
-						<div class="row">
-							<div class="span10">						
-								<select name='passangeres' id='passangersSel' placeholder="Putnici" class='form-control'></select>
-							</div>	
-							<div class="span2 pull-left">						
-								<a href="#" class="btn btn-small btn-default pull-right" id="addTravelDeal">Dodaj novog putnika</a>
-							</div>							
-						</div>
-						
-					</div>
+					<div class="span10">						
+						<select name='passangeres' id='passangersSel' placeholder="Putnici" class='form-control'></select>
+					</div>	
+					<div class="span2">						
+						<a href="#" class="btn btn-small btn-default pull-right" id="addTravelDeal">Dodaj novog putnika</a>
+					</div>							
 				</div>
 				<div class="row">
 					<div class="container">
@@ -151,16 +146,36 @@
 			<div class="container">
 				<div class="row">
 					<div class="container">
-						<div class="row">
-							<div class="span10">						
-								
-							</div>	
-							<div class="span2 pull-left">						
-								
-							</div>							
+						<div class="span12">
+							<a href="#" class="btn btn-default  pull-right" id="addPaymentItem">Dodaj plaćanje</a>
 						</div>
-						
 					</div>
+				</div>
+				<div class="row">
+					<div class="container">
+						<div class="span12">
+						<table>
+							<tr>
+								<th class="medium-width">Obračun</th>
+								<th class="medium-width">Po osobi (eur)</th>
+								<th class="medium-width">Po osobi (din)</th>
+								<th class="medium-width">Broj osoba</th>
+								<th class="medium-width">Iznos (din)</th>
+								<th class="medium-width">Iznos (eur)</th>
+								<th class="medium-width"></th>
+							</tr>	
+							</table>					
+							<div id="paymentItems"></div>
+							<table>
+							<tr>
+								<td class="wide600 pull-right">Ukupno:</td>
+								<td class="medium-width"> (DIN)</td>
+								<td class="medium-width">(EUR)</td>
+								<td class="medium-width"></td>
+							</tr>
+							</table>
+						</div>	
+					</div>		
 				</div>
 				<div class="row">
 					<div class="container">
@@ -328,4 +343,16 @@
 		</fieldset>
 
 		  </div>
+</div>
+
+<div id="paymentItem" class="hiddenItem">
+	<div class="form-inline">
+		      <input type="text" id="paymentItemName" class="input-medium validate[required]" placeholder="">
+		      <input type="text" id="paymentItemEuro" class="input-medium validate[required]" placeholder="">
+		      <input type="text" id="paymentItemDin" class="input-medium validate[required]" placeholder="">
+		      <input type="text" id="paymentItemNum" class="input-medium validate[required]" value="1" placeholder="">
+		      <input type="text" id="paymentItemTotalDin" class="input-medium validate[required]" placeholder="">
+		      <input type="text" id="paymentItemTotalEuro" class="input-medium validate[required]" placeholder="">
+		      <a href="#" id="removeItem" class="pull-right"><span class="icon icon-remove-sign"></span></a>
+  </div>
 </div>

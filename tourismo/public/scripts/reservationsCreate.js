@@ -376,4 +376,30 @@ $(function(){
         	$("<div>"+item.passanger+"</div>").appendTo("#passangers");
         }
 	});
+
+        var itemCounter = 0;
+    $("#removeItem").click(function(e){
+        e.preventDefault();
+        $(this).parents("div#paymentItem").remove();
+    });
+
+    $("#addPaymentItem").click(function(event){
+        event.preventDefault();
+        var items = $(".hiddenItem").clone(true);
+        items.show().removeClass("hiddenItem");
+        items.find("#paymentItemName").attr("name","Item["+itemCounter+"][name]");
+        items.find("#paymentItemEuro").attr("name","Item["+itemCounter+"][euro]");
+        items.find("#paymentItemDin").attr("name","Item["+itemCounter+"][din]");
+        items.find("#paymentItemNum").attr("name","Item["+itemCounter+"][num]");
+        items.find("#paymentItemTotalDin").attr("name","Item["+itemCounter+"][totaldin]");
+        items.find("#paymentItemTotalEuro").attr("name","Item["+itemCounter+"][totaleuro]");
+
+        itemCounter++;
+        $(items).appendTo("#paymentItems");
+    });
+
+    $("#paymentItemEuro").click(function(){
+        var total = $(this).val() * $(this).siblings("#paymentItemNum").val();
+        $("#paymentItemTotalEuro").val(total);
+    });      
 });
