@@ -440,7 +440,7 @@ $(function(){
             success: function(data){
                 $("#passangerNew").slideUp();
                 var selectize = $("#passangersSel")[0].selectize;
-                selectize.addOption(data);
+                selectize.addOption(data.data);
                 selectize.refreshOptions();
                 selectize.addItem(data.passanger);
             }
