@@ -374,10 +374,18 @@ $(function(){
         	var item = this.options[this.items[0]];
         	this.close();
 
-        	$("<div>"+item.passanger+"</div>").appendTo("#passangersDetails");
+        	$("<div class='psg-item'>"+item.passanger
+                +"<input type='hidden' name='passangers' class='passangers' value='"+item.id+"'/>"
+                +"<a href='#' class='remove-psg pull-right'>"
+                +"<span class='icon icon-remove-sign'></span></a></div>")
+            .appendTo("#passangersDetails");
         }
 	});
 
+    $("#passangersDetails").on("click", ".remove-psg", function(e){
+        e.preventDefault();
+        $(this).parents("div.psg-item").remove();
+    });
 
         var itemCounter = 0;
     $("#removeItem").click(function(e){

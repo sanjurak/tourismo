@@ -128,9 +128,9 @@
 
 				</div>
 			</div>
-			<div class="row" id="passangersDetails">
+			<div class="row">
 				<div class="container">
-					<div class="span12">
+					<div class="span12 pull-left" id="passangersDetails">
 					</div>
 				</div>
 			</div>
