@@ -232,9 +232,9 @@ $(function(){
 		event.preventDefault();
 		var units = $(".hiddenUnit").clone(true);
 		units.show().removeClass("hiddenUnit");
-		units.find("#nameUnitModNew").attr("name","Unit["+counter+"][name]");
-		units.find("#capacityUnitModNew").attr("name","Unit["+counter+"][capacity]");
-		units.find("#numberUnitModNew").attr("name","Unit["+counter+"][number]");
+		units.find("#nameUnitModNew").attr("name","Unit["+counter+"][name]").addClass("validate[required]");
+		units.find("#capacityUnitModNew").attr("name","Unit["+counter+"][capacity]").addClass("validate[required]");
+		units.find("#numberUnitModNew").attr("name","Unit["+counter+"][number]").addClass("validate[required]");
 
 		counter++;
 		$(units).appendTo("#units");
@@ -389,12 +389,12 @@ $(function(){
         event.preventDefault();
         var items = $(".hiddenItem").clone(true);
         items.show().removeClass("hiddenItem");
-        items.find("#paymentItemName").attr("name","Item["+itemCounter+"][name]");
-        items.find("#paymentItemEuro").attr("name","Item["+itemCounter+"][euro]");
-        items.find("#paymentItemDin").attr("name","Item["+itemCounter+"][din]");
-        items.find("#paymentItemNum").attr("name","Item["+itemCounter+"][num]");
-        items.find("#paymentItemTotalDin").attr("name","Item["+itemCounter+"][totaldin]");
-        items.find("#paymentItemTotalEuro").attr("name","Item["+itemCounter+"][totaleuro]");
+        items.find("#paymentItemName").attr("name","Item["+itemCounter+"][name]").addClass("validate[required]");
+        items.find("#paymentItemEuro").attr("name","Item["+itemCounter+"][euro]").addClass("validate[required]");
+        items.find("#paymentItemDin").attr("name","Item["+itemCounter+"][din]").addClass("validate[required]");
+        items.find("#paymentItemNum").attr("name","Item["+itemCounter+"][num]").addClass("validate[required]");
+        items.find("#paymentItemTotalDin").attr("name","Item["+itemCounter+"][totaldin]").addClass("validate[required]");
+        items.find("#paymentItemTotalEuro").attr("name","Item["+itemCounter+"][totaleuro]").addClass("validate[required]");
 
         itemCounter++;
         $(items).appendTo("#paymentItems");
