@@ -133,15 +133,14 @@
 								<select name='passangers' id='passangersSel' placeholder="Putnici" class='form-control'></select>
 								<a href="#" class="btn btn-small btn-default pull-right" id="addNewPsg">Dodaj novog putnika</a>
 							</div>
-
 						</div>
 					</div>
-					<div class="row" id="passangersDetails">
-						<div class="container">
-							<div class="span12">
-							</div>
-						</div>
+				
+				<div class="row">
+					<div class="container">
+						<div class="span12 pull-left" id="passangersDetails"></div>
 					</div>
+				</div>
 
 					<div class="row" id="passangerNew">
 						<div class="container">
