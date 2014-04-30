@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 15, 2014 at 10:25 PM
+-- Generation Time: Apr 30, 2014 at 06:58 PM
 -- Server version: 5.6.12-log
--- PHP Version: 5.4.12
+-- PHP Version: 5.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -179,7 +179,15 @@ CREATE TABLE IF NOT EXISTS `excursion` (
   PRIMARY KEY (`id`),
   KEY `id` (`id`),
   KEY `id_2` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `excursion`
+--
+
+INSERT INTO `excursion` (`id`, `excursionItem`, `description`, `priceDin`, `priceEur`, `created_at`, `updated_at`) VALUES
+(1, 'izlet', NULL, 3000, 25, '2014-04-30 00:39:03', '2014-04-30 00:39:03'),
+(2, 'izlet', NULL, 3000, 25, '2014-04-30 00:39:40', '2014-04-30 00:39:40');
 
 -- --------------------------------------------------------
 
@@ -239,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `passanger` (
   PRIMARY KEY (`id`),
   KEY `id` (`id`),
   KEY `jmbg` (`jmbg`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `passanger`
@@ -247,7 +255,9 @@ CREATE TABLE IF NOT EXISTS `passanger` (
 
 INSERT INTO `passanger` (`id`, `jmbg`, `name`, `surname`, `gender`, `address`, `tel`, `mob`, `passport`, `birth_date`, `created_at`, `updated_at`) VALUES
 (1, '1410985735066', 'Sanja', 'Bogdanovic', 'f', 'Somborska', '1234567', '1234567', '123444', '1985-10-14', '2014-03-23 20:38:05', '2014-03-30 12:31:46'),
-(2, '1203198000033', 'Jelena', 'Petrovic', 'f', 'Ulica', '', '', '1234', '1980-03-12', '2014-03-30 12:30:52', '2014-03-30 12:30:52');
+(2, '1203198000033', 'Jelena', 'Petrovic', 'f', 'Ulica', '', '', '1234', '1980-03-12', '2014-03-30 12:30:52', '2014-03-30 12:30:52'),
+(3, '2610985730024', 'Marko', 'Andjelkovic', 'm', 'Milorada Veljkovica Spaje 9', '018532677', '0691046701', '123456789', '1985-10-26', '2014-04-27 20:08:15', '2014-04-27 20:08:15'),
+(4, '1234567891212', 'Pera', 'Peric', 'm', 'Perina 1', '', '', '987654321', NULL, '2014-04-27 20:14:06', '2014-04-27 20:14:06');
 
 -- --------------------------------------------------------
 
@@ -264,7 +274,19 @@ CREATE TABLE IF NOT EXISTS `passangers` (
   PRIMARY KEY (`id`),
   KEY `pass_rsrv_id_ind` (`reservation_id`),
   KEY `pass_id_ind` (`passanger_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf16 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf16 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `passangers`
+--
+
+INSERT INTO `passangers` (`id`, `passanger_id`, `reservation_id`, `created_at`, `updated_at`) VALUES
+(1, 3, 14, '2014-04-30 00:35:51', '2014-04-30 00:35:51'),
+(2, 3, 17, '2014-04-30 00:39:40', '2014-04-30 00:39:40'),
+(3, 2, 17, '2014-04-30 00:39:40', '2014-04-30 00:39:40'),
+(4, 1, 18, '2014-04-30 01:01:23', '2014-04-30 01:01:23'),
+(5, 4, 18, '2014-04-30 01:01:23', '2014-04-30 01:01:23'),
+(6, 2, 19, '2014-04-30 01:02:33', '2014-04-30 01:02:33');
 
 -- --------------------------------------------------------
 
@@ -321,14 +343,21 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   UNIQUE KEY `reservation_number` (`reservation_number`),
   KEY `rsrv_pass_id_ind` (`passanger_id`),
   KEY `travel_deal_id` (`travel_deal_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `reservations`
 --
 
 INSERT INTO `reservations` (`id`, `reservation_number`, `travel_deal_id`, `reservation_date`, `start_date`, `end_date`, `travel_date`, `nights_num`, `passanger_id`, `price_total_din`, `price_total_eur`, `status`, `discount`, `discounter_name`, `clock_index`, `note`, `note_internal`, `created_at`, `updated_at`, `internal`) VALUES
-(1, '1/2014', 5, '2014-04-04 22:27:53', '2014-05-01', '2014-05-05', '2014-05-01', 3, 2, '3456.00', '30.00', 'Aktivna', NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0);
+(1, '1/2014', 5, '2014-04-04 22:27:53', '2014-05-01', '2014-05-05', '2014-05-01', 3, 2, '3456.00', '30.00', 'Aktivna', NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(13, '2-1/2014', 8, '2014-04-30 02:32:56', '2014-04-01', '2014-04-08', '2014-04-01', 7, 3, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 00:32:56', '2014-04-30 00:32:56', 0),
+(14, '2/2014', 8, '2014-04-30 02:35:51', '2014-04-01', '2014-04-08', '2014-04-01', 7, 3, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 00:35:51', '2014-04-30 00:35:51', 0),
+(15, '3/2014', 8, '2014-04-30 02:37:59', '2014-04-01', '2014-04-08', '2014-04-01', 7, 3, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 00:37:59', '2014-04-30 00:37:59', 0),
+(16, '4/2014', 8, '2014-04-30 02:39:03', '2014-04-01', '2014-04-08', '2014-04-01', 7, 3, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 00:39:03', '2014-04-30 00:39:03', 0),
+(17, '5/2014', 8, '2014-04-30 02:39:40', '2014-04-01', '2014-04-08', '2014-04-01', 7, 3, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 00:39:40', '2014-04-30 00:39:40', 0),
+(18, '6/2014', 7, '2014-04-30 03:01:23', '2014-04-01', '2014-04-09', '2014-04-01', 6, 1, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 01:01:23', '2014-04-30 01:01:23', 0),
+(19, '7/2014', 9, '2014-04-30 03:02:33', '2014-04-01', '2014-04-08', '2014-04-01', 5, 2, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 01:02:33', '2014-04-30 01:02:33', 0);
 
 -- --------------------------------------------------------
 
@@ -342,9 +371,19 @@ CREATE TABLE IF NOT EXISTS `reservation_excursion` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `reservationId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `destinationId` (`destinationId`,`excursionId`,`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  KEY `destinationId` (`destinationId`,`excursionId`,`id`),
+  KEY `reservationId` (`reservationId`),
+  KEY `ExcID` (`excursionId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `reservation_excursion`
+--
+
+INSERT INTO `reservation_excursion` (`destinationId`, `excursionId`, `created_at`, `updated_at`, `id`, `reservationId`) VALUES
+(15, 2, '2014-04-30 00:39:40', '2014-04-30 00:39:40', 1, 17);
 
 -- --------------------------------------------------------
 
@@ -361,7 +400,14 @@ CREATE TABLE IF NOT EXISTS `reservation_numbers` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `reservation_numbers`
+--
+
+INSERT INTO `reservation_numbers` (`id`, `year`, `number`, `internalNum`, `created_at`, `updated_at`) VALUES
+(1, 2014, 8, 1, '0000-00-00 00:00:00', '2014-04-30 01:02:33');
 
 -- --------------------------------------------------------
 
@@ -379,7 +425,19 @@ CREATE TABLE IF NOT EXISTS `reservation_prices` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`id`,`reservationId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `reservation_prices`
+--
+
+INSERT INTO `reservation_prices` (`id`, `priceItem`, `priceDin`, `priceEur`, `reservationId`, `created_at`, `updated_at`) VALUES
+(1, 'aranzman', 3500, 300, 14, '2014-04-30 00:35:51', '2014-04-30 00:35:51'),
+(2, 'aranzman', 3500, 300, 15, '2014-04-30 00:37:59', '2014-04-30 00:37:59'),
+(3, 'aranzman', 3500, 300, 16, '2014-04-30 00:39:03', '2014-04-30 00:39:03'),
+(4, 'aranzman', 3500, 300, 17, '2014-04-30 00:39:40', '2014-04-30 00:39:40'),
+(5, 'aranzman', 15400, 130, 18, '2014-04-30 01:01:23', '2014-04-30 01:01:23'),
+(6, 'aranzman', 30000, 270, 19, '2014-04-30 01:02:33', '2014-04-30 01:02:33');
 
 -- --------------------------------------------------------
 
@@ -404,7 +462,7 @@ CREATE TABLE IF NOT EXISTS `travel_deals` (
   KEY `travel_deal_org_id_ind` (`organizer_id`),
   KEY `travel_deal_dest_id_ind` (`destination_id`),
   KEY `accomodation_unit_id` (`accomodation_unit_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=27 ;
 
 --
 -- Dumping data for table `travel_deals`
@@ -477,6 +535,14 @@ ALTER TABLE `passangers`
 ALTER TABLE `reservations`
   ADD CONSTRAINT `reservations_ibfk_1` FOREIGN KEY (`passanger_id`) REFERENCES `passanger` (`id`),
   ADD CONSTRAINT `traveldealfk` FOREIGN KEY (`travel_deal_id`) REFERENCES `travel_deals` (`id`);
+
+--
+-- Constraints for table `reservation_excursion`
+--
+ALTER TABLE `reservation_excursion`
+  ADD CONSTRAINT `res_exc_id` FOREIGN KEY (`reservationId`) REFERENCES `reservations` (`id`),
+  ADD CONSTRAINT `dest_exc_id` FOREIGN KEY (`destinationId`) REFERENCES `destinations` (`id`),
+  ADD CONSTRAINT `exc_id` FOREIGN KEY (`excursionId`) REFERENCES `excursion` (`id`);
 
 --
 -- Constraints for table `travel_deals`
