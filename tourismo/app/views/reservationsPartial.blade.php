@@ -14,6 +14,7 @@ $(function(){
 			<th>Organizator putovanja</th>
 			<th>Destinacija</th>
 			<th>Status rezervacije</th>
+			<th></th>
 		</tr>
 @foreach($reservations as $reservation)
 	<tr>
@@ -32,6 +33,11 @@ $(function(){
 		</td>
 		<td>
 			{{$reservation->status}}
+		</td>
+		<td>
+			<a role="button" class="paymentNewModal btn btn-default btn-small" name="{{$reservation->id}}" id="addNewPayment" data-toggle="modal" href="#paymentNewModal" title="Dodaj novo plaćanje">
+				<span class="icon-plus"></span>
+			</a>
 		</td>
 	</tr>
 @endforeach

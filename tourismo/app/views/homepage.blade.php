@@ -29,83 +29,83 @@
 			<!-- <div style="background-image: url(images/clock_travel_baner.jpg);background-position: 90px -120px;background-repeat: no-repeat;margin-bottom:10px;width: 750px;height: 200px;"></div> -->
 
 	       <a href="reservations">
-	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
+	        <div class="tile double live bg-darkGray" data-role="live-tile" data-effect="slideUp">
 	         <!-- <div class="tile-content image"><img src="images/reservations.jpg"></div> -->
 	          <div class="tile-content image"><img src="images/booking_reservation.jpg"></div>
 	          <div class="tile-status bg-dark opacity">
-                 <span class="label">Rezervacije</span>
+                 <span class="label" style="font-size: 12pt">Rezervacije</span>
               </div>
 	        </div>
 	      </a>
 	      <a href="passangers">
-	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
+	        <div class="tile double live bg-darkGray" data-role="live-tile" data-effect="slideUp">
 	          <div class="tile-content image"><img src="images/travelers.png"></div>
 	          <!-- <div class="tile-content image"><img src="images/travelers2.jpg"></div> -->
 	          <div class="tile-status bg-dark opacity">
-                 <span class="label">Putnici</span>
+                 <span class="label" style="font-size: 12pt">Putnici</span>
               </div>
 	        </div>
 	      </a>
 	      <a href="destinations">
-	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
+	        <div class="tile double live bg-darkGray" data-role="live-tile" data-effect="slideUp">
 	          <div class="tile-content image"><img src="images/destinations.jpg"></div>
 	          <!-- <div class="tile-content image"><img src="images/destinations2.jpg"></div> -->
 	          <div class="tile-status bg-dark opacity">
-                 <span class="label">Destinacije</span>
+                 <span class="label" style="font-size: 12pt">Destinacije</span>
               </div>
 	        </div>
 	      </a>
 	      <a href="traveldeals">
-	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
+	        <div class="tile double live bg-darkGray" data-role="live-tile" data-effect="slideUp">
 	          <!-- <div class="tile-content image"><img src="images/arrangement.jpg"></div> -->
 	          <div class="tile-content image"><img src="images/arrangement2.jpg"></div>
 	          <div class="tile-status bg-dark opacity">
-                 <span class="label">Aranžmani</span>
+                 <span class="label" style="font-size: 12pt">Aranžmani</span>
               </div>
 	        </div>
 	      </a>
 	      <a href="payments">
-	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
+	        <div class="tile double live bg-darkGray" data-role="live-tile" data-effect="slideUp">
 	          <!-- <div class="tile-content image"><img src="images/credit-card.jpg"></div> -->
 	          <div class="tile-content image"><img src="images/pay.jpg"></div>
 	          <div class="tile-status bg-dark opacity">
-                 <span class="label">Plaćanja</span>
+                 <span class="label" style="font-size: 12pt">Plaćanja</span>
               </div>
 	        </div>
 	      </a>
 	      <a href="reports">
-	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
+	        <div class="tile double live bg-darkGray" data-role="live-tile" data-effect="slideUp">
 	          <!-- <div class="tile-content image"><img src="images/report.jpg"></div> -->
 	          <div class="tile-content image"><img src="images/report2.jpg"></div>
 	          <div class="tile-status bg-dark opacity">
-                 <span class="label">Izveštaji</span>
+                 <span class="label" style="font-size: 12pt">Izveštaji</span>
               </div>
 	        </div>
 	      </a>
 	      <a href="accommodation">
-	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
+	        <div class="tile double live bg-darkGray" data-role="live-tile" data-effect="slideUp">
 	          <!-- <div class="tile-content image"><img src="images/accomodation.jpg"></div> -->
 	          <div class="tile-content image"><img src="images/accommodation-key.jpg"></div>
 	          <div class="tile-status bg-dark opacity">
-                 <span class="label">Smeštaj</span>
+                 <span class="label" style="font-size: 12pt">Smeštaj</span>
               </div>
 	        </div>
 	      </a>
 	      <a href="organizators">
-	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
+	        <div class="tile double live bg-darkGray" data-role="live-tile" data-effect="slideUp">
 	          <!-- <div class="tile-content image"><img src="images/partners.jpg"></div> -->
 	          <div class="tile-content image"><img src="images/partners2.jpg"></div>
 	          <div class="tile-status bg-dark opacity">
-                 <span class="label">Organizatori</span>
+                 <span class="label" style="font-size: 12pt">Organizatori</span>
               </div>
 	        </div>
 	      </a>
 	      <a href="users">
-	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
+	        <div class="tile double live bg-darkGray" data-role="live-tile" data-effect="slideUp">
 	          <div class="tile-content image"><img src="images/users.jpg"></div>
 	          <!-- <div class="tile-content image"><img src="images/users2.jpg"></div> -->
 	          <div class="tile-status bg-dark opacity">
-                 <span class="label">Korisnici</span>
+                 <span class="label" style="font-size: 12pt">Korisnici</span>
               </div>
 	        </div>
 	      </a>

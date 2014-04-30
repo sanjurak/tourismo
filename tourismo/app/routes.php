@@ -63,6 +63,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('initializePS', array('as' => 'initializePS','uses' => 'ReservationsController@initializePS'));
 	Route::post('accommodationAddRes', array('as' => 'accommodationAddRes','uses' => 'ReservationsController@accomodationAddRes'));
 	Route::post('createReservation', array('as' => 'createReservation','uses' => 'ReservationsController@store'));
+	Route::get('paymentRsrvDetails', array('as' => 'paymentRsrvDetails', 'uses' => 'ReservationsController@detailsPayment'));
 
 	Route::get('destinations', array('as'=>'destinations', 'uses'=>'DestinationsController@index'));
 
@@ -90,6 +91,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('paymentDetails', array('as' => 'paymentDetails', 'uses' => 'PaymentsController@details'));
 	Route::get('autocompletePayment', array('as' => 'autocompletePayment', 'uses' => 'PaymentsController@autosearch'));
 	Route::post('basicPaymentsSearch', array('as' => 'basicPaymentsSearch', 'uses' => 'PaymentsController@basicSearch'));
+	Route::post('storePayment', array('as'=>'storePayment', 'uses'=>'PaymentsController@store'));
 
 	Route::get('reports', array('as'=>'reports', 'uses'=>'ReportsController@index'));
 

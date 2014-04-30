@@ -17,6 +17,8 @@ $(function(){
 			<!-- <td>Datum rođenja</td> -->
 			<td>Broj Pasoša</td>
 			<td>JMBG</td>
+			<td></td>
+			<td></td>
 		</tr>
 	</thead>
 	<tbody>

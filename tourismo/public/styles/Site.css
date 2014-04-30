@@ -59,3 +59,7 @@ form:legend{
 	background-position: 20px 10px;
 	background-repeat: no-repeat;
 }
+
+.datepicker{
+	z-index: 1154 !important;
+}

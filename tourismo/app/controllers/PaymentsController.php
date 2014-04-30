@@ -32,19 +32,21 @@ class PaymentsController extends \BaseController {
 	{
 		$payment = new Payment;
 		
-		$passanger->jmbg = Input::get('jmbg');
-		$passanger->name = Input::get('name');
-		$passanger->surname = Input::get('surname');
-		$passanger->address = Input::get('address');
-		$passanger->gender = Input::get('gender');
-		$passanger->tel = Input::get('tel');
-		$passanger->mob = Input::get('mob');
-		$passanger->passport = Input::get('passport');
-		$birth_date = date('Y-m-d', strtotime(Input::get('birth_date')));
-		if ((string)$birth_date != "1970-01-01") {
-			$passanger->birth_date = $birth_date;
+		$payment->reservation_id = Input::get('reservation_id');
+		$payment->passanger_id = Input::get('passanger_search');
+		$payment->payment_type = Input::get('payment_type');
+		$payment->card_type = Input::get('card_type');
+		$date = date('Y-m-d', strtotime(Input::get('res_date')));
+		if ((string)$date != "1970-01-01") {
+			$payment->date = $date;
 		}
-		$passanger->save();
+		$payment->exchange_rate = Input::get('exchange_rate');
+		$payment->amount_din = Input::get('amount_din');
+		$payment->amount_eur_din = Input::get('amount_eur_din')*Input::get('exchange_rate');
+		$payment->fiscal_slip = Input::get('fiscal_slip');
+		$payment->description = Input::get('description');
+		
+		$payment->save();
 		
 		return Redirect::back();
 	}
@@ -107,7 +109,7 @@ class PaymentsController extends \BaseController {
 		 $reservations = Reservation::where('reservation_number','LIKE',$query.'%')->get(array('reservation_number AS name'))->toArray();
 
 		 $jmbgs = $this->appendValue($jmbgs,'jmbg','class');
-		 $reservations = $this->appendValue($reservations,'name','class');
+		 $reservations = $this->appendValue($reservations,'reservation_number','class');
 		 
 		// var_dump($all_surnames);
 		 $data = array_merge($jmbgs, $reservations);
