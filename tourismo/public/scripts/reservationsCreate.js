@@ -13,7 +13,7 @@ $(function(){
 	$("#addTravelDeal").click(function(event){
 		event.preventDefault();
 		$("#traveldealDetails").slideUp();
-		$("#traveldealNew").slideDown();
+		$("#traveldealNew").slideToggle();
 
 	});
 
@@ -232,9 +232,9 @@ $(function(){
 		event.preventDefault();
 		var units = $(".hiddenUnit").clone(true);
 		units.show().removeClass("hiddenUnit");
-		units.find("#nameUnitModNew").attr("name","Unit["+counter+"][name]");
-		units.find("#capacityUnitModNew").attr("name","Unit["+counter+"][capacity]");
-		units.find("#numberUnitModNew").attr("name","Unit["+counter+"][number]");
+		units.find("#nameUnitModNew").attr("name","Unit["+counter+"][name]").addClass("validate[required]");
+		units.find("#capacityUnitModNew").attr("name","Unit["+counter+"][capacity]").addClass("validate[required]");
+		units.find("#numberUnitModNew").attr("name","Unit["+counter+"][number]").addClass("validate[required]");
 
 		counter++;
 		$(units).appendTo("#units");
@@ -332,17 +332,25 @@ $(function(){
         	var item = this.options[this.items[0]];
         	this.close();
 
+            $("#traveldealNew").hide();
+
         	$("#category").val(item["category"]["name"]);
 				$("#organizer").val(item["organizer"]["name"]);
 				$("#destination").val(item["destination"]["name"]);
 				$("#accomodation").val(item["accomodation"]+" "+item["accomodation_unit"]["name"]+"/"+item["accomodation_unit"]["number"]);
 				$("#transportation").val(item["transportation"]);
 				$("#service").val(item["service"]);
+                $("#traveldealId").val(item["id"]);
 
 				$("#traveldealDetails").slideDown();
+
+                $("#addPaymentItem").trigger("click");
+                $("#paymentItems div").last().find("#paymentItemEuro").val(item["price_eur"]).trigger("focusout");
+                $("#paymentItems div").last().find("#paymentItemDin").val(item["price_din"]).trigger("focusout");
         }
 	});
 
+var psgCounter = 0;
 
 	$("#passangersSel").selectize({
 		valueField: 'id',
@@ -375,10 +383,12 @@ $(function(){
         	this.close();
 
         	$("<div class='psg-item'>"+item.passanger
-                +"<input type='hidden' name='passangers' class='passangers' value='"+item.id+"'/>"
+                +"<input type='hidden' name='Passangers[" + psgCounter +"]' class='passangers' value='"+item.id+"'/>"
                 +"<a href='#' class='remove-psg pull-right'>"
                 +"<span class='icon icon-remove-sign'></span></a></div>")
             .appendTo("#passangersDetails");
+
+            psgCounter++;
         }
 	});
 
@@ -397,21 +407,38 @@ $(function(){
         event.preventDefault();
         var items = $(".hiddenItem").clone(true);
         items.show().removeClass("hiddenItem");
-        items.find("#paymentItemName").attr("name","Item["+itemCounter+"][name]");
-        items.find("#paymentItemEuro").attr("name","Item["+itemCounter+"][euro]");
-        items.find("#paymentItemDin").attr("name","Item["+itemCounter+"][din]");
-        items.find("#paymentItemNum").attr("name","Item["+itemCounter+"][num]");
-        items.find("#paymentItemTotalDin").attr("name","Item["+itemCounter+"][totaldin]");
-        items.find("#paymentItemTotalEuro").attr("name","Item["+itemCounter+"][totaleuro]");
+        items.find("#paymentItemName").attr("name","Item["+itemCounter+"][name]").addClass("validate[required]");
+        items.find("#paymentItemEuro").attr("name","Item["+itemCounter+"][euro]").addClass("validate[required]");
+        items.find("#paymentItemDin").attr("name","Item["+itemCounter+"][din]").addClass("validate[required]");
+        items.find("#paymentItemNum").attr("name","Item["+itemCounter+"][num]").addClass("validate[required]");
+        items.find("#paymentItemTotalDin").attr("name","Item["+itemCounter+"][totaldin]").addClass("validate[required]");
+        items.find("#paymentItemTotalEuro").attr("name","Item["+itemCounter+"][totaleuro]").addClass("validate[required]");
+        items.find("#isExcursion").attr("name","Item["+itemCounter+"][isExcursion]").addClass("excursionChk");
 
         itemCounter++;
         $(items).appendTo("#paymentItems");
     });
 
-    $("#paymentItemEuro").click(function(){
+    $(".euroItem").focusout(function(){
         var total = $(this).val() * $(this).siblings("#paymentItemNum").val();
-        $("#paymentItemTotalEuro").val(total);
-    });      
+       $(this).siblings("#paymentItemTotalEuro").val(total);
+
+       var val = +$("#totalEUR").val() + total;
+       $("#totalEUR").val(val);
+    });  
+
+    $(".dinItem").focusout(function(){
+        var total = $(this).val() * $(this).siblings("#paymentItemNum").val();
+       $(this).siblings("#paymentItemTotalDin").val(total);
+
+       var val = +$("#totalDIN").val() + total;
+       $("#totalDIN").val(val);
+    });   
+
+    $(".numItem").focusout(function(){
+        $(this).siblings(".euroItem").trigger("focusout");
+        $(this).siblings(".dinItem").trigger("focusout");
+    });    
 
     $('#birth_datepicker input').click(function(event){
             event.preventDefault();
@@ -453,5 +480,75 @@ $(function(){
                 selectize.addItem(data.passanger);
             }
         })
+    });
+
+    $('#start_datepicker input').datepicker({
+        format: "yyyy/mm/dd",
+        viewMode: 2,
+        autoclose: true
+    });
+
+    $("#start_datepicker span").click(function(){
+      $('#start_datepicker input').datepicker("show");  
+    });
+
+
+    $('#end_datepicker input').datepicker({
+        format: "yyyy/mm/dd",
+        viewMode: 2,
+        autoclose: true
+    });
+
+    $("#end_datepicker span").click(function(){
+      $('#end_datepicker input').datepicker("show");  
+    });
+
+
+    $('#travel_datepicker input').datepicker({
+        format: "yyyy/mm/dd",
+        viewMode: 2,
+        autoclose: true
+    });
+
+    $("#travel_datepicker span").click(function(){
+      $('#travel_datepicker input').datepicker("show");  
+    });
+
+    $("#createReservationForm").validationEngine();
+    $("#paymentDetailsForm").validationEngine();
+    $("#passangersDetailsForm").validationEngine();
+
+    $("#createReservationForm").submit(function(e){
+       e.preventDefault();
+       var internalChecked = $("#internal").is(":checked");
+       var data = $("#createReservationForm").serialize() + "&" + $("#passangersDetailsForm").serialize() + "&" + $("#paymentDetailsForm").serialize() + "&Internal="+internalChecked;
+       
+       $.each($(".excursionChk"), function(){
+            data += "&"+$(this).attr("name") + "=" + $(this).is(":checked");
+       });
+
+        $.ajax({
+
+            url: "createReservation",
+            type: "POST",
+            data: data,
+            success:function(data)
+            {
+                alert(data);
+                 // window.location.href = "reservations";
+            },
+            error: function(){
+
+            }
+        });
+    });
+
+    $("#createReservationBtn").click(function(e){
+       e.preventDefault();
+       if($("#passangersDetails").is(":empty"))
+            $("#psgMessage").show();
+       if($("#createReservationForm").validationEngine("validate") && $("#passangersDetailsForm").validationEngine("validate") && $("#paymentDetailsForm").validationEngine("validate"))
+            $("#createReservationForm").trigger("submit");
+        
     });
 });

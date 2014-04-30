@@ -22,7 +22,7 @@ Route::get('/', array('as'=>'loginpage', function()
 
 Route::get('/hello', function()
 {
-	return View::make('hello');
+	return View::make('nesto');
 });
 
 Route::get('/homepage', function()
@@ -62,6 +62,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('initializeTD', array('as' => 'initializeTD','uses' => 'ReservationsController@initializeTD'));
 	Route::get('initializePS', array('as' => 'initializePS','uses' => 'ReservationsController@initializePS'));
 	Route::post('accommodationAddRes', array('as' => 'accommodationAddRes','uses' => 'ReservationsController@accomodationAddRes'));
+	Route::post('createReservation', array('as' => 'createReservation','uses' => 'ReservationsController@store'));
 
 	Route::get('destinations', array('as'=>'destinations', 'uses'=>'DestinationsController@index'));
 
