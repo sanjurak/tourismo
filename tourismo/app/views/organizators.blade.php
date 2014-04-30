@@ -5,6 +5,15 @@
 @stop
 
 @section('content')
+<div class="container">
+	<nav class="breadcrumbs large">
+	    <ul class="pull-left">
+	        <li><a href="homepage">Home</a></li>
+	        <li class="active"><a href="#">Organizatori</a></li>
+	    </ul>
+	</nav>
+</div>
+</br>
 
 <div id="orgBasicSearch" class="row">
 	<div class="container">

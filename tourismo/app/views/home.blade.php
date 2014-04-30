@@ -72,6 +72,7 @@
      </div>
 
        <div id='footer' class="row">
+       		<!-- <div style="background-image: url(images/clock_logo.png);background-repeat: no-repeat;margin-bottom:10px;width: 750px;height: 200px;"></div> -->
        		@yield('footer')
        </div>
     </body>

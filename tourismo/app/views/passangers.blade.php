@@ -1,9 +1,16 @@
 @extends('home')
 @section('content')
+{{HTML::script('scripts/passangers.js')}}
 
-<h1><a href="homepage"><i class="icon-circle-arrow-left large"></i></a>
-	Putnici
-</h1>
+<div class="container">
+	<nav class="breadcrumbs large">
+	    <ul class="pull-left">
+	        <li><a href="homepage">Home</a></li>
+	        <li class="active"><a href="#">Putnici</a></li>
+	    </ul>
+	</nav>
+</div>
+</br>
 
 <div id="basicsearch" class="row">
 	<div class='form-search'>

@@ -6,6 +6,16 @@
 
 @section('content')
 
+<div class="container">
+	<nav class="breadcrumbs large">
+	    <ul class="pull-left">
+	        <li><a href="homepage">Home</a></li>
+	        <li class="active"><a href="#">Smeštaj</a></li>
+	    </ul>
+	</nav>
+</div>
+</br>
+
 <div id="accBasicSearch" class="row">
 	<div class="container">
 		<div class='form-search'>

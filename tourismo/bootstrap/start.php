@@ -69,5 +69,6 @@ require $framework.'/Illuminate/Foundation/start.php';
 |
 */
 include($app['path.base'].'/app/models/DisplayTrvlDeal.php');
+include($app['path.base'].'/app/models/ExtendedPayment.php');
 
 return $app;
