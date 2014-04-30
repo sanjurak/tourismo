@@ -47,7 +47,7 @@ form:legend{
 .empty { color: gray; }
 
 .medium-width{
-	min-width:150px;
+	min-width:130px;
 }
 
 .wide600{
@@ -58,4 +58,8 @@ form:legend{
 	background-image: url(images/clock_logo.png);
 	background-position: 20px 10px;
 	background-repeat: no-repeat;
+}
+
+.input-medium{
+	width:130px;
 }

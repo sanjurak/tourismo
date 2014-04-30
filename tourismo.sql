@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 30, 2014 at 06:58 PM
+-- Generation Time: Apr 30, 2014 at 11:07 PM
 -- Server version: 5.6.12-log
 -- PHP Version: 5.4.16
 
@@ -274,7 +274,7 @@ CREATE TABLE IF NOT EXISTS `passangers` (
   PRIMARY KEY (`id`),
   KEY `pass_rsrv_id_ind` (`reservation_id`),
   KEY `pass_id_ind` (`passanger_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf16 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf16 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `passangers`
@@ -286,7 +286,13 @@ INSERT INTO `passangers` (`id`, `passanger_id`, `reservation_id`, `created_at`, 
 (3, 2, 17, '2014-04-30 00:39:40', '2014-04-30 00:39:40'),
 (4, 1, 18, '2014-04-30 01:01:23', '2014-04-30 01:01:23'),
 (5, 4, 18, '2014-04-30 01:01:23', '2014-04-30 01:01:23'),
-(6, 2, 19, '2014-04-30 01:02:33', '2014-04-30 01:02:33');
+(6, 2, 19, '2014-04-30 01:02:33', '2014-04-30 01:02:33'),
+(7, 1, 20, '2014-04-30 21:21:11', '2014-04-30 21:21:11'),
+(8, 4, 21, '2014-04-30 21:22:02', '2014-04-30 21:22:02'),
+(9, 4, 22, '2014-04-30 21:22:04', '2014-04-30 21:22:04'),
+(10, 3, 23, '2014-04-30 22:00:14', '2014-04-30 22:00:14'),
+(11, 3, 24, '2014-04-30 22:00:33', '2014-04-30 22:00:33'),
+(12, 1, 25, '2014-04-30 22:59:58', '2014-04-30 22:59:58');
 
 -- --------------------------------------------------------
 
@@ -343,7 +349,7 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   UNIQUE KEY `reservation_number` (`reservation_number`),
   KEY `rsrv_pass_id_ind` (`passanger_id`),
   KEY `travel_deal_id` (`travel_deal_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `reservations`
@@ -357,7 +363,13 @@ INSERT INTO `reservations` (`id`, `reservation_number`, `travel_deal_id`, `reser
 (16, '4/2014', 8, '2014-04-30 02:39:03', '2014-04-01', '2014-04-08', '2014-04-01', 7, 3, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 00:39:03', '2014-04-30 00:39:03', 0),
 (17, '5/2014', 8, '2014-04-30 02:39:40', '2014-04-01', '2014-04-08', '2014-04-01', 7, 3, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 00:39:40', '2014-04-30 00:39:40', 0),
 (18, '6/2014', 7, '2014-04-30 03:01:23', '2014-04-01', '2014-04-09', '2014-04-01', 6, 1, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 01:01:23', '2014-04-30 01:01:23', 0),
-(19, '7/2014', 9, '2014-04-30 03:02:33', '2014-04-01', '2014-04-08', '2014-04-01', 5, 2, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 01:02:33', '2014-04-30 01:02:33', 0);
+(19, '7/2014', 9, '2014-04-30 03:02:33', '2014-04-01', '2014-04-08', '2014-04-01', 5, 2, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 01:02:33', '2014-04-30 01:02:33', 0),
+(20, '8/2014', 5, '2014-04-30 23:21:10', '2014-05-01', '2014-05-08', '2014-05-01', 5, 1, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 21:21:10', '2014-04-30 21:21:10', 0),
+(21, '9/2014', 7, '2014-04-30 23:22:02', '2014-05-01', '2014-05-08', '2014-05-01', 5, 4, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 21:22:02', '2014-04-30 21:22:02', 0),
+(22, '10/2014', 7, '2014-04-30 23:22:04', '2014-05-01', '2014-05-08', '2014-05-01', 5, 4, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 21:22:03', '2014-04-30 21:22:03', 0),
+(23, '11/2014', 21, '2014-05-01 00:00:14', '2014-04-25', '2014-04-30', '2014-04-24', 3, 3, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 22:00:14', '2014-04-30 22:00:14', 0),
+(24, '12/2014', 21, '2014-05-01 00:00:33', '2014-04-25', '2014-04-30', '2014-04-24', 3, 3, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 22:00:33', '2014-04-30 22:00:33', 0),
+(25, '13/2014', 9, '2014-05-01 00:59:58', '2014-07-01', '2014-07-08', '2014-07-01', 5, 1, NULL, NULL, 'Aktivna', '0.00', '', 0, '', '', '2014-04-30 22:59:58', '2014-04-30 22:59:58', 0);
 
 -- --------------------------------------------------------
 
@@ -407,7 +419,7 @@ CREATE TABLE IF NOT EXISTS `reservation_numbers` (
 --
 
 INSERT INTO `reservation_numbers` (`id`, `year`, `number`, `internalNum`, `created_at`, `updated_at`) VALUES
-(1, 2014, 8, 1, '0000-00-00 00:00:00', '2014-04-30 01:02:33');
+(1, 2014, 14, 1, '0000-00-00 00:00:00', '2014-04-30 22:59:58');
 
 -- --------------------------------------------------------
 
@@ -425,7 +437,7 @@ CREATE TABLE IF NOT EXISTS `reservation_prices` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`id`,`reservationId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `reservation_prices`
@@ -437,7 +449,13 @@ INSERT INTO `reservation_prices` (`id`, `priceItem`, `priceDin`, `priceEur`, `re
 (3, 'aranzman', 3500, 300, 16, '2014-04-30 00:39:03', '2014-04-30 00:39:03'),
 (4, 'aranzman', 3500, 300, 17, '2014-04-30 00:39:40', '2014-04-30 00:39:40'),
 (5, 'aranzman', 15400, 130, 18, '2014-04-30 01:01:23', '2014-04-30 01:01:23'),
-(6, 'aranzman', 30000, 270, 19, '2014-04-30 01:02:33', '2014-04-30 01:02:33');
+(6, 'aranzman', 30000, 270, 19, '2014-04-30 01:02:33', '2014-04-30 01:02:33'),
+(7, 'aranzman', 34500, 300, 20, '2014-04-30 21:21:11', '2014-04-30 21:21:11'),
+(8, 'ar', 15400, 130, 21, '2014-04-30 21:22:02', '2014-04-30 21:22:02'),
+(9, 'ar', 15400, 130, 22, '2014-04-30 21:22:04', '2014-04-30 21:22:04'),
+(10, 'aranzman', 45000, 400, 23, '2014-04-30 22:00:14', '2014-04-30 22:00:14'),
+(11, 'aranzman', 45000, 400, 24, '2014-04-30 22:00:33', '2014-04-30 22:00:33'),
+(12, 'aranzman', 30000, 270, 25, '2014-04-30 22:59:58', '2014-04-30 22:59:58');
 
 -- --------------------------------------------------------
 
@@ -494,6 +512,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `surname` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
+  `remember_token` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -501,10 +520,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`username`, `password`, `role_id`, `name`, `surname`, `created_at`, `updated_at`) VALUES
-('andjelko', '$2y$10$/872CarBbCWQ1TWH07RmJ.4qnei47k9pf03SyyhDWkOSmHQSP1LpO', 1, 'Marko', 'Andjelkovic', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-('pera', 'pera', 0, 'Petar', 'Petrovic', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-('sanjurak', 'sanjurak', 0, 'Sanja', 'Bogdanović Dinić', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `users` (`username`, `password`, `role_id`, `name`, `surname`, `created_at`, `updated_at`, `remember_token`) VALUES
+('andjelko', '$2y$10$/872CarBbCWQ1TWH07RmJ.4qnei47k9pf03SyyhDWkOSmHQSP1LpO', 1, 'Marko', 'Andjelkovic', '0000-00-00 00:00:00', '0000-00-00 00:00:00', ''),
+('pera', 'pera', 0, 'Petar', 'Petrovic', '0000-00-00 00:00:00', '0000-00-00 00:00:00', ''),
+('sanjurak', 'sanjurak', 0, 'Sanja', 'Bogdanović Dinić', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '');
 
 --
 -- Constraints for dumped tables
