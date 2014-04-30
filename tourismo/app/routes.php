@@ -64,6 +64,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::post('accommodationAddRes', array('as' => 'accommodationAddRes','uses' => 'ReservationsController@accomodationAddRes'));
 	Route::post('createReservation', array('as' => 'createReservation','uses' => 'ReservationsController@store'));
 	Route::get('paymentRsrvDetails', array('as' => 'paymentRsrvDetails', 'uses' => 'ReservationsController@detailsPayment'));
+	Route::get('contract/{id}', array('as' => 'contract','uses' => 'ReservationsController@contract'));
 
 	Route::get('destinations', array('as'=>'destinations', 'uses'=>'DestinationsController@index'));
 

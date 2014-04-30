@@ -6,53 +6,45 @@
 </style>
 
 <div class="row">
-<div class="container">
 	<div class="span6">Datum rezervacije: {{date("d/m/Y")}}</div>
 	<div class="span6"><div class="pull-right"><input type="checkbox" name="internal" id="iternal">Interna </div></div>
 </div>
-</div>
 
 <div class="row">
-	<div class="conatiner">
 		<div class="span12">
-			<div class="container">
 			<fieldset>
 				<legend>Detalji aranžmana</legend>
 				<div class="container">
 					<div class="row">
-						<div class="container">
-							<div class="span12 pull-left">						
-								<select name='traveldeals' id='traveldealsSel' placeholder="Aranžman" class='form-control'></select>
-								<a href="#" class="btn btn-small btn-default pull-right" id="addTravelDeal">Dodaj novi aranžman</a>
-							</div>
+						<div class="span12">						
+							<select name='traveldeals' id='traveldealsSel' placeholder="Aranžman" class='form-control'></select>
+							<a href="#" class="btn btn-small btn-default pull-right" id="addTravelDeal">Dodaj novi aranžman</a>
 						</div>
 					</div>
 
 					<div id="traveldealDetails" class="row">
-						<div class="container">
-							<div class="row">	
-								<div class="container">
-									<div class="span4"><label>Kategorija aranžmana:</label><input type="text" id="category" name="category"/></div>
-									<div class="span4"><label>Organizator aranžmana:</label><input type="text" id="organizer" name="organizer"/></div>
-									<div class="span4"><label>Destinacija:</label><input type="text" id="destination" name="destination"/></div>
+						<div class="span12">
+							<div class="container">
+								<div class="row">	
+										<div class="span4"><label>Kategorija aranžmana:</label><input type="text" id="category" name="category"/></div>
+										<div class="span4"><label>Organizator aranžmana:</label><input type="text" id="organizer" name="organizer"/></div>
+										<div class="span4"><label>Destinacija:</label><input type="text" id="destination" name="destination"/></div>
 								</div>
-							</div>
-							<div class="row">
-								<div class="container">							
-									<div class="span4"><label>Smeštaj:</label><input type="text" id="accomodation" name="accomodation"/></div>
-									<div class="span4"><label>Prevoz:</label><input type="text" id="transportation" name="transportation"/></div>
-									<div class="span4"><label>Usluga:</label><input type="text" id="service" name="service"/>
-											
-									</div>
+								<div class="row">						
+										<div class="span4"><label>Smeštaj:</label><input type="text" id="accomodation" name="accomodation"/></div>
+										<div class="span4"><label>Prevoz:</label><input type="text" id="transportation" name="transportation"/></div>
+										<div class="span4"><label>Usluga:</label><input type="text" id="service" name="service"/>
+												
+										</div>
 								</div>
 							</div>
 						</div>
 					</div>
 
 					<div id="traveldealNew" class="row">
-						<div class="container">
-							<div class="row">
-								<div class="container">
+						<div class="span12">
+							<div class="container">
+								<div class="row">
 									<div class="span12">
 										<a role="button" class="btn btn-small btn-alert" href="#" id="addCategoryBtn">Dodaj kategoriju</a>
 				
@@ -63,112 +55,97 @@
 										<a role="button" class="btn btn-small btn-alert" href="#" id="addAccomodationBtn">Dodaj smeštaj</a>
 									</div>
 								</div>
-							</div>
-							<div class="row">
-								<div class="container">
+								<div class="row">
 									<div class="span12">
 										<form id="traveldealNewForm" name="traveldealNewForm">
+											<div class="container">
 											<div class="row">
-												<div class="container">	
-													<div class="span4">
-														<label>Kategorija aranžmana:</label>
-														<select name='category' id='categorySel' placeholder="Kategorija" class='form-control'></select>
+												<div class="span4">
+													<label>Kategorija aranžmana:</label>
+													<select name='category' id='categorySel' placeholder="Kategorija" class='form-control'></select>
+												</div>
+												<div class="span4">
+														<label>Organizator aranžmana:</label>
+														<select name='organizer' id='organizerSel' placeholder="Organizator" class='form-control'></select>
 													</div>
-													<div class="span4">
-															<label>Organizator aranžmana:</label>
-															<select name='organizer' id='organizerSel' placeholder="Organizator" class='form-control'></select>
-														</div>
-													<div class="span4">
-															<label>Destinacija:</label>
-															<select name='destination' id='destinationSel' placeholder="Destinacija" class='form-control'></select>
-													</div>
+												<div class="span4">
+														<label>Destinacija:</label>
+														<select name='destination' id='destinationSel' placeholder="Destinacija" class='form-control'></select>
 												</div>
 											</div>
-											<div class="row">	
-												<div class="container">						
-													<div class="span4">
-															<label>Smeštaj:</label>
-															<select name='accomodation' id='accomodationSel' placeholder="Smeštaj" class='form-control'></select>
-														</div>
-													<div class="span4">
-															<label>Prevoz:</label>
-															<input type="text" name="transportation" id="transportation" class="form-control input-large"/>
-														</div>
-													<div class="span4">
-															<label>Usluga:</label>
-															<input type="text" name="service" id="service"/>
+											<div class="row">						
+												<div class="span4">
+														<label>Smeštaj:</label>
+														<select name='accomodation' id='accomodationSel' placeholder="Smeštaj" class='form-control'></select>
 													</div>
+												<div class="span4">
+														<label>Prevoz:</label>
+														<input type="text" name="transportation" id="transportation" class="form-control input-large"/>
+													</div>
+												<div class="span4">
+														<label>Usluga:</label>
+														<input type="text" name="service" id="service"/>
 												</div>
 											</div>
-											<div class="row">	
-												<div class="container">						
-													<div class="span4">
-															<label>Cena (din):</label>
-															<input type="text" name='priceDin' id='priceDinSel' placeholder="Cena u dinarima" class='form-control' />
-														</div>
-													<div class="span4">
-															<label>Cena (eur):</label>
-															<input type="text" name="priceEur" id="priceEurSel" placeholder="Cena u eurima"/>
+											<div class="row">						
+												<div class="span4">
+														<label>Cena (din):</label>
+														<input type="text" name='priceDin' id='priceDinSel' placeholder="Cena u dinarima" class='form-control' />
 													</div>
+												<div class="span4">
+														<label>Cena (eur):</label>
+														<input type="text" name="priceEur" id="priceEurSel" placeholder="Cena u eurima"/>
 												</div>
 											</div>
 											<div class="row">
-												<div class="container">
-													<div class="span12">
-														<span class="btn btn-default" id="btnAddTravelDeal">Dodaj</span>
-													</div>
+												<div class="span12">
+													<span class="btn btn-default" id="btnAddTravelDeal">Dodaj</span>
 												</div>
 											</div>
+										</div>
 										</form>
 									</div>
 								</div>
 							</div>
-							
 						</div>
 					</div>
-			</div>
+				</div>
 			</fieldset>
 		</div>
-	</div>
-</div></div>
+</div>
 
 <div class="row">
-	<div class="container">
 		<div class="span12">
-			<div class="container">
-
 			<fieldset>
+				
 				<legend>Detalji putnika</legend>
-				<div class="container">
+				<div class="conatiner">
 					<div class="row">
-						<div class="container">
-							<div class="span12 pull-left">						
-								<select name='passangers' id='passangersSel' placeholder="Putnici" class='form-control'></select>
-								<a href="#" class="btn btn-small btn-default pull-right" id="addNewPsg">Dodaj novog putnika</a>
+						<div class="span12">						
+							<select name='passangers' id='passangersSel' placeholder="Putnici" class='form-control'></select>
+							<a href="#" class="btn btn-small btn-default pull-right" id="addNewPsg">Dodaj novog putnika</a>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="span12">
+							<form id="passangersDetailsForm" id="passangersDetailsForm">
+								<div class="span12 pull-left" id="passangersDetails"></div>
+							</form>
+							<div id="psgMessage">
+								<div class="alert alert-danger alert-dismissable">
+								  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+								  <strong>Izaberite putnike za rezervaciju!</strong>
+								</div>
 							</div>
 						</div>
 					</div>
-				
-				<div class="row">
-					<div class="container">
-						<form id="passangersDetailsForm" id="passangersDetailsForm">
-						<div class="span12 pull-left" id="passangersDetails"></div>
-					</form>
-					<div id="psgMessage">
-						<div class="alert alert-danger alert-dismissable">
-						  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						  <strong>Izaberite putnike za rezervaciju!</strong>
-						</div>
-					</div>
-					</div>
-				</div>
 
 					<div class="row" id="passangerNew">
-						<div class="container">
+						<div class="span12">
 							<form id="passangerNewForm" name="passangerNewForm">
-								<div class="row">
-									<div class="container">
-										<div class="span12">
+								<div class="container">
+									<div class="row">
 											<div class="span3 input-control text">
 												<input type="text" name="name" id="name" class="validate[required]" placeholder="Ime"/>
 											</div>
@@ -178,19 +155,15 @@
 											<div class="span3 input-control text">
 												<input type="text" name="address" id="address" class="validate[required]" placeholder="Adresa"/>
 											</div>
-											<div class="span2 input-control text select">
+											<div class="span3 input-control text select">
 												<select class="span2" name="gender" id="gender">
 													<option value="" disabled selected="selected" style='display:none;'>Pol...</option>
 													<option value="m">m</option>
 													<option value="f">f</option>
 												</select>
 											</div>
-										</div>
 									</div>
-								</div>
-								<div class="row">
-									<div class="container">
-										<div class="span12">
+									<div class="row">
 											<div class="span3 input-control text">
 												<input type="text" name="tel" id="tel" placeholder="Telefon"/>
 											</div>
@@ -200,22 +173,17 @@
 											<div class="span3 input-control text">
 												<input type="text" name="jmbg"  class="validate[required]" id="jmbg" placeholder="JMBG"/>
 											 </div>
-											<div class="span2 input-control text">
+											<div class="span3 input-control text">
 												<input type="text" name="passport" id="passport" placeholder="Broj Pasoša"/>
 											</div>
-										</div>
 									</div>
-								</div>
-								<div class="row">
-									<div class="container">
-										<div class="span12">
-											<div class="span3" id="birth_datepicker">
-												<input type="text" class="span2" style="height:100%" id="birth_date" name="birth_date" placeholder="yyyy/mm/dd" autocomplete="off"/>
-												<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
-											</div>
-											<div class="span2">
-												<span class="btn btn-default" id="btnAddNewPsg">Dodaj</span>
-											</div>
+									<div class="row">
+										<div class="span3" id="birth_datepicker">
+											<input type="text" class="span2" style="height:100%" id="birth_date" name="birth_date" placeholder="yyyy/mm/dd" autocomplete="off"/>
+											<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
+										</div>
+										<div class="span2">
+											<span class="btn btn-default" id="btnAddNewPsg">Dodaj</span>
 										</div>
 									</div>
 								</div>
@@ -223,28 +191,22 @@
 						</div>
 					</div>
 				</div>
-				</fieldset>
-			</div>
-		</div>
+			</fieldset>
 	</div>
 </div>
 
 <div class="row">
-	<div class="container">
 	<div class="span12">
-			<fieldset>
-				<legend>Detalji plaćanja</legend>
-				<div class="container">
-					<div class="row">
-						<div class="container">
-							<div class="span12">
-								<a href="#" class="btn btn-default  pull-right" id="addPaymentItem">Dodaj plaćanje</a>
-							</div>
-						</div>
+		<fieldset>
+			<legend>Detalji plaćanja</legend>
+			<div class="container">
+				<div class="row">
+					<div class="span12">
+						<a href="#" class="btn btn-default  pull-right" id="addPaymentItem">Dodaj plaćanje</a>
 					</div>
-					<div class="row">
-						<div class="container">
-							<div class="span12">
+				</div>
+				<div class="row">
+						<div class="span12">
 							<table>
 								<tr>
 									<th class="medium-width">Obračun</th>
@@ -256,12 +218,12 @@
 									<th class="">Izlet</th>
 									<th class=""></th>
 								</tr>	
-								</table>	
-								<form name="paymentDetailsForm" id="paymentDetailsForm">				
-									<div id="paymentItems"></div>
-								</form>
+							</table>	
+							<form name="paymentDetailsForm" id="paymentDetailsForm">				
+								<div id="paymentItems"></div>
+							</form>
 
-								<table>
+							<table>
 								<tr>
 									<td class="wide600 pull-right"><span class="pull-right">Ukupno:</span></td>
 									<td class="medium-width"> (DIN)<input type="text" name="totalDIN" id="totalDIN" class="input-medium" readonly /></td>
@@ -269,56 +231,51 @@
 									<td class=""></td>
 									<td class=""></td>
 								</tr>
-								</table>
-							</div>	
-						</div>		
-					</div>
-					<div class="row">
-						<div class="container">
-							<div class="span12">						
-								<div id="passangers"></div>
-							</div>
-						</div>
+							</table>
+						</div>			
+				</div>
+				<div class="row">
+					<div class="span12">						
+						<div id="passangers"></div>
 					</div>
 				</div>
-			</fieldset>
-		</div>
+			</div>
+		</fieldset>
 	</div>
 </div>
 
 <div class="row">
-	<div class="container">
-		<div class="span12">
-			<fieldset>
-				<legend>Detalji</legend>
-				<form name="createReservationForm" id="createReservationForm">
-					<input type="hidden" id="traveldealId" name="traveldealId" />
-					<div class="row">
-						<div class="container">
-							<div class="span3"><div class="input-control text input-append date" id="start_datepicker">
-								<input type="text" style="height:100%" class="validate[required]" id="start_date" name="start_date" placeholder="Početak usluge"/>
-								<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
-							</div></div>
-							<div class="span3">
-								<div class="input-control text input-append date" id="end_datepicker">
-								<input type="text" style="height:100%" class="validate[required]" id="end_date" name="end_date" placeholder="Kraj usluge"/>
-								<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
+	<div class="span12">
+		<fieldset>
+			<legend>Detalji</legend>
+			<form name="createReservationForm" id="createReservationForm">
+				<input type="hidden" id="traveldealId" name="traveldealId" />
+				<div class="container">
+					<div class="row">						
+						<div class="span3">
+							<div class="input-control text input-append date" id="start_datepicker">
+							<input type="text" style="height:100%" class="validate[required]" id="start_date" name="start_date" placeholder="Početak usluge"/>
+							<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
 							</div>
-							</div>
-							<div class="span3">
-								<div class="input-control text input-append date" id="travel_datepicker">
-								<input type="text" style="height:100%" class="validate[required]" id="travel_date" name="travel_date" placeholder="Datum polaska"/>
-								<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
-							</div>
-							</div>
-							<div class="span3">
-								<input type="text" name="numnights" id="numnights" placeholder="Broj noćenja" class="validate[required]"/>
-							</div>
+						</div>
+						<div class="span3">
+							<div class="input-control text input-append date" id="end_datepicker">
+							<input type="text" style="height:100%" class="validate[required]" id="end_date" name="end_date" placeholder="Kraj usluge"/>
+							<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
+						</div>
+						</div>
+						<div class="span3">
+							<div class="input-control text input-append date" id="travel_datepicker">
+							<input type="text" style="height:100%" class="validate[required]" id="travel_date" name="travel_date" placeholder="Datum polaska"/>
+							<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
+						</div>
+						</div>
+						<div class="span3">
+							<input type="text" name="numnights" id="numnights" placeholder="Broj noćenja" class="validate[required]"/>
 						</div>
 					</div>
 
 					<div class="row">
-						<div class="container">
 							<div class="span4">
 								<input type="text" style="height:100%" id="discount" name="discount" placeholder="Popust"/>
 							</div>
@@ -328,30 +285,26 @@
 							<div class="span4">
 								<input type="text" style="height:100%" id="clockindex" name="clockindex" placeholder="Clock Index"/>
 							</div>
-						</div>
 					</div>
 
 					<div class="row">
-						<div class="container">
-							<div class="span6">
-								<textarea rows="5" id="notes" name="notes" placeholder="Napomene"></textarea>
-							</div>
-							<div class="span6">
-								<textarea rows="5" cols="50" id="internalnotes" name="internalnotes" placeholder="Interne napomene"></textarea>
-							</div>
+						<div class="span6">
+							<textarea rows="5" id="notes" name="notes" placeholder="Napomene"></textarea>
+						</div>
+						<div class="span6">
+							<textarea rows="5" cols="50" id="internalnotes" name="internalnotes" placeholder="Interne napomene"></textarea>
 						</div>
 					</div>
-				</form>
-			</fieldset>
-		</div>
+
+				</div>
+			</form>
+		</fieldset>
 	</div>
 </div>
 
 <div class="row">
-	<div class="container">
-		<div class="span12">
-			<button id="createReservationBtn" class="btn btn-primary pull-right">Kreiraj rezervaciju</button>
-		</div>
+	<div class="span12">
+		<button id="createReservationBtn" class="btn btn-primary pull-right">Kreiraj rezervaciju</button>
 	</div>
 </div>
 
@@ -519,7 +472,7 @@
 		      <input type="text" id="paymentItemNum" class="input-medium numItem" value="1" placeholder="">
 		      <input type="text" id="paymentItemTotalDin" class="input-medium" placeholder="">
 		      <input type="text" id="paymentItemTotalEuro" class="input-medium" placeholder="">
-		      <input type="checkbox" id="isExcursion" class="input-medium">
+		      <input type="checkbox" id="isExcursion">
 		      <a href="#" id="removeItem" class="pull-right"><span class="icon icon-remove-sign"></span></a>
   </div>
 </div>

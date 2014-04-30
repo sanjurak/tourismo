@@ -534,7 +534,8 @@ var psgCounter = 0;
             data: data,
             success:function(data)
             {
-                alert(data);
+                if(data.status == "success")
+                    window.open('contract/' + data.id);
                  // window.location.href = "reservations";
             },
             error: function(){

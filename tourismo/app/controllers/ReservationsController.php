@@ -246,9 +246,7 @@ class ReservationsController extends \BaseController {
 							$resprice->Save();
 						};
 					}
-				}
-
-				
+				}				
 
 				if(is_array($passangers))
 				{
@@ -264,11 +262,17 @@ class ReservationsController extends \BaseController {
 		catch(\Exception $e)
 		{
 			DB::rollback();
-			return "false";
+			return Response::json(array('status' => "failure"));
 		}
 
 		DB::commit();
-		return "true";
+		return Response::json(array('status' => "success", 'id' => $reservation->id));
+	}
+
+	public function contract($id)
+	{
+		$reservation = Reservation::find($id);
+		return PDF::loadView('reports\\reservation_contract', array('res' => $reservation))->stream('CONTRACT.pdf');
 	}
 
 	/**

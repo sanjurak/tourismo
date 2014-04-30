@@ -106,6 +106,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+		'Nitmedia\Wkhtml2pdf\Wkhtml2pdfServiceProvider',
+		'Barryvdh\DomPDF\ServiceProvider',
 
 	),
 
@@ -172,7 +174,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-
+		'PDF'    		  => 'Barryvdh\DomPDF\Facade',
 	),
 
 );

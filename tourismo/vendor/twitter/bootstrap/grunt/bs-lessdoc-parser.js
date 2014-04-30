@@ -4,6 +4,7 @@
  * Copyright 2014 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+'use strict';
 
 var markdown = require('markdown').markdown;
 
@@ -21,7 +22,7 @@ Mini-language:
   //=== This is a subheading.
 
   //** Optional description for the following variable. You **can** use Markdown in descriptions to discuss `<html>` stuff.
-  @foo: #ffff;
+  @foo: #fff;
 
   //-- This is a heading for a section whose variables shouldn't be customizable
 

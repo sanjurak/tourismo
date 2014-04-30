@@ -47,7 +47,7 @@ form:legend{
 .empty { color: gray; }
 
 .medium-width{
-	min-width:150px;
+	min-width:130px;
 }
 
 .wide600{
@@ -62,4 +62,8 @@ form:legend{
 
 .datepicker{
 	z-index: 1154 !important;
+}
+
+.input-medium{
+	width:130px;
 }
