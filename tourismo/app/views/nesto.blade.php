@@ -1,10 +1,16 @@
-{{HTML::script('scripts/reservationsCreate.js')}}
+@extends('home')
+
+
+@section('javascripts')
+	{{HTML::script('scripts/reservationsCreate.js')}}
+@stop
+
 <style type="text/css">
-	#psgMessage, #paymentItem, #unitsId, #traveldealNew, #traveldealDetails{
+	#paymentItem, #unitsId, #traveldealNew, #traveldealDetails{
 		display:none;
 	}
 </style>
-
+@section('content')
 <div class="row">
 <div class="container">
 	<div class="span6">Datum rezervacije: {{date("d/m/Y")}}</div>
@@ -154,12 +160,6 @@
 						<form id="passangersDetailsForm" id="passangersDetailsForm">
 						<div class="span12 pull-left" id="passangersDetails"></div>
 					</form>
-					<div id="psgMessage">
-						<div class="alert alert-danger alert-dismissable">
-						  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						  <strong>Izaberite putnike za rezervaciju!</strong>
-						</div>
-					</div>
 					</div>
 				</div>
 
@@ -253,14 +253,14 @@
 									<th class="medium-width">Broj osoba</th>
 									<th class="medium-width">Iznos (din)</th>
 									<th class="medium-width">Iznos (eur)</th>
-									<th class="">Izlet</th>
+									<th class="">Ekskurzija</th>
 									<th class=""></th>
 								</tr>	
 								</table>	
-								<form name="paymentDetailsForm" id="paymentDetailsForm">				
+								<form name="createReservationForm" id="createReservationForm">
+									<input type="hidden" id="traveldealId" name="traveldealId" />				
 									<div id="paymentItems"></div>
 								</form>
-
 								<table>
 								<tr>
 									<td class="wide600 pull-right"><span class="pull-right">Ukupno:</span></td>
@@ -286,66 +286,6 @@
 	</div>
 </div>
 
-<div class="row">
-	<div class="container">
-		<div class="span12">
-			<fieldset>
-				<legend>Detalji</legend>
-				<form name="createReservationForm" id="createReservationForm">
-					<input type="hidden" id="traveldealId" name="traveldealId" />
-					<div class="row">
-						<div class="container">
-							<div class="span3"><div class="input-control text input-append date" id="start_datepicker">
-								<input type="text" style="height:100%" class="validate[required]" id="start_date" name="start_date" placeholder="Početak usluge"/>
-								<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
-							</div></div>
-							<div class="span3">
-								<div class="input-control text input-append date" id="end_datepicker">
-								<input type="text" style="height:100%" class="validate[required]" id="end_date" name="end_date" placeholder="Kraj usluge"/>
-								<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
-							</div>
-							</div>
-							<div class="span3">
-								<div class="input-control text input-append date" id="travel_datepicker">
-								<input type="text" style="height:100%" class="validate[required]" id="travel_date" name="travel_date" placeholder="Datum polaska"/>
-								<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
-							</div>
-							</div>
-							<div class="span3">
-								<input type="text" name="numnights" id="numnights" placeholder="Broj noćenja" class="validate[required]"/>
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="container">
-							<div class="span4">
-								<input type="text" style="height:100%" id="discount" name="discount" placeholder="Popust"/>
-							</div>
-							<div class="span4">
-								<input type="text" style="height:100%" id="discounter" name="discounter" placeholder="Popust odobrio"/>
-							</div>
-							<div class="span4">
-								<input type="text" style="height:100%" id="clockindex" name="clockindex" placeholder="Clock Index"/>
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="container">
-							<div class="span6">
-								<textarea rows="5" id="notes" name="notes" placeholder="Napomene"></textarea>
-							</div>
-							<div class="span6">
-								<textarea rows="5" cols="50" id="internalnotes" name="internalnotes" placeholder="Interne napomene"></textarea>
-							</div>
-						</div>
-					</div>
-				</form>
-			</fieldset>
-		</div>
-	</div>
-</div>
 
 <div class="row">
 	<div class="container">
@@ -519,7 +459,8 @@
 		      <input type="text" id="paymentItemNum" class="input-medium numItem" value="1" placeholder="">
 		      <input type="text" id="paymentItemTotalDin" class="input-medium" placeholder="">
 		      <input type="text" id="paymentItemTotalEuro" class="input-medium" placeholder="">
-		      <input type="checkbox" id="isExcursion" class="input-medium">
+		      <input type="checkbox" id="isExcursion" name="isExcursion" class="input-medium">
 		      <a href="#" id="removeItem" class="pull-right"><span class="icon icon-remove-sign"></span></a>
   </div>
 </div>
+@stop

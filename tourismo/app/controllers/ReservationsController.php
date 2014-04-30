@@ -160,7 +160,115 @@ class ReservationsController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		DB::beginTransaction();
+
+		try
+		{		
+			$startdate = Input::get("start_date");
+			$enddate = Input::get("end_date");
+			$traveldate = Input::get("travel_date");
+			$numnights = Input::get("numnights");
+			$discount = Input::get("discount");
+			$discounter = Input::get("discounter");
+			$clockindex = Input::get("clockindex");
+			$notes = Input::get("notes");
+			$internalnotes = Input::get("internalnotes");
+			$internal = Input::get("Internal");
+
+			$traveldealId = Input::get("traveldealId");
+
+			$items = $_POST["Item"];
+			$passangers = $_POST["Passangers"];
+
+			$resnum = Reservation_number::first();
+			
+			$res_num = "";
+
+			if($internal == "true")
+			{
+				$res_num = $resnum->number ."-" . $resnum->internalNum . "/" . $resnum->year;
+				$resnum->internalNum = $resnum->internalNum + 1;
+			}
+			else
+			{
+				$res_num = $resnum->number . "/" . $resnum->year;
+				$resnum->number = $resnum->number + 1;
+				$resnum->internalNum = 1;
+			}
+
+			$reservation = new Reservation;
+			$reservation->reservation_number = $res_num;
+			$reservation->travel_deal_id = $traveldealId;
+			$reservation->start_date = $startdate;
+			$reservation->end_date = $enddate;
+			$reservation->travel_date = $traveldate;
+			$reservation->nights_num = $numnights;
+			$reservation->passanger_id = $passangers[0];
+			$reservation->status = "Aktivna";
+			$reservation->discount = $discount;
+			$reservation->discounter_name = $discounter;
+			$reservation->clock_index = $clockindex;
+			$reservation->note = $notes;
+			$reservation->note_internal = $internalnotes;
+
+			$reservation->Save();
+			$resnum->Save();
+
+
+			$traveldeal = Travel_deals::find($traveldealId);
+
+			if($traveldeal != null)
+			{
+				if(is_array($items))
+				{
+					foreach ($items as $item) {
+						if($item['isExcursion'] == "true")
+						{
+							$excursion = new Excursion;
+							$excursion->excursionItem = $item['name'];
+							$excursion->priceDin = $item['din'];
+							$excursion->priceEur = $item['euro'];
+							$excursion->Save();
+
+							$resExc = new Reservation_excursion;
+							$resExc->destinationId = $traveldeal->destination_id;
+							$resExc->excursionId = $excursion->id;
+							$resExc->reservationId = $reservation->id;
+							$resExc->Save();
+						}
+						else
+						{
+							$resprice = new Reservation_price;
+							$resprice->priceItem = $item['name'];
+							$resprice->priceDin = $item['din'];
+							$resprice->priceEur = $item['euro'];						
+							$resprice->reservationId = $reservation->id;
+							$resprice->Save();
+						};
+					}
+				}
+
+				
+
+				if(is_array($passangers))
+				{
+					foreach ($passangers as $passanger) {
+						$psg = new Passangers;
+						$psg->passanger_id = $passanger;
+						$psg->reservation_id = $reservation->id;
+						$psg->Save();
+					}
+				}
+			}
+		}
+		catch(\Exception $e)
+		{
+			DB::rollback();
+			return "false";
+		}
+
+		DB::commit();
+		return "true";
 	}
 
 	/**
