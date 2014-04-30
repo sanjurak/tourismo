@@ -1,4 +1,3 @@
-{{HTML::script('scripts/passangers.js')}}
 <script type="text/javascript">
 $(function(){
 

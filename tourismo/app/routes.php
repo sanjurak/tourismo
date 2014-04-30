@@ -86,6 +86,9 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('travelDealDetails', array('as' => 'travelDealDetails', 'uses' => 'TravelDealController@details'));
 	
 	Route::get('payments', array('as'=>'payments', 'uses'=>'PaymentsController@index'));
+	Route::get('paymentDetails', array('as' => 'paymentDetails', 'uses' => 'PaymentsController@details'));
+	Route::get('autocompletePayment', array('as' => 'autocompletePayment', 'uses' => 'PaymentsController@autosearch'));
+	Route::post('basicPaymentsSearch', array('as' => 'basicPaymentsSearch', 'uses' => 'PaymentsController@basicSearch'));
 
 	Route::get('reports', array('as'=>'reports', 'uses'=>'ReportsController@index'));
 

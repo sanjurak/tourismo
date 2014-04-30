@@ -11,6 +11,19 @@ function SearchPsg(term)
 		});
 }
 
+function SearchPayments(term)
+{
+	$.ajax({
+			url:"basicPaymentsSearch",
+			type:"POST",
+			data: {search_item: term },
+			dataType:"html",
+			success: function(data){
+				$("#paymentsData").empty().html(data);
+			}
+		});
+}
+
 function Search(term, url)
 {
 	$.ajax({

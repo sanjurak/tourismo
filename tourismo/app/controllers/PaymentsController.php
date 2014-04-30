@@ -104,22 +104,13 @@ class PaymentsController extends \BaseController {
 		$query = Input::get('q','');
 
 		 $jmbgs = Passanger::where('jmbg','LIKE',$query.'%')->get(array('jmbg AS name'))->toArray();
-		 $names = Passanger::where('name','LIKE','%'.$query.'%')->get(array('name AS name'))->toArray();
-		 $surnames = Passanger::where('surname','LIKE','%'.$query.'%')->get(array('surname AS name'))->toArray();
-		 $addresses = Passanger::where('address','LIKE','%'.$query.'%')->get(array('address AS name'))->toArray();
+		 $reservations = Reservation::where('reservation_number','LIKE',$query.'%')->get(array('reservation_number AS name'))->toArray();
 
-		 $names_surnames = Passanger::whereRaw("CONCAT (name,' ',surname) LIKE '$query%'")->select(DB::Raw("CONCAT (name,' ',surname) AS name"))->get()->toArray();
-		 $names_surnames_addresses = Passanger::whereRaw("CONCAT (name,' ',surname,' ',address) LIKE '$query%'")->select(DB::Raw("CONCAT (name,' ',surname,' ',address) AS name"))->get()->toArray();
-		 
 		 $jmbgs = $this->appendValue($jmbgs,'jmbg','class');
-		 $names = $this->appendValue($names,'name','class');
-		 $surnames = $this->appendValue($surnames,'surname','class');
-		 $addresses = $this->appendValue($addresses,'address','class');
-		 $names_surnames = $this->appendValue($names_surnames,'name_surname','class');
-		 $names_surnames_addresses = $this->appendValue($names_surnames_addresses,'name_surname_address','class');
-
+		 $reservations = $this->appendValue($reservations,'name','class');
+		 
 		// var_dump($all_surnames);
-		 $data = array_merge($jmbgs, $names, $surnames, $addresses, $names_surnames, $names_surnames_addresses);
+		 $data = array_merge($jmbgs, $reservations);
 		 return Response::json(array('data' => $data));
 	}
 
@@ -140,29 +131,48 @@ class PaymentsController extends \BaseController {
 	public function basicSearch()
 	{
 		$searchTerm = Input::get('search_item','');
-		$passangers = null;
+		$payments = null;
 		
 		if($searchTerm == "*")
-			$passangers = Passanger::paginate(10);
+			$payments = Payment::paginate(10);
 		else {
-			$passangers = Passanger::where('jmbg','LIKE','%'.$searchTerm.'%')->orWhere('name','LIKE','%'.$searchTerm.'%')->orWhere('surname','LIKE','%'.$searchTerm.'%')->orWhere('address','LIKE','%'.$searchTerm.'%')->get();
-			if (count($passangers) == 0) {
-				$passangers = Passanger::whereRaw("CONCAT (name,' ',surname) LIKE '$searchTerm%'")->get();
-				if (count($passangers) == 0) {
-					$passangers = Passanger::whereRaw("CONCAT (name,' ',surname,' ',address) LIKE '$searchTerm%'")->get();
-			}
+			$reservation = Reservation::where('reservation_number','LIKE',$searchTerm.'%')->get();
+			if (count($reservation) == 0) {
+				$passanger = Passanger::where('jmbg','LIKE',$searchTerm.'%')->get();
+				if (count($passanger) > 0) {
+					$payments = Payment::where("passanger_id",'=',$passanger->first()->id)->get();
+				}
+			} else {
+				$payments = Payment::where('reservation_id','=',$reservation->first()->id)->get();
 			}
 		}
-		return View::make('psgPartial', array('passangers' => $passangers));
+		return View::make('paymentsPartial', array('payments' => $payments));
 	}
 
 	public function details()
 	{
 		$id = Input::get('payment_id','');
-		$payment = Paayment::find($id);
+		$payment = Payment::find($id);
+		$extended = App::make('ExtendedPayment');
 		if ($payment == null) {
 			return '{"data":null}';
-		} else
-			return Response::json(array('data' => $payment->toJson()));
+		} else {
+			$extended->id = $payment->id;
+	    	$extended->payment_type = $payment->payment_type;
+		    $extended->card_type = $payment->card_type;
+		    $extended->passanger_name = $payment->passanger->name;
+		    $extended->passanger_surname = $payment->passanger->surname;
+		    $extended->passanger_jmbg = $payment->passanger->jmbg;
+		    $extended->reservation_number = $payment->reservation->reservation_number;
+		    $extended->date = $payment->date;
+		    $extended->exchange_rate = $payment->exchange_rate;
+		    $extended->amount_din = $payment->amount_din;
+		    $extended->amount_eur_din = $payment->amount_eur_din;
+		    $extended->payment_method = $payment->payment_method;
+		    $extended->description = $payment->description;
+		    $extended->fiscal_slip = $payment->fiscal_slip;
+
+			return Response::json(array('data' => $extended->toJson()));
+		}
 	}
 }
