@@ -1496,84 +1496,6 @@
         "homepage": "http://symfony.com"
     },
     {
-        "name": "symfony/security",
-        "version": "v2.4.4",
-        "version_normalized": "2.4.4.0",
-        "target-dir": "Symfony/Component/Security",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/Security.git",
-            "reference": "1f2b6d8dfea39071748becf040c8d8a23288e725"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Security/zipball/1f2b6d8dfea39071748becf040c8d8a23288e725",
-            "reference": "1f2b6d8dfea39071748becf040c8d8a23288e725",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3",
-            "symfony/event-dispatcher": "~2.1",
-            "symfony/http-foundation": "~2.1",
-            "symfony/http-kernel": "~2.4"
-        },
-        "replace": {
-            "symfony/security-acl": "self.version",
-            "symfony/security-core": "self.version",
-            "symfony/security-csrf": "self.version",
-            "symfony/security-http": "self.version"
-        },
-        "require-dev": {
-            "doctrine/common": "~2.2",
-            "doctrine/dbal": "~2.2",
-            "ircmaxell/password-compat": "1.0.*",
-            "psr/log": "~1.0",
-            "symfony/expression-language": "~2.4",
-            "symfony/routing": "~2.2",
-            "symfony/validator": "~2.2"
-        },
-        "suggest": {
-            "doctrine/dbal": "For using the built-in ACL implementation",
-            "ircmaxell/password-compat": "For using the BCrypt password encoder in PHP <5.5",
-            "symfony/class-loader": "For using the ACL generateSql script",
-            "symfony/expression-language": "For using the expression voter",
-            "symfony/finder": "For using the ACL generateSql script",
-            "symfony/routing": "For using the HttpUtils class to create sub-requests, redirect the user, and match URLs",
-            "symfony/validator": "For using the user password constraint"
-        },
-        "time": "2014-04-25 07:06:20",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.4-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Symfony\\Component\\Security\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com",
-                "homepage": "http://fabien.potencier.org",
-                "role": "Lead Developer"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "http://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony Security Component",
-        "homepage": "http://symfony.com"
-    },
-    {
         "name": "laravel/framework",
         "version": "v4.1.28",
         "version_normalized": "4.1.28.0",
@@ -1689,54 +1611,6 @@
         "keywords": [
             "framework",
             "laravel"
-        ]
-    },
-    {
-        "name": "nitmedia/wkhtml2pdf",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/NitMedia/wkhtml2pdf.git",
-            "reference": "1a19f699a4e1cff01d0d50011b0eecdc7628d702"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/NitMedia/wkhtml2pdf/zipball/1a19f699a4e1cff01d0d50011b0eecdc7628d702",
-            "reference": "1a19f699a4e1cff01d0d50011b0eecdc7628d702",
-            "shasum": ""
-        },
-        "require": {
-            "illuminate/config": "4.*",
-            "illuminate/support": "4.*",
-            "illuminate/view": "4.*",
-            "php": ">=5.3.0"
-        },
-        "time": "2013-11-11 12:50:44",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Nitmedia\\Wkhtml2pdf": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Nithin Meppurathu",
-                "email": "admin@nitmedia.com"
-            }
-        ],
-        "description": "Html 2 Pdf - using wkhtml2pdf, work on 32bit and 64 bit linux + MacOS",
-        "keywords": [
-            "illuminate",
-            "laravel",
-            "pdf",
-            "wkhtml2pdf",
-            "wkhtmltopdf"
         ]
     },
     {
@@ -1867,6 +1741,84 @@
         ],
         "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
         "homepage": "https://github.com/dompdf/dompdf"
+    },
+    {
+        "name": "symfony/security",
+        "version": "v2.4.4",
+        "version_normalized": "2.4.4.0",
+        "target-dir": "Symfony/Component/Security",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/Security.git",
+            "reference": "1f2b6d8dfea39071748becf040c8d8a23288e725"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/Security/zipball/1f2b6d8dfea39071748becf040c8d8a23288e725",
+            "reference": "1f2b6d8dfea39071748becf040c8d8a23288e725",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3",
+            "symfony/event-dispatcher": "~2.1",
+            "symfony/http-foundation": "~2.1",
+            "symfony/http-kernel": "~2.4"
+        },
+        "replace": {
+            "symfony/security-acl": "self.version",
+            "symfony/security-core": "self.version",
+            "symfony/security-csrf": "self.version",
+            "symfony/security-http": "self.version"
+        },
+        "require-dev": {
+            "doctrine/common": "~2.2",
+            "doctrine/dbal": "~2.2",
+            "ircmaxell/password-compat": "1.0.*",
+            "psr/log": "~1.0",
+            "symfony/expression-language": "~2.4",
+            "symfony/routing": "~2.2",
+            "symfony/validator": "~2.2"
+        },
+        "suggest": {
+            "doctrine/dbal": "For using the built-in ACL implementation",
+            "ircmaxell/password-compat": "For using the BCrypt password encoder in PHP <5.5",
+            "symfony/class-loader": "For using the ACL generateSql script",
+            "symfony/expression-language": "For using the expression voter",
+            "symfony/finder": "For using the ACL generateSql script",
+            "symfony/routing": "For using the HttpUtils class to create sub-requests, redirect the user, and match URLs",
+            "symfony/validator": "For using the user password constraint"
+        },
+        "time": "2014-04-25 07:06:20",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\Security\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com",
+                "homepage": "http://fabien.potencier.org",
+                "role": "Lead Developer"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "http://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Security Component",
+        "homepage": "http://symfony.com"
     },
     {
         "name": "barryvdh/laravel-dompdf",
