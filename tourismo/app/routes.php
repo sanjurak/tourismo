@@ -148,11 +148,26 @@ Route::group(array('before' => 'auth'), function(){
 
 	Route::post('organizatorDelete/{id}', array('as' => 'organizatorDelete', 'uses' => 'OrganizersController@destroy'));
 
-
 	/////KATEGORIJE
 	Route::post('newCategory', array('as' => 'newCategory', 'uses' => 'CategoriesController@store'));
 
 	
+});
+
+Route::filter('admin', function(){
+
+   if ( ! Auth::user()->isAdmin())
+   {
+       return Redirect::to('/')
+        ->withError('No Admin, sorry.');
+   }
+
+});
+
+Route::group(array('before' => 'auth|admin'), function(){
+	Route::get('users', array('as'=>'users', 'uses'=>'UserController@index'));
+	Route::post('storeUser', array('as'=>'storeUser', 'uses'=>'UserController@store'));
+	Route::get('deleteUser/{id}', array('as'=>'deleteUser/{id}', 'uses'=>'UserController@destroy'));
 });
 
 

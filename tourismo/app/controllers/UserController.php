@@ -9,9 +9,9 @@ class UserController extends BaseController {
 	 */
 	public function index()
 	{
-		 $users = User::all();
+		 $users = User::paginate(10);
 
-    	 return View::make('login')->with('users', $users);
+    	 return View::make('users')->with('users', $users)->nest('usersPartial','usersPartial', array('users' => $users));
 	}
 
 	public function login()
@@ -27,6 +27,7 @@ class UserController extends BaseController {
 		 {
     	    // The user is being remembered...
     	    Session::put('username', $userdata['username']);
+    	    Session::put('role', User::find($userdata['username'])->role_id);
 		    return Redirect::intended('homepage');
 		 }
 		 else {
@@ -58,7 +59,17 @@ class UserController extends BaseController {
 	 */
 	public function store()
 	{
-		//
+		$user = new User;
+		$user->username = Input::get('username');
+		$user->password = Hash::make(Input::get('password'));
+		$user->role_id = Input::get('role_id');
+		$user->name = Input::get('name');
+		$user->surname = Input::get('surname');
+		$user->email = Input::get('email');
+
+		$user->save();
+
+		return Redirect::back();
 	}
 
 	/**
@@ -102,7 +113,22 @@ class UserController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$user = User::find($id);
+		if ($user->role_id == 1) {
+			if(User::where('role_id','=','1')->count() < 2) {
+				Session::flash('error', 'At least one Administrator is needed');
+				return Redirect::back();
+			}
+			else {
+				User::destroy($id);
+				Session::flash('success', 'User "'.$id.'" deleted');
+				return Redirect::back();
+			}
+		} else {
+			User::destroy($id);
+			Session::flash('success', 'User "'.$id.'" deleted');
+			return Redirect::back();
+		}
 	}
 
 
