@@ -1,7 +1,0 @@
-manage.clocktravel.rs
-User: clocktravel_admin
-Pass: w1n831ZwVAL
-
-MySQL
-User: cloctraveladmin
-Pass: YNSGjngPoirgwop
