@@ -60,6 +60,10 @@ form:legend{
 	background-repeat: no-repeat;
 }
 
+.datepicker{
+	z-index: 1154 !important;
+}
+
 .input-medium{
 	width:130px;
 }

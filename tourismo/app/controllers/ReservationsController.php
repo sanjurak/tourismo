@@ -319,4 +319,33 @@ class ReservationsController extends \BaseController {
 		//
 	}
 
+	/**
+	 * Details for populating new paymenr modal view
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function detailsPayment()
+	{
+		$reservation = Reservation::find(Input::get("rsrv_id"));
+		$prd = new PaymentResDetails();
+		$prd->reservation_number = $reservation->reservation_number;
+		$prd->reservation_id = $reservation->id;
+		$passangers = Passangers::where('reservation_id','=',$reservation->id)->get();
+		foreach ($passangers as $passanger) {
+			$psg = Passanger::find($passanger->passanger_id);
+			$psg_data = array($psg->id, $psg->name.' '.$psg->surname.' JMBG: '.$psg->jmbg);
+			array_push($prd->passanger_names, $psg_data);
+		}
+
+		return Response::json(array('data' => json_encode($prd)));
+	}
+
 }
+
+class PaymentResDetails {
+	public $reservation_number;
+	public $reservation_id;
+	public $passanger_names = array();
+}
+?>

@@ -63,6 +63,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('initializePS', array('as' => 'initializePS','uses' => 'ReservationsController@initializePS'));
 	Route::post('accommodationAddRes', array('as' => 'accommodationAddRes','uses' => 'ReservationsController@accomodationAddRes'));
 	Route::post('createReservation', array('as' => 'createReservation','uses' => 'ReservationsController@store'));
+	Route::get('paymentRsrvDetails', array('as' => 'paymentRsrvDetails', 'uses' => 'ReservationsController@detailsPayment'));
 	Route::get('contract/{id}', array('as' => 'contract','uses' => 'ReservationsController@contract'));
 
 	Route::get('destinations', array('as'=>'destinations', 'uses'=>'DestinationsController@index'));
@@ -91,6 +92,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('paymentDetails', array('as' => 'paymentDetails', 'uses' => 'PaymentsController@details'));
 	Route::get('autocompletePayment', array('as' => 'autocompletePayment', 'uses' => 'PaymentsController@autosearch'));
 	Route::post('basicPaymentsSearch', array('as' => 'basicPaymentsSearch', 'uses' => 'PaymentsController@basicSearch'));
+	Route::post('storePayment', array('as'=>'storePayment', 'uses'=>'PaymentsController@store'));
 
 	Route::get('reports', array('as'=>'reports', 'uses'=>'ReportsController@index'));
 
@@ -146,11 +148,26 @@ Route::group(array('before' => 'auth'), function(){
 
 	Route::post('organizatorDelete/{id}', array('as' => 'organizatorDelete', 'uses' => 'OrganizersController@destroy'));
 
-
 	/////KATEGORIJE
 	Route::post('newCategory', array('as' => 'newCategory', 'uses' => 'CategoriesController@store'));
 
 	
+});
+
+Route::filter('admin', function(){
+
+   if ( ! Auth::user()->isAdmin())
+   {
+       return Redirect::to('/')
+        ->withError('No Admin, sorry.');
+   }
+
+});
+
+Route::group(array('before' => 'auth|admin'), function(){
+	Route::get('users', array('as'=>'users', 'uses'=>'UserController@index'));
+	Route::post('storeUser', array('as'=>'storeUser', 'uses'=>'UserController@store'));
+	Route::get('deleteUser/{id}', array('as'=>'deleteUser/{id}', 'uses'=>'UserController@destroy'));
 });
 
 
