@@ -8,6 +8,7 @@
 			<td>Kurs Eura</td>
 			<td>Iznos (din)</td>
 			<td>Iznos (eur)</td>
+			<td></td>
 		</tr>
 	</thead>
 	<tbody>
