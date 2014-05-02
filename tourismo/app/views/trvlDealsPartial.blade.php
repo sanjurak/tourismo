@@ -17,6 +17,8 @@ $(function(){
 			<td>Usluga</td>
 			<td>Cena (DIN)</td>
 			<td>Cena (EUR)</td>
+			<td></td>
+			<td></td>
 		</tr>
 	</thead>
 	<tbody>
