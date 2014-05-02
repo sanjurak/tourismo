@@ -6,7 +6,6 @@
 	"require": {
 		"laravel/framework": "4.1.*",
     "twitter/bootstrap": "dev-master",
-    "nitmedia/wkhtml2pdf": "dev-master",
     "barryvdh/laravel-dompdf": "*"
 	},
 	"autoload": {

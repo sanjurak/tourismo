@@ -1692,54 +1692,6 @@
         ]
     },
     {
-        "name": "nitmedia/wkhtml2pdf",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/NitMedia/wkhtml2pdf.git",
-            "reference": "1a19f699a4e1cff01d0d50011b0eecdc7628d702"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/NitMedia/wkhtml2pdf/zipball/1a19f699a4e1cff01d0d50011b0eecdc7628d702",
-            "reference": "1a19f699a4e1cff01d0d50011b0eecdc7628d702",
-            "shasum": ""
-        },
-        "require": {
-            "illuminate/config": "4.*",
-            "illuminate/support": "4.*",
-            "illuminate/view": "4.*",
-            "php": ">=5.3.0"
-        },
-        "time": "2013-11-11 12:50:44",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Nitmedia\\Wkhtml2pdf": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Nithin Meppurathu",
-                "email": "admin@nitmedia.com"
-            }
-        ],
-        "description": "Html 2 Pdf - using wkhtml2pdf, work on 32bit and 64 bit linux + MacOS",
-        "keywords": [
-            "illuminate",
-            "laravel",
-            "pdf",
-            "wkhtml2pdf",
-            "wkhtmltopdf"
-        ]
-    },
-    {
         "name": "twitter/bootstrap",
         "version": "dev-master",
         "version_normalized": "9999999-dev",

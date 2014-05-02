@@ -1,5 +1,9 @@
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
 <table>
 	<tr>
 		<td><img src="images/clock_logo.png" /></td>
@@ -10,6 +14,8 @@
 		<td></td>
 	</tr>
 	<tr>
-		<th></th>
+		<th>čćđžš</th>
 	</tr>
 </table>
+</body>
+</html>
