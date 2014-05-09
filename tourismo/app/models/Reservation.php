@@ -28,5 +28,13 @@ class Reservation extends Eloquent {
 		return $this->belongsTo('Travel_deals','travel_deal_id');
 	}
 	
+	public function passanger()
+	{
+		return $this->belongsTo('Passanger','passanger_id');
+	}
 
+	public function prices()
+	{
+		return $this->hasMany('Reservation_price','reservationId');
+	}
 }
