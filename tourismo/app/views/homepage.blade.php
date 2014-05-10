@@ -100,7 +100,7 @@
               </div>
 	        </div>
 	      </a>
-	      @if(Session::get('role')==1)
+	      @if(Auth::user() && Auth::user()->isAdmin())
 	      <a href="users">
 	        <div class="tile double live bg-darkGray" data-role="live-tile" data-effect="slideUp">
 	          <div class="tile-content image"><img src="images/users.jpg"></div>

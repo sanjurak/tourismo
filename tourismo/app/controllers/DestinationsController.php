@@ -32,8 +32,8 @@ class DestinationsController extends \BaseController {
 
 		 //if(!$query && $query == '') return Response::json(array(), 400);
 
-		 $towns = Destination::where('town','LIKE','%'.$query.'%')->get(array('town AS name'))->toArray();
-		 $countries = Destination::where('country','LIKE','%'.$query.'%')->get(array('country AS name'))->toArray();
+		 $towns = Destination::where('town','LIKE','%'.$query.'%')->get(array('town as term'))->toArray();
+		 $countries = Destination::where('country','LIKE','%'.$query.'%')->get(array('country as term'))->toArray();
 
 		 $towns = $this->appendValue($towns,'town','class');
 		 $countries = $this->appendValue($countries,'country','class');

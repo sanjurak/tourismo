@@ -272,7 +272,11 @@ class ReservationsController extends \BaseController {
 	public function contract($id)
 	{
 		$reservation = Reservation::find($id);
-		return PDF::loadView('reports\\reservation_contract', array('res' => $reservation))->stream('CONTRACT.pdf');
+		$passangers = Passanger::join("passangers","passanger.id","=","passangers.passanger_id")
+								->where("reservation_id","=",$reservation->id)
+								->select("passanger.name", "passanger.surname", "passanger.tel", "passanger.mob", "passanger.passport", "passanger.birth_date")
+								->get();
+		return PDF::loadView('reports\\reservation_contract', array('reservation' => $reservation, 'passangers' => $passangers),array(),'UTF-8')->stream('CONTRACT.pdf');
 	}
 
 	/**

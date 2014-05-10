@@ -46,14 +46,14 @@ $(document).ready(function(){
     });
 
 	$("#basic").selectize({
-        valueField: 'name',
-        labelField: 'name',
-        searchField: ['name'],
+        valueField: 'term',
+        labelField: 'term',
+        searchField: ['term'],
         options: [],
         create: false,
         render: {
             option: function(item, escape) {
-                return '<div>' +escape(item.name)+'</div>';
+                return '<div>' +escape(item.term)+'</div>';
             }
         },
         optgroups: [
