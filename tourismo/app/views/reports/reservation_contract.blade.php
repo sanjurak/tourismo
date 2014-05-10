@@ -1,66 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<style>
-  body { 
-  	font-family: DejaVu Sans, sans-serif; 
-  	font-size: 11px;
-  }
-
-.width60{
-	width:60%;
-}
-
-.width40{
-	width: 40%;
-}
-  .font10{
-  	font-size: 10px;
-  }
-
-  .memo{
-  	width:100%;
-  }
-
-  .content{
-  	width:100%;
-  }
-
-  .content td{
-  	padding: 5px;
-  }
-
-  .textcenter{
-  	text-align:center;
-  }
-
-  .textleft{
-  	text-align:left;
-  }
-
-  .textright{
-  	text-align:right;
-  }
-
-  table.borders, table.borders td{
-  	border-collapse: collapse;
-  	border: 1px solid gray;
-  }
-
-.valigncenter{
-	vertical-align: middle;
-}
-  .signature{
-  	width:33%;
-  }
-
-  .stamp{
-  	width:200px;
-  }
-</style>
-</head>
-<body>
+@extends('reports\\memo')
+@section('report')
 	{{-- */
 		$passanger = $reservation->passanger;
 		$traveldeal = $reservation->traveldeal;
@@ -71,32 +10,6 @@
 		$prices = $reservation->prices;
 		$psg_count = $passangers->count() == 0 ? 1 : $passangers->count();
 	/* --}}
-
-<table class="memo">
-	<tr>
-		<td class="width60"><img height="150" src="images/clock_logo.png" /></td>
-		<td class="textleft font10 width40">
-			<p><b>
-				CLOCK TRAVEL d.o.o.<br>
-				Adresa: Trg Republike 6, Niš<br>
-				mob: +381 66 00 555 6<br>
-				tel: +381 18 505 435<br>
-				<br>
-				www.clocltravel.rs<br>
-				email: office@clocktravel.rs<br>
-				<br>
-				Licenca .....<br>
-				Matični broj: ....<br>
-				PIO: .... <br>
-				Žiro račun: .... <br>
-				</b>
-			</p>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2"><hr></td>
-	</tr>
-</table>
 <table class="content">
 	<tr>
 		<td class="textcenter"><b>UGOVOR O PUTOVANJU br. {{$reservation->reservation_number}}</b></td>
@@ -237,5 +150,4 @@
 	</tr>
 </table>
 
-</body>
-</html>
+@endsection
