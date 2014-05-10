@@ -12,6 +12,8 @@
 </div>
 </br>
 
+@include('notifications')
+
 <div id="basicsearch" class="row">
 	<div class='form-search'>
 		<select name='search_item' id='basicPsgSearch' placeholder="Pretraživanje prema jmbg, imenu, prezimenu ili adresi" class='form-control'></select>

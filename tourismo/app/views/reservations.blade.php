@@ -11,6 +11,8 @@
 	</nav>
 </div>
 
+@include('notifications')
+
 <div class="container" id="reservations">
 	<div class="row">
 		<a class="btn btn-default pull-right" href="#" id="newReservation">Nova rezervacija</a>

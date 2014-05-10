@@ -48,6 +48,10 @@ Route::any('login', array('as'=>'login', function()
 
 Route::get('logout', array('as'=>'logout', 'uses'=>'UserController@logout'));
 
+Route::get('resetPassword', array('as'=>'resetPassword', 'uses'=>'RemindersController@getRemind'));
+
+Route::post('doPswReset', array('as'=>'doPswReset', 'uses'=>'RemindersController@postRemind'));
+
 Route::group(array('before' => 'auth'), function(){
 	Route::get('reservations', array('as'=>'reservations', 'uses'=>'ReservationsController@index'));
 	

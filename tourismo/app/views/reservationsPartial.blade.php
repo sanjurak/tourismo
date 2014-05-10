@@ -7,6 +7,9 @@ $(function(){
 	$(".editableC").editable();
 });
 </script>
+
+{{$reservations->links()}}
+
 <table class="table table-hover">
 		<tr>
 			<th>Broj rezervacije</th>

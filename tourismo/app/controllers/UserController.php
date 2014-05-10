@@ -59,6 +59,15 @@ class UserController extends BaseController {
 	 */
 	public function store()
 	{
+		if (User::where('username','LIKE',Input::get('username'))->count() > 0) {
+			Session::flash('error', 'Korisničko ime je zauzeto!');
+			return Redirect::back();
+		}
+		if (User::where('email','LIKE',Input::get('email'))->count() > 0){
+			Session::flash('error', 'Korisnik sa ovom email adresom je već registrovan!');
+			return Redirect::back();
+		}
+
 		$user = new User;
 		$user->username = Input::get('username');
 		$user->password = Hash::make(Input::get('password'));
@@ -69,6 +78,7 @@ class UserController extends BaseController {
 
 		$user->save();
 
+		Session::flash('success','Novi korisnik je registrovan');
 		return Redirect::back();
 	}
 
@@ -130,6 +140,5 @@ class UserController extends BaseController {
 			return Redirect::back();
 		}
 	}
-
 
 }

@@ -9,7 +9,7 @@ class ReservationsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$reservations = Reservation::all();
+		$reservations = Reservation::paginate(10);
 
 		//dd($reservations->first()->traveldeal());
 		return View::make('reservations')->nest('reservationsPartial','reservationsPartial', array('reservations' => $reservations));

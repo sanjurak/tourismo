@@ -5,3 +5,12 @@ Pass: w1n831ZwVAL
 MySQL
 User: cloctraveladmin
 Pass: YNSGjngPoirgwop
+
+mail:
+no-reply@manage.clocktravel.rs
+pass: DbZh7YC0BhRSvkD
+
+
+manage.silent-party.rs
+user: manage
+pass: c8knW9gbOhLp

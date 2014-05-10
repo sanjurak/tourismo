@@ -11,6 +11,8 @@
 </div>
 </br>
 
+@include('notifications')
+
 <div id="basicfilter" class="row">
 	<div class='form-search span3'>
 		<select name='category_name' id='categoriesSelect' placeholder="Kategorija" class='form-control'></select>
