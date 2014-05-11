@@ -18,10 +18,10 @@
 				www.clocltravel.rs<br>
 				email: office@clocktravel.rs<br>
 				<br>
-				Licenca .....<br>
-				Matični broj: ....<br>
-				PIO: .... <br>
-				Žiro račun: .... <br>
+				Licenca OTP 27/2014<br>
+				Matični broj: 20902787<br>
+				PIB: 107947473<br>
+				Žiro račun: 105-3120731-82 AIK Banka<br>
 				</b>
 			</p>
 		</td>

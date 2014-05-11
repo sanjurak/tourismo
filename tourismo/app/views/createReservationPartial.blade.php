@@ -460,8 +460,7 @@
 		      <input type="text" id="numberUnitModNew" class="input-large input-size" placeholder="Broj jedinica">
 		      <a href="#" id="removeUnit" class="pull-right"><span class="icon icon-remove-sign"></span></a>
 		</fieldset>
-
-		  </div>
+	</div>
 </div>
 
 <div id="paymentItem" class="hiddenItem">

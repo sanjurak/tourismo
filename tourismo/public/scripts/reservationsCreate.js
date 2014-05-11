@@ -25,11 +25,7 @@ $(function(){
 			type: 'POST',
 			data: $("#traveldealNewForm").serialize(),
 			success: function(data){
-				$("#traveldealNew").slideUp();
-				var selectize = $("#traveldealsSel")[0].selectize;
-				selectize.addOption(data);
-				selectize.refreshOptions();
-				selectize.addItem(data.name);
+				location.reload();
 			}
 		})
 	});

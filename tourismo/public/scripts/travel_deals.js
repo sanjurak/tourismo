@@ -133,6 +133,15 @@ $(document).ready(function(){
         SearchTrvlDls("", "");        
     });
 
+    $("#traveldealNew").hide();
+
+    $("#addNewTrvlDeal").click(function(){
+        if ($("#traveldealNew").is(":visible"))
+            $("#traveldealNew").slideUp(); 
+        else
+            $("#traveldealNew").slideDown();        
+    });
+
     $("#dstCountryTownSelect").click(function(){
         var selectize = $('#dstCountryTownSelect')[0].selectize;
         selectize.load();

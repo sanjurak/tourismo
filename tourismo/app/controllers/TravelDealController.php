@@ -134,6 +134,7 @@ class TravelDealController extends \BaseController {
 
 		$traveldeal->Save();
 
+		Session::flash('success', 'Novi aranžman je dodat');
 		return $traveldeal;
 	}
 
