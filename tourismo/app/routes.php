@@ -97,6 +97,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('autocompletePayment', array('as' => 'autocompletePayment', 'uses' => 'PaymentsController@autosearch'));
 	Route::post('basicPaymentsSearch', array('as' => 'basicPaymentsSearch', 'uses' => 'PaymentsController@basicSearch'));
 	Route::post('storePayment', array('as'=>'storePayment', 'uses'=>'PaymentsController@store'));
+	Route::get('paymentSlip/{id}', array('as'=>'paymentSlip', 'uses'=>'PaymentsController@paymentSlip'));
 
 	Route::get('reports', array('as'=>'reports', 'uses'=>'ReportsController@index'));
 

@@ -105,4 +105,26 @@ $(function(){
             else
                 return false;//event.preventDefault();
     });
+
+    $('#storeNewPayment').click(function(event){
+        event.preventDefault();
+        
+        var data = $("#addNewPaymentForm").serialize()
+
+        $.ajax({
+
+            url: "storePayment",
+            type: "POST",
+            data: data,
+            success:function(data)
+            {
+                if(data.status == "success")
+                    window.open('paymentSlip/' + data.id);
+                 // window.location.href = "reservations";
+            },
+            error: function(){
+
+            }
+        });
+    });
 });

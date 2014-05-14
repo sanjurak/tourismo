@@ -107,7 +107,7 @@
 			</div>
 
 			<div class="modal-footer">  
-				<button type="submit" id="addNewPsg" class="btn btn-success">Sačuvaj</button>
+				<a id="storeNewPayment" class="btn btn-success" data-dismiss="modal">Sačuvaj</button>
 				<a class="btn btn-cancel" data-dismiss="modal">Odustani</a>  	
 			</div> 
 			{{ Form::close() }}

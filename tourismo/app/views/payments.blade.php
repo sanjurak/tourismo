@@ -104,9 +104,11 @@
 						</td>
 					</tr>
 				</table>
+				<input type="hidden" id="hidden_id">
 			</div>
 
 			<div class="modal-footer">  
+				<a id="printPayment" class="btn" data-dismiss="modal">Štampa</a>  	
 				<a class="btn" data-dismiss="modal">Odustani</a>  	
 			</div>
 		</div>

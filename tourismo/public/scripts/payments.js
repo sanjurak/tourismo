@@ -43,6 +43,7 @@ $(document).ready(function(){
                         $(".modal-body #paymentmethod")[0].setAttribute("value", psg.payment_method);
                         $(".modal-body #paymentdescription")[0].setAttribute("value", psg.description);
                         $(".modal-body #fiscalslip")[0].setAttribute("value", psg.fiscal_slip);
+                        $(".modal-body #hidden_id")[0].setAttribute("value", psg.id);
                     };
                 }
             });
@@ -111,6 +112,9 @@ $(document).ready(function(){
                 return false;//event.preventDefault();
     });
 
+    $("#printPayment").click(function(event){
+        window.open('paymentSlip/' + $(".modal-body #hidden_id")[0].value);
+    });
 });
 
 function padStr(i) {

@@ -48,7 +48,7 @@ class PaymentsController extends \BaseController {
 		
 		$payment->save();
 		
-		return Redirect::back();
+		return Response::json(array('status' => "success", 'id' => $payment->id));
 	}
 
 	public function addNew() {
@@ -177,4 +177,13 @@ class PaymentsController extends \BaseController {
 			return Response::json(array('data' => $extended->toJson()));
 		}
 	}
+
+	public function paymentSlip($id)
+	{
+		$payment = Payment::find($id);
+		$passanger = Passanger::find($payment->passanger_id);
+		$reservation = Reservation::find($payment->reservation_id);
+		return PDF::loadView('reports\\payment_slip', array('reservation' => $reservation, 'passanger' => $passanger, 'payment' => $payment), array(),'UTF-8')->stream('PAYMENT.pdf');
+	}
+
 }
