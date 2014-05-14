@@ -9,10 +9,10 @@
 		<td class="textcenter" colspan='5' height='60'><h2>PRIZNANICA br. {{$payment->id}}</h2></td>
 	</tr>
 	<tr>
-		<td colspan='3'>Iznos dinarskog dela u dinarima:</td><td colspan='3'>{{$payment->amount_din}} din</td>
+		<td colspan='3'>Iznos dinarskog dela u dinarima:</td><td colspan='3'>{{number_format("$payment->amount_din",2)}} din</td>
 	</tr>
 	<tr>
-		<td colspan='3'>Iznos deviznog dela u dinarima:</td><td colspan='3'>{{$payment->amount_eur_din}} din</td>
+		<td colspan='3'>Iznos deviznog dela u dinarima:</td><td colspan='3'>{{number_format("$payment->amount_eur_din",2)}} din</td>
 	</tr>
 	<tr>
 		<td colspan='3'>Primljeno od:</td><td colspan='3'>{{$passanger->name}} {{$passanger->surname}}, {{$passanger->jmbg}}</td>
