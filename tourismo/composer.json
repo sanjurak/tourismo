@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.1.*",
     "twitter/bootstrap": "dev-master",
-    "barryvdh/laravel-dompdf": "*"
+    "barryvdh/laravel-dompdf": "*",
+		"swiftmailer/swiftmailer": "5.2.0"
 	},
 	"autoload": {
 		"classmap": [

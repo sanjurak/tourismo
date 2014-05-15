@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'manage.clocktravel.rs',
+	'host' => 'clocktravel.rs',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'no-reply@manage.clocktravel.rs', 'name' => null),
+	'from' => array('address' => 'no-reply@clocktravel.rs', 'name' => 'Clock Travel'),
 
 	/*
 	|--------------------------------------------------------------------------
