@@ -21,7 +21,9 @@ class UserController extends BaseController {
 				'password' 	=> Input::get('password')
 		 );
 
-		 Session::put('exchRate', Input::get('exchRate'));
+		 $exchRate = Input::get('exchRate');
+		 $exchRate = str_replace(",",".",$exchRate);
+		 Session::put('exchRate', $exchRate);
 
 		 if (Auth::attempt($userdata))
 		 {

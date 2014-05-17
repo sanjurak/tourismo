@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'clocktravel.rs',
+	'host' => 'server5.contrateam.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -41,7 +41,7 @@ return array(
 	|
 	*/
 
-	'port' => 587,
+	'port' => 465,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'no-reply@clocktravel.rs', 'name' => 'Clock Travel'),
+	'from' => array('address' => 'no-reply@manage.clocktravel.rs', 'name' => 'Clock Travel'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -67,7 +67,7 @@ return array(
 	|
 	*/
 
-	'encryption' => 'tls',
+	'encryption' => 'ssl',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => 'no-reply',
+	'username' => 'no-reply@manage.clocktravel.rs',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => 'DbZh7YC0BhRSvkD',
+	'password' => 'Cl0cktravel',
 
 	/*
 	|--------------------------------------------------------------------------
