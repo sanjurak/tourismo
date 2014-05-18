@@ -25,9 +25,11 @@ $(function(){
 			type: 'POST',
 			data: $("#traveldealNewForm").serialize(),
 			success: function(data){
-				location.reload();
+                $("#traveldealsSel")[0].selectize.addOption(data);
+                $("#traveldealsSel")[0].selectize.refreshOptions();
+                $("#traveldealNew").slideToggle();
 			}
-		})
+		});
 	});
 
 	$("#addCategoryBtn").click(function(e){
@@ -45,7 +47,9 @@ $(function(){
 			success: function(data)
 			{
 				$("#categorySel")[0].selectize.addOption(data);
-				$("#categorySel")[0].selectize.refreshOptions();
+                $("#categorySel")[0].selectize.refreshOptions();    
+                $("#categorySel")[0].selectize.options[data.id].selected = true;
+				$("#categorySel").siblings("div.selectize-dropdown").trigger("onOptionSelect");
 				$("#addCategoryModal").modal("hide");
 			}
 		});
@@ -333,7 +337,7 @@ $(function(){
         	$("#category").val(item["category"]["name"]);
 				$("#organizer").val(item["organizer"]["name"]);
 				$("#destination").val(item["destination"]["name"]);
-				$("#accomodation").val(item["accomodation"]+" "+item["accomodation_unit"]["name"]+"/"+item["accomodation_unit"]["number"]);
+				$("#accomodation").val(item["accomodation"]+" "+item["accomodation_unit"]["name"]+"/"+item["accomodation_unit"]["capacity"]);
 				$("#transportation").val(item["transportation"]);
 				$("#service").val(item["service"]);
                 $("#traveldealId").val(item["id"]);
@@ -343,6 +347,10 @@ $(function(){
                 $("#addPaymentItem").trigger("click");
                 $("#paymentItems div").last().find("#paymentItemEuro").val(item["price_eur"]).trigger("focusout");
                 $("#paymentItems div").last().find("#paymentItemDin").val(item["price_din"]).trigger("focusout");
+                $("#paymentItems div").last().find("#paymentItemName").val("Aranžman");
+
+                $("#passangers_details").show();
+                $("#payment_details").show();
         }
 	});
 
@@ -384,6 +392,9 @@ var psgCounter = 0;
                 +"<span class='icon icon-remove-sign'></span></a></div>")
             .appendTo("#passangersDetails");
 
+            $("#details").show();
+            $("#createReservationBtn").show();
+
             psgCounter++;
         }
 	});
@@ -396,6 +407,11 @@ var psgCounter = 0;
         var itemCounter = 0;
     $("#removeItem").click(function(e){
         e.preventDefault();
+        var totaldin = +$("#totalDIN").val() - +$(this).siblings("#paymentItemTotalDin").val(); 
+        var totaleuro = +$("#totalEUR").val() - +$(this).siblings("#paymentItemTotalEuro").val();
+        
+        $("#totalDIN").val(totaldin);
+        $("#totalEUR").val(totaleuro);
         $(this).parents("div#paymentItem").remove();
     });
 
@@ -419,21 +435,40 @@ var psgCounter = 0;
         var total = $(this).val() * $(this).siblings("#paymentItemNum").val();
        $(this).siblings("#paymentItemTotalEuro").val(total);
 
-       var val = +$("#totalEUR").val() + total;
-       $("#totalEUR").val(val);
+        var totaleur = 0;
+
+        $("#paymentItems div#paymentItem").each(function(){
+            totaleur += +$(this).find("#paymentItemTotalEuro").val();
+        });
+        $("#totalEUR").val(totaleur);
     });  
 
     $(".dinItem").focusout(function(){
         var total = $(this).val() * $(this).siblings("#paymentItemNum").val();
        $(this).siblings("#paymentItemTotalDin").val(total);
 
-       var val = +$("#totalDIN").val() + total;
-       $("#totalDIN").val(val);
+       var totaldin = 0;
+
+        $("#paymentItems div#paymentItem").each(function(){
+            totaldin += +$(this).find("#paymentItemTotalDin").val();
+        });
+        $("#totalDIN").val(totaldin);
     });   
 
     $(".numItem").focusout(function(){
-        $(this).siblings(".euroItem").trigger("focusout");
-        $(this).siblings(".dinItem").trigger("focusout");
+        var totaldinitem = $(this).val() * $(this).siblings(".dinItem").val();
+        var totaleuritem = $(this).val() * $(this).siblings(".euroItem").val();
+        $(this).siblings("#paymentItemTotalDin").val(totaldinitem);
+        $(this).siblings("#paymentItemTotalEuro").val(totaleuritem);
+        var totaldin = 0;
+        var totaleur = 0;
+
+        $("#paymentItems div#paymentItem").each(function(){
+            totaldin += +$(this).find("#paymentItemTotalDin").val();
+            totaleur += +$(this).find("#paymentItemTotalEuro").val();
+        });
+        $("#totalDIN").val(totaldin);
+        $("#totalEUR").val(totaleur);
     });    
 
     $('#birth_datepicker input').click(function(event){

@@ -2,6 +2,12 @@
 
 @section('content')
 
+<style type="text/css">
+	#paymentModal{
+		visibility: visible;
+	}
+</style>
+
 <div class="container">
 	<nav class="breadcrumbs large">
 	    <ul class="pull-left">
@@ -25,7 +31,7 @@
 	</div>
 </div>
 
-<div class="container">
+<div class="container" id="paymentModal">
 	<div class="row">
 		<div id="paymentNewModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
 			<div class="modal-header">
@@ -94,7 +100,7 @@
 					<tr>
 						<td colspan='2' rowspan='2'>
 							<div class="input-control text">
-								<textarea rows='2' style="width:100%" name="payment_method" id="payment_method" placeholder="Metod plaćanja"></textarea>
+								<textarea rows='2' style="width:100%" name="	payment_method" id="payment_method" placeholder="Metod plaćanja"></textarea>
 							</div>
 						</td>
 						<td colspan='3' rowspan='2'>

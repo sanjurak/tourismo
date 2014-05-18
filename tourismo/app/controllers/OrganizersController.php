@@ -138,6 +138,8 @@ class OrganizersController extends \BaseController {
 
 		$organizator->Save();
 
+		$organizator = Organizers::find($pib);
+
 		return $organizator;
 	}
 

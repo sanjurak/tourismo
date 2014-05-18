@@ -3,10 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="Content-Type" content="text/html">
-	<title>Tourismo</title>
+	<title>Manage Clock Travel</title>
 
 	{{HTML::script('//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js')}}
 	<!--{{HTML::script('bootstrap/js/jquery.widget.min.js')}}-->
+	{{HTML::script('bootstrap/js/jquery-2.1.0.min.js')}}
+	{{HTML::script('jquery-ui-1.10.4/ui/jquery-ui.js')}}
+	
 	{{HTML::script('//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js')}}
 	<!--{{HTML::script('bootstrap/js/jquery.ui.widget.js')}}-->
 	{{HTML::script('bootstrap/js/bootstrap.js')}}
@@ -17,8 +20,10 @@
 	{{HTML::style('selectize/css/selectize.css')}}
 	{{HTML::style('selectize/css/selectize.bootstrap2.css')}}
 	{{HTML::style('bootstrap-editable/css/bootstrap-editable.css')}}
-	{{HTML::script('bootstrap/js/metro-loader.js')}}
+	{{HTML::script('bootstrap/js/metro.min.js')}}
 	{{HTML::script('selectize/js/standalone/selectize.js')}}
+
+	{{HTML::script('bootstrap-editable/js/bootstrap-editable.min.js')}}
 	{{HTML::script('//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap-editable/js/bootstrap-editable.min.js')}}
 	{{HTML::script('scripts/Site.js')}}
 	{{HTML::script('scripts/functions.js')}}

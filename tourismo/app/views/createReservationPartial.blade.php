@@ -3,6 +3,23 @@
 	#psgMessage, #paymentItem, #unitsId, #traveldealNew, #traveldealDetails{
 		display:none;
 	}
+
+	#passangers_details, #payment_details, #details{
+	display: none;
+	}
+
+	#createReservationBtn{
+		display:none;
+	}
+
+	.modal{
+		overflow-y:auto;
+		z-index: 100000; 
+	}
+
+	#paymentModal{
+		display: none;
+	}
 </style>
 
 <div class="row">
@@ -13,7 +30,7 @@
 <div class="row">
 		<div class="span12">
 			<fieldset>
-				<legend>Detalji aranžmana</legend>
+				<legend>1. Detalji aranžmana</legend>
 				<div class="container">
 					<div class="row">
 						<div class="span12">						
@@ -114,11 +131,11 @@
 		</div>
 </div>
 
-<div class="row">
+<div class="row" id="passangers_details">
 		<div class="span12">
 			<fieldset>
 				
-				<legend>Detalji putnika</legend>
+				<legend>2. Detalji putnika</legend>
 				<div class="conatiner">
 					<div class="row">
 						<div class="span12">						
@@ -195,10 +212,10 @@
 	</div>
 </div>
 
-<div class="row">
+<div class="row" id="payment_details">
 	<div class="span12">
 		<fieldset>
-			<legend>Detalji plaćanja</legend>
+			<legend>3. Detalji plaćanja</legend>
 			<div class="container">
 				<div class="row">
 					<div class="span12">
@@ -244,10 +261,10 @@
 	</div>
 </div>
 
-<div class="row">
+<div class="row" id="details">
 	<div class="span12">
 		<fieldset>
-			<legend>Detalji</legend>
+			<legend>4. Detalji</legend>
 			<form name="createReservationForm" id="createReservationForm">
 				<input type="hidden" id="traveldealId" name="traveldealId" />
 				<div class="container">
@@ -302,7 +319,7 @@
 	</div>
 </div>
 
-<div class="row">
+<div class="row" >
 	<div class="span12">
 		<button id="createReservationBtn" class="btn btn-primary pull-right">Kreiraj rezervaciju</button>
 	</div>
