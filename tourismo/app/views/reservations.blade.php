@@ -1,6 +1,7 @@
 @extends('home')
 
 @section('content')
+{{HTML::script('scripts/reservations.js')}}
 
 <style type="text/css">
 	#paymentModal{
@@ -9,20 +10,34 @@
 </style>
 
 <div class="container">
+<div class="row">
+<div class="span8">
 	<nav class="breadcrumbs large">
 	    <ul class="pull-left">
 	        <li><a href="homepage">Home</a></li>
-	        <li class="active"><a href="#">Rezervacije</a></li>
+	        <li class="active"><a href="reservations">Rezervacije</a></li>
 	    </ul>
 	</nav>
+	</div>
+	
+	</div>
 </div>
 
 @include('notifications')
-
+<br>
 <div class="container" id="reservations">
-	<div class="row">
-		<a class="btn btn-default pull-right" href="#" id="newReservation">Nova rezervacija</a>
+<div class="row">
+		<div>
+			<select name='res_search_item' id='res_filter' placeholder="Unesite broj rezervacije ili JMBG putnika ili ime ili prezime putnika" class='form-control'></select>
+		</div>
+		<div>
+			<span class="pull-right"> <a role="button" class="btn btn-default btn-small" id="bresetRes">Resetuj pretragu</a></span>
+			<span class="pull-right">
+			<a role="button"  class="btn btn-small btn-default pull-right" href="#" id="newReservation">Nova rezervacija</a>
+			</span>
+		</div>
 	</div>
+	
 
 	<div class="row">
 		<div id="reservationsPartial">
@@ -40,8 +55,19 @@
 			</div>
 			{{ Form::open(array('url' => 'storePayment', 'name' => 'addNewPaymentForm', 'id' => 'addNewPaymentForm' )) }}
 			<div class="modal-body">
-			</br>
 				<table class="table">
+					<col width="120">
+					<col width="80">
+					<col width="150">
+					<col width="150">
+					<tr>
+						<td colspan="2"><div class="input-control text" align="right">Ostalo za uplatu -></div></td>
+						<td>
+							<div class="input-control text" align="right" id="left_to_pay_din" style="color:red"></div>
+						</td>
+						<td>
+							<div class="input-control text" align="right" id="left_to_pay_eur" style="color:red"></div>
+						</td>
 					<tr>
 						<td colspan='1'>
 							<div class="input-control text">
@@ -51,61 +77,66 @@
 									<option value="kartica">Kartica</option>
 									<option value="cek">Ček</option>
 									<option value="virman">Virman</option>
+									<option value="interno">Interno</option>
 								</select>
 								<input type="text" name="card_type" id="card_type" placeholder="Tip kartice" style="width:120px" />
 							</div>
 						</td>
-						<td colspan='3'>
+						<td colspan='2'>
 							<div class="input-control text">
 								<select class="validate[required]" name="passanger_search" style="width:100%" id="passanger_search">
 									<option value="" disabled selected="selected" style='display:none;'>Uplatilac</option>
 								</select>
 							</div>
 						</td>
-						<td>
+						<td colspan='1'>
 							<div class="input-control text">
 								<input type="text" name="reservation_number" id="reservation_number" placeholder="Br. rezervacije"/>
 								<input type="hidden" class="validate[required]" name="reservation_id" id="reservation_id"/>
 							</div>
 						</td>
 					</tr>
-					<tr>
-						<td>
-							<div class="input-control text input-append date" id="birth_datepicker">
+					<tr rowspan="2">
+						<td colspan='1'>
+							<div class="input-control text input-append date" id="res_datepicker">
 								<input type="text" id="res_date" class="validate[required]" name="res_date" placeholder="Datum plaćanja"/>
 							</div>
 						</td>
-						<td>
+						<td colspan='1'>
 							<div class="input-control text">
+								<input type="hidden" id="session_exchange_rate" value="{{ Session::get('exchRate') }}">
 								<!-- {{Form::text('exchange_rate', Session::get('exchRate'), array('id' => 'exchange_rate', 'value' => Session::get('exchRate')))}} -->
-								<input type="text" class="validate[required]" name="exchange_rate" id="exchange_rate" value="{{ Session::get('exchRate') }}"/>
+								<input type="text" class="validate[required]" name="exchange_rate" id="exchange_rate" value="{{ Session::get('exchRate') }}">
 							</div>
 						</td>
-						<td>
+						<td colspan='1'>
 							<div class="input-control text">
-								<input type="text" name="amount_din" id="amount_din" placeholder="Dinarski deo"/>
+								<input type="text" name="amount_din" id="amount_din" placeholder="Dinarski deo (din)"/>
 							</div>
 						</td>
-						<td>
+						<td colspan='1'>
 							<div class="input-control text">
-								<input type="text" name="amount_eur_din" id="amount_eur_din" placeholder="Devizni deo (€)"/>
+								<input type="text" name="amount_eur_din" id="amount_eur_din" placeholder="Devizni deo (din)"/>
 							</div>
-						</td>
-						<td>
 							<div class="input-control text">
-								<input type="text" class="validate[required]" name="fiscal_slip" id="fiscal_slip" placeholder="Br. Fisk. isečka"/>
+								<input type="text" name="amount_eur_eur" id="amount_eur_eur" placeholder="Devizni deo (€)" tabindex="-1"/>
 							</div>
 						</td>
 					</tr>
 					<tr>
-						<td colspan='2' rowspan='2'>
+						<td colspan='1' rowspan='2'>
 							<div class="input-control text">
 								<textarea rows='2' style="width:100%" name="	payment_method" id="payment_method" placeholder="Metod plaćanja"></textarea>
 							</div>
 						</td>
-						<td colspan='3' rowspan='2'>
+						<td colspan='2' rowspan='2'>
 							<div class="input-control text">
 								<textarea rows='2' style="width:100%" name="description" id="description" placeholder="Opis"></textarea>
+							</div>
+						</td>
+						<td colspan='1'>
+							<div class="input-control text">
+								<input type="text" class="validate[required]" name="fiscal_slip" id="fiscal_slip" placeholder="Br. Fisk. isečka"/>
 							</div>
 						</td>
 					</tr>

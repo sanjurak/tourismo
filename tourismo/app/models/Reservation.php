@@ -37,4 +37,24 @@ class Reservation extends Eloquent {
 	{
 		return $this->hasMany('Reservation_price','reservationId');
 	}
+	
+	public function payment_status()
+	{
+		$payments = Payment::where('reservation_id','=',$this->id)->get();
+		$left_to_pay_din = $this->price_total_din;
+		$left_to_pay_eur = $this->price_total_eur;
+		foreach ($payments as $payment) {
+			$left_to_pay_din -= $payment->amount_din;
+			if ($payment->exchange_rate != 0)
+				$left_to_pay_eur -= round($payment->amount_eur_din/$payment->exchange_rate, 2);
+		}
+		
+		if ($left_to_pay_din <= 0 && $left_to_pay_eur <= 0)
+			return "tr-success";
+		if(time() > strtotime($this->travel_date))
+			return "tr-error";
+		if(time() > (strtotime($this->travel_date)-(60*60*24*5)))
+			return "tr-alert";
+		return "";
+	}
 }

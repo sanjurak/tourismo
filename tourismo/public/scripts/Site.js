@@ -31,10 +31,10 @@ $(document).ready(function(){
         AdvancedSearch($(this), "advancedSearchOrg");
     });
 
-	$("#bresetDst").click(function(){
-		var selectize = $("#basicDstSearch")[0].selectize;
+	$("#breset").click(function(){
+		var selectize = $("#basic")[0].selectize;
 		selectize.clear();
-		selectize.clearOptions();
+		selectize.clearOptions();;
 		Search("*","basicSearch");		
 	});
 
@@ -154,7 +154,5 @@ $("#basicOrg").selectize({
         $("#addNewDstForm").trigger('submit');
     });
 
+
 });
-
-
-

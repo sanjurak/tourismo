@@ -116,6 +116,18 @@
 				      <input type="text" id="webModNew" name="web" placeholder="Web sajt">
 				    </div>
 				  </div>
+				  <div class="control-group">
+				    <label class="control-label" for="web">Provizija</label>
+				    <div class="controls">
+				      <input type="text" id="provisionModNew" name="provision" placeholder="Provizija">
+				    </div>
+				  </div>
+				  <div class="control-group">
+				    <label class="control-label" for="web">Broj Licence</label>
+				    <div class="controls">
+				      <input type="text" id="lecenceModNew" name="licence" placeholder="Broj licence">
+				    </div>
+				  </div>
 				</form>
 
 			</div>
@@ -179,6 +191,18 @@
 				    <label class="control-label" for="web">Web sajt</label>
 				    <div class="controls">
 				      <input type="text" id="webMod" name="web" placeholder="Web sajt">
+				    </div>
+				  </div>
+				  <div class="control-group">
+				    <label class="control-label" for="web">Provizija</label>
+				    <div class="controls">
+				      <input type="text" id="provisionMod" name="provision" placeholder="Provizija">
+				    </div>
+				  </div>
+				  <div class="control-group">
+				    <label class="control-label" for="web">Broj Licence</label>
+				    <div class="controls">
+				      <input type="text" id="licenceMod" name="licence" placeholder="Broj licence">
 				    </div>
 				  </div>
 				</form>

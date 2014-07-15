@@ -9,10 +9,19 @@ class ReservationsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$reservations = Reservation::paginate(10);
+		$reservations = Reservation::orderBy('id', 'DESC')->paginate(20);
 
 		//dd($reservations->first()->traveldeal());
 		return View::make('reservations')->nest('reservationsPartial','reservationsPartial', array('reservations' => $reservations));
+	}
+	
+	public function appendValue($data, $type, $element)
+	{
+	  // operate on the item passed by reference, adding the element and type
+	  foreach ($data as $key => & $item) {
+	    $item[$element] = $type;
+	  }
+	  return $data;   
 	}
 
 	public function InitializeTD()
@@ -23,9 +32,48 @@ class ReservationsController extends \BaseController {
 	public function initializePS()
 	{
 		$psg =  Passanger::select(DB::raw('CONCAT (name," ",surname," JMBG: ",jmbg," Pasoš: ",passport) as passanger, id'))
-		->get(array("passanger","id"))->toArray();
+		->orderBy('id','desc')->get(array("passanger","id"))->toArray();
 		
 		return Response::json(array('data' => $psg));
+	}
+	
+	public function autosearch()
+	{
+		$query = Input::get('q','');
+
+		 //if(!$query && $query == '') return Response::json(array(), 400);
+
+		$passangers = Passanger::join("reservations","passanger.id","=","reservations.passanger_id")
+								->select(DB::raw('CONCAT(name, " ", surname,", ", jmbg) as term'),"passanger.id as id")
+								->where("passanger.name","LIKE","%".$query."%")
+								->orWhere("passanger.surname","LIKE","%".$query."%")
+								->orWhere("passanger.jmbg","LIKE","%".$query."%")
+								->get(array("term","id"))
+								->toArray();
+
+		 $reservations = Reservation::where("reservation_number","LIKE","%".$query."%")
+		 					->get(array("reservation_number as term","reservation_number as id"))
+		 					->toArray();
+
+		 $passangers = $this->appendValue($passangers,'passanger','class');
+		 $reservations = $this->appendValue($reservations,'resnum','class');
+
+		 $data = array_merge($passangers, $reservations);
+
+		 return Response::json(array('data' => $data));
+	}
+	
+	public function searchRes()
+	{
+		$searchTerm = Input::get('search_item','');
+		$reservations = null;
+		if($searchTerm == "*")
+			$reservations = Reservation::orderBy('id', 'DESC')->paginate(20);
+		else
+			$reservations = Reservation::where('reservation_number','=',$searchTerm)->orWhere('passanger_id','=',$searchTerm)->orderBy('id', 'DESC')->paginate(20);
+		
+
+		return View::make('reservationsPartial',array('reservations' => $reservations));
 	}
 	/**
 	 * Show the form for creating a new resource.
@@ -164,36 +212,50 @@ class ReservationsController extends \BaseController {
 
 		try
 		{		
-			$startdate = Input::get("start_date");
-			$enddate = Input::get("end_date");
-			$traveldate = Input::get("travel_date");
+			$startdate = date('Y-m-d', strtotime(Input::get("start_date")));
+			$enddate = date('Y-m-d', strtotime(Input::get("end_date")));
+			$traveldate = date('Y-m-d', strtotime(Input::get("travel_date")));
 			$numnights = Input::get("numnights");
 			$discount = Input::get("discount");
 			$discounter = Input::get("discounter");
 			$clockindex = Input::get("clockindex");
+			$totalDin = Input::get("TotalDIN");
+			$totalEur = Input::get("TotalEUR");
 			$notes = Input::get("notes");
 			$internalnotes = Input::get("internalnotes");
 			$internal = Input::get("Internal");
+			
+			$resNum = Input::get("ResNum");
 
 			$traveldealId = Input::get("traveldealId");
 
 			$items = $_POST["Item"];
 			$passangers = $_POST["Passangers"];
 
-			$resnum = Reservation_number::first();
 			
 			$res_num = "";
 
-			if($internal == "true")
+			if($resNum != null && $resNum != "")
 			{
-				$res_num = $resnum->number ."-" . $resnum->internalNum . "/" . $resnum->year;
-				$resnum->internalNum = $resnum->internalNum + 1;
+				$res_num = $resNum;
 			}
 			else
 			{
-				$res_num = $resnum->number . "/" . $resnum->year;
-				$resnum->number = $resnum->number + 1;
-				$resnum->internalNum = 1;
+				$resnum = Reservation_number::first();
+				if($internal == "true")
+				{
+					$res_num = $resnum->number ."-" . $resnum->internalNum . "/" . $resnum->year;
+					$resnum->internalNum = $resnum->internalNum + 1;
+					$internal = 1;
+				}
+				else
+				{
+					$res_num = $resnum->number . "/" . $resnum->year;
+					$resnum->number = $resnum->number + 1;
+					$resnum->internalNum = 1;
+					$internal = 0;
+				}
+				$resnum->Save();
 			}
 
 			$reservation = new Reservation;
@@ -208,11 +270,16 @@ class ReservationsController extends \BaseController {
 			$reservation->discount = $discount;
 			$reservation->discounter_name = $discounter;
 			$reservation->clock_index = $clockindex;
+			$reservation->price_total_din = $totalDin;
+			$reservation->price_total_eur = $totalEur;
 			$reservation->note = $notes;
 			$reservation->note_internal = $internalnotes;
+			
+			if(Auth::user())
+			$reservation->user = Auth::user()->name . " " . Auth::user()->surname;
+			$reservation->internal = $internal;
 
-			$reservation->Save();
-			$resnum->Save();
+			$reservation->Save();	
 
 
 			$traveldeal = Travel_deals::find($traveldealId);
@@ -222,12 +289,14 @@ class ReservationsController extends \BaseController {
 				if(is_array($items))
 				{
 					foreach ($items as $item) {
+						
 						if($item['isExcursion'] == "true")
 						{
 							$excursion = new Excursion;
 							$excursion->excursionItem = $item['name'];
 							$excursion->priceDin = $item['din'];
 							$excursion->priceEur = $item['euro'];
+							$excursion->num = $item['num'];
 							$excursion->Save();
 
 							$resExc = new Reservation_excursion;
@@ -241,7 +310,8 @@ class ReservationsController extends \BaseController {
 							$resprice = new Reservation_price;
 							$resprice->priceItem = $item['name'];
 							$resprice->priceDin = $item['din'];
-							$resprice->priceEur = $item['euro'];						
+							$resprice->priceEur = $item['euro'];	
+							$resprice->num = $item['num'];					
 							$resprice->reservationId = $reservation->id;
 							$resprice->Save();
 						};
@@ -262,7 +332,7 @@ class ReservationsController extends \BaseController {
 		catch(\Exception $e)
 		{
 			DB::rollback();
-			return Response::json(array('status' => "failure"));
+			return Response::json(array('status' => "failure",'message' => $e->getMessage()));
 		}
 
 		DB::commit();
@@ -276,7 +346,16 @@ class ReservationsController extends \BaseController {
 								->where("reservation_id","=",$reservation->id)
 								->select("passanger.name", "passanger.surname", "passanger.tel", "passanger.mob", "passanger.passport", "passanger.birth_date")
 								->get();
-		return PDF::loadView('reports\\reservation_contract', array('reservation' => $reservation, 'passangers' => $passangers),array(),'UTF-8')->stream('CONTRACT.pdf');
+		$pdf = null;
+		try{
+			$pdf = PDF::loadView('reports//reservation_contract', array('reservation' => $reservation, 'passangers' => $passangers),array(),'UTF-8')->stream('CONTRACT.pdf');
+		}
+		catch(\Exception $e)
+		{
+			return Response::json(array('status' => "failure", 'message' => $e->getMessage()));
+		}
+		
+		return $pdf;
 	}
 
 	/**
@@ -287,7 +366,20 @@ class ReservationsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$reservation = Reservation::find($id);
+		$traveldeal = Travel_deals::find($reservation->travel_deal_id);
+		$passangers = Passanger::join("passangers","passangers.passanger_id","=","passanger.id")
+					->where("passangers.reservation_id","=",$reservation->id)
+					->get();
+		
+		$accunit = $traveldeal->accomodationUnit;
+		
+		$resPrices = Reservation_price::where("reservationId", "=", $id)->get();
+		$excPrices = Reservation_excursion::where("reservationId", "=", $id)->get();
+		
+		return View::make("editReservationPartial",array('reservation' => $reservation, 
+					'traveldeal' => $traveldeal, 'passangers' => $passangers, 'accunit' => $accunit, 'resPrices' => $resPrices,
+					'excPrices' => $excPrices));
 	}
 
 	/**
@@ -309,7 +401,132 @@ class ReservationsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		DB::beginTransaction();
+
+		try
+		{
+			$passangers = isset($_POST["Passangers"])?$_POST["Passangers"]:null;
+			$oldpassangers = $_POST["OldPassangers"];
+						
+			$reservation = Reservation::find($id);
+			
+			$reservation->reservation_number = Input::get("reservation_number");
+			$reservation->start_date = date('Y-m-d', strtotime(Input::get("start_date")));
+			
+			$reservation->end_date= date('Y-m-d', strtotime(Input::get("end_date")));
+			
+			$reservation->travel_date = date('Y-m-d', strtotime(Input::get("travel_date")));
+			
+			$reservation->nights_num = Input::get("nights_num");
+			
+			$reservation->discount= Input::get("discount");
+			$reservation->discounter_name= Input::get("discounter_name");
+			$reservation->clock_index= Input::get("clock_index");
+			$reservation->note= Input::get("note");
+			
+			$reservation->note_internal= Input::get("note_internal");
+			
+			$reservation->travel_deal_id = Input::get("traveldeal_id");
+			
+			$reservation->save();
+			
+			if($passangers != null && is_array($passangers))
+			{
+				foreach ($passangers as $passanger) {
+					$psg = new Passangers;
+					$psg->passanger_id = $passanger;
+					$psg->reservation_id = $id;
+					$psg->Save();
+				}
+			}
+			
+			$flag = false;
+			$newid = 0;
+			
+			if($oldpassangers != null && is_array($oldpassangers))
+			{
+				foreach ($oldpassangers as $oldpassanger) {
+					
+					if($oldpassanger['delete'] == 1)
+					{
+						Passangers::destroy($oldpassanger['id']);
+						if($reservation->passanger_id == $oldpassanger['id'])
+							$flag = true;
+						
+					}
+					else
+					{
+						
+						 $newid = Passangers::find($oldpassanger['id'])->passanger_id;
+					}
+				}
+			}
+			
+			if($flag)
+			{
+				if($newid != 0)
+					$reservation->passanger_id = $newid;
+				else
+					$reservation->passanger_id = $passangers[0];
+				
+				$reservation->save();
+					
+			}
+				
+			$oldprices = $_POST["Prices"];
+			
+			if(is_array($oldprices))
+			{
+				foreach($oldprices as $price)
+				{
+					$idp = $price['id'];
+					
+					if($price['delete'] == 1)
+					{
+						Reservation_price::destroy($idp);
+					}
+					else
+					{
+						$resprice = Reservation_price::find($idp);
+						$resprice->priceItem = $price['name'];
+						$resprice->priceDin = $price['priceDin'];
+						$resprice->priceEur = $price['priceEur'];
+						$resprice->num = $price['num'];
+						$resprice->save();
+					}
+				}
+			}
+			
+			$prices = isset($_POST['Item'])?$_POST['Item'] : null;
+			
+			if($prices != null && is_array($prices))
+			{
+				foreach($prices as $item)
+				{
+					$resprice = new Reservation_price;
+					$resprice->priceItem = $item['name'];
+					$resprice->priceDin = $item['din'];
+					$resprice->priceEur = $item['euro'];	
+					$resprice->num = $item['num'];					
+					$resprice->reservationId = $reservation->id;
+					$resprice->Save();
+				}
+			}
+							
+			$log = new ReservationsLog;
+			
+			$log->reservation_id = $id;
+			$log->user_id = Auth::user()->username;
+			$log->save();
+		}
+		catch(\Exception $e)
+		{
+			DB::rollback();
+			return Response::json(array('status' => "failure",'message' => $e->getMessage()));
+		}
+
+		DB::commit();
+		return Response::json(array('status' => "success", 'id' => $reservation->id));
 	}
 
 	/**
@@ -320,7 +537,24 @@ class ReservationsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		DB::beginTransaction();
+		
+		try{		
+			$affectedrows = Reservation_price::where("reservationId","=",$id)->delete();
+			$excursionrows = Reservation_excursion::where("reservationId","=",$id)->delete();
+			$psgrows = Passangers::where("reservation_id","=",$id)->delete();
+			$resLog = ReservationsLog::where("reservation_id", "=", $id)->delete();
+			
+			Reservation::destroy($id);
+		}
+		catch(\Excception $e)
+		{
+			DB::rollback();
+			return Response::json(array('status' => "failure", 'message' => $e->getMessage()));
+		}
+		DB::commit();
+		Session::flash('success',  "Uspešno brisanje rezervacije");
+		return Redirect::back();
 	}
 
 	/**
@@ -341,6 +575,13 @@ class ReservationsController extends \BaseController {
 			$psg_data = array($psg->id, $psg->name.' '.$psg->surname.' JMBG: '.$psg->jmbg);
 			array_push($prd->passanger_names, $psg_data);
 		}
+		$payments = Payment::where('reservation_id','=',$reservation->id)->get();
+		$prd->left_to_pay_din = $reservation->price_total_din;
+		$prd->left_to_pay_eur = $reservation->price_total_eur;
+		foreach ($payments as $payment) {
+			$prd->left_to_pay_din -= $payment->amount_din;
+			$prd->left_to_pay_eur -= round($payment->amount_eur_din/$payment->exchange_rate, 2);
+		}
 
 		return Response::json(array('data' => json_encode($prd)));
 	}
@@ -351,5 +592,7 @@ class PaymentResDetails {
 	public $reservation_number;
 	public $reservation_id;
 	public $passanger_names = array();
+	public $left_to_pay_din;
+	public $left_to_pay_eur;
 }
 ?>

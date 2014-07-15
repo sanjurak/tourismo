@@ -27,12 +27,13 @@ class UserController extends BaseController {
 
 		 if (Auth::attempt($userdata))
 		 {
-    	    // The user is being remembered...
-    	    Session::put('username', $userdata['username']);
-    	    Session::put('role', User::find($userdata['username'])->role_id);
+    	   	    // The user is being remembered...
+    	   	    Session::put('username', $userdata['username']);
+    	   	    Session::put('role', User::find($userdata['username'])->role_id);
 		    return Redirect::intended('homepage');
 		 }
 		 else {
+		 	Session::flash('error', 'Korisničko ime ili šifra nisu tačni');
 		 	return Redirect::back();
 		 }
 		 

@@ -17,7 +17,7 @@ class DestinationsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$destinations = Destination::all();
+		$destinations = Destination::orderBy('id', 'DESC')->paginate(15);
 
 		$categories = array('0' => 'Izaberite kategoriju') + Categories::lists("name","id");
 		$countries = array('0' => "Izaberite zemlju") + Destination::lists("country","country");
@@ -130,9 +130,9 @@ class DestinationsController extends \BaseController {
 		$searchTerm = Input::get('search_item','');
 		$destinations = null;
 		if($searchTerm == "*")
-			$destinations = Destination::all();
+			$destinations = Destination::orderBy('id', 'DESC')->paginate(15);
 		else
-			$destinations = Destination::where('country','LIKE','%'.$searchTerm.'%')->orWhere('town','LIKE','%'.$searchTerm.'%')->get();
+			$destinations = Destination::where('country','LIKE','%'.$searchTerm.'%')->orWhere('town','LIKE','%'.$searchTerm.'%')->orderBy('id', 'DESC')->paginate(15);
 		return View::make('dstPartial', array('destinations' => $destinations));
 	}
 

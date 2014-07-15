@@ -24,8 +24,6 @@
 	</div>
 </div>
 
-{{ $passangers->links() }}
-
 <p/>
 <div  id="passangersData">
 	{{ $psgPartial }}
@@ -38,7 +36,7 @@
 				<a class="close" data-dismiss="modal">x</a>
 				<h3>Detalji putnika</h3>
 			</div>
-			{{ Form::open(array('url' => 'storePassanger', 'name' => 'addNewFullPsgForm', 'id' => 'addNewFullPsgForm' )) }}
+			{{ Form::open(array('url' => 'storePassanger', 'name' => 'addNewFullPsgForm', 'id' => 'addNewFullPsgForm', 'autocomplete' => 'off' )) }}
 			<div class="modal-body">
 				<table class="table striped">
 					<tr>
@@ -68,11 +66,11 @@
 							<select name="gender" id="gender">
 								<option value="" disabled selected="selected" style='display:none;'>Pol...</option>
 								<option value="m">m</option>
-								<option value="f">f</option>
+								<option value="f">ž</option>
 							</select>
 						</div></td>
-						<td><div class="input-control text input-append date" id="birth_datepicker">
-							<input type="text" style="height:100%" class="span2" id="birth_date" name="birth_date" placeholder="yyyy/mm/dd"/>
+						<td><div class="input-controll text input-append date" id="birth_datepicker">
+							<input type="text" style="height:100%" class="span2" id="birth_date" name="birth_date" placeholder="d-m-yy"/>
 							<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
 						</div></td>
 						<td><div class="input-control text">

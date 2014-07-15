@@ -10,7 +10,7 @@ class OrganizersController extends \BaseController {
 	 */
 	public function index()
 	{
-		$organizers = organizers::all();
+		$organizers = Organizers::orderBy('name')->paginate(15);
 
 		$matbrs = array('0' => 'Izaberite matični broj') + Organizers::lists('mat_br','mat_br');
 		$pibs = array('0' => 'Izaberite PIB') + Organizers::lists('pib','pib');
@@ -51,9 +51,9 @@ class OrganizersController extends \BaseController {
 		$searchTerm = Input::get('search_item','');
 		$organizators = null;
 		if($searchTerm == "*")
-			$organizators = Organizers::all();
+			$organizators = Organizers::orderBy('name')->paginate(15);
 		else
-			$organizators = Organizers::where('name','LIKE','%'.$searchTerm.'%')->orWhere('address','LIKE','%'.$searchTerm.'%')->orWhere('email','LIKE','%'.$searchTerm.'%')->orWhere('web','LIKE','%'.$searchTerm.'%')->get();
+			$organizators = Organizers::where('name','LIKE','%'.$searchTerm.'%')->orWhere('address','LIKE','%'.$searchTerm.'%')->orWhere('email','LIKE','%'.$searchTerm.'%')->orWhere('web','LIKE','%'.$searchTerm.'%')->orderBy('name')->paginate(15);
 		return View::make('orgzPartial', array('organizators' => $organizators));
 	}
 
@@ -125,6 +125,8 @@ class OrganizersController extends \BaseController {
 		$web = Input::get('web');
 		$name = Input::get('name');
 		$phone = Input::get('phone');
+		$provision = Input::get('provision');
+		$licence = Input::get('licence');
 
 		$organizator = new Organizers;
 
@@ -135,6 +137,8 @@ class OrganizersController extends \BaseController {
 		$organizator->web = $web;
 		$organizator->address = $address;
 		$organizator->phone = $phone;
+		$organizator->provision = $provision;
+		$organizator->licence = $licence ;
 
 		$organizator->Save();
 
@@ -194,7 +198,9 @@ class OrganizersController extends \BaseController {
 		$web = Input::get('web');
 		$name = Input::get('name');
 		$phone = Input::get('phone');
-		Organizers::where('pib','=',$id)->update(array("mat_br" => $matbr, "email" => $email, "address" => $address, "web" => $web, "name" => $name, "phone" => $phone));
+		$provision = Input::get('provision');
+		$licence = Input::get('licence');
+		Organizers::where('pib','=',$id)->update(array("mat_br" => $matbr, "email" => $email, "address" => $address, "web" => $web, "name" => $name, "phone" => $phone, "provision" => $provision, "licence" => $licence));
 		
 	}
 

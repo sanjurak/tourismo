@@ -68,3 +68,21 @@ form:legend{
 	width:130px;
 }
 
+.tr-error {
+    background-color: #E96D63;
+    color: black;
+}
+
+.tr-success {
+    background-color: #7FCA9F;
+    color: black;
+}
+
+.tr-alert {
+    background-color: #F4BA70;
+    color: black;
+}
+
+.ui-datepicker{
+	z-index: 1154 !important;
+}

@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('notifications')
+
 <div class="row" style="height:20px;"></div>
 <div class="row">
 	<div class="container">

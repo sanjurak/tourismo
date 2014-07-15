@@ -9,7 +9,7 @@ class AccommodationsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$accomodations = Accomodations::all();
+		$accomodations = Accomodations::orderBy('id', 'DESC')->paginate(15);
 		$destinationsList = Destination::select(DB::raw('concat (town,", ",country) as destination, id'))->lists("destination","id");
 		return View::make("accomodations",array('destinations' => $destinationsList ))->nest("accPartial","accPartial",array('accomodations' => $accomodations));
 	}
@@ -72,13 +72,17 @@ class AccommodationsController extends \BaseController {
 		}
 		$destinations = null;
 		if($searchTerm == "*")
-			$accomodations = Accomodations::all();
+			$accomodations = Accomodations::orderBy('id', 'DESC')->paginate(15);
 		else
 			$accomodations = Accomodations::join("destinations","destinations.id","=","accomodations.destination_id")
 											->where('type','LIKE','%'.$searchTerm.'%')
 											->orWhere('name','LIKE','%'.$searchTerm.'%')
-											->orWhere('town','LIKE','%'.$town.'%')
-											->orWhere('country','LIKE','%'.$country.'%')->get();
+											->orWhere(function($query) use($town, $country)
+												{
+													$query->where('town','LIKE','%'.$town.'%')
+														->where('country','LIKE','%'.$country.'%');
+												})
+											->orderBy('destinations.id', 'DESC')->paginate(15);
 		return View::make('accPartial', array('accomodations' => $accomodations));
 	}
 

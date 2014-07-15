@@ -8,7 +8,13 @@
 	{{HTML::script('//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js')}}
 	<!--{{HTML::script('bootstrap/js/jquery.widget.min.js')}}-->
 	{{HTML::script('bootstrap/js/jquery-2.1.0.min.js')}}
+	
+	{{HTML::script('bootstrap/js/metro.min.js')}}
+	
 	{{HTML::script('jquery-ui-1.10.4/ui/jquery-ui.js')}}
+	{{HTML::style('jquery-ui-1.10.4/themes/base/jquery-ui.css')}}
+	{{HTML::style('jquery-ui-1.10.4/themes/base/jquery.ui.datepicker.css')}}
+	{{HTML::style('jquery-ui-1.10.4/themes/base/jquery.ui.theme.css')}}
 	
 	{{HTML::script('//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js')}}
 	<!--{{HTML::script('bootstrap/js/jquery.ui.widget.js')}}-->
@@ -20,21 +26,21 @@
 	{{HTML::style('selectize/css/selectize.css')}}
 	{{HTML::style('selectize/css/selectize.bootstrap2.css')}}
 	{{HTML::style('bootstrap-editable/css/bootstrap-editable.css')}}
-	{{HTML::script('bootstrap/js/metro.min.js')}}
 	{{HTML::script('selectize/js/standalone/selectize.js')}}
 
 	{{HTML::script('bootstrap-editable/js/bootstrap-editable.min.js')}}
 	{{HTML::script('//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap-editable/js/bootstrap-editable.min.js')}}
 	{{HTML::script('scripts/Site.js')}}
 	{{HTML::script('scripts/functions.js')}}
+	{{HTML::script('scripts/date.format.js')}}
 	{{HTML::style('styles/Site.css')}}
 
 	{{HTML::script('jquery-validator/js/jquery.validationEngine.js')}}
 	{{HTML::script('jquery-validator/js/languages/jquery.validationEngine-srb.js')}}
 	{{HTML::style('jquery-validator/css/validationEngine.jquery.css')}}
 
-	{{HTML::script('datepicker/js/bootstrap-datepicker.js')}}
-	{{HTML::style('datepicker/css/datepicker.css')}}
+	<!--{{HTML::script('datepicker/js/bootstrap-datepicker.js')}}-->
+	<!--{{HTML::style('datepicker/css/datepicker.css')}}-->
 
 	@yield("javascripts")
 </head>

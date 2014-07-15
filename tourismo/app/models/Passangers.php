@@ -23,5 +23,18 @@ class Passangers extends Eloquent {
 		return $this->id;
 	}
 
+	/**
+	 * Check if User can be deleted
+	 *
+	 * @return boolean
+	 */
+	public static function canDelete($id)
+	{
+		$psg = Passangers::where('passanger_id','=',$id)->get();
+		if ($psg->count()>0)
+			return false;
+		else 
+			return true;
+	}
 
 }

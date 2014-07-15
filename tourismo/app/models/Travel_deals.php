@@ -13,6 +13,7 @@ class Travel_deals extends Eloquent {
 	protected $table = 'travel_deals';
 	protected $appends = array("name","accomodation");
 
+	protected $fillable = ['category_id'];
 	
 	/**
 	 * Get the unique identifier for the reservation.

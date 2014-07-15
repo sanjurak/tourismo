@@ -19,13 +19,21 @@ class RemindersController extends Controller {
 	 */
 	public function postRemind()
 	{
-		switch ($response = Password::remind(Input::only('email')))
+		switch ($response = Password::remind(Input::only('email'), function($message)
+		{
+    			$message->subject('Password Reminder');
+		}))
 		{
 			case Password::INVALID_USER:
+			{
+				Session::flash('error', 'Korisnik sa tom email adreson ne postoji');
 				return Redirect::back()->with('error', Lang::get($response));
-
+			}
 			case Password::REMINDER_SENT:
-				return Redirect::back()->with('status', Lang::get($response));
+			{
+				Session::flash('success', 'Email sa uputstvom za resetovanje šifre je poslat');
+				return Redirect::to("login")->with('status', Lang::get($response));
+			}
 		}
 	}
 
@@ -68,7 +76,10 @@ class RemindersController extends Controller {
 				return Redirect::back()->with('error', Lang::get($response));
 
 			case Password::PASSWORD_RESET:
+			{
+				Session::flash('success', 'Šifra je uspešno resetovana');
 				return Redirect::to('/');
+			}
 		}
 	}
 

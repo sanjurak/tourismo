@@ -4,6 +4,9 @@ $(function(){
 	$(".editableC").editable();
 });
 </script>
+
+{{ $destinations->links() }}
+
 <table class="table table-hover">
 		<tr>
 			<th>Kategorija</th>

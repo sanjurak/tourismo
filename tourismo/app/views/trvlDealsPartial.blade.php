@@ -1,10 +1,53 @@
-{{HTML::script('scripts/travel_deals.js')}}
 <script type="text/javascript">
 $(function(){
 
 	$(".editableC").editable();
+	
+	var list = $(".trvlDealsDetails");
+   	for (i = 0, len = list.length; i < len; i++){
+        list[i].onclick=function(){
+            $.ajax({
+                url: 'travelDealDetails',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    trvlDls_id: $(this)[0].name
+                },
+                error: function() {
+                    callback();
+                },
+                success: function(res) {
+                    list = $(".modal-body input");
+                    for (i = 0, len = list.length; i < len; i++){
+                        list[i].removeAttribute("value");
+                    }
+
+                    if (res.data != null) {
+                        var trvldl = jQuery.parseJSON(res.data);
+                        $(".modal-body #id")[0].setAttribute("value", trvldl.id);
+                        $(".modal-body #category")[0].setAttribute("value", trvldl.category);
+                        $(".modal-body #destination")[0].setAttribute("value", trvldl.destination);
+                        $(".modal-body #organizer")[0].setAttribute("value", trvldl.organizer);
+                        $(".modal-body #accom_type")[0].setAttribute("value", trvldl.accom_type);
+                        $(".modal-body #accom_name")[0].setAttribute("value", trvldl.accom_name);
+                        if(trvldl.transportation != null){
+                            $(".modal-body #transportation")[0].setAttribute("value", trvldl.transportation);
+                        }
+                        if(trvldl.service != null){
+                            $(".modal-body #service")[0].setAttribute("value", trvldl.service);
+                        }
+                        $(".modal-body #price_din")[0].setAttribute("value", trvldl.price_din);
+                        if(trvldl.price_eur != null)
+                            $(".modal-body #price_eur")[0].setAttribute("value", trvldl.price_eur);
+                        }
+                    }
+            });
+        };
+    }
 });
 </script>
+
+{{ $travel_deals->links() }}
 
 <table class="table striped">
 	<thead style="font-weight:bold">

@@ -7,8 +7,8 @@
 <body>
 <table class="memo">
 	<tr>
-		<td class="width60"><img height="150" src="images/clock_logo.png" /></td>
-		<td class="textleft font10 width40">
+		<td class="width50"><img height="110" src="http://manage.clocktravel.rs/images/clock_logo.png" /></td>
+		<td class="textleftbottom font9">
 			<p><b>
 				CLOCK TRAVEL d.o.o.<br>
 				Adresa: Trg Republike 6, Niš<br>
@@ -17,7 +17,11 @@
 				<br>
 				www.clocltravel.rs<br>
 				email: office@clocktravel.rs<br>
-				<br>
+				</b>
+			</p>
+		</td>
+		<td class="textleftbottom font9">
+			<p><b>
 				Licenca OTP 27/2014<br>
 				Matični broj: 20902787<br>
 				PIB: 107947473<br>
@@ -26,10 +30,8 @@
 			</p>
 		</td>
 	</tr>
-	<tr>
-		<td colspan="2"><hr></td>
-	</tr>
 </table>
+<hr width=100%/>
 @yield("report")
 </body>
 </html>

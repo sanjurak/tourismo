@@ -9,7 +9,7 @@ class TravelDealController extends \BaseController {
 	 */
 	public function index()
 	{
-		$travel_deals = Travel_deals::paginate(10);
+		$travel_deals = Travel_deals::orderBy('id', 'DESC')->paginate(15);
 		return View::make('travel_deals', 
 			array('travel_deals' => $travel_deals))->nest(
 			'trvlDealsPartial','trvlDealsPartial', array('travel_deals' => $travel_deals));
@@ -32,44 +32,50 @@ class TravelDealController extends \BaseController {
 	 */
 	public function store()
 	{
-		$travel_deal = new Travel_deals;
 		$trvl_dl = Travel_deals::find(Input::get('id'));
 		$categories = Categories::where('name', 'LIKE', Input::get('category'))->get();
-		$category_id = 0;
-		if ($categories->count() > 0)
+		if ($categories->count() > 0) {
 			$category_id = $categories->toArray()[0]['id'];
+		}
 		else {
 			$category = new Categories;
 			$category->name = Input::get('category');
 			$category->save();
+			Session::flash('success', 'Dodata nova kategorija \"$category->name\"!');
 			$category_id = $category->id;
 		}
 		$organizer_id = Organizers::where('name', 'LIKE', Input::get('organizer'))->get()->toArray()[0]['pib'];
 		$dsts = explode(', ', Input::get('destination'));
 		$destination_id = Destination::where('town', 'LIKE', $dsts[0])->where('country', 'LIKE', $dsts[1])->get()->toArray()[0]['id'];
-		$accomodations_id = Accomodations::where('destination_id', '=', $destination_id)->
+		$accomodations = Accomodations::where('destination_id', '=', $destination_id)->
 			where('name', 'LIKE', Input::get('accom_name'))->
-			where('type', 'LIKE', Input::get('accom_type'))->get()->toArray[0]['id'];
+			where('type', 'LIKE', Input::get('accom_type'))->get();
+		if ($accomodations->count() == 0) {
+			Session::flash('error', 'Smeštaj ne postoji!');
+			return Redirect::back();
+		}
+		$accomodations_id = $accomodations->toArray()[0]['id'];
+		
 		if($trvl_dl != null) {
-			$trvl_dl->update(array(
-				'category_id' => $category_id,
-				'organizer_id' => $organizer_id,
-				'destination_id' => $destination_id,
-				'accomodation_unit_id' => Accomodation_units::where('accomodations_id', '=', $accomodations_id)->get()->id,
-				'transportation' => Input::get('transportation'),
-				'service' => Input::get('service'),
-				'price_din' => Input::get('price_din'),
-				'price_eur' => Input::get('price_eur')
-			));
+			$trvl_dl->category_id = $category_id;
+			$trvl_dl->organizer_id = $organizer_id;
+			$trvl_dl->destination_id = $destination_id;
+			$trvl_dl->accomodation_unit_id = Accomodation_units::where('accommodations_id', '=', $accomodations_id)->get()->toArray()[0]['id'];
+			$trvl_dl->transportation = Input::get('transportation');
+			$trvl_dl->service = Input::get('service');
+			$trvl_dl->price_din = floatval(Input::get('price_din'));
+			$trvl_dl->price_eur = floatval(Input::get('price_eur'));
+			$trvl_dl->save();
 		} else {
+			$travel_deal = new Travel_deals;
 			$travel_deal->category_id = $category_id;
 			$travel_deal->organizer_id = $organizer_id;
 			$travel_deal->destination_id = $destination_id;
-			$travel_deal->accomodation_unit_id = Accomodation_units::where('accomodations_id', '=', $accomodations_id)->get()->id;
-			$travel_deal->transportation = Input::get('gender');
-			$travel_deal->service = Input::get('tel');
-			$travel_deal->price_din = Input::get('mob');
-			$travel_deal->price_eur = Input::get('passport');
+			$travel_deal->accomodation_unit_id = Accomodation_units::where('accommodations_id', '=', $accomodations_id)->get()->toArray()[0]['id'];
+			$travel_deal->transportation = Input::get('transportation');
+			$travel_deal->service = Input::get('service');
+			$travel_deal->price_din = floatval(Input::get('price_din'));
+			$travel_deal->price_eur = floatval(Input::get('price_eur'));
 			$travel_deal->save();
 		}
 		return Redirect::back();
@@ -229,20 +235,21 @@ class TravelDealController extends \BaseController {
 		$travel_deals = null;
 		
 		if (($cat == "" || $cat == null) && ($dst == "" || $dst == null))
-			$travel_deals = Travel_deals::paginate(10);
+			$travel_deals = Travel_deals::orderBy('id', 'DESC')->paginate(15);
 		elseif ($dst == "") {
 			$categories = Categories::where('name','LIKE',$cat)->get();
-			$travel_deals = Travel_deals::where('category_id','=',$categories->first()->id)->get();
+			$travel_deals = Travel_deals::where('category_id','=',$categories->first()->id)->orderBy('id', 'DESC')->paginate(15);
 			// dd($travel_deals);
 		} elseif ($cat == "") {
 			$dsts = explode(', ', $dst);
 			$destinations = Destination::where('town', 'LIKE', $dsts[0])->where('country', 'LIKE', $dsts[1])->get();
-			$travel_deals = Travel_deals::where('destination_id','=',$destinations->first()->id)->get();
+			$travel_deals = Travel_deals::where('destination_id','=',$destinations->first()->id)->orderBy('id', 'DESC')->paginate(15);
 		} else {
 			$categories = Categories::where('name','LIKE',$cat)->get();
 			$dsts = explode(', ', $dst);
 			$destinations = Destination::where('town', 'LIKE', $dsts[0])->where('country', 'LIKE', $dsts[1])->get();
-			$travel_deals = Travel_deals::where('category_id','=',$categories->first()->id)->where('destination_id','=',$destinations->first()->id)->get();
+			$travel_deals = Travel_deals::where('category_id','=',$categories->first()->id)->where('destination_id','=',$destinations->first()->id)
+			->orderBy('id', 'DESC')->paginate(15);
 		}
 
 		return View::make('trvlDealsPartial', array('travel_deals' => $travel_deals));

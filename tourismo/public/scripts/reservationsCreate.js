@@ -1,6 +1,5 @@
 $(function(){
-		$("#traveldealDetails").hide();
-        $("#traveldealNew").hide();
+        	$("#traveldealNew").hide();
 		$("#passangerNew").hide();
 		$("#addCategoryModal").hide();
 		$("#addOrganizerModal").hide();
@@ -347,14 +346,39 @@ $(function(){
                 $("#addPaymentItem").trigger("click");
                 $("#paymentItems div").last().find("#paymentItemEuro").val(item["price_eur"]).trigger("focusout");
                 $("#paymentItems div").last().find("#paymentItemDin").val(item["price_din"]).trigger("focusout");
-                $("#paymentItems div").last().find("#paymentItemName").val("Aranžman");
+                $("#paymentItems div").last().find("#paymentItemName").val("Smeštaj Adl");
+                
+                $("#addPaymentItem").trigger("click");
+                $("#paymentItems div").last().find("#paymentItemName").val("Smeštaj Chld");
+                
+                $("#addPaymentItem").trigger("click");
+                $("#paymentItems div").last().find("#paymentItemName").val("Prevoz Adl");
+                
+                $("#addPaymentItem").trigger("click");
+                $("#paymentItems div").last().find("#paymentItemName").val("Prevoz Chld");
+                
+                $("#addPaymentItem").trigger("click");
+                $("#paymentItems div").last().find("#paymentItemName").val("Popust");
+                
+                $("#addPaymentItem").trigger("click");
+                $("#paymentItems div").last().find("#paymentItemName").val("Doplata");
+                                
+               // $("#addPaymentItem").trigger("click");
+               // $("#paymentItems div").last().find("#paymentItemName").val("Osiguranje Adl");
+                
+               // $("#addPaymentItem").trigger("click");
+               // $("#paymentItems div").last().find("#paymentItemName").val("Osiguranje Chld");
+                
+               // $("#addPaymentItem").trigger("click");
+               // $("#paymentItems div").last().find("#paymentItemName").val("BTO");
+                
 
                 $("#passangers_details").show();
                 $("#payment_details").show();
         }
 	});
 
-var psgCounter = 0;
+	var psgCounter = 0;
 
 	$("#passangersSel").selectize({
 		valueField: 'id',
@@ -391,7 +415,11 @@ var psgCounter = 0;
                 +"<a href='#' class='remove-psg pull-right'>"
                 +"<span class='icon icon-remove-sign'></span></a></div>")
             .appendTo("#passangersDetails");
-
+            
+            if(!$("#passangerNew").is(":hidden")) {
+	            $("#passangerNew").slideUp();
+	    }
+            $("#passangersDetails").show();
             $("#details").show();
             $("#createReservationBtn").show();
 
@@ -438,7 +466,10 @@ var psgCounter = 0;
         var totaleur = 0;
 
         $("#paymentItems div#paymentItem").each(function(){
-            totaleur += +$(this).find("#paymentItemTotalEuro").val();
+      	   if($(this).find("#paymentItemName").val() == "Popust")
+            	totaleur -= +$(this).find("#paymentItemTotalEuro").val();
+            else
+            	totaleur += +$(this).find("#paymentItemTotalEuro").val();
         });
         $("#totalEUR").val(totaleur);
     });  
@@ -450,7 +481,10 @@ var psgCounter = 0;
        var totaldin = 0;
 
         $("#paymentItems div#paymentItem").each(function(){
-            totaldin += +$(this).find("#paymentItemTotalDin").val();
+        	if($(this).find("#paymentItemName").val() == "Popust")
+            		totaldin -= +$(this).find("#paymentItemTotalDin").val();
+            	else
+            		totaldin += +$(this).find("#paymentItemTotalDin").val();
         });
         $("#totalDIN").val(totaldin);
     });   
@@ -464,35 +498,42 @@ var psgCounter = 0;
         var totaleur = 0;
 
         $("#paymentItems div#paymentItem").each(function(){
-            totaldin += +$(this).find("#paymentItemTotalDin").val();
-            totaleur += +$(this).find("#paymentItemTotalEuro").val();
+            if($(this).find("#paymentItemName").val() == "Popust"){
+            	totaldin -= +$(this).find("#paymentItemTotalDin").val();
+            	totaleur -= +$(this).find("#paymentItemTotalEuro").val();
+            } else {
+            	totaldin += +$(this).find("#paymentItemTotalDin").val();
+            	totaleur += +$(this).find("#paymentItemTotalEuro").val();
+            }
         });
         $("#totalDIN").val(totaldin);
         $("#totalEUR").val(totaleur);
     });    
 
-    $('#birth_datepicker input').click(function(event){
-            event.preventDefault();
-        });
+    //$('#birth_datepicker input').click(function(event){
+    //        event.preventDefault();
+     //   });
 
-    $('#birth_datepicker input').datepicker({
-        format: "yyyy/mm/dd",
-        viewMode: 2,
-        autoclose: true
-    });
+//    $('#birth_datepicker input').datepicker({
+//        format: "dd/mm/yyyy",
+//        viewMode: 2
+//    });
 
-    $('#birth_datepicker span').click(function(){
-       $('#birth_datepicker input').datepicker('show');
-    });
+	$('#birth_date').datepicker();
+	$('#birth_date').datepicker( "option", "dateFormat", "d-m-yy" );
+
+    //$('#birth_datepicker span').click(function(){
+    //   $('#birth_datepicker input').datepicker('show');
+    //});
 
     $("#addNewPsg").click(function(event){
         event.preventDefault();
         if($("#passangerNew").is(":hidden")) {
-            $("#passangersDetails").slideUp();
+//          $("#passangersDetails").slideUp();
             $("#passangerNew").slideDown();
         } else {
             $("#passangerNew").slideUp();
-            $("#passangersDetails").slideDown();
+//          $("#passangersDetails").slideDown();
         }
     });
 
@@ -505,45 +546,68 @@ var psgCounter = 0;
             data: $("#passangerNewForm").serialize(),
             success: function(data){
                 $("#passangerNew").slideUp();
-                var selectize = $("#passangersSel")[0].selectize;
-                selectize.addOption(data.data);
-                selectize.refreshOptions();
-                selectize.addItem(data.passanger);
+                if (data.data) {           
+	                $("<div class='psg-item'>"+data.data[0].passanger
+                	+"<input type='hidden' name='Passangers[" + psgCounter +"]' class='passangers' value='"+data.data[0].id+"'/>"
+	                +"<a href='#' class='remove-psg pull-right'>"
+        	        +"<span class='icon icon-remove-sign'></span></a></div>")
+            		.appendTo("#passangersDetails");
+            
+        	   	if(!$("#passangerNew").is(":hidden")) {
+				$("#passangerNew").slideUp();
+			}
+//     			$("#passangersDetails").show();
+			$("#details").show();
+			$("#createReservationBtn").show();
+
+			psgCounter++;
+                
+//	                var selectize = $("#passangersSel")[0].selectize;
+//	                selectize.addOption(data.data);
+//	                selectize.refreshOptions();
+//	                selectize.addItem(data.passanger);
+	        } else {
+	        	$("#notifications").append("<div class='alert alert-error alert-block'><button type='button' class='close' data-dismiss='alert'>&times;</button><h4>Error</h4> Putnik sa tim JMBG već postoji! </div>");
+//	        	$("#passangersDetails").show();
+	        }
             }
-        })
+        });
+        
+        $("#passangerNew").find("input").val("");
+        $("#passangerNew #gender")[0].value = "";
     });
 
-    $('#start_datepicker input').datepicker({
-        format: "yyyy/mm/dd",
-        viewMode: 2,
-        autoclose: true
-    });
+//    $('#start_datepicker input').datepicker({
+//        format: "d-m-yy"
+//    });
 
-    $("#start_datepicker span").click(function(){
-      $('#start_datepicker input').datepicker("show");  
-    });
+	$('#start_datepicker input').datepicker();
+	$('#start_datepicker input').datepicker( "option", "dateFormat", "d-m-yy" );
 
+//    $('#end_datepicker input').datepicker({
+//        format: "dd/mm/yyyy",
+//        viewMode: 2
+//    });
 
-    $('#end_datepicker input').datepicker({
-        format: "yyyy/mm/dd",
-        viewMode: 2,
-        autoclose: true
-    });
+	$('#end_datepicker input').datepicker();
+	$('#end_datepicker input').datepicker( "option", "dateFormat", "d-m-yy" );
 
-    $("#end_datepicker span").click(function(){
-      $('#end_datepicker input').datepicker("show");  
-    });
+   // $("#end_datepicker span").click(function(){
+   //   $('#end_datepicker input').datepicker("show");  
+   // });
 
 
-    $('#travel_datepicker input').datepicker({
-        format: "yyyy/mm/dd",
-        viewMode: 2,
-        autoclose: true
-    });
+//    $('#travel_datepicker input').datepicker({
+//        format: "dd/mm/yyyy",
+//        viewMode: 2
+//    });
 
-    $("#travel_datepicker span").click(function(){
-      $('#travel_datepicker input').datepicker("show");  
-    });
+	$('#travel_datepicker input').datepicker();
+	$('#travel_datepicker input').datepicker( "option", "dateFormat", "d-m-yy" );
+
+   // $("#travel_datepicker span").click(function(){
+   //   $('#travel_datepicker input').datepicker("show");  
+   // });
 
     $("#createReservationForm").validationEngine();
     $("#paymentDetailsForm").validationEngine();
@@ -557,6 +621,10 @@ var psgCounter = 0;
        $.each($(".excursionChk"), function(){
             data += "&"+$(this).attr("name") + "=" + $(this).is(":checked");
        });
+       
+ 	data += "&ResNum=" + $("#resNum").val();
+ 	
+ 	data += "&TotalDIN=" + $("#totalDIN").val() + "&TotalEUR=" + $("#totalEUR").val();
 
         $.ajax({
 
@@ -567,7 +635,7 @@ var psgCounter = 0;
             {
                 if(data.status == "success")
                     window.open('contract/' + data.id);
-                 // window.location.href = "reservations";
+                  window.location.href = "reservations";
             },
             error: function(){
 
@@ -582,5 +650,26 @@ var psgCounter = 0;
        if($("#createReservationForm").validationEngine("validate") && $("#passangersDetailsForm").validationEngine("validate") && $("#paymentDetailsForm").validationEngine("validate"))
             $("#createReservationForm").trigger("submit");
         
+    });
+    
+    $("#jmbg").focusout(function(){
+    	var century = 1;
+    	var d = 2;
+    	var dd = 0;
+    	var m = 2;
+    	var mm = 2;
+    	if ($("#jmbg")[0].value.substr(4,1) != '9')
+    		century = 2;
+    	if ($("#jmbg")[0].value.substr(0,1) == '0') {
+    		d = 1;
+    		dd = 1;
+    	}
+	if ($("#jmbg")[0].value.substr(2,1) == '0') {
+    		m = 1;
+    		mm = 3;
+    	}
+    	$("#birth_date")[0].value = $("#jmbg")[0].value.substr(dd,d)
+    		+ '-' + $("#jmbg")[0].value.substr(mm,m)
+    		+ '-' + century + $("#jmbg")[0].value.substr(4,3);
     });
 });

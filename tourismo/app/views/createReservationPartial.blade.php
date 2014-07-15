@@ -20,11 +20,19 @@
 	#paymentModal{
 		display: none;
 	}
+	
 </style>
+<script>
+	window.onbeforeunload = function(e){
+		return "Ukoliko napustite stranicu izgubićete sve unete podatke.";
+	}
+</script>
+@include('notifications')
 
 <div class="row">
-	<div class="span6">Datum rezervacije: {{date("d/m/Y")}}</div>
-	<div class="span6"><div class="pull-right"><input type="checkbox" name="internal" id="iternal">Interna </div></div>
+	<div class="span4">Datum rezervacije: {{date("d/m/Y")}}</div>
+	<div class="span4">Broj rezervacije: <input type="text" name="reservationNumber" id="resNum" placeholder="Unesite broj rezervacije" /></div>
+	<div class="span4"><div class="pull-right"><input type="checkbox" name="internal" id="internal">Interna </div></div>
 </div>
 
 <div class="row">
@@ -107,11 +115,11 @@
 											<div class="row">						
 												<div class="span4">
 														<label>Cena (din):</label>
-														<input type="text" name='priceDin' id='priceDinSel' placeholder="Cena u dinarima" class='form-control' />
+														<input type="text" name='priceDin' id='priceDinSel' value="0" class='form-control' />
 													</div>
 												<div class="span4">
 														<label>Cena (eur):</label>
-														<input type="text" name="priceEur" id="priceEurSel" placeholder="Cena u eurima"/>
+														<input type="text" name="priceEur" id="priceEurSel" value="0"/>
 												</div>
 											</div>
 											<div class="row">
@@ -160,9 +168,9 @@
 
 					<div class="row" id="passangerNew">
 						<div class="span12">
-							<form id="passangerNewForm" name="passangerNewForm">
-								<div class="container">
-									<div class="row">
+							<form id="passangerNewForm" name="passangerNewForm" autocomplete="off">
+<!--								<div class="container">-->
+									<div>
 											<div class="span3 input-control text">
 												<input type="text" name="name" id="name" class="validate[required]" placeholder="Ime"/>
 											</div>
@@ -176,11 +184,11 @@
 												<select class="span2" name="gender" id="gender">
 													<option value="" disabled selected="selected" style='display:none;'>Pol...</option>
 													<option value="m">m</option>
-													<option value="f">f</option>
+													<option value="f">ž</option>
 												</select>
 											</div>
 									</div>
-									<div class="row">
+									<div>
 											<div class="span3 input-control text">
 												<input type="text" name="tel" id="tel" placeholder="Telefon"/>
 											</div>
@@ -194,16 +202,16 @@
 												<input type="text" name="passport" id="passport" placeholder="Broj Pasoša"/>
 											</div>
 									</div>
-									<div class="row">
+									<div>
 										<div class="span3" id="birth_datepicker">
-											<input type="text" class="span2" style="height:100%" id="birth_date" name="birth_date" placeholder="yyyy/mm/dd" autocomplete="off"/>
+											<input type="text" class="span2" style="height:100%" id="birth_date" name="birth_date" placeholder="d-m-yy" autocomplete="off"/>
 											<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
 										</div>
 										<div class="span2">
 											<span class="btn btn-default" id="btnAddNewPsg">Dodaj</span>
 										</div>
 									</div>
-								</div>
+<!--								</div>-->
 							</form>
 						</div>
 					</div>
@@ -265,25 +273,25 @@
 	<div class="span12">
 		<fieldset>
 			<legend>4. Detalji</legend>
-			<form name="createReservationForm" id="createReservationForm">
+			<form name="createReservationForm" id="createReservationForm" autocomplete="off">
 				<input type="hidden" id="traveldealId" name="traveldealId" />
 				<div class="container">
 					<div class="row">						
 						<div class="span3">
 							<div class="input-control text input-append date" id="start_datepicker">
-							<input type="text" style="height:100%" class="validate[required]" id="start_date" name="start_date" placeholder="Početak usluge"/>
+							<input type="text" style="height:100%" class="validate[required]" id="start_date" name="start_date" placeholder="Početak usluge d-m-yy">
 							<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
 							</div>
 						</div>
 						<div class="span3">
 							<div class="input-control text input-append date" id="end_datepicker">
-							<input type="text" style="height:100%" class="validate[required]" id="end_date" name="end_date" placeholder="Kraj usluge"/>
+							<input type="text" style="height:100%" class="validate[required]" id="end_date" name="end_date" placeholder="Kraj usluge d-m-yy">
 							<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
 						</div>
 						</div>
 						<div class="span3">
 							<div class="input-control text input-append date" id="travel_datepicker">
-							<input type="text" style="height:100%" class="validate[required]" id="travel_date" name="travel_date" placeholder="Datum polaska"/>
+							<input type="text" style="height:100%" class="validate[required]" id="travel_date" name="travel_date" placeholder="Datum polaska d-m-yy">
 							<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
 						</div>
 						</div>
@@ -437,7 +445,7 @@
 		  <div class="control-group">
 		    <label class="control-label" for="type">Tip smeštaja:</label>
 		    <div class="controls">
-		    	<input type="text" name='type' id='typeModNew' placeholder="Tip smeštaja" class='form-control'/>
+		    	<input type="text" name='type' id='typeModNew' placeholder="Hotel/Vila/Hostel/..." class='form-control'/>
 		    </div>
 		  </div>
 		  <div class="control-group">
@@ -472,7 +480,7 @@
 	<div class="form-inline">
 		<fieldset>
 			<legend>Smestajna jedinica</legend>
-		    	<input type="text" id="nameUnitModNew" class="input-large input-size" placeholder="Tip jedinice">
+		    	<input type="text" id="nameUnitModNew" class="input-large input-size" placeholder="STD/APP/Soba/...">
 		      <input type="text" id="capacityUnitModNew" class="input-large input-size" placeholder="Broj kreveta">
 		      <input type="text" id="numberUnitModNew" class="input-large input-size" placeholder="Broj jedinica">
 		      <a href="#" id="removeUnit" class="pull-right"><span class="icon icon-remove-sign"></span></a>
@@ -483,11 +491,11 @@
 <div id="paymentItem" class="hiddenItem">
 	<div class="form-inline">
 		      <input type="text" id="paymentItemName" class="input-medium" placeholder="">
-		      <input type="text" id="paymentItemEuro" class="input-medium euroItem" placeholder="">
-		      <input type="text" id="paymentItemDin" class="input-medium dinItem" placeholder="">
+		      <input type="text" id="paymentItemEuro" class="input-medium euroItem" value="0" placeholder="">
+		      <input type="text" id="paymentItemDin" class="input-medium dinItem" value="0" placeholder="">
 		      <input type="text" id="paymentItemNum" class="input-medium numItem" value="1" placeholder="">
-		      <input type="text" id="paymentItemTotalDin" class="input-medium" placeholder="">
-		      <input type="text" id="paymentItemTotalEuro" class="input-medium" placeholder="">
+		      <input type="text" id="paymentItemTotalDin" class="input-medium" value="0" placeholder="">
+		      <input type="text" id="paymentItemTotalEuro" class="input-medium" value="0" placeholder="">
 		      <input type="checkbox" id="isExcursion">
 		      <a href="#" id="removeItem" class="pull-right"><span class="icon icon-remove-sign"></span></a>
   </div>

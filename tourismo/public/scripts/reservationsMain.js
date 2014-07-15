@@ -5,18 +5,13 @@ $(function(){
 	$(".modal-body #payment_type").change(function(){
 		if ($(this).val()=="kartica")
 			$(".modal-body #card_type").slideDown();
+		else
+			$(".modal-body #card_type").slideUp();
 	});
 
-    $('.modal-body #birth_datepicker input').click(function(e){
-    	e.preventDefault();
-    	$('.modal-body #birth_datepicker input').datepicker('show');
-    });
-
-    $('.modal-body #birth_datepicker input').datepicker({
-        format: "yyyy/mm/dd",
-        viewMode: 2,
-        autoclose: true
-    });
+	$('.modal-body #birth_datepicker input').datepicker({
+		format: "d-m-yy"
+	});
 
 	$("#newReservation").click(function(event){
 		event.preventDefault();
@@ -33,58 +28,8 @@ $(function(){
 			}
 		});
 	});
-
-
-	var list = $(".paymentNewModal");
-	for (i = 0, len = list.length; i < len; i++){
-		list[i].onclick=function(){
-			$.ajax({
-                url: 'paymentRsrvDetails',
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    rsrv_id: $(this)[0].name
-                },
-                error: function() {
-                    callback();
-                },
-                success: function(res) {
-                    list = $(".modal-body input");
-                    for (i = 0, len = list.length; i < len; i++){
-                        if (list[i].getAttribute("id") != "exchange_rate")
-                        	list[i].removeAttribute("value");
-                    }
-                    $(".modal-body #payment_type")[0].value = "";
-                    var selectbox = $(".modal-body #passanger_search")[0];
-                    var i;
-				    for(i=selectbox.options.length-1;i>=1;i--)
-				    {
-				        selectbox.remove(i);
-				    }
-
-                    if (res.data != null) {
-                        var prd = jQuery.parseJSON(res.data);
-                        $(".modal-body #reservation_id")[0].setAttribute("value", prd.reservation_id);
-                        $(".modal-body #reservation_number")[0].setAttribute("value", prd.reservation_number);
-                    	prd.passanger_names.forEach(function(entry) {
-    						var opt = document.createElement('option');
-						    opt.value = entry[0];
-						    opt.innerHTML = entry[1];
-						    $(".modal-body #passanger_search")[0].appendChild(opt);
-						});
-						var today = new Date();
-						var dd = today.getDate();
-						var mm = today.getMonth()+1; //January is 0!
-						var yyyy = today.getFullYear();
-						$(".modal-body #res_date")[0].setAttribute("value", yyyy+"/"+mm+"/"+dd);
-
-                    }
-				}
-			});
-		}
-	}
-
-
+	
+	
     $("#payment_type").change(function () {
         if($(this).val() == null) $(this).addClass("empty");
         else $(this).removeClass("empty");
@@ -127,4 +72,27 @@ $(function(){
             }
         });
     });
+    
+    $("#amount_din").focusout(function() {
+    	if ($("#amount_din").val())
+    		$("#amount_din_eur").val(Math.round($("#amount_din").val()/$("#exchange_rate").val()*100)/100);
+    });
+    
+    $("#amount_din_eur").focusout(function() {
+    	if ($("#amount_din_eur").val())
+    		$("#amount_din").val($("#amount_din_eur").val()*$("#exchange_rate").val());
+    });
+    
+    $("#amount_eur_din").focusout(function() {
+    	if ($("#amount_eur_din").val())
+    		$("#amount_eur_eur").val(Math.round($("#amount_eur_din").val()/$("#exchange_rate").val()*100)/100);
+    });
+    
+    $("#amount_eur_eur").focusout(function() {
+    	if ($("#amount_eur_eur").val())
+    		$("#amount_eur_din").val($("#amount_eur_eur").val()*$("#exchange_rate").val());
+    });
+    
+    $('#res_datepicker input').datepicker();
+    $('#res_datepicker input').datepicker( "option", "dateFormat", "d-m-yy" );
 });

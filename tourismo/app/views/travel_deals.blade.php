@@ -1,7 +1,7 @@
 @extends('home')
 @section('content')
 
-{{HTML::script('scripts/reservationsCreate.js')}}
+{{HTML::script('scripts/travel_deals.js')}}
 
 <div class="container">
 	<nav class="breadcrumbs large">
@@ -99,10 +99,6 @@
 		</div>
 	</div>
 </div>
-
-@if ($travel_deals != null)
-	{{ $travel_deals->links() }}
-@endif
 
 <p/>
 <div  id="list_view">
@@ -268,40 +264,42 @@
 <div class="row">
 	<div class="span7">
 		<div id="addAccomodationModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">			
-	<div class="modal-header">
-		<a class="close" data-dismiss="modal">x</a>
-		<h3>Dodavanje novog smeštaja</h3>
-	</div>
-
-	<div class="modal-body">
-		<form id="addNewAccomodationForm" name="newAccomodationForm" class="form-horizontal">
-		  <div class="control-group">
-		    <label class="control-label" for="type">Tip smeštaja:</label>
-		    <div class="controls">
-		    	<input type="text" name='type' id='typeModNew' placeholder="Tip smeštaja" class='form-control'/>
-		    </div>
-		  </div>
-		  <div class="control-group">
-		    <label class="control-label" for="name">Naziv:</label>
-		    <div class="controls">
-		      <input type="text" id="nameModNew" name="name" class="form-control validate[required]" placeholder="Naziv">
-		    </div>
-		  </div>
-		   <div class="control-group">
-		    <label class="control-label" for="name">Destinacija</label>
-		    <div class="controls">
-		    	<select name='destination_id' id='destinationAcc' placeholder="Destinacija" class='form-control'></select>
-		    </div>
-		  </div>
-		  <div class="control-group" id="units">
-		  	<a href="#" id="addUnit" class="btn">Dodaj smeštajnu jedinicu</a>
-		  </div>
-		</form>
-	</div>
-
-	<div class="modal-footer">  
-		<a id="addNewAccomodation" class="btn btn-success">Sačuvaj</a>  
-		<a  id="closeNewAccModal" class="btn" data-dismiss="modal">Odustani</a>  		
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal">x</a>
+				<h3>Dodavanje novog smeštaja</h3>
+			</div>
+	
+			<div class="modal-body">
+				<form id="addNewAccomodationForm" name="newAccomodationForm" class="form-horizontal">
+				  <div class="control-group">
+				    <label class="control-label" for="type">Tip smeštaja:</label>
+				    <div class="controls">
+				    	<input type="text" name='type' id='typeModNew' placeholder="Tip smeštaja" class='form-control'/>
+				    </div>
+				  </div>
+				  <div class="control-group">
+				    <label class="control-label" for="name">Naziv:</label>
+				    <div class="controls">
+				      <input type="text" id="nameModNew" name="name" class="form-control validate[required]" placeholder="Naziv">
+				    </div>
+				  </div>
+				   <div class="control-group">
+				    <label class="control-label" for="name">Destinacija</label>
+				    <div class="controls">
+				    	<select name='destination_id' id='destinationAcc' placeholder="Destinacija" class='form-control'></select>
+				    </div>
+				  </div>
+				  <div class="control-group" id="units">
+				  	<a href="#" id="addUnit" class="btn">Dodaj smeštajnu jedinicu</a>
+				  </div>
+				</form>
+			</div>
+		
+			<div class="modal-footer">  
+				<a id="addNewAccomodation" class="btn btn-success">Sačuvaj</a>  
+				<a  id="closeNewAccModal" class="btn" data-dismiss="modal">Odustani</a>  		
+			</div>
+		</div>
 	</div> 
 </div>
 

@@ -9,7 +9,7 @@ class PaymentsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$payments = Payment::paginate(10);
+		$payments = Payment::orderBy('id', 'DESC')->paginate(15);
 		return View::make('payments', array('payments' => $payments))->nest('paymentsPartial','paymentsPartial', array('payments' => $payments));
 	}
 
@@ -42,7 +42,7 @@ class PaymentsController extends \BaseController {
 		}
 		$payment->exchange_rate = Input::get('exchange_rate');
 		$payment->amount_din = Input::get('amount_din');
-		$payment->amount_eur_din = Input::get('amount_eur_din')*Input::get('exchange_rate');
+		$payment->amount_eur_din = Input::get('amount_eur_eur')*Input::get('exchange_rate');
 		$payment->fiscal_slip = Input::get('fiscal_slip');
 		$payment->description = Input::get('description');
 		
@@ -105,7 +105,8 @@ class PaymentsController extends \BaseController {
 	{
 		$query = Input::get('q','');
 
-		 $jmbgs = Passanger::where('jmbg','LIKE',$query.'%')->get(array('jmbg AS name'))->toArray();
+		 $jmbgs  = Passanger::whereRaw("CONCAT (jmbg,' ',name,' ',surname) LIKE '$query%'")->select(DB::Raw("CONCAT (jmbg,' ',name,' ',surname) AS name"))->get()->toArray();
+		// $jmbgs = Passanger::where('jmbg','LIKE',$query.'%')->get(array('jmbg AS name'))->toArray();
 		 $reservations = Reservation::where('reservation_number','LIKE',$query.'%')->get(array('reservation_number AS name'))->toArray();
 
 		 $jmbgs = $this->appendValue($jmbgs,'jmbg','class');
@@ -136,16 +137,16 @@ class PaymentsController extends \BaseController {
 		$payments = null;
 		
 		if($searchTerm == "*")
-			$payments = Payment::paginate(10);
+			$payments = Payment::orderBy('id', 'DESC')->paginate(15);
 		else {
-			$reservation = Reservation::where('reservation_number','LIKE',$searchTerm.'%')->get();
+			$reservation = Reservation::where('reservation_number','LIKE',$searchTerm.'%')->orderBy('id', 'DESC')->paginate(15);
 			if (count($reservation) == 0) {
-				$passanger = Passanger::where('jmbg','LIKE',$searchTerm.'%')->get();
+				$passanger = Passanger::where('jmbg','LIKE',explode(' ',$searchTerm)[0].'%')->orderBy('id', 'DESC')->paginate(15);
 				if (count($passanger) > 0) {
-					$payments = Payment::where("passanger_id",'=',$passanger->first()->id)->get();
+					$payments = Payment::where("passanger_id",'=',$passanger->first()->id)->orderBy('id', 'DESC')->paginate(15);
 				}
 			} else {
-				$payments = Payment::where('reservation_id','=',$reservation->first()->id)->get();
+				$payments = Payment::where('reservation_id','=',$reservation->first()->id)->orderBy('id', 'DESC')->paginate(15);
 			}
 		}
 		return View::make('paymentsPartial', array('payments' => $payments));
@@ -183,7 +184,17 @@ class PaymentsController extends \BaseController {
 		$payment = Payment::find($id);
 		$passanger = Passanger::find($payment->passanger_id);
 		$reservation = Reservation::find($payment->reservation_id);
-		return PDF::loadView('reports\\payment_slip', array('reservation' => $reservation, 'passanger' => $passanger, 'payment' => $payment), array(),'UTF-8')->stream('PAYMENT.pdf');
+		
+		$pdf = null;
+		try{
+			$pdf = PDF::loadView('reports//payment_slip', array('reservation' => $reservation, 'passanger' => $passanger, 'payment' => $payment), array(),'UTF-8')->setPaper('a4')->stream('PAYMENT.pdf');
+		}
+		catch(\Exception $e)
+		{
+			return Response::json(array('status' => "failure", 'message' => $e->getMessage()));
+		}
+		
+		return $pdf;
 	}
 
 }

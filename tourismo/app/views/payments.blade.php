@@ -21,8 +21,6 @@
 	</div>
 </div>
 
-{{ $payments->links() }}
-
 <p/>
 <div  id="paymentsData">
 	{{ $paymentsPartial }}

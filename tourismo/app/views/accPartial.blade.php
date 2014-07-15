@@ -5,6 +5,8 @@ $(function(){
 });
 </script>
 
+{{ $accomodations->links() }}
+
 <table class="table table-hover">
 		<tr>
 			<th>Tip</th>

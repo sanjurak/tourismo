@@ -9,7 +9,7 @@ class PassangersController extends \BaseController {
 	 */
 	public function index()
 	{
-		$passangers = Passanger::paginate(10);
+		$passangers = Passanger::orderBy('id', 'DESC')->paginate(15);
 		return View::make('passangers', array('passangers' => $passangers))->nest('psgPartial','psgPartial', array('passangers' => $passangers));
 	}
 
@@ -68,25 +68,31 @@ class PassangersController extends \BaseController {
 
 	public function addNew() {
 		$passanger = new Passanger;
-		$passanger->jmbg = Input::get('jmbg');
-		$passanger->name = Input::get('name');
-		$passanger->surname = Input::get('surname');
-		$passanger->address = Input::get('address');
-		$passanger->gender = Input::get('gender');
-		$passanger->tel = Input::get('tel');
-		$passanger->mob = Input::get('mob');
-		$passanger->passport = Input::get('passport');
-		$birth_date = date('Y-m-d', strtotime(Input::get('birth_date')));
-		if ((string)$birth_date != "1970-01-01") {
-			$passanger->birth_date = $birth_date;
-		}
-
-		$passanger->save();
-
-		$psg = Passanger::select(DB::raw('CONCAT (name," ",surname," JMBG: ",jmbg," Pasoš: ",passport) as passanger, id'))
-		->where('id','=',$passanger->id)->get(array("passanger","id"))->toArray();
+		$psg = Passanger::where('jmbg', 'LIKE', Input::get('jmbg'))->get();
 		
-		return Response::json(array('data' => $psg));
+		if($psg->count() == 0) {
+			$passanger->jmbg = Input::get('jmbg');
+			$passanger->name = Input::get('name');
+			$passanger->surname = Input::get('surname');
+			$passanger->address = Input::get('address');
+			$passanger->gender = Input::get('gender');
+			$passanger->tel = Input::get('tel');
+			$passanger->mob = Input::get('mob');
+			$passanger->passport = Input::get('passport');
+			$birth_date = date('Y-m-d', strtotime(Input::get('birth_date')));
+			if ((string)$birth_date != "1970-01-01") {
+				$passanger->birth_date = $birth_date;
+			}
+	
+			$passanger->save();
+	
+			$psg = Passanger::select(DB::raw('CONCAT (name," ",surname," JMBG: ",jmbg," Pasoš: ",passport) as passanger, id'))
+			->where('id','=',$passanger->id)->get(array("passanger","id"))->toArray();
+		
+			return Response::json(array('data' => $psg));
+		}
+		
+		return Response::json(array('data' => null));
 	}
 
 	/**
@@ -180,13 +186,13 @@ class PassangersController extends \BaseController {
 		$passangers = null;
 		
 		if($searchTerm == "*")
-			$passangers = Passanger::paginate(10);
+			$passangers = Passanger::orderBy('id', 'DESC')->paginate(15);
 		else {
-			$passangers = Passanger::where('jmbg','LIKE','%'.$searchTerm.'%')->orWhere('name','LIKE','%'.$searchTerm.'%')->orWhere('surname','LIKE','%'.$searchTerm.'%')->orWhere('address','LIKE','%'.$searchTerm.'%')->get();
+			$passangers = Passanger::where('jmbg','LIKE','%'.$searchTerm.'%')->orWhere('name','LIKE','%'.$searchTerm.'%')->orWhere('surname','LIKE','%'.$searchTerm.'%')->orWhere('address','LIKE','%'.$searchTerm.'%')->orderBy('id', 'DESC')->paginate(15);
 			if (count($passangers) == 0) {
-				$passangers = Passanger::whereRaw("CONCAT (name,' ',surname) LIKE '$searchTerm%'")->get();
+				$passangers = Passanger::whereRaw("CONCAT (name,' ',surname) LIKE '$searchTerm%'")->paginate(10);
 				if (count($passangers) == 0) {
-					$passangers = Passanger::whereRaw("CONCAT (name,' ',surname,' ',address) LIKE '$searchTerm%'")->get();
+					$passangers = Passanger::whereRaw("CONCAT (name,' ',surname,' ',address) LIKE '$searchTerm%'")->paginate(10);
 			}
 			}
 		}

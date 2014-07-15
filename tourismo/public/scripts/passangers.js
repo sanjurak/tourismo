@@ -41,10 +41,7 @@ $(document).ready(function(){
                         if(psg.birth_date != null && psg.birth_date.toString() != "1970-01-01"
                             && psg.birth_date.toString() != "0000-00-00") {
                             var date = new Date(psg.birth_date);
-    	                    $(".modal-body #birth_date")[0].setAttribute("value",
-    	                    	padStr(date.getFullYear()) + "/" +
-    	                  		padStr(1 + date.getMonth()) + "/" +
-    	                  		padStr(date.getDate()));
+    	                    $(".modal-body #birth_date").val(date.format("d-m-yyyy"));
     	            	}
                     };
                 }
@@ -127,25 +124,30 @@ $(document).ready(function(){
     });
     $("#gender").change();
 
-    $('.input-append').click(function(event)
-        {
-            event.preventDefault();
-        });
+   // $('.input-append').click(function(event)
+   //     {
+   //         event.preventDefault();
+   //     });
 
-    $('#birth_datepicker input').click(function(event){
-            event.preventDefault();
-        });
+  //  $('#birth_datepicker input').click(function(event){
+  //          event.preventDefault();
+  //      });
 
-    $('#birth_datepicker input').datepicker({
-        format: "yyyy/mm/dd",
-        viewMode: 2,
-        autoclose: true
-    });
+	$('#birth_date').datepicker();
+	$('#birth_date').datepicker( "option", "dateFormat", 'd-m-yy' );
 
-    $('#birth_datepicker span').click(function(){
-       $('#birth_datepicker input').datepicker('show');
-    });
+  //  $('#birth_datepicker span').click(function(){
+  //     birthdatepicker.datepicker('show');
+  //  });
 
+
+//	$("#psgDetailModal").dialog({
+//		autoOpen: false
+//	});
+
+//	$("#addNewPsg").click(function () {
+//		$("#psgDetailModal").dialog('open');
+//	});
 });
 
 

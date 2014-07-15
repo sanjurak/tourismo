@@ -7,12 +7,25 @@ body {
 	width:60%;
 }
 
+.width50{
+	width:50%;
+}
+
 .width40{
 	width: 40%;
 }
-  .font10{
-  	font-size: 10px;
-  }
+
+.font12{
+ 	font-size: 12px;
+}
+
+.font10{
+ 	font-size: 10px;
+}
+
+.font9{
+	font-size: 9px;
+}
 
   .memo{
   	width:100%;
@@ -21,9 +34,13 @@ body {
   .content{
   	width:100%;
   }
-
-  .content td{
-  	padding: 5px;
+  
+  .content td {
+  	padding: 3px;
+  }
+  
+  .content th {
+  	padding: 3px;
   }
 
   .textcenter{
@@ -32,6 +49,11 @@ body {
 
   .textleft{
   	text-align:left;
+  }
+  
+  .textleftbottom{
+  	text-align:left;
+  	vertical-align:bottom;
   }
 
   .textright{
@@ -42,6 +64,10 @@ body {
   	border-collapse: collapse;
   	border: 1px solid gray;
   }
+  
+  table tr{
+  	line-height:10px;
+  }	
 
 .valigncenter{
 	vertical-align: middle;

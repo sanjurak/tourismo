@@ -2,8 +2,46 @@
 $(function(){
 
 	$(".editableC").editable();
+	
+	
+	$(".editOrg").click(function(event){
+
+		event.preventDefault();
+
+		//id reda u tabeli kome pripada objekat za editovanje (id je pib)
+		var id = $(this).attr("data-id");
+
+		//na osnovu pib-a pribavljaju se trenutne vrednosti atributa organizatora
+		var pib = $("#" + id).find("#pib").text();
+		var matbr = $("#" + id).find("#mat_br").text();
+		var name = $("#" + id).find("#name").text();
+		var address = $("#" + id).find("#address").text();
+		var phone = $("#" + id).find("#phone").text();
+		var web = $("#" + id).find("#web").text();
+		var email = $("#" + id).find("#email").text();
+		var provision = $("#" + id).find("#provision").text().trim();
+		var licence = $("#" + id).find("#licence").text().trim();
+		
+		//upisivanje trenutnih vrednosti u modal dialog formu
+		$("#pibMod").val(pib);
+		$("#mat_brMod").val(matbr);
+		$("#nameMod").val(name);
+		$("#addressMod").val(address);
+		$("#phoneMod").val(phone);
+		$("#webMod").val(web);
+		$("#emailMod").val(email);
+		$("#provisionMod").val(provision);
+		$("#licenceMod").val(licence);
+
+		//otvaranje edit forme u modal dialogu
+		$("#editOrgModal").modal("show");
+	});
+
 });
 </script>
+
+{{ $organizators->links() }}
+
 <table class="table table-hover">
 		<tr>
 			<th>PIB</th>
@@ -42,6 +80,16 @@ $(function(){
 		<td>
 			<a href="#" data-id={{$organizator->pib}} class="btn btn-warning editOrg"><span class="icon-edit"></span></a>	
 			<a href="#" class="btn btn-danger deleteOrg" data-id={{$organizator->pib}}><span class="icon-trash"></span></a>	
+			<a href="#" style="display:none;" id="provision" data-type="text" data-pk= {{$organizator->pib}} data-url="/organizatorEdit/{{$organizator->pib}}" data-title="Provizija">
+				@if(!is_null($organizator->provision))
+					{{trim($organizator->provision)}}
+				@endif	
+			</a>
+			<a href="#" style="display:none;" id="licence" data-type="text" data-pk= {{$organizator->pib}} data-url="/organizatorEdit/{{$organizator->pib}}" data-title="Broj licence">
+				@if(!is_null($organizator->licence))
+					{{trim($organizator->licence)}}
+				@endif
+			</a>
 		</td>
 	</tr>
 @endforeach

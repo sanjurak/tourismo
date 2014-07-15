@@ -1,45 +1,4 @@
 $(document).ready(function(){
-    var list = $(".trvlDealsDetails");
-    for (i = 0, len = list.length; i < len; i++){
-        list[i].onclick=function(){
-            $.ajax({
-                url: 'travelDealDetails',
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    trvlDls_id: $(this)[0].name
-                },
-                error: function() {
-                    callback();
-                },
-                success: function(res) {
-                    list = $(".modal-body input");
-                    for (i = 0, len = list.length; i < len; i++){
-                        list[i].removeAttribute("value");
-                    }
-
-                    if (res.data != null) {
-                        var trvldl = jQuery.parseJSON(res.data);
-                        $(".modal-body #id")[0].setAttribute("value", trvldl.id);
-                        $(".modal-body #category")[0].setAttribute("value", trvldl.category);
-                        $(".modal-body #destination")[0].setAttribute("value", trvldl.destination);
-                        $(".modal-body #organizer")[0].setAttribute("value", trvldl.organizer);
-                        $(".modal-body #accom_type")[0].setAttribute("value", trvldl.accom_type);
-                        $(".modal-body #accom_name")[0].setAttribute("value", trvldl.accom_name);
-                        if(trvldl.transportation != null){
-                            $(".modal-body #transportation")[0].setAttribute("value", trvldl.transportation);
-                        }
-                        if(trvldl.service != null){
-                            $(".modal-body #service")[0].setAttribute("value", trvldl.service);
-                        }
-                        $(".modal-body #price_din")[0].setAttribute("value", trvldl.price_din);
-                        if(trvldl.price_eur != null)
-                            $(".modal-body #price_eur")[0].setAttribute("value", trvldl.price_eur);
-                        }
-                    }
-            });
-        };
-    }
 
 	$("#categoriesSelect").selectize({
         valueField: 'name',
@@ -133,14 +92,28 @@ $(document).ready(function(){
         SearchTrvlDls("", "");        
     });
 
-    $("#traveldealNew").hide();
-
+	
     $("#addNewTrvlDeal").click(function(){
         if ($("#traveldealNew").is(":visible"))
             $("#traveldealNew").slideUp(); 
         else
             $("#traveldealNew").slideDown();        
     });
+    
+    $("#btnAddTravelDeal").click(function(event){
+		event.preventDefault();
+
+		$.ajax({
+			url:'addTravelDeal',
+			type: 'POST',
+			data: $("#traveldealNewForm").serialize(),
+			success: function(data){
+                		if ($("#traveldealNew").is(":visible"))
+            				$("#traveldealNew").slideUp();
+            			SearchTrvlDls("", "");
+			}
+		});
+	});
 
     $("#dstCountryTownSelect").click(function(){
         var selectize = $('#dstCountryTownSelect')[0].selectize;
@@ -159,4 +132,296 @@ $(document).ready(function(){
     $( "#accordion" ).accordion({
       collapsible: true
     });
+    
+    $("#addCategoryBtn").click(function(e){
+		e.preventDefault();
+		var inputtext = $("#categorySel .selectize-input input[type=text]").val();
+		if(inputtext != '') $("#addNewCategoryForm #name").val(inputtext);
+		$("#addCategoryModal").modal("show");
+	});
+
+	$("#addNewCategory").click(function(){
+		$.ajax({
+			url: "newCategory",
+			type: "POST",
+			data: $("#addNewCategoryForm").serialize(),
+			success: function(data)
+			{
+				$("#categorySel")[0].selectize.addOption(data);
+                		$("#categorySel")[0].selectize.refreshOptions();    
+                		$("#categorySel")[0].selectize.options[data.id].selected = true;
+				$("#categorySel").siblings("div.selectize-dropdown").trigger("onOptionSelect");
+				$("#addCategoryModal").modal("hide");
+			}
+		});
+	});
+
+	$("#categorySel").selectize({
+		valueField: 'id',
+        labelField: 'name',
+        searchField: ['name'],
+        options: [],
+        create: false,
+        render: {
+            option: function(item, escape) {
+                return '<div>' +escape(item.name)+'</div>';
+            }
+        },
+        load: function(query, callback) {
+            if (!query.length) return callback();
+            $.ajax({
+                url: 'categoriesRes',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    q: query
+                },
+                error: function() {
+                    callback();
+                },
+                success: function(res) {
+                    callback(res.data);
+                }
+            });
+        }
+	});
+
+	$("#addDestinationBtn").click(function(e){
+		e.preventDefault();
+		$("#addDestinationModal").modal("show");
+	});
+
+	$("#addNewDestination").click(function(){
+		$.ajax({
+			url: "addDestination",
+			type: "POST",
+			data: $("#addNewDestinationForm").serialize(),
+			success: function(data)
+			{
+				var dstSelectize = $("#destinationSel")[0].selectize;
+				dstSelectize.addOption(data);
+				dstSelectize.refreshOptions();
+				dstSelectize.addItem(data.name);
+				$("#addDestinationModal").modal("hide");
+			}
+		});
+	});
+
+
+	$("#destinationSel").selectize({
+		valueField: 'id',
+        labelField: 'name',
+        searchField: ['name'],
+        options: [],
+        create: false,
+        render: {
+            option: function(item, escape) {
+                return '<div>' +escape(item.name)+'</div>';
+            }
+        },
+        load: function(query, callback) {
+            if (!query.length) return callback();
+            $.ajax({
+                url: 'destinationsRes',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    q: query,
+                    acc: $("#accomodationSel")[0].value
+                },
+                error: function() {
+                    callback();
+                },
+                success: function(res) {
+                    callback(res.data);
+                }
+            });
+        }
+	});
+
+	$("#destinationAcc").selectize({
+		valueField: 'id',
+        labelField: 'name',
+        searchField: ['name'],
+        options: [],
+        create: false,
+        render: {
+            option: function(item, escape) {
+                return '<div>' +escape(item.name)+'</div>';
+            }
+        },
+        load: function(query, callback) {
+            if (!query.length) return callback();
+            $.ajax({
+                url: 'destinationsRes',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    q: query
+                },
+                error: function() {
+                    callback();
+                },
+                success: function(res) {
+                    callback(res.data);
+                }
+            });
+        }
+	});
+
+	$("#addOrganizerBtn").click(function(e){
+		e.preventDefault();
+		$("#addOrganizerModal").modal("show");
+	});
+
+	$("#addNewOrganizer").click(function(e){
+		e.preventDefault();
+
+		$.ajax({
+			url: "organizatorAdd",
+			type: "POST",
+			data: $("#addNewOrganizerForm").serialize(),
+			success: function(data)
+			{
+				var orgSelectize = $("#organizerSel")[0].selectize;
+				orgSelectize.addOption(data);
+				orgSelectize.refreshOptions();
+				orgSelectize.addItem(data.name);
+				$("#addOrganizerModal").modal("hide");
+			},
+			error: function(){
+				alert("Greska pri upisu u bazu");
+			}
+		});
+	});
+
+	$("#organizerSel").selectize({
+		valueField: 'pib',
+        labelField: 'name',
+        searchField: ['name'],
+        options: [],
+        create: false,
+        render: {
+            option: function(item, escape) {
+                return '<div>' +escape(item.name)+'</div>';
+            }
+        },
+        load: function(query, callback) {
+            if (!query.length) return callback();
+            $.ajax({
+                url: 'organizersRes',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    q: query
+                },
+                error: function() {
+                    callback();
+                },
+                success: function(res) {
+                    callback(res.data);
+                }
+            });
+        }
+	});
+
+	$("#unitsId").hide();
+
+	var counter = 0;
+
+	$("#addUnit").click(function(event){
+		event.preventDefault();
+		var units = $(".hiddenUnit").clone(true);
+		units.show().removeClass("hiddenUnit");
+		units.find("#nameUnitModNew").attr("name","Unit["+counter+"][name]").addClass("validate[required]");
+		units.find("#capacityUnitModNew").attr("name","Unit["+counter+"][capacity]").addClass("validate[required]");
+		units.find("#numberUnitModNew").attr("name","Unit["+counter+"][number]").addClass("validate[required]");
+
+		counter++;
+		$(units).appendTo("#units");
+	});
+
+	$("#removeUnit").click(function(event){
+		event.preventDefault();
+
+		$(this).parents("div#unitsId").remove();
+	});
+
+	$("#addNewAccomodation").click(function(e){
+		e.preventDefault();
+
+		counter = 0;
+		$.ajax({
+			url:"accommodationAddRes",
+			type:"POST",
+			data:$("#addNewAccomodationForm").serialize(),
+			success:function(data){
+				var accSelectize = $("#accomodationSel")[0].selectize;
+				accSelectize.addOption(data.data);
+				accSelectize.refreshOptions();
+				$("#addAccomodationModal").modal("hide");
+			},
+			error:function(){
+				alert("ERROR!");
+			}
+		});
+	});
+
+	$("#accomodationSel").selectize({
+		valueField: 'id',
+        labelField: 'name',
+        searchField: ['name'],
+        options: [],
+        create: false,
+        render: {
+            option: function(item, escape) {
+                return '<div>' +escape(item.name)+'</div>';
+            }
+        },
+        load: function(query, callback) {
+            if (!query.length) return callback();
+            $.ajax({
+                url: 'accomodationsRes',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    q: query,
+                    dst: $("#destinationSel")[0].value
+                },
+                error: function() {
+                    callback();
+                },
+                success: function(res) {
+                    callback(res.data);
+                }
+            });
+        }
+	});
+	
+	$("#traveldealDetails").hide();
+	$("#traveldealNew").hide();
+	$("#addCategoryModal").hide();
+	$("#addOrganizerModal").hide();
+	$("#addDestinationModal").hide();
+	$("#addAccomodationModal").hide();
+	$("#trvlDlsDetailModal").hide();
+
+	
+	$("#addCategoryBtn").click(function(){
+		$("#addCategoryModal").modal("show");
+	});
+	$("#addDestinationBtn").click(function(){
+		$("#addDestinationModal").modal("show");
+	});
+	$("#addOrganizerBtn").click(function(){
+		$("#addOrganizerModal").modal("show");
+	});
+	$("#addAccomodationBtn").click(function(){
+		$("#addAccomodationModal").modal("show");
+	});
+	
+	//$("#addAccomodationBtn").click(function(e){
+	//	e.preventDefault();
+	//	$("#addAccomodationModal").modal("show");
+	//});
 });
