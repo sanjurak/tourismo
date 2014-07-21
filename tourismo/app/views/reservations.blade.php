@@ -69,6 +69,15 @@
 							<div class="input-control text" align="right" id="left_to_pay_eur" style="color:red"></div>
 						</td>
 					</tr>
+					<tr class="payment_table_data">
+						<td colspan="2"><div class="input-control text" align="right">Ostalo za uplatu pojedinačno -></div></td>
+						<td>
+							<div class="input-control text" align="right" id="left_to_pay_din" style="color:red"></div>
+						</td>
+						<td>
+							<div class="input-control text" align="right" id="left_to_pay_eur" style="color:red"></div>
+						</td>
+					</tr>
 					<tr>
 						<td colspan='1'>
 							<div class="input-control text">
@@ -124,7 +133,7 @@
 							</div>
 						</td>
 					</tr>
-					<tr>
+					<tr class="payment_table_data">
 						<td colspan='1' rowspan='2'>
 							<div class="input-control text">
 								<textarea rows='2' style="width:100%" name="	payment_method" id="payment_method" placeholder="Metod plaćanja"></textarea>

@@ -65,25 +65,32 @@ $(function(){
                         $(".modal-body #reservation_id")[0].setAttribute("value", prd.reservation_id);
                         $(".modal-body #reservation_number")[0].setAttribute("value", prd.reservation_number);
                     	prd.passanger_names.forEach(function(entry) {
-    				var opt = document.createElement('option');
-				opt.value = entry[0];
-				opt.innerHTML = entry[1];
-				$(".modal-body #passanger_search")[0].appendChild(opt);
-			});
-			var today = new Date();
-			var dd = today.getDate();
-			var mm = today.getMonth()+1; //January is 0!
-			var yyyy = today.getFullYear();
-			$(".modal-body #res_date").val(dd+"-"+mm+"-"+yyyy);
-			$(".modal-body #left_to_pay_din")[0].innerHTML = "DIN: "+prd.left_to_pay_din;
-			if (prd.left_to_pay_din <= 0.0)
-				$(".modal-body #left_to_pay_din")[0].setAttribute("style","color:green");
-			$(".modal-body #left_to_pay_eur")[0].innerHTML = "EUR: "+prd.left_to_pay_eur;
-			if (prd.left_to_pay_eur <= 0.0)
-				$(".modal-body #left_to_pay_din")[0].setAttribute("style","color:green");
-                    }
-		}
-			});
+    						var opt = document.createElement('option');
+							opt.value = entry[0];
+							opt.innerHTML = entry[1];
+							$(".modal-body #passanger_search")[0].appendChild(opt);
+						});
+                    	selectPsgs = $(".modal-body #passanger_search")[0];
+						for(var i = 0; i < selectPsgs.length; i++) {
+						  selectPsgs[i].selectedIndex = 0;
+						}
+						$('.modal-body #passanger_search option:first-child').attr("selected", "selected");
+
+						var today = new Date();
+						var dd = today.getDate();
+						var mm = today.getMonth()+1; //January is 0!
+						var yyyy = today.getFullYear();
+						$(".modal-body #res_date").val(dd+"-"+mm+"-"+yyyy);
+						$(".modal-body #left_to_pay_din")[0].innerHTML = "DIN: "+prd.left_to_pay_din;
+						if (prd.left_to_pay_din <= 0.0)
+							$(".modal-body #left_to_pay_din")[0].setAttribute("style","color:green");
+						$(".modal-body #left_to_pay_eur")[0].innerHTML = "EUR: "+prd.left_to_pay_eur;
+						if (prd.left_to_pay_eur <= 0.0)
+							$(".modal-body #left_to_pay_din")[0].setAttribute("style","color:green");
+	                }
+				}
+			});			
+    		$(".payment_table_data").hide();
 		}
 	}
 
