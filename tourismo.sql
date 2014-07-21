@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 21, 2014 at 05:01 PM
+-- Generation Time: Jul 21, 2014 at 10:38 PM
 -- Server version: 5.6.12-log
--- PHP Version: 5.4.12
+-- PHP Version: 5.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `tourismo`
 --
-CREATE DATABASE IF NOT EXISTS `tourismo` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+CREATE DATABASE IF NOT EXISTS `tourismo` DEFAULT CHARACTER SET utf16 COLLATE utf16_general_ci;
 USE `tourismo`;
 
 -- --------------------------------------------------------
@@ -842,7 +842,7 @@ CREATE TABLE IF NOT EXISTS `passangers` (
   PRIMARY KEY (`id`),
   KEY `pass_rsrv_id_ind` (`reservation_id`),
   KEY `pass_id_ind` (`passanger_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf16 AUTO_INCREMENT=415 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf16 AUTO_INCREMENT=418 ;
 
 --
 -- Dumping data for table `passangers`
@@ -1220,7 +1220,10 @@ INSERT INTO `passangers` (`id`, `passanger_id`, `reservation_id`, `created_at`, 
 (411, 411, 210, '2014-07-06 18:55:42', '2014-07-06 18:55:42'),
 (412, 412, 211, '2014-07-06 18:59:56', '2014-07-06 18:59:56'),
 (413, 413, 211, '2014-07-06 18:59:56', '2014-07-06 18:59:56'),
-(414, 414, 212, '2014-07-08 18:53:43', '2014-07-08 18:53:43');
+(414, 414, 212, '2014-07-08 18:53:43', '2014-07-08 18:53:43'),
+(415, 5, 228, '2014-07-21 20:45:38', '2014-07-21 20:45:38'),
+(416, 5, 245, '2014-07-21 22:10:17', '2014-07-21 22:10:17'),
+(417, 13, 245, '2014-07-21 22:10:17', '2014-07-21 22:10:17');
 
 -- --------------------------------------------------------
 
@@ -1235,12 +1238,23 @@ CREATE TABLE IF NOT EXISTS `passanger_prices` (
   `price_item` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `price_din` float NOT NULL,
   `price_eur` float NOT NULL,
+  `num` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `passanger_id` (`passanger_id`),
   KEY `reservation_id` (`reservation_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
+
+--
+-- Dumping data for table `passanger_prices`
+--
+
+INSERT INTO `passanger_prices` (`id`, `passanger_id`, `reservation_id`, `price_item`, `price_din`, `price_eur`, `num`, `created_at`, `updated_at`) VALUES
+(9, 5, 245, 'Smeštaj Adl', 0, 69, 1, '2014-07-21 22:10:17', '2014-07-21 22:10:17'),
+(10, 5, 245, 'Doplata', 0, 25, 1, '2014-07-21 22:10:17', '2014-07-21 22:10:17'),
+(11, 13, 245, 'Smeštaj Adl', 0, 69, 1, '2014-07-21 22:10:17', '2014-07-21 22:10:17'),
+(12, 13, 245, 'Popust', 0, 10, 1, '2014-07-21 22:10:17', '2014-07-21 22:10:17');
 
 -- --------------------------------------------------------
 
@@ -1385,7 +1399,7 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   UNIQUE KEY `reservation_number` (`reservation_number`),
   KEY `rsrv_pass_id_ind` (`passanger_id`),
   KEY `travel_deal_id` (`travel_deal_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=213 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=246 ;
 
 --
 -- Dumping data for table `reservations`
@@ -1531,7 +1545,9 @@ INSERT INTO `reservations` (`id`, `reservation_number`, `travel_deal_id`, `reser
 (209, '215/2014', 128, '2014-07-06 18:53:11', '2014-07-15', '2014-07-26', '2014-07-15', 10, 408, '0.00', '390.00', 'Aktivna', '0.00', '', 0, '', '', 'Milan Miladinović', '2014-07-06 18:53:11', '2014-07-06 18:53:11', 0),
 (210, '219/2014VA', 128, '2014-07-06 18:55:42', '2014-07-15', '2014-07-26', '2014-07-15', 10, 410, '0.00', '390.00', 'Aktivna', '0.00', '', 0, '', '', 'Milan Miladinović', '2014-07-06 18:55:42', '2014-07-06 18:55:42', 0),
 (211, '250/2014', 129, '2014-07-06 18:59:56', '2014-07-15', '2014-07-25', '2014-07-14', 10, 412, '0.00', '440.00', 'Aktivna', '0.00', '', 0, '', '', 'Milan Miladinović', '2014-07-06 18:59:56', '2014-07-06 18:59:56', 0),
-(212, '280/2014', 130, '2014-07-08 18:53:43', '2014-07-16', '2014-07-23', '2014-07-16', 7, 414, '0.00', '508.00', 'Aktivna', '0.00', '', 0, '', '', 'Milan Miladinović', '2014-07-08 18:53:43', '2014-07-08 18:53:43', 0);
+(212, '280/2014', 130, '2014-07-08 18:53:43', '2014-07-16', '2014-07-23', '2014-07-16', 7, 414, '0.00', '508.00', 'Aktivna', '0.00', '', 0, '', '', 'Milan Miladinović', '2014-07-08 18:53:43', '2014-07-08 18:53:43', 0),
+(228, '5555555555', 26, '2014-07-21 20:45:38', '2014-07-21', '2014-07-25', '2014-07-21', 4, 5, '0.00', '69.00', 'Aktivna', '0.00', '', 0, '', '', 'Sanja Bogdanovic-Dinic', '2014-07-21 20:45:38', '2014-07-21 20:45:38', 0),
+(245, '89898989', 26, '2014-07-21 22:10:17', '2014-07-22', '2014-07-22', '2014-07-22', 0, 5, '0.00', '153.00', 'Aktivna', '0.00', '', 0, '', '', 'Sanja Bogdanovic-Dinic', '2014-07-21 22:10:17', '2014-07-21 22:10:17', 0);
 
 -- --------------------------------------------------------
 
@@ -1665,7 +1681,7 @@ CREATE TABLE IF NOT EXISTS `reservation_prices` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`id`,`reservationId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=436 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=459 ;
 
 --
 -- Dumping data for table `reservation_prices`
@@ -1996,7 +2012,11 @@ INSERT INTO `reservation_prices` (`id`, `priceItem`, `priceDin`, `priceEur`, `nu
 (432, 'Popust', 0, 10, 2, 211, '2014-07-06 18:59:56', '2014-07-06 18:59:56'),
 (433, 'Doplata', 0, 10, 2, 211, '2014-07-06 18:59:56', '2014-07-06 18:59:56'),
 (434, 'Smeštaj Adl', 0, 419, 1, 212, '2014-07-08 18:53:43', '2014-07-08 18:53:43'),
-(435, 'Doplata', 0, 89, 1, 212, '2014-07-08 18:53:43', '2014-07-08 18:53:43');
+(435, 'Doplata', 0, 89, 1, 212, '2014-07-08 18:53:43', '2014-07-08 18:53:43'),
+(436, 'Smeštaj Adl', 0, 69, 1, 228, '2014-07-21 20:45:38', '2014-07-21 20:45:38'),
+(456, 'Smeštaj Adl', 0, 69, 2, 245, '2014-07-21 22:10:17', '2014-07-21 22:10:17'),
+(457, 'Popust', 0, 10, 1, 245, '2014-07-21 22:10:17', '2014-07-21 22:10:17'),
+(458, 'Doplata', 0, 25, 1, 245, '2014-07-21 22:10:17', '2014-07-21 22:10:17');
 
 -- --------------------------------------------------------
 
@@ -2173,8 +2193,8 @@ ALTER TABLE `passangers`
 -- Constraints for table `passanger_prices`
 --
 ALTER TABLE `passanger_prices`
-  ADD CONSTRAINT `pp_reservation_id_fk` FOREIGN KEY (`reservation_id`) REFERENCES `reservations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pp_passanger_id_fk` FOREIGN KEY (`passanger_id`) REFERENCES `passanger` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `pp_passanger_id_fk` FOREIGN KEY (`passanger_id`) REFERENCES `passanger` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `pp_reservation_id_fk` FOREIGN KEY (`reservation_id`) REFERENCES `reservations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `reservations`

@@ -231,6 +231,7 @@ class ReservationsController extends \BaseController {
 
 			$items = $_POST["Item"];
 			$passangers = $_POST["Passangers"];
+			$passangersPrices = $_POST["PsgItem"];
 
 			
 			$res_num = "";
@@ -316,7 +317,27 @@ class ReservationsController extends \BaseController {
 							$resprice->Save();
 						};
 					}
-				}				
+				}
+
+				if(is_array($passangersPrices))
+				{
+					foreach ($passangersPrices as $psgPrices) {
+						
+						if(is_array($psgPrices))
+						{
+							foreach ($psgPrices as $psgPrice) {
+								$psgResPrice = new PassangerPrice;
+								$psgResPrice->price_item = $psgPrice["name"];
+								$psgResPrice->price_din = $psgPrice["din"];
+								$psgResPrice->price_eur = $psgPrice["euro"];
+								$psgResPrice->num = $psgPrice["num"];
+								$psgResPrice->reservation_id = $reservation->id;
+								$psgResPrice->passanger_id = $psgPrice["psgID"];
+								$psgResPrice->save();
+							}
+						}
+					}
+				}
 
 				if(is_array($passangers))
 				{

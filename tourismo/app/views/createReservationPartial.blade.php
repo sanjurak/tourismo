@@ -1,6 +1,6 @@
 {{HTML::script('scripts/reservationsCreate.js')}}
 <style type="text/css">
-	#psgMessage, #paymentItem, #unitsId, #traveldealNew, #traveldealDetails{
+	#psgMessage, #paymentItem, #unitsId, #traveldealNew, #traveldealDetails, .hiddenPsgItems{
 		display:none;
 	}
 
@@ -19,6 +19,11 @@
 
 	#paymentModal{
 		display: none;
+	}
+
+	#psgName{
+		font-size: 14px;
+		font-weight: bolder;
 	}
 	
 </style>
@@ -226,12 +231,17 @@
 			<legend>3. Detalji plaćanja</legend>
 			<div class="container">
 				<div class="row">
+					<div class="span12" id="psgPaymentDetails">
+
+					</div>
+				</div>
+				<div class="row">
 					<div class="span12">
 						<a href="#" class="btn btn-default  pull-right" id="addPaymentItem">Dodaj plaćanje</a>
 					</div>
 				</div>
 				<div class="row">
-						<div class="span12">
+						<div class="span12 psgPayment finalPayment">
 							<table>
 								<tr>
 									<th class="medium-width">Obračun</th>
@@ -251,8 +261,8 @@
 							<table>
 								<tr>
 									<td class="wide600 pull-right"><span class="pull-right">Ukupno:</span></td>
-									<td class="medium-width"> (DIN)<input type="text" name="totalDIN" id="totalDIN" class="input-medium" readonly /></td>
-									<td class="medium-width">(EUR)<input type="text" name="totalEUR" id="totalEUR" class="input-medium" readonly /></td>
+									<td class="medium-width"> (DIN)<input type="text" name="TotalDIN" id="totalDIN" class="input-medium" readonly /></td>
+									<td class="medium-width">(EUR)<input type="text" name="TotalEUR" id="totalEUR" class="input-medium" readonly /></td>
 									<td class=""></td>
 									<td class=""></td>
 								</tr>
@@ -490,13 +500,49 @@
 
 <div id="paymentItem" class="hiddenItem">
 	<div class="form-inline">
-		      <input type="text" id="paymentItemName" class="input-medium" placeholder="">
-		      <input type="text" id="paymentItemEuro" class="input-medium euroItem" value="0" placeholder="">
-		      <input type="text" id="paymentItemDin" class="input-medium dinItem" value="0" placeholder="">
-		      <input type="text" id="paymentItemNum" class="input-medium numItem" value="1" placeholder="">
-		      <input type="text" id="paymentItemTotalDin" class="input-medium" value="0" placeholder="">
-		      <input type="text" id="paymentItemTotalEuro" class="input-medium" value="0" placeholder="">
+		      <input type="text" id="paymentItemName" class="input-medium nameItem" placeholder="" />
+		      <input type="text" id="paymentItemEuro" class="input-medium euroItem" value="0" placeholder="" />
+		      <input type="text" id="paymentItemDin" class="input-medium dinItem" value="0" placeholder="" />
+		      <input type="text" id="paymentItemNum" class="input-medium numItem" value="0" placeholder="" />
+		      <input type="text" id="paymentItemTotalDin" class="input-medium" value="0" placeholder="" />
+		      <input type="text" id="paymentItemTotalEuro" class="input-medium" value="0" placeholder="" />
 		      <input type="checkbox" id="isExcursion">
+		      <input type="hidden" id="paymentItemPsgId" />
 		      <a href="#" id="removeItem" class="pull-right"><span class="icon icon-remove-sign"></span></a>
   </div>
+</div>
+
+<div class="hiddenPsgItems">
+	<div id="psgName"></div>
+	<br>
+	<a href="#" class="btn btn-default pull-right" id="addPsgPaymentItem">Dodaj plaćanje</a>
+	<br>
+<table>
+	<tr>
+		<th colspan="8"></th>
+	</tr>
+	<tr>
+		<th class="medium-width">Obračun</th>
+		<th class="medium-width">Po osobi (eur)</th>
+		<th class="medium-width">Po osobi (din)</th>
+		<th class="medium-width">Broj osoba</th>
+		<th class="medium-width">Iznos (din)</th>
+		<th class="medium-width">Iznos (eur)</th>
+		<th class="">Izlet</th>
+		<th class=""></th>
+	</tr>	
+</table>	
+<form name="paymentDetailsForm" id="paymentDetailsForm">				
+	<div id="paymentItems"></div>
+</form>
+
+<table>
+	<tr>
+		<td class="wide600 pull-right"><span class="pull-right">Ukupno:</span></td>
+		<td class="medium-width"> (DIN)<input type="text" id="totalDIN" class="input-medium" readonly /></td>
+		<td class="medium-width">(EUR)<input type="text" id="totalEUR" class="input-medium" readonly /></td>
+		<td class=""></td>
+		<td class=""></td>
+	</tr>
+</table>
 </div>
