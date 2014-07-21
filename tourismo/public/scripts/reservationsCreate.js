@@ -581,15 +581,15 @@ $("#addPsgPaymentItem").click(function(event){
 
     $(".euroItem").focusout(function(){
         
-        var total = $(this).val() * $(this).siblings("#paymentItemNum").val();
-       $(this).siblings("#paymentItemTotalEuro").val(total);
-
        var itemName = $(this).siblings("#paymentItemName").val();  
 
        if(+$(this).siblings("#paymentItemNum").val() == 0 && +$(this).val() > 0)
         {
             $(this).siblings("#paymentItemNum").val("1");
         }     
+
+        var total = $(this).val() * $(this).siblings("#paymentItemNum").val();
+       $(this).siblings("#paymentItemTotalEuro").val(total);
 
         if(!$(this).parents("div.psgPayment").hasClass("finalPayment"))
         {
@@ -644,15 +644,15 @@ $("#addPsgPaymentItem").click(function(event){
 
     $(".dinItem").focusout(function(){
         
-        var total = $(this).val() * $(this).siblings("#paymentItemNum").val();
-        $(this).siblings("#paymentItemTotalDin").val(total);
-
         var itemName = $(this).siblings("#paymentItemName").val();  
 
          if(+$(this).siblings("#paymentItemNum").val() == 0 && +$(this).val() > 0)
         {
             $(this).siblings("#paymentItemNum").val("1");
-        }      
+        } 
+        
+        var total = $(this).val() * $(this).siblings("#paymentItemNum").val();
+        $(this).siblings("#paymentItemTotalDin").val(total);     
 
         if(!$(this).parents("div.psgPayment").hasClass("finalPayment"))
         {
