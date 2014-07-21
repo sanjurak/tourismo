@@ -68,6 +68,7 @@
 						<td>
 							<div class="input-control text" align="right" id="left_to_pay_eur" style="color:red"></div>
 						</td>
+					</tr>
 					<tr>
 						<td colspan='1'>
 							<div class="input-control text">
@@ -96,7 +97,7 @@
 							</div>
 						</td>
 					</tr>
-					<tr rowspan="2">
+					<tr rowspan="2" class="payment_table_data">
 						<td colspan='1'>
 							<div class="input-control text input-append date" id="res_datepicker">
 								<input type="text" id="res_date" class="validate[required]" name="res_date" placeholder="Datum plaćanja"/>
