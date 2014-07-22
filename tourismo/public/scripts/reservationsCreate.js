@@ -354,7 +354,7 @@ $(function(){
                 $("#paymentItems div").last().find("#paymentItemDin").val(item["price_din"]).trigger("focusout");
                 $("#paymentItems div").last().find("#paymentItemName").val("Smeštaj Adl");
                 $("#paymentItems div").last().find("#paymentItemNum").val("1");
-                $("#paymentItems div").last().find("#paymentItemName").attr("data-val","Smeštaj Adl");
+                $("#paymentItems div").last().find("#paymentItemName").attr("data-val","Smeštaj Adl").prop("readonly", true);
                 
                /* $("#addPaymentItem").trigger("click");
                 $("#paymentItems div").last().find("#paymentItemName").val("Smeštaj Chld");
@@ -455,8 +455,9 @@ $(function(){
             $(items).appendTo("#psgPaymentDetails");
 
 
-            items.find("#paymentItems div").first().find("#paymentItemEuro").trigger("focusout");
-            items.find("#paymentItems div").first().find("#paymentItemDin").trigger("focusout");
+            items.find("#paymentItems div").first().find("#paymentItemEuro").trigger("focusin").trigger("focusout");
+            items.find("#paymentItems div").first().find("#paymentItemDin").trigger("focusin").trigger("focusout");
+            items.find("#paymentItems div").first().find("#paymentItemName").trigger("focusin");
 
             psgCounter++;
         }
@@ -543,7 +544,7 @@ $(function(){
         event.preventDefault(); 
         var items = $(".hiddenItem").clone(true);
         items.show().removeClass("hiddenItem");
-        items.find("#paymentItemName").attr("name","Item["+itemCounter+"][name]").addClass("validate[required]");
+        items.find("#paymentItemName").attr("name","Item["+itemCounter+"][name]").addClass("validate[required]").prop("readonly", true);
         items.find("#paymentItemEuro").attr("name","Item["+itemCounter+"][euro]").addClass("validate[required]").prop("readonly", true);
         items.find("#paymentItemDin").attr("name","Item["+itemCounter+"][din]").addClass("validate[required]").prop("readonly", true);
         items.find("#paymentItemNum").attr("name","Item["+itemCounter+"][num]").addClass("validate[required]").prop("readonly", true);
@@ -578,6 +579,55 @@ $("#addPsgPaymentItem").click(function(event){
        // $(this).parents(".psgPayment").find("#totalEUR").attr("name","PsgItem["+id+"]["+psgItemCounter+"][totalEUR]");
         psgItemCounter++;
     });
+    
+    var oldEuro = 0, oldDin = 0;
+    var oldNameItem = "";
+
+    $(".nameItem").focusin(function(){
+        oldNameItem = $(this).val();
+    });
+
+    $(".nameItem").focusout(function(){
+
+        var currName = $(this).val();
+
+        if(!$(this).parents("div.psgPayment").hasClass("finalPayment"))
+        {
+          
+            $(this).siblings("#paymentItemName").val(currName);
+            $(this).siblings("#paymentItemEuro").trigger("focusin").trigger("focusout");
+            $(this).siblings("#paymentItemDin").trigger("focusin").trigger("focusout");
+
+            var count = 0;
+
+            $(".psgPayment").find("div#paymentItem").each(function(){ 
+                if($(this).find("#paymentItemName").val() == oldNameItem)
+                {
+                    count++;
+                    if(!$(this).parents("div.psgPayment").hasClass("finalPayment"))
+                    {
+                        $(this).find("#paymentItemEuro").trigger("focusin").trigger("focusout");   
+                        $(this).find("#paymentItemDin").trigger("focusin").trigger("focusout");   
+                    }
+                }
+            });
+
+            if(count <= 1)
+            {                        
+                $(".finalPayment").find("#paymentItemName").each(function(){
+
+                    if($(this).val() == oldNameItem)
+                        $(this).parents("#paymentItem").remove();
+                });
+            }
+
+        }
+
+    });
+
+    $(".euroItem").focusin(function(){
+        oldEuro = $(this).val();
+    });
 
     $(".euroItem").focusout(function(){
         
@@ -589,18 +639,29 @@ $("#addPsgPaymentItem").click(function(event){
         }     
 
         var total = $(this).val() * $(this).siblings("#paymentItemNum").val();
-       $(this).siblings("#paymentItemTotalEuro").val(total);
+        $(this).siblings("#paymentItemTotalEuro").val(total);
 
         if(!$(this).parents("div.psgPayment").hasClass("finalPayment"))
         {
-            var success = false;
+            var success = false, generate = false;
             var euroItem = $(this).val();
             var num = 0;
+            var dinItem = $(this).siblings("#paymentItemDin").val();
 
             $("#psgPaymentDetails").find("div#paymentItem").each(function(){                
                 
-                if($(this).find("#paymentItemName").val() == itemName)
+                if(($(this).find("#paymentItemName").val() == itemName))
                 {
+                    var count = +$(this).find("#paymentItemNum").val();
+                    if(count == 0)
+                    {
+                        count++;
+                        $(this).find("#paymentItemNum").val(count);
+                    }
+
+                    var euroEl = $(this).find("#paymentItemEuro");
+                    if(+euroEl.val() != euroItem)
+                        euroEl.val(euroItem).trigger("focusout");
                     num = num + +$(this).find("#paymentItemNum").val();
                 }
 
@@ -650,7 +711,7 @@ $("#addPsgPaymentItem").click(function(event){
         {
             $(this).siblings("#paymentItemNum").val("1");
         } 
-        
+
         var total = $(this).val() * $(this).siblings("#paymentItemNum").val();
         $(this).siblings("#paymentItemTotalDin").val(total);     
 
@@ -664,6 +725,16 @@ $("#addPsgPaymentItem").click(function(event){
                                     
                 if($(this).find("#paymentItemName").val() == itemName)
                 {
+                    var count = +$(this).find("#paymentItemNum").val();
+                    if(count == 0)
+                    {
+                        count++;
+                        $(this).find("#paymentItemNum").val(count);
+                    }
+
+                    var dinEl = $(this).find("#paymentItemDin");
+                    if(+dinEl.val() != dinItem)
+                        dinEl.val(dinItem).trigger("focusout");
                     num = num + +$(this).find("#paymentItemNum").val();
                 }
 

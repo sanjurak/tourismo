@@ -237,7 +237,7 @@
 				</div>
 				<div class="row">
 					<div class="span12">
-						<a href="#" class="btn btn-default  pull-right" id="addPaymentItem">Dodaj plaćanje</a>
+						<input type="hidden" id="addPaymentItem" />
 					</div>
 				</div>
 				<div class="row">
