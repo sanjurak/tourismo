@@ -39,6 +39,8 @@ $(function(){
     $("#passanger_search").change(function () {
         if($(this).val() == null) $(this).addClass("empty");
         else $(this).removeClass("empty");
+
+        $(".payment_table_data").show();
     });
     $("#passanger_search").change();
 
