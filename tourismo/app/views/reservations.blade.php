@@ -60,7 +60,7 @@
 					<col width="80">
 					<col width="150">
 					<col width="150">
-					<tr>
+					<tr class="payment-table-prices">
 						<td colspan="2"><div class="input-control text" align="right">Ostalo za uplatu -></div></td>
 						<td>
 							<div class="input-control text" align="right" id="left_to_pay_din" style="color:red"></div>
@@ -69,13 +69,13 @@
 							<div class="input-control text" align="right" id="left_to_pay_eur" style="color:red"></div>
 						</td>
 					</tr>
-					<tr class="payment_table_data">
+					<tr class="payment-table-data payment-table-prices">
 						<td colspan="2"><div class="input-control text" align="right">Ostalo za uplatu pojedinačno -></div></td>
 						<td>
-							<div class="input-control text" align="right" id="left_to_pay_din" style="color:red"></div>
+							<div class="input-control text" align="right" id="psg_left_to_pay_din" style="color:red"></div>
 						</td>
 						<td>
-							<div class="input-control text" align="right" id="left_to_pay_eur" style="color:red"></div>
+							<div class="input-control text" align="right" id="psg_left_to_pay_eur" style="color:red"></div>
 						</td>
 					</tr>
 					<tr>
@@ -106,7 +106,7 @@
 							</div>
 						</td>
 					</tr>
-					<tr rowspan="2" class="payment_table_data">
+					<tr rowspan="2" class="payment-table-data">
 						<td colspan='1'>
 							<div class="input-control text input-append date" id="res_datepicker">
 								<input type="text" id="res_date" class="validate[required]" name="res_date" placeholder="Datum plaćanja"/>
@@ -133,7 +133,7 @@
 							</div>
 						</td>
 					</tr>
-					<tr class="payment_table_data">
+					<tr class="payment-table-data">
 						<td colspan='1' rowspan='2'>
 							<div class="input-control text">
 								<textarea rows='2' style="width:100%" name="	payment_method" id="payment_method" placeholder="Metod plaćanja"></textarea>

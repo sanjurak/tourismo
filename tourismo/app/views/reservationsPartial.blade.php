@@ -87,6 +87,8 @@ $(function(){
 						$(".modal-body #left_to_pay_eur")[0].innerHTML = "EUR: "+prd.left_to_pay_eur;
 						if (prd.left_to_pay_eur <= 0.0)
 							$(".modal-body #left_to_pay_din")[0].setAttribute("style","color:green");
+
+						globalPsgLeftToPay = prd.passanger_left_to_pay;
 	                }
 				}
 			});			

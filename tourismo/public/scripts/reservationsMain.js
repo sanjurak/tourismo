@@ -40,7 +40,11 @@ $(function(){
         if($(this).val() == null) $(this).addClass("empty");
         else $(this).removeClass("empty");
 
-        $(".payment_table_data").show();
+        $(".payment-table-data").show();
+        if (window.globalPsgLeftToPay) {
+            $("#psg_left_to_pay_din").text("DIN: "+window.globalPsgLeftToPay[$(this).val()].left_to_pay_din);
+            $("#psg_left_to_pay_eur").text("EUR: "+window.globalPsgLeftToPay[$(this).val()].left_to_pay_eur);
+        }
     });
     $("#passanger_search").change();
 

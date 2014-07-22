@@ -595,6 +595,20 @@ class ReservationsController extends \BaseController {
 			$psg = Passanger::find($passanger->passanger_id);
 			$psg_data = array($psg->id, $psg->name.' '.$psg->surname.' JMBG: '.$psg->jmbg);
 			array_push($prd->passanger_names, $psg_data);
+
+			$pltp = new PsgLeftToPay();
+			$psgPrices = PassangerPrice::where('reservation_id','=',$reservation->id)->
+											where('passanger_id','=',$passanger->passanger_id)->get();
+			foreach ($psgPrices as $psgPrice) {
+				$pltp->left_to_pay_din += ($psgPrice->price_din*$psgPrice->num);
+				$pltp->left_to_pay_eur += ($psgPrice->price_eur*$psgPrice->num);
+			}
+			$payments = Payment::where('reservation_id','=',$reservation->id)->get();
+			foreach ($payments as $payment) {
+				$pltp->left_to_pay_din -= $payment->amount_din;
+				$pltp->left_to_pay_eur -= round($payment->amount_eur_din/$payment->exchange_rate, 2);
+			}
+			$prd->passanger_left_to_pay[$psg->id] = $pltp;
 		}
 		$payments = Payment::where('reservation_id','=',$reservation->id)->get();
 		$prd->left_to_pay_din = $reservation->price_total_din;
@@ -615,5 +629,11 @@ class PaymentResDetails {
 	public $passanger_names = array();
 	public $left_to_pay_din;
 	public $left_to_pay_eur;
+	public $passanger_left_to_pay = array();
+}
+
+class PsgLeftToPay {
+	public $left_to_pay_eur = 0;
+	public $left_to_pay_din = 0;
 }
 ?>

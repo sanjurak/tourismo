@@ -86,3 +86,7 @@ form:legend{
 .ui-datepicker{
 	z-index: 1154 !important;
 }
+
+.payment-table-prices tr{
+	line-height: 20px !important;
+}
