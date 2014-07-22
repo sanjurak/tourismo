@@ -44,6 +44,13 @@ $(function(){
         if (window.globalPsgLeftToPay) {
             $("#psg_left_to_pay_din").text("DIN: "+window.globalPsgLeftToPay[$(this).val()].left_to_pay_din);
             $("#psg_left_to_pay_eur").text("EUR: "+window.globalPsgLeftToPay[$(this).val()].left_to_pay_eur);
+            if (window.globalPsgLeftToPay[$(this).val()].left_to_pay_din <= 0.0)
+                $(".modal-body #psg_left_to_pay_din")[0].setAttribute("style","color:green");
+            if (window.globalPsgLeftToPay[$(this).val()].left_to_pay_eur <= 0.0)
+                $(".modal-body #psg_left_to_pay_eur")[0].setAttribute("style","color:green");
+        } else {
+            $("#psg_left_to_pay_din").text("DIN: 0");
+            $("#psg_left_to_pay_eur").text("EUR: 0");
         }
     });
     $("#passanger_search").change();
