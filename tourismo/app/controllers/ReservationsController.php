@@ -600,8 +600,13 @@ class ReservationsController extends \BaseController {
 			$psgPrices = PassangerPrice::where('reservation_id','=',$reservation->id)->
 											where('passanger_id','=',$passanger->passanger_id)->get();
 			foreach ($psgPrices as $psgPrice) {
-				$pltp->left_to_pay_din += ($psgPrice->price_din*$psgPrice->num);
-				$pltp->left_to_pay_eur += ($psgPrice->price_eur*$psgPrice->num);
+				if (preg_match('/\bpopust\b/i', $psgPrice->price_item) == 1) {
+					$pltp->left_to_pay_din -= ($psgPrice->price_din*$psgPrice->num);
+					$pltp->left_to_pay_eur -= ($psgPrice->price_eur*$psgPrice->num);
+				} else {
+					$pltp->left_to_pay_din += ($psgPrice->price_din*$psgPrice->num);
+					$pltp->left_to_pay_eur += ($psgPrice->price_eur*$psgPrice->num);
+				}
 			}
 			$payments = Payment::where('reservation_id','=',$reservation->id)->get();
 			foreach ($payments as $payment) {

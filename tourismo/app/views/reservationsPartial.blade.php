@@ -96,7 +96,7 @@ $(function(){
             $("#left_to_pay_eur").text("EUR: 0");
             $("#psg_left_to_pay_din").text("DIN: 0");
             $("#psg_left_to_pay_eur").text("EUR: 0");
-    		$(".payment_table_data").hide();
+    		$(".payment-table-data").hide();
 		}
 	}
 
