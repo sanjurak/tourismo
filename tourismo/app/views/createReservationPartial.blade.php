@@ -545,4 +545,5 @@
 		<td class=""></td>
 	</tr>
 </table>
+<hr />
 </div>

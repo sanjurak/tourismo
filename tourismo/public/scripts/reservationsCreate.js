@@ -467,7 +467,6 @@ $(function(){
         items.find("#removeItem").remove();
         itemCounter++;
         $(".finalPayment").find("#paymentItems").append(items);
-        //$(items).appendTo("#paymentItems");
     });
 
 $("#addPsgPaymentItem").click(function(event){
@@ -486,9 +485,7 @@ $("#addPsgPaymentItem").click(function(event){
         items.find("#paymentItemPsgId").attr("name","PsgItem["+id+"]["+psgItemCounter+"][psgID]");
         items.find("#paymentItemPsgId").val(id);
         $(this).siblings("#paymentDetailsForm").find("#paymentItems").append(items);
-
-        //$(this).parents(".psgPayment").find("#totalDIN").attr("name","PsgItem["+id+"]["+psgItemCounter+"][totalDIN]");
-       // $(this).parents(".psgPayment").find("#totalEUR").attr("name","PsgItem["+id+"]["+psgItemCounter+"][totalEUR]");
+        
         psgItemCounter++;
     });
     

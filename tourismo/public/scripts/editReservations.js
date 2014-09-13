@@ -1,4 +1,8 @@
 $(function(){
+    
+    var TravelDealPriceEur = 0;
+    var TravelDealPriceDin = 0;
+
 $("#traveldealsSel").selectize({
 	valueField: 'id',
         labelField: 'name',
@@ -36,6 +40,9 @@ $("#traveldealsSel").selectize({
 				$("#transportation").val(item["transportation"]);
 				$("#service").val(item["service"]);
                 $("#traveldealId").val(item["id"]);
+
+                TravelDealPriceDin = item["price_din"];
+                TravelDealPriceEur = item["price_eur"];
 
 		$("#traveldealDetails").slideDown();
 
@@ -78,7 +85,39 @@ $("#traveldealsSel").selectize({
                 +"<a href='#' class='remove-psg pull-right'>"
                 +"<span class='icon icon-remove-sign'></span></a></div>")
             .appendTo("#passangersDetails");
+            
+            var items = $(".hiddenPsgItems").clone(true);
+            items.show().removeClass("hiddenPsgItems").attr("id",item.id);
+            items.addClass("psgPayment");
+            items.find("#psgName").text("Detalji plaćanja za putnika: " + item.passanger.substring(0, item.passanger.indexOf("JMBG") - 1));
+           
+            items.find("#addPsgPaymentItem").trigger("click");
+            items.find("#paymentItems div").last().find("#paymentItemName").val("Smeštaj Adl");
+            items.find("#paymentItems div").last().find("#paymentItemEuro").val(TravelDealPriceEur);
+            items.find("#paymentItems div").last().find("#paymentItemDin").val(TravelDealPriceDin);
+            items.find("#paymentItems div").last().find("#paymentItemNum").val("1");
 
+            items.find("#addPsgPaymentItem").trigger("click");
+            items.find("#paymentItems div").last().find("#paymentItemName").val("Smeštaj Chld");
+            
+            items.find("#addPsgPaymentItem").trigger("click");
+            items.find("#paymentItems div").last().find("#paymentItemName").val("Prevoz Adl");
+            
+            items.find("#addPsgPaymentItem").trigger("click");
+            items.find("#paymentItems div").last().find("#paymentItemName").val("Prevoz Chld");
+            
+            items.find("#addPsgPaymentItem").trigger("click");
+            items.find("#paymentItems div").last().find("#paymentItemName").val("Popust");
+            
+            items.find("#addPsgPaymentItem").trigger("click");
+            items.find("#paymentItems div").last().find("#paymentItemName").val("Doplata");
+
+            $(items).appendTo("#psgPaymentDetails");
+
+
+            items.find("#paymentItems div").first().find("#paymentItemEuro").trigger("focusin").trigger("focusout");
+            items.find("#paymentItems div").first().find("#paymentItemDin").trigger("focusin").trigger("focusout");
+            items.find("#paymentItems div").first().find("#paymentItemName").trigger("focusin");
 
             psgCounter++;
         }
@@ -134,8 +173,12 @@ $("#traveldealsSel").selectize({
     
     //PLACANJA
 
-    
+    //inicijalizacija brojaca za forme detalja placanja putnika 
+    //i pojedinacna placanja za svakog putnika
+
       var itemCounter = 0;
+      var psgItemCounter = 0;
+
     $("#removeItem").click(function(e){
         e.preventDefault();
         var totaldin = +$("#totalDIN").val() - +$(this).siblings("#paymentItemTotalDin").val(); 
@@ -150,46 +193,233 @@ $("#traveldealsSel").selectize({
         event.preventDefault();
         var items = $(".hiddenItem").clone(true);
         items.show().removeClass("hiddenItem");
-        items.find("#paymentItemName").attr("name","Item["+itemCounter+"][name]").addClass("validate[required]");
-        items.find("#paymentItemEuro").attr("name","Item["+itemCounter+"][euro]").addClass("validate[required]");
-        items.find("#paymentItemDin").attr("name","Item["+itemCounter+"][din]").addClass("validate[required]");
-        items.find("#paymentItemNum").attr("name","Item["+itemCounter+"][num]").addClass("validate[required]");
-        items.find("#paymentItemTotalDin").attr("name","Item["+itemCounter+"][totaldin]").addClass("validate[required]");
-        items.find("#paymentItemTotalEuro").attr("name","Item["+itemCounter+"][totaleuro]").addClass("validate[required]");
+        items.find("#paymentItemName").attr("name","Item["+itemCounter+"][name]").addClass("validate[required]").prop("readonly", true);;
+        items.find("#paymentItemEuro").attr("name","Item["+itemCounter+"][euro]").addClass("validate[required]").prop("readonly", true);;
+        items.find("#paymentItemDin").attr("name","Item["+itemCounter+"][din]").addClass("validate[required]").prop("readonly", true);;
+        items.find("#paymentItemNum").attr("name","Item["+itemCounter+"][num]").addClass("validate[required]").prop("readonly", true);;
+        items.find("#paymentItemTotalDin").attr("name","Item["+itemCounter+"][totaldin]").addClass("validate[required]").prop("readonly", true);;
+        items.find("#paymentItemTotalEuro").attr("name","Item["+itemCounter+"][totaleuro]").addClass("validate[required]").prop("readonly", true);;
         items.find("#isExcursion").attr("name","Item["+itemCounter+"][isExcursion]").addClass("excursionChk");
 
+        items.find("#removeItem").remove();
         itemCounter++;
-        $(items).appendTo("#paymentItems");
+        $(".finalPayment").find("#paymentItems").append(items);
+    });
+
+    $("#addPsgPaymentItem").click(function(event){
+        event.preventDefault();
+        var items = $(".hiddenItem").clone(true);
+        var id = $(this).parents(".psgPayment").attr("id");
+        items.show().removeClass("hiddenItem");
+        items.find("#paymentItemName").attr("name","PsgItem["+id+"]["+psgItemCounter+"][name]").addClass("validate[required]");
+        items.find("#paymentItemEuro").attr("name","PsgItem["+id+"]["+psgItemCounter+"][euro]").addClass("validate[required]");
+        items.find("#paymentItemDin").attr("name","PsgItem["+id+"]["+psgItemCounter+"][din]").addClass("validate[required]");
+        items.find("#paymentItemNum").attr("name","PsgItem["+id+"]["+psgItemCounter+"][num]").addClass("validate[required]");
+        items.find("#paymentItemTotalDin").attr("name","PsgItem["+id+"]["+psgItemCounter+"][totaldin]").addClass("validate[required]");
+        items.find("#paymentItemTotalEuro").attr("name","PsgItem["+id+"]["+psgItemCounter+"][totaleuro]").addClass("validate[required]");
+        items.find("#isExcursion").attr("name","PsgItem["+id+"]["+psgItemCounter+"][isExcursion]").addClass("excursionChk");
+        
+        items.find("#paymentItemPsgId").attr("name","PsgItem["+id+"]["+psgItemCounter+"][psgID]");
+        items.find("#paymentItemPsgId").val(id);
+        $(this).siblings("#paymentDetailsForm").find("#paymentItems").append(items);
+        
+        psgItemCounter++;
+    });
+
+    var oldEuro = 0, oldDin = 0;
+    var oldNameItem = "";
+
+    $(".nameItem").focusin(function(){
+        oldNameItem = $(this).val();
+    });
+
+    $(".nameItem").focusout(function(){
+
+        var currName = $(this).val();
+
+        if(!$(this).parents("div.psgPayment").hasClass("finalPayment"))
+        {
+          
+            $(this).siblings("#paymentItemName").val(currName);
+            $(this).siblings("#paymentItemEuro").trigger("focusin").trigger("focusout");
+            $(this).siblings("#paymentItemDin").trigger("focusin").trigger("focusout");
+
+            var count = 0;
+
+            $(".psgPayment").find("div#paymentItem").each(function(){ 
+                if($(this).find("#paymentItemName").val() == oldNameItem)
+                {
+                    count++;
+                    if(!$(this).parents("div.psgPayment").hasClass("finalPayment"))
+                    {
+                        $(this).find("#paymentItemEuro").trigger("focusin").trigger("focusout");   
+                        $(this).find("#paymentItemDin").trigger("focusin").trigger("focusout");   
+                    }
+                }
+            });
+
+            if(count <= 1)
+            {                        
+                $(".finalPayment").find("#paymentItemName").each(function(){
+
+                    if($(this).val() == oldNameItem)
+                        $(this).parents("#paymentItem").remove();
+                });
+            }
+
+        }
+
+    });
+
+    $(".euroItem").focusin(function(){
+        oldEuro = $(this).val();
     });
 
     $(".euroItem").focusout(function(){
+        
+       var itemName = $(this).siblings("#paymentItemName").val();  
+
+       if(+$(this).siblings("#paymentItemNum").val() == 0 && +$(this).val() > 0)
+        {
+            $(this).siblings("#paymentItemNum").val("1");
+        }     
+
         var total = $(this).val() * $(this).siblings("#paymentItemNum").val();
-       $(this).siblings("#paymentItemTotalEuro").val(total);
+        $(this).siblings("#paymentItemTotalEuro").val(total);
 
-        var totaleur = 0;
+        if(!$(this).parents("div.psgPayment").hasClass("finalPayment"))
+        {
+            var success = false, generate = false;
+            var euroItem = $(this).val();
+            var num = 0;
+            var dinItem = $(this).siblings("#paymentItemDin").val();
 
-        $("#paymentItems div#paymentItem").each(function(){
-      	   if($(this).find("#paymentItemName").val() == "Popust")
-            	totaleur -= +$(this).find("#paymentItemTotalEuro").val();
+            $("#psgPaymentDetails").find("div#paymentItem").each(function(){                
+                
+                if(($(this).find("#paymentItemName").val() == itemName))
+                {
+                    var count = +$(this).find("#paymentItemNum").val();
+                    if(count == 0)
+                    {
+                        count++;
+                        $(this).find("#paymentItemNum").val(count);
+                    }
+
+                    var euroEl = $(this).find("#paymentItemEuro");
+                    if(+euroEl.val() != euroItem)
+                        euroEl.val(euroItem).trigger("focusout");
+                    num = num + +$(this).find("#paymentItemNum").val();
+                }
+
+            });
+
+
+            $(".finalPayment").find("#paymentItemName").each(function(){
+
+                if($(this).val() == itemName)
+                {
+                    var item = $(this).siblings("#paymentItemEuro");
+                                        
+                    item.val(euroItem);
+                    item.siblings("#paymentItemNum").val(num).trigger("focusout");
+                    success = true;
+                }
+
+            });
+
+            if(!success)
+            {
+                $("#addPaymentItem").trigger("click");
+                $(".finalPayment").find("#paymentItems div").last().find("#paymentItemName").val(itemName);
+                $(".finalPayment").find("#paymentItems div").last().find("#paymentItemNum").val(num);
+                $(".finalPayment").find("#paymentItems div").last().find("#paymentItemEuro").val(euroItem).trigger("focusout");
+                
+                $(".finalPayment").find("#paymentItems div").last().find("#paymentItemName").attr("data-val",itemName);
+            }
+            
+        }
+            var totaleur = 0;
+
+        $(this).parents("#paymentItems").find("div#paymentItem").each(function(){
+           if(/Popust/i.test($(this).find("#paymentItemName").val()))
+                totaleur -= +$(this).find("#paymentItemTotalEuro").val();
             else
-            	totaleur += +$(this).find("#paymentItemTotalEuro").val();
+                totaleur += +$(this).find("#paymentItemTotalEuro").val();
         });
-        $("#totalEUR").val(totaleur);
+        $(this).parents(".psgPayment").find("#totalEUR").val(totaleur);
     });  
 
     $(".dinItem").focusout(function(){
+        
+        var itemName = $(this).siblings("#paymentItemName").val();  
+
+         if(+$(this).siblings("#paymentItemNum").val() == 0 && +$(this).val() > 0)
+        {
+            $(this).siblings("#paymentItemNum").val("1");
+        } 
+
         var total = $(this).val() * $(this).siblings("#paymentItemNum").val();
-       $(this).siblings("#paymentItemTotalDin").val(total);
+        $(this).siblings("#paymentItemTotalDin").val(total);     
+
+        if(!$(this).parents("div.psgPayment").hasClass("finalPayment"))
+        {
+            var success = false;
+            var dinItem = $(this).val();
+            var num = 0;
+
+            $("#psgPaymentDetails").find("div#paymentItem").each(function(){
+                                    
+                if($(this).find("#paymentItemName").val() == itemName)
+                {
+                    var count = +$(this).find("#paymentItemNum").val();
+                    if(count == 0)
+                    {
+                        count++;
+                        $(this).find("#paymentItemNum").val(count);
+                    }
+
+                    var dinEl = $(this).find("#paymentItemDin");
+                    if(+dinEl.val() != dinItem)
+                        dinEl.val(dinItem).trigger("focusout");
+                    num = num + +$(this).find("#paymentItemNum").val();
+                }
+
+            });
+
+            $(".finalPayment").find("#paymentItemName").each(function(){
+
+                if($(this).val() == itemName)
+                {
+                    var item = $(this).siblings("#paymentItemDin");
+                                        
+                    item.val(dinItem);
+                    item.siblings("#paymentItemNum").val(num).trigger("focusout");
+                    success = true;
+                }
+
+            });
+
+            if(!success)
+            {
+                $("#addPaymentItem").trigger("click");
+                $(".finalPayment").find("#paymentItems div").last().find("#paymentItemName").val(itemName);
+                $(".finalPayment").find("#paymentItems div").last().find("#paymentItemNum").val(num);
+                $(".finalPayment").find("#paymentItems div").last().find("#paymentItemDin").val(dinItem).trigger("focusout");
+                
+                $(".finalPayment").find("#paymentItems div").last().find("#paymentItemName").attr("data-val",itemName);
+            }
+            
+        }
 
        var totaldin = 0;
 
-        $("#paymentItems div#paymentItem").each(function(){
-        	if($(this).find("#paymentItemName").val() == "Popust")
-            		totaldin -= +$(this).find("#paymentItemTotalDin").val();
-            	else
-            		totaldin += +$(this).find("#paymentItemTotalDin").val();
+        $(this).parents("#paymentItems").find("div#paymentItem").each(function(){
+            if(/Popust/i.test($(this).find("#paymentItemName").val()))// == "Popust")
+                    totaldin -= +$(this).find("#paymentItemTotalDin").val();
+                else
+                    totaldin += +$(this).find("#paymentItemTotalDin").val();
         });
-        $("#totalDIN").val(totaldin);
+        $(this).parents(".psgPayment").find("#totalDIN").val(totaldin);
     });   
 
     $(".numItem").focusout(function(){
@@ -197,21 +427,48 @@ $("#traveldealsSel").selectize({
         var totaleuritem = $(this).val() * $(this).siblings(".euroItem").val();
         $(this).siblings("#paymentItemTotalDin").val(totaldinitem);
         $(this).siblings("#paymentItemTotalEuro").val(totaleuritem);
+
+        var itemName = $(this).siblings("#paymentItemName").val();    
+        var num = 0;   
+
+        if(!$(this).parents("div.psgPayment").hasClass("finalPayment"))
+        {
+            $("#psgPaymentDetails").find("div#paymentItem").each(function(){
+                                    
+                if($(this).find("#paymentItemName").val() == itemName)
+                {
+                    num = num + +$(this).find("#paymentItemNum").val();
+                }
+
+            });
+
+            $(".finalPayment").find("#paymentItemName").each(function(){
+               
+                if($(this).val() == itemName)
+                {
+                    $(this).siblings("#paymentItemNum").val(num).trigger("focusout");
+                }
+
+            });
+            
+        }
+
         var totaldin = 0;
         var totaleur = 0;
 
-        $("#paymentItems div#paymentItem").each(function(){
-            if($(this).find("#paymentItemName").val() == "Popust"){
-            	totaldin -= +$(this).find("#paymentItemTotalDin").val();
-            	totaleur -= +$(this).find("#paymentItemTotalEuro").val();
+        $(this).parents("#paymentItems").find("div#paymentItem").each(function(){
+            if(/Popust/i.test($(this).find("#paymentItemName").val()))// == "Popust")
+            {
+                totaldin -= +$(this).find("#paymentItemTotalDin").val();
+                totaleur -= +$(this).find("#paymentItemTotalEuro").val();
             } else {
-            	totaldin += +$(this).find("#paymentItemTotalDin").val();
-            	totaleur += +$(this).find("#paymentItemTotalEuro").val();
+                totaldin += +$(this).find("#paymentItemTotalDin").val();
+                totaleur += +$(this).find("#paymentItemTotalEuro").val();
             }
         });
-        $("#totalDIN").val(totaldin);
-        $("#totalEUR").val(totaleur);
-    }); 
+        $(this).parents(".psgPayment").find("#totalDIN").val(totaldin);
+        $(this).parents(".psgPayment").find("#totalEUR").val(totaleur);
+    });    
     
 	 $("#paymentItems div#paymentItem").each(function(){
 	 	$(this).find(".numItem").trigger("focusout");
