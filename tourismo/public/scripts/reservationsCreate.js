@@ -473,7 +473,7 @@ $("#addPsgPaymentItem").click(function(event){
         event.preventDefault();
         var items = $(".hiddenItem").clone(true);
         var id = $(this).parents(".psgPayment").attr("id");
-        items.show().removeClass("hiddenItem");
+        items.show().removeClass("hiddenItem").addClass("paymentItem");
         items.find("#paymentItemName").attr("name","PsgItem["+id+"]["+psgItemCounter+"][name]").addClass("validate[required]");
         items.find("#paymentItemEuro").attr("name","PsgItem["+id+"]["+psgItemCounter+"][euro]").addClass("validate[required]");
         items.find("#paymentItemDin").attr("name","PsgItem["+id+"]["+psgItemCounter+"][din]").addClass("validate[required]");
@@ -904,13 +904,14 @@ $("#addPsgPaymentItem").click(function(event){
         TravelDealPriceDin = item["price_din"];
         TravelDealPriceEur = item["price_eur"];
 
-        $("#addPaymentItem").trigger("click");
+       
+        /*$("#addPaymentItem").trigger("click");
         $("#paymentItems div").last().find("#paymentItemEuro").val(item["price_eur"]).trigger("focusout");
         $("#paymentItems div").last().find("#paymentItemDin").val(item["price_din"]).trigger("focusout");
         $("#paymentItems div").last().find("#paymentItemName").val("Smeštaj Adl");
         $("#paymentItems div").last().find("#paymentItemNum").val("1");
         $("#paymentItems div").last().find("#paymentItemName").attr("data-val","Smeštaj Adl").prop("readonly", true);
- 
+    */
         $("#passangers_details").show();
         $("#payment_details").show();
     }
