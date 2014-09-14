@@ -655,7 +655,7 @@ class ReservationsController extends \BaseController {
 
 			$pltp = new PsgLeftToPay();
 			$psgPrices = PassangerPrice::where('reservation_id','=',$reservation->id)->
-											where('passanger_id','=',$passanger->passanger_id)->get();
+											where('passanger_id','=',$psg->id)->get();
 			foreach ($psgPrices as $psgPrice) {
 				if (preg_match('/\bpopust\b/i', $psgPrice->price_item) == 1) {
 					$pltp->left_to_pay_din -= ($psgPrice->price_din*$psgPrice->num);
@@ -665,7 +665,8 @@ class ReservationsController extends \BaseController {
 					$pltp->left_to_pay_eur += ($psgPrice->price_eur*$psgPrice->num);
 				}
 			}
-			$payments = Payment::where('reservation_id','=',$reservation->id)->get();
+			$payments = Payment::where('reservation_id','=',$reservation->id)->
+									where('passanger_id','=',$psg->id)->get();
 			foreach ($payments as $payment) {
 				$pltp->left_to_pay_din -= $payment->amount_din;
 				$pltp->left_to_pay_eur -= round($payment->amount_eur_din/$payment->exchange_rate, 2);

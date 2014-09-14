@@ -51,7 +51,7 @@
 	<tr>
 		<td colspan='3'>Iznos deviznog dela u dinarima:</td>
 		<td colspan='2'>{{number_format("$payment->amount_eur_din",2)}} din</td>
-		<td>Po kursu: {{number_format("$payment->exchange_rate")}}</td>
+		<td>Po kursu: {{number_format("$payment->exchange_rate",2)}}</td>
 	</tr>
 	<tr>
 		<td colspan='3'>Primljeno od:</td><td colspan='3'>{{$passanger->name}} {{$passanger->surname}}, {{$passanger->jmbg}}</td>
@@ -82,7 +82,7 @@
 	<tr>
 		<td colspan='3'>Iznos deviznog dela u dinarima:</td>
 		<td colspan='2'>{{number_format("$payment->amount_eur_din",2)}} din</td>
-		<td>Po kursu: {{number_format("$payment->exchange_rate")}}</td>
+		<td>Po kursu: {{number_format("$payment->exchange_rate",2)}}</td>
 	</tr>
 	<tr>
 		<td colspan='3'>Primljeno od:</td><td colspan='3'>{{$passanger->name}} {{$passanger->surname}}, {{$passanger->jmbg}}</td>

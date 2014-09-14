@@ -55,6 +55,11 @@ $(function(){
     });
     $("#passanger_search").change();
 
+    $("#exchange_rate").focusout(function () {
+        if ($(this)[0].value.length < 2) $(this)[0].value = $(".modal-body #session_exchange_rate")[0].value;
+        else if ($(this)[0].value.indexOf(",") > -1) $(this)[0].value = $(this)[0].value.replace(",", ".");
+    });
+
     $("#addNewPaymentForm").validationEngine();
 
     $("#addNewPaymentForm").submit(function(event){
@@ -78,7 +83,7 @@ $(function(){
             {
                 if(data.status == "success")
                     window.open('paymentSlip/' + data.id);
-                 // window.location.href = "reservations";
+                    location.reload();
             },
             error: function(){
 

@@ -21,6 +21,7 @@ $(function(){
 		var email = $("#" + id).find("#email").text();
 		var provision = $("#" + id).find("#provision").text().trim();
 		var licence = $("#" + id).find("#licence").text().trim();
+		var bankaccount = $("#" + id).find("#bankaccount").text().trim();
 		
 		//upisivanje trenutnih vrednosti u modal dialog formu
 		$("#pibMod").val(pib);
@@ -32,6 +33,7 @@ $(function(){
 		$("#emailMod").val(email);
 		$("#provisionMod").val(provision);
 		$("#licenceMod").val(licence);
+		$("#bankaccountMod").val(bankaccount);
 
 		//otvaranje edit forme u modal dialogu
 		$("#editOrgModal").modal("show");
@@ -88,6 +90,11 @@ $(function(){
 			<a href="#" style="display:none;" id="licence" data-type="text" data-pk= {{$organizator->pib}} data-url="/organizatorEdit/{{$organizator->pib}}" data-title="Broj licence">
 				@if(!is_null($organizator->licence))
 					{{trim($organizator->licence)}}
+				@endif
+			</a>
+			<a href="#" style="display:none;" id="bankaccount" data-type="text" data-pk= {{$organizator->pib}} data-url="/organizatorEdit/{{$organizator->pib}}" data-title="Broj računa">
+				@if(!is_null($organizator->bankAccount))
+					{{trim($organizator->bankAccount)}}
 				@endif
 			</a>
 		</td>

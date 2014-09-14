@@ -117,15 +117,21 @@
 				    </div>
 				  </div>
 				  <div class="control-group">
-				    <label class="control-label" for="web">Provizija</label>
+				    <label class="control-label" for="provision">Provizija</label>
 				    <div class="controls">
 				      <input type="text" id="provisionModNew" name="provision" placeholder="Provizija">
 				    </div>
 				  </div>
 				  <div class="control-group">
-				    <label class="control-label" for="web">Broj Licence</label>
+				    <label class="control-label" for="licence">Broj Licence</label>
 				    <div class="controls">
 				      <input type="text" id="lecenceModNew" name="licence" placeholder="Broj licence">
+				    </div>
+				  </div>
+				  <div class="control-group">
+				    <label class="control-label" for="bankaccount">Br. Računa</label>
+				    <div class="controls">
+				      <input type="text" id="bankaccountModNew" name="bankaccount" placeholder="Broj računa">
 				    </div>
 				  </div>
 				</form>
@@ -194,15 +200,21 @@
 				    </div>
 				  </div>
 				  <div class="control-group">
-				    <label class="control-label" for="web">Provizija</label>
+				    <label class="control-label" for="provision">Provizija</label>
 				    <div class="controls">
 				      <input type="text" id="provisionMod" name="provision" placeholder="Provizija">
 				    </div>
 				  </div>
 				  <div class="control-group">
-				    <label class="control-label" for="web">Broj Licence</label>
+				    <label class="control-label" for="licence">Broj Licence</label>
 				    <div class="controls">
 				      <input type="text" id="licenceMod" name="licence" placeholder="Broj licence">
+				    </div>
+				  </div>
+				  <div class="control-group">
+				    <label class="control-label" for="bankaccount">Br. Računa</label>
+				    <div class="controls">
+				      <input type="text" id="bankaccountMod" name="bankaccount" placeholder="Broj računa">
 				    </div>
 				  </div>
 				</form>

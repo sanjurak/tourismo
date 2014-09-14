@@ -398,6 +398,12 @@
 				      <input type="text" id="email" name="email" placeholder="Email organizatora" class="validate[required]" />
 				    </div>
 				  </div>
+				  <div class="control-group">
+				    <label class="control-label" for="licence">Licenca:</label>
+				    <div class="controls">
+				      <input type="text" id="licence" name="licence" placeholder="Licenca organizatora" class="validate[required]" />
+				    </div>
+				  </div>
 				</form>
 			</div>
 			<div class="modal-footer">  
