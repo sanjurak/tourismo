@@ -104,8 +104,10 @@
 			<div class="row">
 					<div class="span12" id="psgPaymentDetails">
 
+					@if(count($psgPrices) > 0)
+					
 						@foreach($psgPrices as $psg => $prices)
-							<div class="psgPayment" id={{key($names)}}>
+							<div class="psgPayment" id={{$psg}}>
 							<div id="psgName">{{$names[$psg]}}</div>
 							<br>
 							<a href="#" class="btn btn-default pull-right addPsgPaymentItem" id="addPsgPaymentItem">Dodaj plaćanje</a>
@@ -146,6 +148,7 @@
 									  </div>
 									</div>
 								@endforeach
+
 							</div>
 						</form>
 
@@ -161,6 +164,71 @@
 						<hr />
 						</div>
 						@endforeach
+						@else
+							
+							@foreach($passangers as $ind => $passanger)
+								<div class="psgPayment" id={{$passanger->id}}>
+								<div id="psgName">{{$passanger->name. " " .$passanger->surname}}</div>
+								<br>
+								<a href="#" class="btn btn-default pull-right addPsgPaymentItem" id="addPsgPaymentItem">Dodaj plaćanje</a>
+								<br>
+							<table>
+								<tr>
+									<th colspan="8"></th>
+								</tr>
+								<tr>
+									<th class="medium-width">Obračun</th>
+									<th class="medium-width">Po osobi (eur)</th>
+									<th class="medium-width">Po osobi (din)</th>
+									<th class="medium-width">Broj osoba</th>
+									<th class="medium-width">Iznos (din)</th>
+									<th class="medium-width">Iznos (eur)</th>
+									<th class="">Izlet</th>
+									<th class=""></th>
+								</tr>	
+							</table>	
+							<form name="paymentDetailsForm" id="paymentDetailsForm">				
+								<div id="paymentItems">
+
+									@if($ind == 0)
+									@foreach($resPrices as $ind => $price)
+										<div id="paymentItem" class="paymentItem">
+										 <div class="form-inline">
+										 	
+										      <input type="text" id="paymentItemName" class="input-medium validate[required]" name="PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][name]" value="{{$price->priceItem}}" />
+										      <input type="text" id="paymentItemEuro" class="input-medium euroItem validate[required]" name="PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][euro]" value="{{$price->priceEur}}" />
+										      <input type="text" id="paymentItemDin" class="input-medium dinItem validate[required]" name="PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][din]" value="{{$price->priceDin}}" />
+										      <input type="text" id="paymentItemNum" class="input-medium numItem validate[required]" name="PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][num]" value="{{$price->num}}" >
+										      <input type="text" name = "PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][totaldin]" id="paymentItemTotalDin" class="input-medium validate[required]" />
+										      <input type="text" name = "PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][totaleuro]" id="paymentItemTotalEuro" class="input-medium validate[required]" />
+										      <input type="checkbox" name = "PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][isExcursion]" id="isExcursion" />
+										      <input type="hidden" id="PsgId" name="PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][psgID]" value={{$passanger->id}} />
+										      <input type="hidden" id="PriceId" name="PsgItemNew[{{$passanger->id}}][100][id]" value={{$price->id}} />
+										      <input type="hidden" id="PriceDelete" name="PsgItemNew[{{$passanger->id}}][100][delete]" value="0" />
+										      <a href="#" id="deleteItem" class="delete-pay pull-right"><span class="icon icon-remove-sign"></span></a>
+										     <a href='#' id="undoItem" class="undo-pay pull-right"><span class='icon icon-repeat'></span></a>
+										
+										  </div>
+										</div>
+									@endforeach
+									@endif
+								</div>
+							</form>
+
+							<table>
+								<tr>
+									<td class="wide600 pull-right"><span class="pull-right">Ukupno:</span></td>
+									<td class="medium-width"> (DIN)<input type="text" id="totalDIN" class="input-medium" value = {{$resPrices->Sum("price_din")}} readonly /></td>
+									<td class="medium-width">(EUR)<input type="text" id="totalEUR" class="input-medium" value = {{$resPrices->Sum("price_eur")}} readonly /></td>
+									<td class=""></td>
+									<td class=""></td>
+								</tr>
+							</table>
+							<hr />
+							</div>
+						@endforeach
+						
+						@endif
 					</div>
 				</div>
 			<div class="row">

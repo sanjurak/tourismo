@@ -271,7 +271,7 @@ $("#traveldealsSel").selectize({
     $(".addPsgPaymentItem").click(function(event){
         event.preventDefault();
         var items = $(".hiddenItem").clone(true);
-        var id = $(this).parents(".psgPayment").attr("id");
+        var id = $(this).parent(".psgPayment").attr("id");
         items.show().removeClass("hiddenItem").addClass("paymentItem");
         items.find("#paymentItemName").attr("name","PsgItemNew["+id+"]["+psgItemCounter+"][name]").addClass("validate[required]");
         items.find("#paymentItemEuro").attr("name","PsgItemNew["+id+"]["+psgItemCounter+"][euro]").addClass("validate[required]");
@@ -366,7 +366,7 @@ $("#traveldealsSel").selectize({
 
             $("#psgPaymentDetails").find("div#paymentItem").each(function(){                
                 
-                if(($(this).find("#paymentItemName").val() == itemName))
+                if(($(this).find("#paymentItemName").val() == itemName) && ($(this).find("#PriceDelete").val() != 1))
                 {
                     var count = +$(this).find("#paymentItemNum").val();
                     if(count == 0)
@@ -439,7 +439,7 @@ $("#traveldealsSel").selectize({
 
             $("#psgPaymentDetails").find("div#paymentItem").each(function(){
                                     
-                if($(this).find("#paymentItemName").val() == itemName)
+                if(($(this).find("#paymentItemName").val() == itemName) && ($(this).find("#PriceDelete").val() != 1))
                 {
                     var count = +$(this).find("#paymentItemNum").val();
                     if(count == 0)
@@ -504,8 +504,8 @@ $("#traveldealsSel").selectize({
         if(!$(this).parents("div.psgPayment").hasClass("finalPayment"))
         {
             $("#psgPaymentDetails").find("div#paymentItem").each(function(){
-                                    
-                if($(this).find("#paymentItemName").val() == itemName)
+                
+                if(($(this).find("#paymentItemName").val() == itemName) && ($(this).find("#PriceDelete").val() != 1))
                 {
                     num = num + +$(this).find("#paymentItemNum").val();
                 }

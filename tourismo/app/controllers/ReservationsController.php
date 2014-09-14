@@ -549,15 +549,21 @@ class ReservationsController extends \BaseController {
 						if(is_array($psgPrices))
 						{
 							foreach ($psgPrices as $psgPrice) {
-
-								$psgResPrice = PassangerPrice::find($psgPrice["id"]);
-								$psgResPrice->price_item = $psgPrice["name"];
-								$psgResPrice->price_din = $psgPrice["priceDin"];
-								$psgResPrice->price_eur = $psgPrice["priceEur"];
-								$psgResPrice->num = $psgPrice["num"];
-								$psgResPrice->reservation_id = $reservation->id;
-								$psgResPrice->passanger_id = $psgPrice["psgid"];
-								$psgResPrice->save();
+								if($psgPrice['delete'] == 1)
+								{
+									PassangerPrice::destroy($psgPrice["id"]);
+								}
+								else
+								{
+									$psgResPrice = PassangerPrice::find($psgPrice["id"]);
+									$psgResPrice->price_item = $psgPrice["name"];
+									$psgResPrice->price_din = $psgPrice["priceDin"];
+									$psgResPrice->price_eur = $psgPrice["priceEur"];
+									$psgResPrice->num = $psgPrice["num"];
+									$psgResPrice->reservation_id = $reservation->id;
+									$psgResPrice->passanger_id = $psgPrice["psgid"];
+									$psgResPrice->save();
+								}
 							}
 						}
 					}
