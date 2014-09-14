@@ -821,7 +821,8 @@ $("#addPsgPaymentItem").click(function(event){
     $("#createReservationForm").submit(function(e){
        e.preventDefault();
        var internalChecked = $("#internal").is(":checked");
-       var data = $("#createReservationForm").serialize() + "&" + $("#passangersDetailsForm").serialize() + "&" + "Internal="+internalChecked;
+       var data = $("#createReservationForm").serialize() + "&" + $("#passangersDetailsForm").serialize() 
+                + "&" + "Internal="+internalChecked;
        
        $(".psgPayment").each(function(){
             $(this).find("input:text").each(function(){

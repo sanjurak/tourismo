@@ -57,7 +57,8 @@
 					<div class="span4"><label>Smeštaj:</label><input type="text" id="accomodation" name="accomodation" value="{{$accunit->accomodation->type . " " . $accunit->accomodation->name . ", ". $accunit->name . "/" . $accunit->capacity}}" disabled/></div>
 					<div class="span4"><label>Prevoz:</label><input type="text" id="transportation" name="transportation" value="{{$reservation->traveldeal->transportation}}" disabled/></div>
 					<div class="span4"><label>Usluga:</label><input type="text" id="service" name="service" value="{{$reservation->traveldeal->service}}" disabled/>
-							
+					<input type="hidden" name="TDpriceDin" id="TDpriceDin" value="{{$reservation->traveldeal->price_din}}" />
+					<input type="hidden" name="TDpriceEur" id="TDPriceEur" value="{{$reservation->traveldeal->price_eur}}" />
 					</div>
 			</div>
 		</div>
@@ -85,6 +86,7 @@
 					<div class="psg-item">
 						{{$passanger->name ." ". $passanger->surname .",JMBG:  ".$passanger->jmbg ." Pasoš: ". $passanger->passport}}
 						<input type="hidden" id="psgId" name="OldPassangers[{{$ind}}][id]" class="passangers" value="{{$passanger->id}}" />
+						<input type="hidden" id="passangerId" name="OldPassangers[{{$ind}}][psgid]" value="{{$passanger->passanger_id}}" />
 						<input type="hidden" id="psgDelete" name="OldPassangers[{{$ind}}][delete]" value="0" />
 						<a href='#' class='delete-psg pull-right'><span class='icon icon-remove-sign'></span></a>
 						<a href='#' class='undo-psg pull-right'><span class='icon icon-repeat'></span></a>
@@ -102,6 +104,63 @@
 			<div class="row">
 					<div class="span12" id="psgPaymentDetails">
 
+						@foreach($psgPrices as $psg => $prices)
+							<div class="psgPayment" id={{key($names)}}>
+							<div id="psgName">{{$names[$psg]}}</div>
+							<br>
+							<a href="#" class="btn btn-default pull-right addPsgPaymentItem" id="addPsgPaymentItem">Dodaj plaćanje</a>
+							<br>
+						<table>
+							<tr>
+								<th colspan="8"></th>
+							</tr>
+							<tr>
+								<th class="medium-width">Obračun</th>
+								<th class="medium-width">Po osobi (eur)</th>
+								<th class="medium-width">Po osobi (din)</th>
+								<th class="medium-width">Broj osoba</th>
+								<th class="medium-width">Iznos (din)</th>
+								<th class="medium-width">Iznos (eur)</th>
+								<th class="">Izlet</th>
+								<th class=""></th>
+							</tr>	
+						</table>	
+						<form name="paymentDetailsForm" id="paymentDetailsForm">				
+							<div id="paymentItems">
+
+								@foreach($prices as $ind => $price)
+									<div id="paymentItem" class="paymentItem">
+									 <div class="form-inline">
+									      <input type="text" id="paymentItemName" class="input-medium validate[required]" name="PsgItem[{{$price->passanger_id}}][{{$ind}}][name]" value="{{$price->price_item}}" />
+									      <input type="text" id="paymentItemEuro" class="input-medium euroItem validate[required]" name="PsgItem[{{$price->passanger_id}}][{{$ind}}][priceEur]" value="{{$price->price_eur}}" />
+									      <input type="text" id="paymentItemDin" class="input-medium dinItem validate[required]" name="PsgItem[{{$price->passanger_id}}][{{$ind}}][priceDin]" value="{{$price->price_din}}" />
+									      <input type="text" id="paymentItemNum" class="input-medium numItem validate[required]" name="PsgItem[{{$price->passanger_id}}][{{$ind}}][num]" value="{{$price->num}}" >
+									      <input type="text" name = "PsgItem[{{$price->passanger_id}}][{{$ind}}][totaldin]" id="paymentItemTotalDin" class="input-medium validate[required]" />
+									      <input type="text" name = "PsgItem[{{$price->passanger_id}}][{{$ind}}][totaleuro]" id="paymentItemTotalEuro" class="input-medium validate[required]" />
+									      <input type="checkbox" name = "PsgItem[{{$price->passanger_id}}][{{$ind}}][isExcursion]" id="isExcursion" />
+									      <input type="hidden" id="PsgId" name="PsgItem[{{$price->passanger_id}}][{{$ind}}][psgid]" value={{$price->passanger_id}} />
+									      <input type="hidden" id="PriceId" name="PsgItem[{{$price->passanger_id}}][{{$ind}}][id]" value={{$price->id}} />
+									      <input type="hidden" id="PriceDelete" name="PsgItem[{{$price->passanger_id}}][{{$ind}}][delete]" value="0" />
+									      <a href="#" id="deleteItem" class="delete-pay pull-right"><span class="icon icon-remove-sign"></span></a>
+									     <a href='#' id="undoItem" class="undo-pay pull-right"><span class='icon icon-repeat'></span></a>
+									  </div>
+									</div>
+								@endforeach
+							</div>
+						</form>
+
+						<table>
+							<tr>
+								<td class="wide600 pull-right"><span class="pull-right">Ukupno:</span></td>
+								<td class="medium-width"> (DIN)<input type="text" id="totalDIN" class="input-medium" value = {{$prices->Sum("price_din")}} readonly /></td>
+								<td class="medium-width">(EUR)<input type="text" id="totalEUR" class="input-medium" value = {{$prices->Sum("price_eur")}} readonly /></td>
+								<td class=""></td>
+								<td class=""></td>
+							</tr>
+						</table>
+						<hr />
+						</div>
+						@endforeach
 					</div>
 				</div>
 			<div class="row">
@@ -135,17 +194,15 @@
 						@foreach($resPrices as $ind => $price)
 							<div id="paymentItem" class="paymentItem">
 							 <div class="form-inline">
-							      <input type="text" id="paymentItemName" class="input-medium validate[required]" name="Prices[{{$ind}}][name]" value="{{$price->priceItem}}" />
-							      <input type="text" id="paymentItemEuro" class="input-medium euroItem validate[required]" name="Prices[{{$ind}}][priceEur]" value="{{$price->priceEur}}" />
-							      <input type="text" id="paymentItemDin" class="input-medium dinItem validate[required]" name="Prices[{{$ind}}][priceDin]" value="{{$price->priceDin}}" />
-							      <input type="text" id="paymentItemNum" class="input-medium numItem validate[required]" name="Prices[{{$ind}}][num]" value="{{$price->num}}" >
-							      <input type="text" id="paymentItemTotalDin" class="input-medium validate[required]" />
-							      <input type="text" id="paymentItemTotalEuro" class="input-medium validate[required]" />
+							      <input type="text" id="paymentItemName" class="input-medium validate[required]" name="Prices[{{$ind}}][name]" value="{{$price->priceItem}}" readonly />
+							      <input type="text" id="paymentItemEuro" class="input-medium euroItem validate[required]" name="Prices[{{$ind}}][priceEur]" value="{{$price->priceEur}}" readonly />
+							      <input type="text" id="paymentItemDin" class="input-medium dinItem validate[required]" name="Prices[{{$ind}}][priceDin]" value="{{$price->priceDin}}" readonly />
+							      <input type="text" id="paymentItemNum" class="input-medium numItem validate[required]" name="Prices[{{$ind}}][num]" value="{{$price->num}}" readonly />
+							      <input type="text" id="paymentItemTotalDin" class="input-medium validate[required]" readonly />
+							      <input type="text" id="paymentItemTotalEuro" class="input-medium validate[required]" readonly />
 							      <input type="checkbox" id="isExcursion" />
 							      <input type="hidden" id="PriceId" name="Prices[{{$ind}}][id]" value={{$price->id}} />
 							      <input type="hidden" id="PriceDelete" name="Prices[{{$ind}}][delete]" value="0" />
-							      <a href="#" id="deleteItem" class="delete-pay pull-right"><span class="icon icon-remove-sign"></span></a>
-							     <a href='#' id="undoItem" class="undo-pay pull-right"><span class='icon icon-repeat'></span></a>
 							  </div>
 							</div>
 						
@@ -238,11 +295,11 @@
 <div id="paymentItem" class="hiddenItem">
 	<div class="form-inline">
 		      <input type="text" id="paymentItemName" class="input-medium nameItem" placeholder="">
-		      <input type="text" id="paymentItemEuro" class="input-medium euroItem" placeholder="">
-		      <input type="text" id="paymentItemDin" class="input-medium dinItem" placeholder="">
+		      <input type="text" id="paymentItemEuro" class="input-medium euroItem" value="0" placeholder="">
+		      <input type="text" id="paymentItemDin" class="input-medium dinItem" value="0" placeholder="">
 		      <input type="text" id="paymentItemNum" class="input-medium numItem" value="1" placeholder="">
-		      <input type="text" id="paymentItemTotalDin" class="input-medium" placeholder="">
-		      <input type="text" id="paymentItemTotalEuro" class="input-medium" placeholder="">
+		      <input type="text" id="paymentItemTotalDin" class="input-medium" value="0" placeholder="">
+		      <input type="text" id="paymentItemTotalEuro" class="input-medium" value="0" placeholder="">
 		      <input type="checkbox" id="isExcursion">
 		      <input type="hidden" id="paymentItemPsgId" />
 		      <a href="#" id="removeItem" class="pull-right"><span class="icon icon-remove-sign"></span></a>
@@ -252,7 +309,7 @@
 <div class="hiddenPsgItems">
 	<div id="psgName"></div>
 	<br>
-	<a href="#" class="btn btn-default pull-right" id="addPsgPaymentItem">Dodaj plaćanje</a>
+	<a href="#" class="btn btn-default pull-right addPsgPaymentItem" id="addPsgPaymentItem">Dodaj plaćanje</a>
 	<br>
 <table>
 	<tr>

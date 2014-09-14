@@ -392,15 +392,26 @@ class ReservationsController extends \BaseController {
 		$passangers = Passanger::join("passangers","passangers.passanger_id","=","passanger.id")
 					->where("passangers.reservation_id","=",$reservation->id)
 					->get();
-		
+		//dd($passangers->toArray());
 		$accunit = $traveldeal->accomodationUnit;
 		
 		$resPrices = Reservation_price::where("reservationId", "=", $id)->get();
+		$psgPrices = array();
+		$names = array();
+		$psgIds = PassangerPrice::join("passanger","passanger.id","=","passanger_prices.passanger_id")
+			->where("reservation_id", "=", $id)->select(array("passanger_id", "name", "surname"))->distinct("passanger_id")->get();
+		foreach($psgIds as $ID)
+		{
+			$psgPrices[$ID->passanger_id] = PassangerPrice::where("reservation_id", "=", $id)->where("passanger_id","=",$ID->passanger_id)->get();
+			$names[$ID->passanger_id] = $ID->name . " " . $ID->surname;
+		}
+		//dd($names);
 		$excPrices = Reservation_excursion::where("reservationId", "=", $id)->get();
 		
 		return View::make("editReservationPartial",array('reservation' => $reservation, 
-					'traveldeal' => $traveldeal, 'passangers' => $passangers, 'accunit' => $accunit, 'resPrices' => $resPrices,
-					'excPrices' => $excPrices));
+					'traveldeal' => $traveldeal, 'passangers' => $passangers, 
+					'accunit' => $accunit, 'resPrices' => $resPrices, 'names' => $names,
+					'psgPrices' => $psgPrices,'excPrices' => $excPrices));
 	}
 
 	/**
@@ -432,21 +443,15 @@ class ReservationsController extends \BaseController {
 			$reservation = Reservation::find($id);
 			
 			$reservation->reservation_number = Input::get("reservation_number");
-			$reservation->start_date = date('Y-m-d', strtotime(Input::get("start_date")));
-			
-			$reservation->end_date= date('Y-m-d', strtotime(Input::get("end_date")));
-			
-			$reservation->travel_date = date('Y-m-d', strtotime(Input::get("travel_date")));
-			
-			$reservation->nights_num = Input::get("nights_num");
-			
+			$reservation->start_date = date('Y-m-d', strtotime(Input::get("start_date")));			
+			$reservation->end_date= date('Y-m-d', strtotime(Input::get("end_date")));			
+			$reservation->travel_date = date('Y-m-d', strtotime(Input::get("travel_date")));			
+			$reservation->nights_num = Input::get("nights_num");			
 			$reservation->discount= Input::get("discount");
 			$reservation->discounter_name= Input::get("discounter_name");
 			$reservation->clock_index= Input::get("clock_index");
-			$reservation->note= Input::get("note");
-			
-			$reservation->note_internal= Input::get("note_internal");
-			
+			$reservation->note= Input::get("note");			
+			$reservation->note_internal= Input::get("note_internal");			
 			$reservation->travel_deal_id = Input::get("traveldeal_id");
 			
 			$reservation->save();
@@ -477,8 +482,9 @@ class ReservationsController extends \BaseController {
 					}
 					else
 					{
-						
+						//dd(Passangers::find($oldpassanger['id']));
 						 $newid = Passangers::find($oldpassanger['id'])->passanger_id;
+
 					}
 				}
 			}
@@ -518,7 +524,7 @@ class ReservationsController extends \BaseController {
 				}
 			}
 			
-			$prices = isset($_POST['Item'])?$_POST['Item'] : null;
+			$prices = isset($_POST['ItemNew'])?$_POST['ItemNew'] : null;
 			
 			if($prices != null && is_array($prices))
 			{
@@ -532,6 +538,51 @@ class ReservationsController extends \BaseController {
 					$resprice->reservationId = $reservation->id;
 					$resprice->Save();
 				}
+			}
+
+			$psgItems = isset($_POST["PsgItem"]) ? $_POST["PsgItem"] : null;
+
+			if($psgItems != null && is_array($psgItems))
+			{
+				foreach ($psgItems as $psgPrices) {
+						
+						if(is_array($psgPrices))
+						{
+							foreach ($psgPrices as $psgPrice) {
+
+								$psgResPrice = PassangerPrice::find($psgPrice["id"]);
+								$psgResPrice->price_item = $psgPrice["name"];
+								$psgResPrice->price_din = $psgPrice["priceDin"];
+								$psgResPrice->price_eur = $psgPrice["priceEur"];
+								$psgResPrice->num = $psgPrice["num"];
+								$psgResPrice->reservation_id = $reservation->id;
+								$psgResPrice->passanger_id = $psgPrice["psgid"];
+								$psgResPrice->save();
+							}
+						}
+					}
+			}
+
+			$psgNewItems = isset($_POST["PsgItemNew"]) ? $_POST["PsgItemNew"] : null;
+
+			if($psgNewItems != null && is_array($psgNewItems))
+			{
+				foreach ($psgNewItems as $psgPrices) {
+						
+						if(is_array($psgPrices))
+						{
+							foreach ($psgPrices as $psgPrice) {
+								$psgResPrice = new PassangerPrice;
+								$psgResPrice->price_item = $psgPrice["name"];
+								$psgResPrice->price_din = $psgPrice["din"];
+								$psgResPrice->price_eur = $psgPrice["euro"];
+								$psgResPrice->num = $psgPrice["num"];
+								$psgResPrice->reservation_id = $reservation->id;
+								$psgResPrice->passanger_id = $psgPrice["psgID"];
+								$psgResPrice->save();
+							}
+						}
+					}
 			}
 							
 			$log = new ReservationsLog;

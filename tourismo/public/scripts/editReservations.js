@@ -1,7 +1,7 @@
 $(function(){
     
-    var TravelDealPriceEur = 0;
-    var TravelDealPriceDin = 0;
+    var TravelDealPriceEur = $("#TDPriceEur").val();
+    var TravelDealPriceDin = $("#TDPriceDin").val();
 
 $("#traveldealsSel").selectize({
 	valueField: 'id',
@@ -43,6 +43,9 @@ $("#traveldealsSel").selectize({
 
                 TravelDealPriceDin = item["price_din"];
                 TravelDealPriceEur = item["price_eur"];
+
+                $(".paymentItem #paymentItemEuro").val(TravelDealPriceEur).trigger("focusout");
+                $(".paymentItem #paymentItemDin").val(TravelDealPriceDin).trigger("focusout");
 
 		$("#traveldealDetails").slideDown();
 
@@ -97,21 +100,6 @@ $("#traveldealsSel").selectize({
             items.find("#paymentItems div").last().find("#paymentItemDin").val(TravelDealPriceDin);
             items.find("#paymentItems div").last().find("#paymentItemNum").val("1");
 
-            items.find("#addPsgPaymentItem").trigger("click");
-            items.find("#paymentItems div").last().find("#paymentItemName").val("Smeštaj Chld");
-            
-            items.find("#addPsgPaymentItem").trigger("click");
-            items.find("#paymentItems div").last().find("#paymentItemName").val("Prevoz Adl");
-            
-            items.find("#addPsgPaymentItem").trigger("click");
-            items.find("#paymentItems div").last().find("#paymentItemName").val("Prevoz Chld");
-            
-            items.find("#addPsgPaymentItem").trigger("click");
-            items.find("#paymentItems div").last().find("#paymentItemName").val("Popust");
-            
-            items.find("#addPsgPaymentItem").trigger("click");
-            items.find("#paymentItems div").last().find("#paymentItemName").val("Doplata");
-
             $(items).appendTo("#psgPaymentDetails");
 
 
@@ -128,12 +116,28 @@ $("#traveldealsSel").selectize({
     
      $("#passangersDetails").on("click", ".remove-psg", function(e){
         e.preventDefault();
+        var id = $(this).siblings(".passangers").val();
+        $("#"+id).find("#paymentItem").each(function(){
+            $(this).find("#removeItem").trigger("click");
+        });
+        $("#" + id).remove();
         $(this).parents("div.psg-item").remove();
+
     });
     
      $("#passangersDetails").on("click", ".delete-psg", function(e){
         e.preventDefault();
         $(this).siblings("#psgDelete").val("1");
+
+        var id = $(this).siblings("#passangerId").val(); 
+        $("#"+id).find(".paymentItem").each(function(){
+            $(this).find(".delete-pay").trigger("click");
+        }); 
+        $("#"+id).find(".paymentItem").each(function(){
+            alert($(this).html());
+            $(this).find("#removeItem").trigger("click");
+        });       
+
         $(this).siblings("#psgId").removeClass("passangers");
         $(this).parents("div.psg-item").addClass("psgDeleted");
         $(this).siblings(".undo-psg").show();
@@ -143,6 +147,12 @@ $("#traveldealsSel").selectize({
      $("#passangersDetails").on("click", ".undo-psg", function(e){
         e.preventDefault();
         $(this).siblings("#psgDelete").val("0");
+
+        var id = $(this).siblings("#passangerId").val();
+        $("#"+id).find(".paymentItem").each(function(){
+            $(this).find(".undo-pay").trigger("click");
+        }); 
+
         $(this).siblings("#psgId").addClass("passangers");
         $(this).parents("div.psg-item").removeClass("psgDeleted");
         $(this).siblings(".delete-psg").show();
@@ -179,47 +189,99 @@ $("#traveldealsSel").selectize({
       var itemCounter = 0;
       var psgItemCounter = 0;
 
-    $("#removeItem").click(function(e){
+     $("#removeItem").click(function(e){
         e.preventDefault();
-        var totaldin = +$("#totalDIN").val() - +$(this).siblings("#paymentItemTotalDin").val(); 
-        var totaleuro = +$("#totalEUR").val() - +$(this).siblings("#paymentItemTotalEuro").val();
+
+        var dins = $(this).siblings("#paymentItemTotalDin").val();
+        var euros = $(this).siblings("#paymentItemTotalEuro").val();
+
+        if(/\bPopust\b/i.test($(this).siblings("#paymentItemName").val()))
+        {
+            var totaldin = +$(this).parents(".psgPayment").find("#totalDIN").val() + +$(this).siblings("#paymentItemTotalDin").val(); 
+            var totaleuro = +$(this).parents(".psgPayment").find("#totalEUR").val() + +$(this).siblings("#paymentItemTotalEuro").val();
         
-        $("#totalDIN").val(totaldin);
-        $("#totalEUR").val(totaleuro);
+        }
+        else
+        {
+            var totaldin = +$(this).parents(".psgPayment").find("#totalDIN").val() - +$(this).siblings("#paymentItemTotalDin").val(); 
+            var totaleuro = +$(this).parents(".psgPayment").find("#totalEUR").val() - +$(this).siblings("#paymentItemTotalEuro").val();            
+        }
+
+        var itemName = $(this).siblings("#paymentItemName").val();
+        var num = $(this).siblings("#paymentItemNum").val();
+
+        if(!$(this).parents("div.psgPayment").hasClass("finalPayment"))
+        {
+            $(".finalPayment").find("#paymentItemName").each(function(){
+
+                if($(this).val() == itemName)
+                {
+                    var numb = +$(this).siblings("#paymentItemNum").val() - num;
+                    if(numb == 0)
+                    {
+                        var totEur = $(this).parents(".psgPayment").find("#totalEUR").val();
+                        var totDin = $(this).parents(".psgPayment").find("#totalDIN").val();
+
+                        if(/Popust/i.test(itemName))
+                        {
+                            $(this).parents(".psgPayment").find("#totalEUR").val(+totEur + +euros);
+                            $(this).parents(".psgPayment").find("#totalDIN").val(+totDin + +dins);
+                        }
+                        else
+                        {
+                            $(this).parents(".psgPayment").find("#totalEUR").val(+totEur - +euros);
+                            $(this).parents(".psgPayment").find("#totalDIN").val(+totDin - +dins);
+                        }
+
+                        $(this).parents("div#paymentItem").remove();
+                    }
+                    else
+                    {                       
+                        $(this).siblings("#paymentItemNum").val(numb).trigger("focusout");
+                    }
+                     
+                }
+
+            });            
+        }
+
+        $(this).parents(".psgPayment").find("#totalDIN").val(totaldin);
+        $(this).parents(".psgPayment").find("#totalEUR").val(totaleuro);
         $(this).parents("div#paymentItem").remove();
     });
+
 
     $("#addPaymentItem").click(function(event){
         event.preventDefault();
         var items = $(".hiddenItem").clone(true);
         items.show().removeClass("hiddenItem");
-        items.find("#paymentItemName").attr("name","Item["+itemCounter+"][name]").addClass("validate[required]").prop("readonly", true);;
-        items.find("#paymentItemEuro").attr("name","Item["+itemCounter+"][euro]").addClass("validate[required]").prop("readonly", true);;
-        items.find("#paymentItemDin").attr("name","Item["+itemCounter+"][din]").addClass("validate[required]").prop("readonly", true);;
-        items.find("#paymentItemNum").attr("name","Item["+itemCounter+"][num]").addClass("validate[required]").prop("readonly", true);;
-        items.find("#paymentItemTotalDin").attr("name","Item["+itemCounter+"][totaldin]").addClass("validate[required]").prop("readonly", true);;
-        items.find("#paymentItemTotalEuro").attr("name","Item["+itemCounter+"][totaleuro]").addClass("validate[required]").prop("readonly", true);;
-        items.find("#isExcursion").attr("name","Item["+itemCounter+"][isExcursion]").addClass("excursionChk");
+        items.find("#paymentItemName").attr("name","ItemNew["+itemCounter+"][name]").addClass("validate[required]").prop("readonly", true);;
+        items.find("#paymentItemEuro").attr("name","ItemNew["+itemCounter+"][euro]").addClass("validate[required]").prop("readonly", true);;
+        items.find("#paymentItemDin").attr("name","ItemNew["+itemCounter+"][din]").addClass("validate[required]").prop("readonly", true);;
+        items.find("#paymentItemNum").attr("name","ItemNew["+itemCounter+"][num]").addClass("validate[required]").prop("readonly", true);;
+        items.find("#paymentItemTotalDin").attr("name","ItemNew["+itemCounter+"][totaldin]").addClass("validate[required]").prop("readonly", true);;
+        items.find("#paymentItemTotalEuro").attr("name","ItemNew["+itemCounter+"][totaleuro]").addClass("validate[required]").prop("readonly", true);;
+        items.find("#isExcursion").attr("name","ItemNew["+itemCounter+"][isExcursion]").addClass("excursionChk");
 
         items.find("#removeItem").remove();
         itemCounter++;
         $(".finalPayment").find("#paymentItems").append(items);
     });
 
-    $("#addPsgPaymentItem").click(function(event){
+    $(".addPsgPaymentItem").click(function(event){
         event.preventDefault();
         var items = $(".hiddenItem").clone(true);
         var id = $(this).parents(".psgPayment").attr("id");
-        items.show().removeClass("hiddenItem");
-        items.find("#paymentItemName").attr("name","PsgItem["+id+"]["+psgItemCounter+"][name]").addClass("validate[required]");
-        items.find("#paymentItemEuro").attr("name","PsgItem["+id+"]["+psgItemCounter+"][euro]").addClass("validate[required]");
-        items.find("#paymentItemDin").attr("name","PsgItem["+id+"]["+psgItemCounter+"][din]").addClass("validate[required]");
-        items.find("#paymentItemNum").attr("name","PsgItem["+id+"]["+psgItemCounter+"][num]").addClass("validate[required]");
-        items.find("#paymentItemTotalDin").attr("name","PsgItem["+id+"]["+psgItemCounter+"][totaldin]").addClass("validate[required]");
-        items.find("#paymentItemTotalEuro").attr("name","PsgItem["+id+"]["+psgItemCounter+"][totaleuro]").addClass("validate[required]");
-        items.find("#isExcursion").attr("name","PsgItem["+id+"]["+psgItemCounter+"][isExcursion]").addClass("excursionChk");
+        items.show().removeClass("hiddenItem").addClass("paymentItem");
+        items.find("#paymentItemName").attr("name","PsgItemNew["+id+"]["+psgItemCounter+"][name]").addClass("validate[required]");
+        items.find("#paymentItemEuro").attr("name","PsgItemNew["+id+"]["+psgItemCounter+"][euro]").addClass("validate[required]");
+        items.find("#paymentItemDin").attr("name","PsgItemNew["+id+"]["+psgItemCounter+"][din]").addClass("validate[required]");
+        items.find("#paymentItemNum").attr("name","PsgItemNew["+id+"]["+psgItemCounter+"][num]").addClass("validate[required]");
+        items.find("#paymentItemTotalDin").attr("name","PsgItemNew["+id+"]["+psgItemCounter+"][totaldin]").addClass("validate[required]");
+        items.find("#paymentItemTotalEuro").attr("name","PsgItemNew["+id+"]["+psgItemCounter+"][totaleuro]").addClass("validate[required]");
+        items.find("#isExcursion").attr("name","PsgItemNew["+id+"]["+psgItemCounter+"][isExcursion]").addClass("excursionChk");
         
-        items.find("#paymentItemPsgId").attr("name","PsgItem["+id+"]["+psgItemCounter+"][psgID]");
+        items.find("#paymentItemPsgId").attr("name","PsgItemNew["+id+"]["+psgItemCounter+"][psgID]");
         items.find("#paymentItemPsgId").val(id);
         $(this).siblings("#paymentDetailsForm").find("#paymentItems").append(items);
         
@@ -263,7 +325,15 @@ $("#traveldealsSel").selectize({
                 $(".finalPayment").find("#paymentItemName").each(function(){
 
                     if($(this).val() == oldNameItem)
-                        $(this).parents("#paymentItem").remove();
+                        if(/Prices/i.test($(this).attr("name")))
+                        {
+                            alert("OLD");
+                            $(this).siblings("#PriceDelete").val("1");
+                            $(this).siblings("#PriceId").removeClass("payments");
+                            $(this).parents("div.paymentItem").addClass("payDeleted");
+                        }
+                        else
+                            $(this).parents("#paymentItem").remove();
                 });
             }
 
@@ -483,11 +553,62 @@ $("#traveldealsSel").selectize({
         $(this).siblings(".undo-pay").show();
         $(this).hide();
         
-        var totaldin = +$("#totalDIN").val() - +$(this).siblings("#paymentItemTotalDin").val(); 
-        var totaleuro = +$("#totalEUR").val() - +$(this).siblings("#paymentItemTotalEuro").val();
+        var totaldin = 0, totaleuro = 0;
+        if(/Popust/i.test($(this).find("#paymentItemName").val()))
+        {
+             totaldin = +$(this).parents(".psgPayment").find("#totalDIN").val() + +$(this).siblings("#paymentItemTotalDin").val(); 
+             totaleuro = +$(this).parents(".psgPayment").find("#totalEUR").val() + +$(this).siblings("#paymentItemTotalEuro").val();
+        }
+        else
+        {
+            totaldin = +$(this).parents(".psgPayment").find("#totalDIN").val() - +$(this).siblings("#paymentItemTotalDin").val(); 
+            totaleuro = +$(this).parents(".psgPayment").find("#totalEUR").val() - +$(this).siblings("#paymentItemTotalEuro").val();
         
-        $("#totalDIN").val(totaldin);
-        $("#totalEUR").val(totaleuro);
+        }
+        $(this).parents(".psgPayment").find("#totalDIN").val(totaldin);
+        $(this).parents(".psgPayment").find("#totalEUR").val(totaleuro);
+
+        var dins = $(this).siblings("#paymentItemTotalDin").val();
+        var euros = $(this).siblings("#paymentItemTotalEuro").val();
+        var itemName = $(this).siblings("#paymentItemName").val();
+        var num = $(this).siblings("#paymentItemNum").val();
+
+        if(!$(this).parents("div.psgPayment").hasClass("finalPayment"))
+        {
+            $(".finalPayment").find("#paymentItemName").each(function(){
+
+                if($(this).val() == itemName)
+                {
+                    var numb = +$(this).siblings("#paymentItemNum").val() - num;
+                    if(numb == 0)
+                    {
+                        var totEur = $(this).parents(".psgPayment").find("#totalEUR").val();
+                        var totDin = $(this).parents(".psgPayment").find("#totalDIN").val();
+
+                        if(/Popust/i.test(itemName))
+                        {
+                            $(this).parents(".psgPayment").find("#totalEUR").val(+totEur + +euros);
+                            $(this).parents(".psgPayment").find("#totalDIN").val(+totDin + +dins);
+                        }
+                        else
+                        {
+                            $(this).parents(".psgPayment").find("#totalEUR").val(+totEur - +euros);
+                            $(this).parents(".psgPayment").find("#totalDIN").val(+totDin - +dins);
+                        }
+                        $(this).siblings("#PriceDelete").val("1");
+                        $(this).siblings("#PriceId").removeClass("payments");
+                        $(this).parents("div.paymentItem").addClass("payDeleted");
+                        $(this).siblings("#paymentItemNum").val(numb);
+                    }
+                    else
+                    {                       
+                        $(this).siblings("#paymentItemNum").val(numb).trigger("focusout");
+                    }
+                     
+                }
+
+            });            
+        }
     });
     
      $(".undo-pay").click(function(e){
@@ -499,11 +620,43 @@ $("#traveldealsSel").selectize({
         $(this).siblings(".delete-pay").show();
         $(this).hide();
         
-        var totaldin = +$("#totalDIN").val() + +$(this).siblings("#paymentItemTotalDin").val(); 
-        var totaleuro = +$("#totalEUR").val() + +$(this).siblings("#paymentItemTotalEuro").val();
+        var totaldin = 0, totaleuro = 0;
+
+        if(/Popust/i.test($(this).find("#paymentItemName").val()))
+        {
+             totaldin = +$(this).parents(".psgPayment").find("#totalDIN").val() - +$(this).siblings("#paymentItemTotalDin").val(); 
+             totaleuro = +$(this).parents(".psgPayment").find("#totalEUR").val() - +$(this).siblings("#paymentItemTotalEuro").val();
+        }
+        else
+        {
+            totaldin = +$(this).parents(".psgPayment").find("#totalDIN").val() + +$(this).siblings("#paymentItemTotalDin").val(); 
+            totaleuro = +$(this).parents(".psgPayment").find("#totalEUR").val() + +$(this).siblings("#paymentItemTotalEuro").val();
         
-        $("#totalDIN").val(totaldin);
-        $("#totalEUR").val(totaleuro);
+        }
+         $(this).parents(".psgPayment").find("#totalDIN").val(totaldin);
+        $(this).parents(".psgPayment").find("#totalEUR").val(totaleuro);
+
+        var dins = $(this).siblings("#paymentItemTotalDin").val();
+        var euros = $(this).siblings("#paymentItemTotalEuro").val();
+        var itemName = $(this).siblings("#paymentItemName").val();
+        var num = +$(this).siblings("#paymentItemNum").val();
+
+        if(!$(this).parents("div.psgPayment").hasClass("finalPayment"))
+        {
+            $(".finalPayment").find("#paymentItemName").each(function(){
+
+                if($(this).val() == itemName)
+                {
+                    var numb = +$(this).siblings("#paymentItemNum").val() + num;
+
+                    $(this).siblings("#paymentItemNum").val(numb).trigger("focusout");
+                     $(this).siblings("#PriceDelete").val("0");
+                    $(this).siblings("#PriceId").addClass("payments");
+                    $(this).parents("div.paymentItem").removeClass("payDeleted");
+                }
+
+            });            
+        }
     });
 	 
       $("#editReservationForm").validationEngine();
@@ -515,7 +668,23 @@ $("#traveldealsSel").selectize({
        e.preventDefault();
        
        var data = $("#editReservationForm").serialize() + "&" + $("#passangersDetailsForm").serialize() 
-       			+ "&" + $("#generalInfo").serialize() + "&" + $("#paymentDetailsForm").serialize();
+       			+ "&" + $("#generalInfo").serialize();
+
+        $(".psgPayment").each(function(){
+            $(this).find("input:text").each(function(){
+                data += "&"+$(this).attr("name") + "=" + $(this).val();
+            });
+
+            $(this).find("input:hidden").each(function(){
+                data += "&"+$(this).attr("name") + "=" + $(this).val();
+            });
+       });
+
+       $.each($(".excursionChk"), function(){
+            data += "&"+$(this).attr("name") + "=" + $(this).is(":checked");
+       });
+
+       //alert(data);
        
      var resId = $("#reservationId").val();
         $.ajax({
@@ -528,7 +697,7 @@ $("#traveldealsSel").selectize({
                 if(data.status == "success")
                 {
                     window.open('contract/' + data.id);
-                  window.location.href = "reservations";
+                  //window.location.href = "reservations";
                 }
             },
             error: function(){
