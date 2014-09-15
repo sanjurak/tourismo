@@ -166,7 +166,12 @@ Route::group(array('before' => 'auth'), function(){
 	/////KATEGORIJE
 	Route::post('newCategory', array('as' => 'newCategory', 'uses' => 'CategoriesController@store'));
 
-	
+	Route::get('debts', function(){	return View::make('debts'); });
+	Route::get('dailyincome', function(){	return View::make('dailyincome'); });
+	Route::get('incomeforperiod', function(){	return View::make('incomeforperiod'); });
+	Route::get('passangersforperiod', function(){	return View::make('passangersforperiod'); });
+	Route::get('excursions', function(){	return View::make('excursions'); });
+	Route::get('greenlist', function(){	return View::make('greenlist'); });
 });
 
 Route::filter('admin', function(){
