@@ -166,7 +166,7 @@ Route::group(array('before' => 'auth'), function(){
 	/////KATEGORIJE
 	Route::post('newCategory', array('as' => 'newCategory', 'uses' => 'CategoriesController@store'));
 
-	Route::get('debts', function(){	return View::make('debts'); });
+	Route::get('debts', array('as' => 'debts', 'uses' => 'PassangersController@debts'));
 	Route::get('dailyincome', function(){	return View::make('dailyincome'); });
 	Route::get('incomeforperiod', function(){	return View::make('incomeforperiod'); });
 	Route::get('passangersforperiod', function(){	return View::make('passangersforperiod'); });

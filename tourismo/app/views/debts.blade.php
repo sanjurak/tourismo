@@ -1,6 +1,7 @@
 @extends('home')
 @section('content')
-<!-- {{HTML::script('scripts/users.js')}} -->
+
+{{HTML::script('scripts/reservations.js')}}
 
 <div class="container">
 	<nav class="breadcrumbs large">
@@ -11,8 +12,17 @@
 	    </ul>
 	</nav>
 </div>
-</br>
 
 @include('notifications')
+<br>
+<div class="container" id="reservations">
+<div class="row">
+
+	<div class="row">
+		<div id="debtsPartial">
+			{{$debtsPartial}}
+		</div>
+	</div>
+</div>
 
 @stop

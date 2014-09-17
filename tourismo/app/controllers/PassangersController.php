@@ -13,6 +13,14 @@ class PassangersController extends \BaseController {
 		return View::make('passangers', array('passangers' => $passangers))->nest('psgPartial','psgPartial', array('passangers' => $passangers));
 	}
 
+	public function debts()
+	{
+		$debts = PassangerPrice::debts();
+
+		//dd($reservations->first()->traveldeal());
+		return View::make('debts')->nest('debtsPartial','debtsPartial', array('debts' => $debts));
+	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 *
