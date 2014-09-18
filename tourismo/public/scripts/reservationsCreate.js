@@ -462,7 +462,7 @@ $(function(){
         items.find("#paymentItemNum").attr("name","Item["+itemCounter+"][num]").addClass("validate[required]").prop("readonly", true);
         items.find("#paymentItemTotalDin").attr("name","Item["+itemCounter+"][totaldin]").addClass("validate[required]").prop("readonly", true);
         items.find("#paymentItemTotalEuro").attr("name","Item["+itemCounter+"][totaleuro]").addClass("validate[required]").prop("readonly", true);
-        items.find("#isExcursion").attr("name","Item["+itemCounter+"][isExcursion]").addClass("excursionChk");
+        items.find("#isExcursion").attr("name","Item["+itemCounter+"][isExcursion]").addClass("excursion");
 
         items.find("#removeItem").remove();
         itemCounter++;
@@ -480,7 +480,7 @@ $("#addPsgPaymentItem").click(function(event){
         items.find("#paymentItemNum").attr("name","PsgItem["+id+"]["+psgItemCounter+"][num]").addClass("validate[required]");
         items.find("#paymentItemTotalDin").attr("name","PsgItem["+id+"]["+psgItemCounter+"][totaldin]").addClass("validate[required]");
         items.find("#paymentItemTotalEuro").attr("name","PsgItem["+id+"]["+psgItemCounter+"][totaleuro]").addClass("validate[required]");
-        items.find("#isExcursion").attr("name","PsgItem["+id+"]["+psgItemCounter+"][isExcursion]").addClass("excursionChk");
+        items.find("#isExcursion").attr("name","PsgItem["+id+"]["+psgItemCounter+"][isExcursion]").addClass("excursion");
         
         items.find("#paymentItemPsgId").attr("name","PsgItem["+id+"]["+psgItemCounter+"][psgID]");
         items.find("#paymentItemPsgId").val(id);
@@ -491,6 +491,22 @@ $("#addPsgPaymentItem").click(function(event){
     
     var oldEuro = 0, oldDin = 0;
     var oldNameItem = "";
+
+    $(".excursion").change(function(){
+        var nameItem = $(this).siblings("#paymentItemName").val();
+        var checkvalue = $(this).is(":checked");
+        alert(checkvalue);
+        $(".finalPayment").find("#paymentItemName").each(function(){
+            if($(this).val() == nameItem)
+            {
+                if(checkvalue)
+                    $(this).siblings("#isExcursion").attr("checked", true);
+                else
+                    $(this).siblings("#isExcursion").attr("checked", false);
+            }
+                
+        });
+    });
 
     $(".nameItem").focusin(function(){
         oldNameItem = $(this).val();

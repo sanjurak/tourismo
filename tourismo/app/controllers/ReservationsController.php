@@ -285,6 +285,8 @@ class ReservationsController extends \BaseController {
 
 			$traveldeal = Travel_deals::find($traveldealId);
 
+			$excursionIds = array();
+
 			if($traveldeal != null)
 			{
 				if(is_array($items))
@@ -297,13 +299,15 @@ class ReservationsController extends \BaseController {
 							$excursion->excursionItem = $item['name'];
 							$excursion->priceDin = $item['din'];
 							$excursion->priceEur = $item['euro'];
-							$excursion->num = $item['num'];
 							$excursion->Save();
+
+							$excursionIds[$excursion->excursionItem] = $excursion->id;
 
 							$resExc = new Reservation_excursion;
 							$resExc->destinationId = $traveldeal->destination_id;
 							$resExc->excursionId = $excursion->id;
 							$resExc->reservationId = $reservation->id;
+							$resExc->num = $item['num'];
 							$resExc->Save();
 						}
 						else
@@ -326,14 +330,26 @@ class ReservationsController extends \BaseController {
 						if(is_array($psgPrices))
 						{
 							foreach ($psgPrices as $psgPrice) {
-								$psgResPrice = new PassangerPrice;
-								$psgResPrice->price_item = $psgPrice["name"];
-								$psgResPrice->price_din = $psgPrice["din"];
-								$psgResPrice->price_eur = $psgPrice["euro"];
-								$psgResPrice->num = $psgPrice["num"];
-								$psgResPrice->reservation_id = $reservation->id;
-								$psgResPrice->passanger_id = $psgPrice["psgID"];
-								$psgResPrice->save();
+								if($psgPrice['isExcursion'] == "true")
+								{
+									$resExc = new PassangerExcursion;
+									$resExc->passangerId = $psgPrice["psgID"];
+									$resExc->excursion_id = $excursionIds[$psgPrice["name"]];
+									$resExc->reservationId = $reservation->id;
+									$resExc->num = $psgPrice['num'];
+									$resExc->Save();
+								}
+								else
+								{
+									$psgResPrice = new PassangerPrice;
+									$psgResPrice->price_item = $psgPrice["name"];
+									$psgResPrice->price_din = $psgPrice["din"];
+									$psgResPrice->price_eur = $psgPrice["euro"];
+									$psgResPrice->num = $psgPrice["num"];
+									$psgResPrice->reservation_id = $reservation->id;
+									$psgResPrice->passanger_id = $psgPrice["psgID"];
+									$psgResPrice->save();
+								}
 							}
 						}
 					}
@@ -397,21 +413,30 @@ class ReservationsController extends \BaseController {
 		
 		$resPrices = Reservation_price::where("reservationId", "=", $id)->get();
 		$psgPrices = array();
+		$excursions = array();
 		$names = array();
 		$psgIds = PassangerPrice::join("passanger","passanger.id","=","passanger_prices.passanger_id")
 			->where("reservation_id", "=", $id)->select(array("passanger_id", "name", "surname"))->distinct("passanger_id")->get();
+		
 		foreach($psgIds as $ID)
 		{
-			$psgPrices[$ID->passanger_id] = PassangerPrice::where("reservation_id", "=", $id)->where("passanger_id","=",$ID->passanger_id)->get();
+			$psgPrices[$ID->passanger_id] = PassangerPrice::where("reservation_id", "=", $id)
+												->where("passanger_id","=",$ID->passanger_id)->get();
 			$names[$ID->passanger_id] = $ID->name . " " . $ID->surname;
+			$excursions[$ID->passanger_id] = Excursion::join("passanger_excursions","excursion.id","=","passanger_excursions.excursion_id")
+												->where("passangerId","=",$ID->passanger_id)
+												->where("reservationId", "=", $id)
+												->get(array("excursion.id as excursionId","priceDin","priceEur","excursionItem","num","passangerId","reservationId","passanger_excursions.id as peId"));
 		}
-		//dd($names);
-		$excPrices = Reservation_excursion::where("reservationId", "=", $id)->get();
-		
+
+		$resExcursions = Reservation_excursion::join("excursion","excursion.id","=","reservation_excursion.excursionId")
+							->where("reservationId","=",$id)
+							->get(array("excursion.id as excursionId","priceDin","priceEur","excursionItem","num","reservationId","reservation_excursion.id as peId"));
+
 		return View::make("editReservationPartial",array('reservation' => $reservation, 
 					'traveldeal' => $traveldeal, 'passangers' => $passangers, 
 					'accunit' => $accunit, 'resPrices' => $resPrices, 'names' => $names,
-					'psgPrices' => $psgPrices,'excPrices' => $excPrices));
+					'psgPrices' => $psgPrices,'resExcursions' => $resExcursions, 'excursions' => $excursions));
 	}
 
 	/**
@@ -523,20 +548,68 @@ class ReservationsController extends \BaseController {
 					}
 				}
 			}
+
+			$oldexcursions = isset($_POST["ExcursionPrices"]) ? $_POST["ExcursionPrices"] : null;
+			if($oldexcursions != null && is_array($oldexcursions))
+			{
+				foreach($oldexcursions as $excursion)
+				{
+					$reId = $excursion["id"];
+
+					if($excursion["delete"] == 1)
+					{
+						Reservation_excursion::destroy($reId);
+					}
+					else
+					{
+						$resExc = Reservation_excursion::find($reId);
+						$resExc->num = $excursion["num"];
+						$resExc->Save();
+						$exc = Excursion::find($resExc->excursionId);
+						$exc->priceDin = $excursion["priceDin"];
+						$exc->priceEur = $excursion["priceEur"];
+						$exc->excursionItem = $excursion["name"];
+						$exc->Save();
+					}
+				}
+			}
 			
 			$prices = isset($_POST['ItemNew'])?$_POST['ItemNew'] : null;
-			
+			$excursionIds = array();
+			$traveldeal = Travel_deals::find($_POST["traveldeal_id"]);
+
 			if($prices != null && is_array($prices))
 			{
 				foreach($prices as $item)
 				{
-					$resprice = new Reservation_price;
-					$resprice->priceItem = $item['name'];
-					$resprice->priceDin = $item['din'];
-					$resprice->priceEur = $item['euro'];	
-					$resprice->num = $item['num'];					
-					$resprice->reservationId = $reservation->id;
-					$resprice->Save();
+					if($item['isExcursion'] == "true")
+					{
+
+						$excursion = new Excursion;
+						$excursion->excursionItem = $item['name'];
+						$excursion->priceDin = $item['din'];
+						$excursion->priceEur = $item['euro'];
+						$excursion->Save();
+
+						$excursionIds[$excursion->excursionItem] = $excursion->id;
+
+						$resExc = new Reservation_excursion;
+						$resExc->destinationId = $traveldeal->destination_id;
+						$resExc->excursionId = $excursion->id;
+						$resExc->reservationId = $reservation->id;
+						$resExc->num = $item['num'];
+						$resExc->Save();
+					}
+					else
+					{
+						$resprice = new Reservation_price;
+						$resprice->priceItem = $item['name'];
+						$resprice->priceDin = $item['din'];
+						$resprice->priceEur = $item['euro'];	
+						$resprice->num = $item['num'];					
+						$resprice->reservationId = $reservation->id;
+						$resprice->Save();
+					}
 				}
 			}
 
@@ -569,6 +642,36 @@ class ReservationsController extends \BaseController {
 					}
 			}
 
+			$psgExcursions = isset($_POST["Excursion"])?$_POST["Excursion"]:null;
+
+			if($psgExcursions != null && is_array($psgExcursions))
+			{
+				foreach ($psgExcursions as $psgExc) {
+						
+						if(is_array($psgExc))
+						{
+							foreach ($psgExc as $psge) {
+								if($psge['delete'] == 1)
+								{
+									PassangerExcursion::destroy($psge["id"]);
+								}
+								else
+								{
+									$psgResExc = PassangerExcursion::find($psge["id"]);
+									//dd($psgResExc);
+									$psgResExc->num = $psge["num"];
+									$exc = Excursion::find($psgResExc->excursion_id);
+									$exc->excursionItem = $psge["name"];
+									$exc->priceDin = $psge["priceDin"];
+									$exc->priceEur = $psge["priceEur"];
+									$psgResExc->save();
+									$exc->Save();
+								}
+							}
+						}
+					}
+			}
+
 			$psgNewItems = isset($_POST["PsgItemNew"]) ? $_POST["PsgItemNew"] : null;
 
 			if($psgNewItems != null && is_array($psgNewItems))
@@ -578,14 +681,26 @@ class ReservationsController extends \BaseController {
 						if(is_array($psgPrices))
 						{
 							foreach ($psgPrices as $psgPrice) {
-								$psgResPrice = new PassangerPrice;
-								$psgResPrice->price_item = $psgPrice["name"];
-								$psgResPrice->price_din = $psgPrice["din"];
-								$psgResPrice->price_eur = $psgPrice["euro"];
-								$psgResPrice->num = $psgPrice["num"];
-								$psgResPrice->reservation_id = $reservation->id;
-								$psgResPrice->passanger_id = $psgPrice["psgID"];
-								$psgResPrice->save();
+								if($psgPrice['isExcursion'] == "true")
+								{
+									$resExc = new PassangerExcursion;
+									$resExc->passangerId = $psgPrice["psgID"];
+									$resExc->excursion_id = $excursionIds[$psgPrice["name"]];
+									$resExc->reservationId = $reservation->id;
+									$resExc->num = $psgPrice['num'];
+									$resExc->Save();
+								}
+								else
+								{
+									$psgResPrice = new PassangerPrice;
+									$psgResPrice->price_item = $psgPrice["name"];
+									$psgResPrice->price_din = $psgPrice["din"];
+									$psgResPrice->price_eur = $psgPrice["euro"];
+									$psgResPrice->num = $psgPrice["num"];
+									$psgResPrice->reservation_id = $reservation->id;
+									$psgResPrice->passanger_id = $psgPrice["psgID"];
+									$psgResPrice->save();
+								}
 							}
 						}
 					}

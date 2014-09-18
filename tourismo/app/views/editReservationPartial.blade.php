@@ -139,10 +139,31 @@
 									      <input type="text" id="paymentItemNum" class="input-medium numItem validate[required]" name="PsgItem[{{$price->passanger_id}}][{{$ind}}][num]" value="{{$price->num}}" >
 									      <input type="text" name = "PsgItem[{{$price->passanger_id}}][{{$ind}}][totaldin]" id="paymentItemTotalDin" class="input-medium validate[required]" />
 									      <input type="text" name = "PsgItem[{{$price->passanger_id}}][{{$ind}}][totaleuro]" id="paymentItemTotalEuro" class="input-medium validate[required]" />
-									      <input type="checkbox" name = "PsgItem[{{$price->passanger_id}}][{{$ind}}][isExcursion]" id="isExcursion" />
+									     <!-- <input type="checkbox" name = "PsgItem[{{$price->passanger_id}}][{{$ind}}][isExcursion]" id="isExcursion" class="excursion"/>-->
 									      <input type="hidden" id="PsgId" name="PsgItem[{{$price->passanger_id}}][{{$ind}}][psgid]" value={{$price->passanger_id}} />
 									      <input type="hidden" id="PriceId" name="PsgItem[{{$price->passanger_id}}][{{$ind}}][id]" value={{$price->id}} />
 									      <input type="hidden" id="PriceDelete" name="PsgItem[{{$price->passanger_id}}][{{$ind}}][delete]" value="0" />
+									      <a href="#" id="deleteItem" class="delete-pay pull-right"><span class="icon icon-remove-sign"></span></a>
+									     <a href='#' id="undoItem" class="undo-pay pull-right"><span class='icon icon-repeat'></span></a>
+									  </div>
+									</div>
+								@endforeach
+
+								@foreach($excursions[$psg] as $ind => $excursion)
+									<div id="paymentItem" class="paymentItem">
+									 <div class="form-inline">
+									      <input type="text" id="paymentItemName" class="input-medium validate[required]" name="Excursion[{{$excursion->passangerId}}][{{$ind}}][name]" value="{{$excursion->excursionItem}}" />
+									      <input type="text" id="paymentItemEuro" class="input-medium euroItem validate[required]" name="Excursion[{{$excursion->passangerId}}][{{$ind}}][priceEur]" value="{{$excursion->priceEur}}" />
+									      <input type="text" id="paymentItemDin" class="input-medium dinItem validate[required]" name="Excursion[{{$excursion->passangerId}}][{{$ind}}][priceDin]" value="{{$excursion->priceDin}}" />
+									      <input type="text" id="paymentItemNum" class="input-medium numItem validate[required]" name="Excursion[{{$excursion->passangerId}}][{{$ind}}][num]" value="{{$excursion->num}}" />
+									      <input type="text" name = "Excursion[{{$excursion->passangerId}}][{{$ind}}][totaldin]" id="paymentItemTotalDin" class="input-medium validate[required]" />
+									      <input type="text" name = "Excursion[{{$excursion->passangerId}}][{{$ind}}][totaleuro]" id="paymentItemTotalEuro" class="input-medium validate[required]" />
+									     <!-- <input type="checkbox" name = "Excursion[{{$excursion->passangerId}}][{{$ind}}][isExcursion]" id="isExcursion" checked class="excursion"/>-->
+									      <span class="icon icon-ok"></span>
+									      <input type="hidden" id="PsgId" name="Excursion[{{$excursion->passangerId}}][{{$ind}}][psgid]" value={{$excursion->passangerId}} />
+									      <input type="hidden" id="PriceId" name="Excursion[{{$excursion->passangerId}}][{{$ind}}][id]" value={{$excursion->peId}} />
+									      <input type="hidden" id="ExcursionId" name="Excursion[{{$excursion->passangerId}}][{{$ind}}][exid]" value={{$excursion->excursionId}} />
+									      <input type="hidden" id="PriceDelete" name="Excursion[{{$excursion->passangerId}}][{{$ind}}][delete]" value="0" />
 									      <a href="#" id="deleteItem" class="delete-pay pull-right"><span class="icon icon-remove-sign"></span></a>
 									     <a href='#' id="undoItem" class="undo-pay pull-right"><span class='icon icon-repeat'></span></a>
 									  </div>
@@ -201,16 +222,35 @@
 										      <input type="text" id="paymentItemNum" class="input-medium numItem validate[required]" name="PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][num]" value="{{$price->num}}" >
 										      <input type="text" name = "PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][totaldin]" id="paymentItemTotalDin" class="input-medium validate[required]" />
 										      <input type="text" name = "PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][totaleuro]" id="paymentItemTotalEuro" class="input-medium validate[required]" />
-										      <input type="checkbox" name = "PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][isExcursion]" id="isExcursion" />
+										     <!-- <input type="checkbox" name = "PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][isExcursion]" id="isExcursion" class="excursion" />-->
 										      <input type="hidden" id="PsgId" name="PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][psgID]" value={{$passanger->id}} />
 										      <input type="hidden" id="PriceId" name="PsgItemNew[{{$passanger->id}}][100][id]" value={{$price->id}} />
-										      <input type="hidden" id="PriceDelete" name="PsgItemNew[{{$passanger->id}}][100][delete]" value="0" />
+										      <input type="hidden" id="PriceDelete" name="PsgItemNew[{{$passanger->id}}][100 + $ind][delete]" value="0" />
 										      <a href="#" id="deleteItem" class="delete-pay pull-right"><span class="icon icon-remove-sign"></span></a>
 										     <a href='#' id="undoItem" class="undo-pay pull-right"><span class='icon icon-repeat'></span></a>
 										
 										  </div>
 										</div>
 									@endforeach
+									@foreach($resExcursions as $ind => $excursion)
+									<div id="paymentItem" class="paymentItem">
+									 <div class="form-inline">
+									      <input type="text" id="paymentItemName" class="input-medium validate[required]" name="ExcursionNew[{{$excursion->passangerId}}][{{$ind}}][name]" value="{{$excursion->excursionItem}}" />
+									      <input type="text" id="paymentItemEuro" class="input-medium euroItem validate[required]" name="ExcursionNew[{{$excursion->passangerId}}][{{$ind}}][priceEur]" value="{{$excursion->priceEur}}" />
+									      <input type="text" id="paymentItemDin" class="input-medium dinItem validate[required]" name="ExcursionNew[{{$excursion->passangerId}}][{{$ind}}][priceDin]" value="{{$excursion->priceDin}}" />
+									      <input type="text" id="paymentItemNum" class="input-medium numItem validate[required]" name="ExcursionNew[{{$excursion->passangerId}}][{{$ind}}][num]" value="{{$excursion->num}}" >
+									      <input type="text" name = "ExcursionNew[{{$excursion->passangerId}}][{{$ind}}][totaldin]" id="paymentItemTotalDin" class="input-medium validate[required]" />
+									      <input type="text" name = "ExcursionNew[{{$excursion->passangerId}}][{{$ind}}][totaleuro]" id="paymentItemTotalEuro" class="input-medium validate[required]" />
+									      <!--<input type="checkbox" name = "ExcursionNew[{{$excursion->passangerId}}][{{$ind}}][isExcursion]" id="isExcursion" checked class="excursion"/>--><span class="icon icon-ok"></span>
+									      <input type="hidden" id="PsgId" name="ExcursionNew[{{$excursion->passangerId}}][{{$ind}}][psgid]" value={{$passanger->id}} />
+									      <input type="hidden" id="ExcursionId" name="ExcursionNew[{{$excursion->passangerId}}][{{$ind}}][exid]" value={{$excursion->excursionId}} />
+									      <input type="hidden" id="PriceId" name="ExcursionNew[{{$excursion->passangerId}}][{{$ind}}][id]" value={{$excursion->peId}} />
+									      <input type="hidden" id="PriceDelete" name="ExcursionNew[{{$excursion->passangerId}}][{{$ind}}][delete]" value="0" />
+									      <a href="#" id="deleteItem" class="delete-pay pull-right"><span class="icon icon-remove-sign"></span></a>
+									     <a href='#' id="undoItem" class="undo-pay pull-right"><span class='icon icon-repeat'></span></a>
+									  </div>
+									</div>
+								@endforeach
 									@endif
 								</div>
 							</form>
@@ -268,13 +308,28 @@
 							      <input type="text" id="paymentItemNum" class="input-medium numItem validate[required]" name="Prices[{{$ind}}][num]" value="{{$price->num}}" readonly />
 							      <input type="text" id="paymentItemTotalDin" class="input-medium validate[required]" readonly />
 							      <input type="text" id="paymentItemTotalEuro" class="input-medium validate[required]" readonly />
-							      <input type="checkbox" id="isExcursion" />
 							      <input type="hidden" id="PriceId" name="Prices[{{$ind}}][id]" value={{$price->id}} />
 							      <input type="hidden" id="PriceDelete" name="Prices[{{$ind}}][delete]" value="0" />
 							  </div>
 							</div>
 						
 						@endforeach
+						@foreach($resExcursions as $ind => $excursion)
+									<div id="paymentItem" class="paymentItem">
+									 <div class="form-inline">
+									      <input type="text" id="paymentItemName" class="input-medium validate[required]" name="ExcursionPrices[{{$ind}}][name]" value="{{$excursion->excursionItem}}" readonly/>
+									      <input type="text" id="paymentItemEuro" class="input-medium euroItem validate[required]" name="ExcursionPrices[{{$ind}}][priceEur]" value="{{$excursion->priceEur}}" readonly/>
+									      <input type="text" id="paymentItemDin" class="input-medium dinItem validate[required]" name="ExcursionPrices[{{$ind}}][priceDin]" value="{{$excursion->priceDin}}" readonly/>
+									      <input type="text" id="paymentItemNum" class="input-medium numItem validate[required]" name="ExcursionPrices[{{$ind}}][num]" value="{{$excursion->num}}" readonly />
+									      <input type="text" name = "ExcursionPrices[{{$ind}}][totaldin]" id="paymentItemTotalDin" class="input-medium validate[required]" readonly />
+									      <input type="text" name = "ExcursionPrices[{{$ind}}][totaleuro]" id="paymentItemTotalEuro" class="input-medium validate[required]" readonly />
+									      <!--<input type="checkbox" name = "ExcursionPrices[{{$ind}}][isExcursion]" id="isExcursion" checked class="excursion"/>-->
+									      <span class="icon icon-ok"></span>
+									      <input type="hidden" id="PriceId" name="ExcursionPrices[{{$ind}}][id]" value={{$excursion->peId}} class="payments" 	/>
+									      <input type="hidden" id="PriceDelete" name="ExcursionPrices[{{$ind}}][delete]" value="0" />
+									  </div>
+									</div>
+								@endforeach
 						</div>
 					</form>
 					</div>

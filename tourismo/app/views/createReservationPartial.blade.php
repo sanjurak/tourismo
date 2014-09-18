@@ -512,7 +512,7 @@
 		      <input type="text" id="paymentItemNum" class="input-medium numItem" value="0" placeholder="" />
 		      <input type="text" id="paymentItemTotalDin" class="input-medium" value="0" placeholder="" />
 		      <input type="text" id="paymentItemTotalEuro" class="input-medium" value="0" placeholder="" />
-		      <input type="checkbox" id="isExcursion">
+		      <input type="checkbox" id="isExcursion" class="excursion">
 		      <input type="hidden" id="paymentItemPsgId" />
 		      <a href="#" id="removeItem" class="pull-right"><span class="icon icon-remove-sign"></span></a>
   </div>

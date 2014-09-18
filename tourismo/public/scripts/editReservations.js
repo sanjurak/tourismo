@@ -261,7 +261,7 @@ $("#traveldealsSel").selectize({
         items.find("#paymentItemNum").attr("name","ItemNew["+itemCounter+"][num]").addClass("validate[required]").prop("readonly", true);;
         items.find("#paymentItemTotalDin").attr("name","ItemNew["+itemCounter+"][totaldin]").addClass("validate[required]").prop("readonly", true);;
         items.find("#paymentItemTotalEuro").attr("name","ItemNew["+itemCounter+"][totaleuro]").addClass("validate[required]").prop("readonly", true);;
-        items.find("#isExcursion").attr("name","ItemNew["+itemCounter+"][isExcursion]").addClass("excursionChk");
+        items.find("#isExcursion").attr("name","ItemNew["+itemCounter+"][isExcursion]").addClass("excursion");
 
         items.find("#removeItem").remove();
         itemCounter++;
@@ -279,7 +279,7 @@ $("#traveldealsSel").selectize({
         items.find("#paymentItemNum").attr("name","PsgItemNew["+id+"]["+psgItemCounter+"][num]").addClass("validate[required]");
         items.find("#paymentItemTotalDin").attr("name","PsgItemNew["+id+"]["+psgItemCounter+"][totaldin]").addClass("validate[required]");
         items.find("#paymentItemTotalEuro").attr("name","PsgItemNew["+id+"]["+psgItemCounter+"][totaleuro]").addClass("validate[required]");
-        items.find("#isExcursion").attr("name","PsgItemNew["+id+"]["+psgItemCounter+"][isExcursion]").addClass("excursionChk");
+        items.find("#isExcursion").attr("name","PsgItemNew["+id+"]["+psgItemCounter+"][isExcursion]").addClass("excursion");
         
         items.find("#paymentItemPsgId").attr("name","PsgItemNew["+id+"]["+psgItemCounter+"][psgID]");
         items.find("#paymentItemPsgId").val(id);
@@ -291,8 +291,26 @@ $("#traveldealsSel").selectize({
     var oldEuro = 0, oldDin = 0;
     var oldNameItem = "";
 
+
     $(".nameItem").focusin(function(){
         oldNameItem = $(this).val();
+    });
+
+    
+    $(".excursion").change(function(){
+        var nameItem = $(this).siblings("#paymentItemName").val();
+        var checkvalue = $(this).is(":checked");
+        alert(checkvalue);
+        $(".finalPayment").find("#paymentItemName").each(function(){
+            if($(this).val() == nameItem)
+            {
+                if(checkvalue)
+                    $(this).siblings("#isExcursion").attr("checked", true);
+                else
+                    $(this).siblings("#isExcursion").attr("checked", false);
+            }
+                
+        });
     });
 
     $(".nameItem").focusout(function(){
@@ -544,8 +562,9 @@ $("#traveldealsSel").selectize({
 	 	$(this).find(".numItem").trigger("focusout");
 	 });
 	 
-    $("#paymentItems").on("click", ".delete-pay", function(e){
+    $(".paymentItem").on("click", ".delete-pay", function(e){
         e.preventDefault();
+        alert($(this));
         $(this).siblings("#PriceDelete").val("1");
         $(this).siblings("#PriceId").removeClass("payments");
         $(this).parents("div.paymentItem").addClass("payDeleted");
