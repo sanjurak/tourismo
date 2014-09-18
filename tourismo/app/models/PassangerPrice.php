@@ -45,7 +45,7 @@ class PassangerPrice extends Eloquent {
 				$debt->passanger_address = $passanger->address;
 				$debt->passanger_tel = $passanger->mob;
 				$payments = Payment::where('passanger_id', '=', $passanger_id)->get();
-				$reservation = new Reservation();
+				$reservation = new ReservationPsg();
 				foreach ($payments as $payment) {
 					$debt->debt_din -= floatval($payment->amount_din);
 					$debt->debt_eur -= floatval($payment->amount_eur_din)/$payment->exchange_rate;
@@ -76,7 +76,7 @@ class Debt {
 	public $debt_eur = 0;
 }
 
-class Reservation {
+class ReservationPsg {
 	public $reservation_id;
 	public $reservation_number;
 	public $res_start_date;

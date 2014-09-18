@@ -144,7 +144,7 @@ $(function(){
 				<span class="icon-print"></span>
 			</a>
 			
-			<a role="button" class="btn btn-default btn-small editReservation" name="{{$reservation->id}}"  href="#" title="Izmena rezervacije">
+			<a role="button" class="btn btn-default btn-small editReservation" name="{{$reservation->reservation_id}}"  href="#" title="Izmena rezervacije">
 				<span class="icon-edit"></span>
 			</a>
 			@if (Auth::user()->isAdmin())

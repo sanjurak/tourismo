@@ -296,7 +296,7 @@ $("#traveldealsSel").selectize({
         oldNameItem = $(this).val();
     });
 
-    
+
     $(".excursion").change(function(){
         var nameItem = $(this).siblings("#paymentItemName").val();
         var checkvalue = $(this).is(":checked");
@@ -716,7 +716,7 @@ $("#traveldealsSel").selectize({
                 if(data.status == "success")
                 {
                     window.open('contract/' + data.id);
-                  //window.location.href = "reservations";
+                  window.location.href = "reservations";
                 }
             },
             error: function(){

@@ -43,7 +43,8 @@ class ReservationsController extends \BaseController {
 
 		 //if(!$query && $query == '') return Response::json(array(), 400);
 
-		$passangers = Passanger::join("reservations","passanger.id","=","reservations.passanger_id")
+		$passangers = Passangers::join("passanger","passangers.passanger_id","=","passanger.id")
+								->join("reservations","passangers.reservation_id","=","reservations.id")
 								->select(DB::raw('CONCAT(name, " ", surname,", ", jmbg) as term'),"passanger.id as id")
 								->where("passanger.name","LIKE","%".$query."%")
 								->orWhere("passanger.surname","LIKE","%".$query."%")
@@ -70,7 +71,11 @@ class ReservationsController extends \BaseController {
 		if($searchTerm == "*")
 			$reservations = Reservation::orderBy('id', 'DESC')->paginate(20);
 		else
-			$reservations = Reservation::where('reservation_number','=',$searchTerm)->orWhere('passanger_id','=',$searchTerm)->orderBy('id', 'DESC')->paginate(20);
+			$reservations = Reservation::join("passangers","passangers.reservation_id","=","reservations.id")
+							->where('reservation_number','=',$searchTerm)
+							->orWhere('reservations.passanger_id','=',$searchTerm)
+							->orWhere('passangers.passanger_id','=',$searchTerm)
+							->orderBy('reservations.id', 'DESC')->paginate(20);
 		
 
 		return View::make('reservationsPartial',array('reservations' => $reservations));
