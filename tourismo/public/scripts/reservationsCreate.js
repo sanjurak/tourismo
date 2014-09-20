@@ -495,7 +495,6 @@ $("#addPsgPaymentItem").click(function(event){
     $(".excursion").change(function(){
         var nameItem = $(this).siblings("#paymentItemName").val();
         var checkvalue = $(this).is(":checked");
-        alert(checkvalue);
         $(".finalPayment").find("#paymentItemName").each(function(){
             if($(this).val() == nameItem)
             {
@@ -851,7 +850,7 @@ $("#addPsgPaymentItem").click(function(event){
             //data += "&" + $(this).find("#paymentItemPsgId").attr("name") + "=" +  $(this).find("#paymentItemPsgId").val();
        });
 
-       $.each($(".excursionChk"), function(){
+       $.each($(".excursion"), function(){
             data += "&"+$(this).attr("name") + "=" + $(this).is(":checked");
        });
        

@@ -301,7 +301,7 @@ $("#traveldealsSel").selectize({
     });
 
 
-    $(".excursion").change(function(){
+    $("#isExcursion").change(function(){
         var nameItem = $(this).siblings("#paymentItemName").val();
         var checkvalue = $(this).is(":checked");
         $(".finalPayment").find("#paymentItemName").each(function(){
