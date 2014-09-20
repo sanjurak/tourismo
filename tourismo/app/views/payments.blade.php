@@ -28,7 +28,7 @@
 
 <div class="row">
 	<div class="span9">
-		<div id="paymentDetailModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">			
+		<div id="paymentDetailModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" style="display: none;">			
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">x</a>
 				<h3>Detalji uplate</h3>

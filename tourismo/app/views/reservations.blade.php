@@ -48,7 +48,7 @@
 
 <div class="container" id="paymentModal">
 	<div class="row">
-		<div id="paymentNewModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+		<div id="paymentNewModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" style="display: none;">
 			<div class="modal-header">
 				<a class="close" data-dismiss="modal">x</a>
 				<h3>Novo Plaćanje</h3>
