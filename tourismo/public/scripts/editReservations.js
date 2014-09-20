@@ -130,8 +130,11 @@ $("#traveldealsSel").selectize({
         $(this).siblings("#psgDelete").val("1");
 
         var id = $(this).siblings("#passangerId").val(); 
+
+        $("#"+id).find("#addPsgPaymentItem").hide();
         $("#"+id).find(".paymentItem").each(function(){
             $(this).find(".delete-pay").trigger("click");
+            $(this).find(".undo-pay").hide();
         }); 
         $("#"+id).find(".paymentItem").each(function(){
             $(this).find("#removeItem").trigger("click");
@@ -148,6 +151,8 @@ $("#traveldealsSel").selectize({
         $(this).siblings("#psgDelete").val("0");
 
         var id = $(this).siblings("#passangerId").val();
+
+        $("#"+id).find("#addPsgPaymentItem").show();
         $("#"+id).find(".paymentItem").each(function(){
             $(this).find(".undo-pay").trigger("click");
         }); 
@@ -299,7 +304,6 @@ $("#traveldealsSel").selectize({
     $(".excursion").change(function(){
         var nameItem = $(this).siblings("#paymentItemName").val();
         var checkvalue = $(this).is(":checked");
-        alert(checkvalue);
         $(".finalPayment").find("#paymentItemName").each(function(){
             if($(this).val() == nameItem)
             {
@@ -344,7 +348,6 @@ $("#traveldealsSel").selectize({
                     if($(this).val() == oldNameItem)
                         if(/Prices/i.test($(this).attr("name")))
                         {
-                            alert("OLD");
                             $(this).siblings("#PriceDelete").val("1");
                             $(this).siblings("#PriceId").removeClass("payments");
                             $(this).parents("div.paymentItem").addClass("payDeleted");
@@ -563,7 +566,6 @@ $("#traveldealsSel").selectize({
 	 
     $(".paymentItem").on("click", ".delete-pay", function(e){
         e.preventDefault();
-        alert($(this));
         $(this).siblings("#PriceDelete").val("1");
         $(this).siblings("#PriceId").removeClass("payments");
         $(this).parents("div.paymentItem").addClass("payDeleted");
@@ -698,7 +700,7 @@ $("#traveldealsSel").selectize({
             });
        });
 
-       $.each($(".excursionChk"), function(){
+       $.each($(".excursion"), function(){
             data += "&"+$(this).attr("name") + "=" + $(this).is(":checked");
        });
 

@@ -108,7 +108,7 @@
 					
 						@foreach($psgPrices as $psg => $prices)
 							<div class="psgPayment" id={{$psg}}>
-							<div id="psgName">{{$names[$psg]}}</div>
+							<div id="psgName">Detalji plaćanja za putnika: {{$names[$psg]}}</div>
 							<br>
 							<a href="#" class="btn btn-default pull-right addPsgPaymentItem" id="addPsgPaymentItem">Dodaj plaćanje</a>
 							<br>
@@ -189,7 +189,7 @@
 							
 							@foreach($passangers as $ind => $passanger)
 								<div class="psgPayment" id={{$passanger->id}}>
-								<div id="psgName">{{$passanger->name. " " .$passanger->surname}}</div>
+								<div id="psgName">Detalji plaćanja za putnika: {{$passanger->name. " " .$passanger->surname}}</div>
 								<br>
 								<a href="#" class="btn btn-default pull-right addPsgPaymentItem" id="addPsgPaymentItem">Dodaj plaćanje</a>
 								<br>
@@ -271,6 +271,11 @@
 						@endif
 					</div>
 				</div>
+			<div class="row">
+				<div class="span12" id="paymentTitleFinal">
+					Finalni obračun
+				</div>
+			</div>
 			<div class="row">
 				<div class="span12">
 					<input type="hidden" id="addPaymentItem" />
