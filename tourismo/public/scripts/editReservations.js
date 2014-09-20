@@ -134,7 +134,6 @@ $("#traveldealsSel").selectize({
             $(this).find(".delete-pay").trigger("click");
         }); 
         $("#"+id).find(".paymentItem").each(function(){
-            alert($(this).html());
             $(this).find("#removeItem").trigger("click");
         });       
 
