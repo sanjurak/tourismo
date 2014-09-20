@@ -5,7 +5,7 @@
 
 <style type="text/css">
 	#paymentModal{
-		visibility: visible;
+		display: none;
 	}
 </style>
 

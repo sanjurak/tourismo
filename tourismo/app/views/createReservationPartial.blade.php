@@ -25,6 +25,10 @@
 		font-size: 14px;
 		font-weight: bolder;
 	}
+
+	textarea{
+		width:auto;
+	}
 	
 </style>
 <script>
