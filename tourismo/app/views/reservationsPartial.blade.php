@@ -137,27 +137,40 @@ $(function(){
 			{{$reservation->status}}
 		</td>
 		<td>
-			<a role="button" class="paymentNewModal btn btn-default btn-small" name="{{$reservation->id}}" id="addNewPayment" data-toggle="modal" href="#paymentNewModal" title="Dodaj novo plaćanje">
-				<span class="icon-plus"></span>
-			</a>
-			<a role="button" class="btn btn-default btn-small" name="contract{{$reservation->id}}" id="printContract" href="contract/{{$reservation->id}}" target="_blank" title="Štampa ugovora">
-				<span class="icon-print"></span>
-			</a>
+			
 			
 			@if($reservation->reservation_id)
-			<a role="button" class="btn btn-default btn-small editReservation" name="{{$reservation->reservation_id}}"  href="#" title="Izmena rezervacije">
-				<span class="icon-edit"></span>
-			</a>
+				<a role="button" class="paymentNewModal btn btn-default btn-small" name="{{$reservation->reservation_id}}" id="addNewPayment" data-toggle="modal" href="#paymentNewModal" title="Dodaj novo plaćanje">
+					<span class="icon-plus"></span>
+				</a>
+				<a role="button" class="btn btn-default btn-small" name="contract{{$reservation->reservation_id}}" id="printContract" href="contract/{{$reservation->reservation_id}}" target="_blank" title="Štampa ugovora">
+					<span class="icon-print"></span>
+				</a>
+				<a role="button" class="btn btn-default btn-small editReservation" name="{{$reservation->reservation_id}}"  href="#" title="Izmena rezervacije">
+					<span class="icon-edit"></span>
+				</a>
+				@if (Auth::user()->isAdmin())
+				<a role="button" class="btn btn-default btn-small" name="delete{{$reservation->reservation_id}}" id="delReservation" href="reservation/delete/{{$reservation->reservation_id}}" title="Brisanje rezervacije">
+					<span class="icon-trash"></span>
+				</a>
+				@endif
 			@else
-			<a role="button" class="btn btn-default btn-small editReservation" name="{{$reservation->id}}"  href="#" title="Izmena rezervacije">
-				<span class="icon-edit"></span>
-			</a>
+				<a role="button" class="paymentNewModal btn btn-default btn-small" name="{{$reservation->id}}" id="addNewPayment" data-toggle="modal" href="#paymentNewModal" title="Dodaj novo plaćanje">
+					<span class="icon-plus"></span>
+				</a>
+				<a role="button" class="btn btn-default btn-small" name="contract{{$reservation->id}}" id="printContract" href="contract/{{$reservation->id}}" target="_blank" title="Štampa ugovora">
+					<span class="icon-print"></span>
+				</a>
+				<a role="button" class="btn btn-default btn-small editReservation" name="{{$reservation->id}}"  href="#" title="Izmena rezervacije">
+					<span class="icon-edit"></span>
+				</a>
+				@if (Auth::user()->isAdmin())
+				<a role="button" class="btn btn-default btn-small" name="delete{{$reservation->id}}" id="delReservation" href="reservation/delete/{{$reservation->id}}" title="Brisanje rezervacije">
+					<span class="icon-trash"></span>
+				</a>
+				@endif
 			@endif
-			@if (Auth::user()->isAdmin())
-			<a role="button" class="btn btn-default btn-small" name="delete{{$reservation->id}}" id="delReservation" href="reservation/delete/{{$reservation->id}}" title="Brisanje rezervacije">
-				<span class="icon-trash"></span>
-			</a>
-			@endif
+			
 		</td>
 	</tr>
 @endforeach
