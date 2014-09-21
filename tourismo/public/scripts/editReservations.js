@@ -704,6 +704,9 @@ $("#traveldealsSel").selectize({
             data += "&"+$(this).attr("name") + "=" + $(this).is(":checked");
        });
 
+       data += "&TotalDIN" + "=" + $(".finalPayment #totalDIN").val() + "&"
+                + "TotalEUR" + "=" + $(".finalPayment #totalEUR").val();
+
        //alert(data);
        
      var resId = $("#reservationId").val();

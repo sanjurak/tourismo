@@ -328,6 +328,26 @@ class ReservationsController extends \BaseController {
 					}
 				}
 
+			$totalDin = 0;
+			$totalEur = 0;
+			foreach(Reservation_price::where("reservationId","=",$reservation->id)->get() as $resPrice)
+			{
+				if(preg_match("/popust/i",$resPrice->priceItem))
+				{
+					$totalDin -= $resPrice->priceDin * $resPrice->num;
+					$totalEur -= $resPrice->priceEur * $resPrice->num;
+				}
+				else
+				{
+					$totalDin += $resPrice->priceDin  * $resPrice->num;
+					$totalEur += $resPrice->priceEur  * $resPrice->num;
+				}
+			}
+
+			$reservation->price_total_din = $totalDin;
+			$reservation->price_total_eur = $totalEur;
+			$reservation->save();
+
 				if(is_array($passangersPrices))
 				{
 					foreach ($passangersPrices as $psgPrices) {
@@ -530,9 +550,9 @@ class ReservationsController extends \BaseController {
 					
 			}
 				
-			$oldprices = $_POST["Prices"];
+			$oldprices = isset($_POST["Prices"])?$_POST["Prices"] : null;
 			
-			if(is_array($oldprices))
+			if($oldprices && is_array($oldprices))
 			{
 				foreach($oldprices as $price)
 				{
@@ -617,6 +637,26 @@ class ReservationsController extends \BaseController {
 					}
 				}
 			}
+
+			$totalDin = 0;
+			$totalEur = 0;
+			foreach(Reservation_price::where("reservationId","=",$reservation->id)->get() as $resPrice)
+			{
+				if(preg_match("/popust/i",$resPrice->priceItem))
+				{
+					$totalDin -= $resPrice->priceDin * $resPrice->num;
+					$totalEur -= $resPrice->priceEur * $resPrice->num;
+				}
+				else
+				{
+					$totalDin += $resPrice->priceDin  * $resPrice->num;
+					$totalEur += $resPrice->priceEur  * $resPrice->num;
+				}
+			}
+
+			$reservation->price_total_din = $totalDin;
+			$reservation->price_total_eur = $totalEur;
+			$reservation->save();
 
 			$psgItems = isset($_POST["PsgItem"]) ? $_POST["PsgItem"] : null;
 
