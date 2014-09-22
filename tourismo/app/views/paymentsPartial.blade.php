@@ -3,6 +3,7 @@ $(function(){
 	var list = $(".paymentDetails");
 	for (i = 0, len = list.length; i < len; i++){
 		list[i].onclick=function(){
+            $("#paymentModal").show();
 			$.ajax({
                 url: 'paymentDetails',
                 type: 'GET',
