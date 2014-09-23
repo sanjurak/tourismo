@@ -919,14 +919,16 @@ $("#addPsgPaymentItem").click(function(event){
         TravelDealPriceDin = item["price_din"];
         TravelDealPriceEur = item["price_eur"];
 
-       
-        /*$("#addPaymentItem").trigger("click");
-        $("#paymentItems div").last().find("#paymentItemEuro").val(item["price_eur"]).trigger("focusout");
-        $("#paymentItems div").last().find("#paymentItemDin").val(item["price_din"]).trigger("focusout");
-        $("#paymentItems div").last().find("#paymentItemName").val("Smeštaj Adl");
-        $("#paymentItems div").last().find("#paymentItemNum").val("1");
-        $("#paymentItems div").last().find("#paymentItemName").attr("data-val","Smeštaj Adl").prop("readonly", true);
-    */
+       $("#psgPaymentDetails .paymentItem").each(function()
+        {
+            if(/\bSmeštaj Adl\b/i.test($(this).find("#paymentItemName").val()) || /\bSmestaj Adl\b/i.test($(this).find("#paymentItemName").val()))
+            {
+                 $(this).find("#paymentItemEuro").val(TravelDealPriceEur).trigger("focusout");
+                $(this).find("#paymentItemDin").val(TravelDealPriceDin).trigger("focusout");
+                return false;
+            }
+               
+        });
         $("#passangers_details").show();
         $("#payment_details").show();
     }

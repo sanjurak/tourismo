@@ -44,9 +44,16 @@ $("#traveldealsSel").selectize({
                 TravelDealPriceDin = item["price_din"];
                 TravelDealPriceEur = item["price_eur"];
 
-                $(".paymentItem #paymentItemEuro").val(TravelDealPriceEur).trigger("focusout");
-                $(".paymentItem #paymentItemDin").val(TravelDealPriceDin).trigger("focusout");
-
+                $("#psgPaymentDetails .paymentItem").each(function()
+                {
+                    if(/\bSmeštaj Adl\b/i.test($(this).find("#paymentItemName").val()) || /\bSmestaj Adl\b/i.test($(this).find("#paymentItemName").val()))
+                    {
+                         $(this).find("#paymentItemEuro").val(TravelDealPriceEur).trigger("focusout");
+                        $(this).find("#paymentItemDin").val(TravelDealPriceDin).trigger("focusout");
+                        return false;
+                    }
+                       
+                });
 		$("#traveldealDetails").slideDown();
 
         }
