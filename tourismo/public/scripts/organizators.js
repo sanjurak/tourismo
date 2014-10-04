@@ -63,16 +63,6 @@ $(document).ready(function(){
 	    $("#newOrgForm").trigger('submit');
 	});
 
-	$(".deleteOrg").click(function(event){
-		event.preventDefault();
-
-		//id objekaa za brisanje (id je pib)
-		var id = $(this).attr("data-id");
-		$("#pibDel").val(id);
-		$("#deleteOrgModal").modal("show");		
-
-	});
-
 	$("#deleteConfirmed").click(function(event){
 			event.preventDefault();
 			

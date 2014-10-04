@@ -1,6 +1,17 @@
 <script type="text/javascript">
 $(function(){
 
+	
+	$(".deleteOrg").click(function(event){
+		event.preventDefault();
+
+		//id objekaa za brisanje (id je pib)
+		var id = $(this).attr("data-id");
+		$("#pibDel").val(id);
+		$("#deleteOrgModal").modal("show");		
+
+	});
+
 	$(".editableC").editable();
 	
 	
@@ -80,7 +91,7 @@ $(function(){
 			<a href="#" class="editableC" id="web" data-type="text" data-pk= {{$organizator->pib}} data-url="/organizatorEdit/{{$organizator->pib}}" data-title="Web sajt organizatora">{{$organizator->web}}</a>
 		</td>
 		<td>
-			<a href="#" data-id={{$organizator->pib}} class="btn btn-warning editOrg"><span class="icon-edit"></span></a>	
+			<a href="#" class="btn btn-warning editOrg" data-id={{$organizator->pib}}><span class="icon-edit"></span></a>	
 			<a href="#" class="btn btn-danger deleteOrg" data-id={{$organizator->pib}}><span class="icon-trash"></span></a>	
 			<a href="#" style="display:none;" id="provision" data-type="text" data-pk= {{$organizator->pib}} data-url="/organizatorEdit/{{$organizator->pib}}" data-title="Provizija">
 				@if(!is_null($organizator->provision))
