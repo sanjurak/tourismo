@@ -82,7 +82,7 @@
 						</td>
 						<td>
 							<div class="input-control text">
-								<label for="fiscalslip">Br. Fisk. isečka</label>
+								<label for="fiscalslip">Br. Fisk. iseč.</label>
 								<input type="text" name="fiscalslip" id="fiscalslip" readonly/>
 							</div>
 						</td>

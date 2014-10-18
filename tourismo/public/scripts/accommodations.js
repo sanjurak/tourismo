@@ -1,8 +1,10 @@
 $(function(){
 
-	$("#newAccModal").hide();
+	/*$("#newAccModal").hide();
 	$("#editUnitsModal").hide();
 	$("#addUnitModal").hide();
+	*/
+	$("[rel='tooltip']").popover();
 
 	$("#typeModNew").selectize({
 		valueField: 'name',
@@ -145,16 +147,13 @@ $(function(){
 
 	var counter = 0;
 
-	$("#addUnit").click(function(event){
+	$(".addUnit").click(function(event){
 		event.preventDefault();
-		var units = $(".hiddenUnit").clone(true);
-		units.show().removeClass("hiddenUnit");
-		units.find("#nameUnitModNew").attr("name","Unit["+counter+"][name]");
-		units.find("#capacityUnitModNew").attr("name","Unit["+counter+"][capacity]");
-		units.find("#numberUnitModNew").attr("name","Unit["+counter+"][number]");
-
-		counter++;
-		$(units).appendTo("#units");
+		$accid = $(this).attr("data-id");
+		
+		$("#addUnitModal").modal("show");
+		$("#accId").val($accid);
+		$("#addNewUnit").trigger("click");
 	});
 
 	$("#addNewUnit").click(function(event){
@@ -169,20 +168,11 @@ $(function(){
 		$(units).appendTo("#newunits");
 	});
 
-	$(".addUnit").click(function(event){
-		event.preventDefault();
-
-		$("#addNewUnit").trigger("click");
-		accId = $(this).attr("data-id");
-		$("#accId").val(accId);
-		$("#addUnitModal").modal("show");
-	});
-
 	$("#addUnitCanceled").click(function(event){
 		event.preventDefault();
 		
-		$("#addUnitModal").modal("close");
 		$("#newunits").empty();
+		$("#addUnitModal").modal("close");
 	});
 
 	$("#addUnitConfirmed").click(function(event){

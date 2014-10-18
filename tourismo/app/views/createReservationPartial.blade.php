@@ -316,13 +316,13 @@
 
 					<div class="row">
 							<div class="span4">
-								<input type="text" style="height:100%" id="discount" name="discount" placeholder="Popust"/>
+								<input type="text" style="height:100%" id="discount" name="discount" placeholder="Promoter"/>
 							</div>
 							<div class="span4">
 								<input type="text" style="height:100%" id="discounter" name="discounter" placeholder="Popust odobrio"/>
 							</div>
 							<div class="span4">
-								<input type="text" style="height:100%" id="clockindex" name="clockindex" placeholder="Clock Index"/>
+								<input type="text" style="height:100%" id="clockindex" name="clockindex" placeholder="U BUSu"/>
 							</div>
 					</div>
 

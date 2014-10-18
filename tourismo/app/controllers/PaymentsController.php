@@ -188,6 +188,7 @@ class PaymentsController extends \BaseController {
 		$pdf = null;
 		try{
 			$pdf = PDF::loadView('reports//payment_slip', array('reservation' => $reservation, 'passanger' => $passanger, 'payment' => $payment), array(),'UTF-8')->setPaper('a4')->stream('PAYMENT.pdf');
+			//return View::make('reports//payment_slip', array('reservation' => $reservation, 'passanger' => $passanger, 'payment' => $payment));
 		}
 		catch(\Exception $e)
 		{

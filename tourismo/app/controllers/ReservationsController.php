@@ -9,7 +9,7 @@ class ReservationsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$reservations = Reservation::orderBy('id', 'DESC')->paginate(20);
+		$reservations = Reservation::orderBy('travel_date', 'DESC')->paginate(20);
 
 		//dd($reservations->first()->traveldeal());
 		return View::make('reservations')->nest('reservationsPartial','reservationsPartial', array('reservations' => $reservations));
@@ -75,7 +75,7 @@ class ReservationsController extends \BaseController {
 							->where('reservation_number','=',$searchTerm)
 							->orWhere('reservations.passanger_id','=',$searchTerm)
 							->orWhere('passangers.passanger_id','=',$searchTerm)
-							->orderBy('reservations.id', 'DESC')->paginate(20);
+							->orderBy('reservations.travel_date', 'DESC')->paginate(20);
 		
 
 		return View::make('reservationsPartial',array('reservations' => $reservations));

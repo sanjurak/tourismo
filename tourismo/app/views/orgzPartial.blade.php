@@ -1,6 +1,6 @@
 <script type="text/javascript">
 $(function(){
-
+	
 	
 	$(".deleteOrg").click(function(event){
 		event.preventDefault();

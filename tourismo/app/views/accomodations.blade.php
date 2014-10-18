@@ -1,11 +1,13 @@
 @extends('home')
-
-@section('javascripts')
-	{{HTML::script('scripts/accommodations.js')}}
+@section("javascripts")
+{{HTML::script('scripts/accommodations.js')}}
 @stop
-
 @section('content')
-
+<style>
+	#newAccModal, #editUnitsModal, #addUnitModal{
+		display:none;
+	}
+</style>
 <div class="container">
 	<nav class="breadcrumbs large">
 	    <ul class="pull-left">

@@ -29,7 +29,9 @@ $(function(){
 	var list = $(".paymentNewModal");
 	for (i = 0, len = list.length; i < len; i++){
 		list[i].onclick=function(){
-			$("#paymentModal").show();
+		
+		$("#paymentModal").show();
+		
 			$.ajax({
                 url: 'paymentRsrvDetails',
                 type: 'GET',

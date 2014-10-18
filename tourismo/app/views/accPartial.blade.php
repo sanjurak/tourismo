@@ -1,9 +1,5 @@
-<script type="text/javascript">
-$(function(){
 
-	$(".editableC").editable();
-});
-</script>
+{{HTML::script('scripts/accommodations.js')}}
 
 {{ $accomodations->links() }}
 
