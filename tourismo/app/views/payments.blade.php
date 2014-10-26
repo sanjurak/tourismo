@@ -12,6 +12,8 @@
 </div>
 </br>
 
+@include('notifications')
+
 <div id="basicsearch" class="row">
 	<div class='form-search'>
 		<select name='search_item' id='basicPaymentSearch' placeholder="Pretraživanje prema jmbg putnika ili broju rezervacije" class='form-control'></select>

@@ -34,4 +34,18 @@ class Payment extends Eloquent {
 	{
 		return $this->belongsTo('Reservation', 'reservation_id');
 	}
+
+	public function getReservation()
+	{
+		$res = Reservation::find($this->reservation_id);
+		return $res;
+	}
+
+	public function payment_status()
+	{
+		if ($this->status == 1)
+			return "";
+		else
+			return "tr-alert";
+	}
 }

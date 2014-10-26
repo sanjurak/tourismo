@@ -64,6 +64,7 @@ $(document).ready(function(){
     $("#printPayment").click(function(event){
         window.open('paymentSlip/' + $(".modal-body #hidden_id")[0].value);
     });
+
 });
 
 function padStr(i) {

@@ -55,16 +55,27 @@ $(function(){
         {
             event.preventDefault();
         });
-
 });
+
+function storePayment(id){
+    var answer = confirm ("Da li ste sigurni da želite da stornirate uplatu?");
+    if (answer) {
+        var xmlHttp = null;
+        xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", "payment/delete/"+id, false );
+        xmlHttp.send( null );
+        location.reload( true );
+    }
+}
 </script>
 
 
 {{ $payments->links() }}
 
-<table class="table striped">
+<table class="table">
 	<thead style="font-weight:bold">
 		<tr>
+            <td>Broj Priznanice</td>
 			<td>Sredstvo plaćanja</td>
 			<td>Ime i jmbg putnika</td>
 			<td>Broj rezervacije</td>
@@ -77,21 +88,32 @@ $(function(){
 	</thead>
 	<tbody>
 	@foreach ($payments as $payment)
-		<tr>
+        <tr class="{{$payment->payment_status()}}">
+            <td>{{ $payment->id }}</td>
 			<td>{{ $payment->payment_type }}
 				@if ($payment->payment_type == "kartica")
 					{{ ' ('.$payment->card_type.')' }}
 				@endif
 			</td>
 			<td>{{ $payment->passanger->name}} {{ $payment->passanger->surname }}, {{ $payment->passanger->jmbg }}</td>
-			<td>{{ $payment->reservation->reservation_number }}</td>
-			<td>{{ $payment->date }}</td>
-			<td>{{ $payment->exchange_rate }}</td>
-			<td>{{ $payment->amount_din }}</td>
-			<td>{{ floatval($payment->amount_eur_din)/floatval($payment->exchange_rate) }}</td>
 			<td>
-				<a class="paymentDetails btn btn-primary pull-right" name="{{$payment->id}}" role="button" data-toggle="modal" href="#paymentDetailModal">
-				<span class="icon-edit"></span>
+                <a name="contract{{$payment->getReservation()->id}}" id="printContract" href="contract/{{$payment->getReservation()->id}}" target="_blank" title="Štampa ugovora">
+                    {{ $payment->reservation->reservation_number }}
+                </a>
+            </td>
+			<td>{{ $payment->date }}</td>
+			<td>{{ number_format($payment->exchange_rate, 2) }}</td>
+			<td>{{ number_format($payment->amount_din, 2) }}</td>
+			<td>{{ number_format(floatval($payment->amount_eur_din)/floatval($payment->exchange_rate), 2) }}</td>
+			<td>
+                @if (Auth::user()->isAdmin() && strlen($payment->payment_status()) == 0)
+                    <a role="button" class="delPayment btn btn-default btn-small pull-right" name="delete{{$payment->id}}" id="delPayment{{$payment->id}}" title="Storniranje plaćanja" onclick="storePayment({{$payment->id}})">
+                        <span class="icon-trash"></span>
+                    </a>
+                @endif
+				<a class="paymentDetails btn btn-default btn-small pull-right" name="{{$payment->id}}" role="button" data-toggle="modal" href="#paymentDetailModal">
+				    <span class="icon-edit"></span>
+                </a>
 			</td>
 		</tr>
 	@endforeach

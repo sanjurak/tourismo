@@ -37,14 +37,14 @@ $(function(){
         onChange: function(){
             var term = this.items[0];
             $.ajax({
-		url:"searchRes",
-		type:"POST",
-		data: {search_item: term },
-		dataType:"html",
-		success: function(data){
-			$("#reservationsPartial").empty().html(data);
-		}
-	});
+        		url:"searchRes",
+        		type:"POST",
+        		data: {search_item: term },
+        		dataType:"html",
+        		success: function(data){
+        			$("#reservationsPartial").empty().html(data);
+        		}
+        	});
         }
     });
     
@@ -53,14 +53,14 @@ $(function(){
 		selectize.clear();
 		selectize.clearOptions();
     	 $.ajax({
-		url:"searchRes",
-		type:"POST",
-		data: {search_item: "*"},
-		dataType:"html",
-		success: function(data){
-			$("#reservationsPartial").empty().html(data);
-		}
-	});
+    		url:"searchRes",
+    		type:"POST",
+    		data: {search_item: "*"},
+    		dataType:"html",
+    		success: function(data){
+    			$("#reservationsPartial").empty().html(data);
+    		}
+    	});
     });
 
 });

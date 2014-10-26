@@ -74,7 +74,7 @@
 				</div>
 		       	<span class="element-divider place-right"></span>
 		        <div id='exrate' class="element place-right">
-					Kurs EUR na dan: {{ floatval(Session::get('exchRate')) }} din
+					Kurs EUR na dan: {{ number_format(floatval(Session::get('exchRate')), 2) }} din
 				</div>
 		    </nav>
 		</nav>

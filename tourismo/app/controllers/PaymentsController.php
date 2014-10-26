@@ -87,7 +87,7 @@ class PaymentsController extends \BaseController {
 	{
 		$column = Input::get('name');
 		$value = Input::get('value');
-		Payments::where('id','=',$id)->update(array($column=>$value));
+		Payment::where('id','=',$id)->update(array($column=>$value));
 	}
 
 	/**
@@ -98,7 +98,9 @@ class PaymentsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-
+		Payment::where('id','=',$id)->update(array('status'=>2));
+		Session::flash('success',  "Uspešno storniranje plaćanja");
+		return Redirect::back();
 	}
 
 	public function autosearch()

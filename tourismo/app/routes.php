@@ -108,7 +108,8 @@ Route::group(array('before' => 'auth'), function(){
 	Route::post('basicPaymentsSearch', array('as' => 'basicPaymentsSearch', 'uses' => 'PaymentsController@basicSearch'));
 	Route::post('storePayment', array('as'=>'storePayment', 'uses'=>'PaymentsController@store'));
 	Route::get('paymentSlip/{id}', array('as'=>'paymentSlip', 'uses'=>'PaymentsController@paymentSlip'));
-
+	Route::get('payment/delete/{id}', array('as' => 'payment/delete', 'uses' => 'PaymentsController@destroy'));
+	
 	Route::get('reports', array('as'=>'reports', 'uses'=>'ReportsController@index'));
 
 	Route::post('basicSearch', array('as' => 'basicSearch', 'uses' => 'DestinationsController@basicSearch'));

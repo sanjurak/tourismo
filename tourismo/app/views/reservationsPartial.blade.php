@@ -87,18 +87,25 @@ $(function(){
 						$(".modal-body #left_to_pay_din")[0].innerHTML = "DIN: "+prd.left_to_pay_din;
 						if (prd.left_to_pay_din <= 0.0)
 							$(".modal-body #left_to_pay_din")[0].setAttribute("style","color:green");
+						else
+							$(".modal-body #left_to_pay_din")[0].setAttribute("style","color:red");
 						$(".modal-body #left_to_pay_eur")[0].innerHTML = "EUR: "+prd.left_to_pay_eur;
 						if (prd.left_to_pay_eur <= 0.0)
 							$(".modal-body #left_to_pay_eur")[0].setAttribute("style","color:green");
-
+						else
+							$(".modal-body #left_to_pay_eur")[0].setAttribute("style","color:red");
 						globalPsgLeftToPay = prd.passanger_left_to_pay;
 	                }
 				}
 			});			
 			$("#left_to_pay_din").text("DIN: 0");
+			$(".modal-body #left_to_pay_din")[0].setAttribute("style","color:green");
             $("#left_to_pay_eur").text("EUR: 0");
+            $(".modal-body #left_to_pay_eur")[0].setAttribute("style","color:green");
             $("#psg_left_to_pay_din").text("DIN: 0");
+            $(".modal-body #psg_left_to_pay_din")[0].setAttribute("style","color:green");
             $("#psg_left_to_pay_eur").text("EUR: 0");
+            $(".modal-body #psg_left_to_pay_eur")[0].setAttribute("style","color:green");
     		$(".payment-table-data").hide();
 		}
 	}
