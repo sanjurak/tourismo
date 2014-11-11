@@ -46,10 +46,17 @@ $(function(){
                     list = $(".modal-body input");
                     for (i = 0, len = list.length; i < len; i++){
                         if (list[i].getAttribute("id") != "session_exchange_rate" &&
-                        	list[i].getAttribute("id") != "reservation_number")
+                        	list[i].getAttribute("id") != "reservation_number" &&
+                        	list[i].getAttribute("id") != "reservation_number_i")
                         	list[i].value = "";
                     }
                     $(".modal-body #exchange_rate")[0].value = $(".modal-body #session_exchange_rate")[0].value;
+                    $(".modal-body #exchange_rate_i")[0].value = $(".modal-body #session_exchange_rate")[0].value;
+                    
+                    $("#type_of_payment")[0].value = "0";
+		            $("#excursion-form").slideUp();
+		            $("#payment-form").slideDown();
+
                     $(".modal-body #payment_type")[0].value = "";
                     $(".modal-body #card_type").hide();
                     list = $(".modal-body textarea");
@@ -62,11 +69,20 @@ $(function(){
 				    {
 				        selectbox.remove(i);
 				    }
+					selectbox = $(".modal-body #passanger_search_i")[0];
+				    for(i=selectbox.options.length-1;i>=1;i--)
+				    {
+				        selectbox.remove(i);
+				    }
 
                     if (res.data != null) {
                         var prd = jQuery.parseJSON(res.data);
+                        
                         $(".modal-body #reservation_id")[0].setAttribute("value", prd.reservation_id);
+                        $(".modal-body #reservation_id_i")[0].setAttribute("value", prd.reservation_id);
                         $(".modal-body #reservation_number")[0].setAttribute("value", prd.reservation_number);
+                    	$(".modal-body #reservation_number_i")[0].setAttribute("value", prd.reservation_number);
+                    	
                     	prd.passanger_names.forEach(function(entry) {
     						var opt = document.createElement('option');
 							opt.value = entry[0];
@@ -78,12 +94,26 @@ $(function(){
 						  selectPsgs[i].selectedIndex = 0;
 						}
 						$('.modal-body #passanger_search option:first-child').attr("selected", "selected");
+						
+						prd.passanger_names_i.forEach(function(entry) {
+    						var opt = document.createElement('option');
+							opt.value = entry[0];
+							opt.innerHTML = entry[1];
+							$(".modal-body #passanger_search_i")[0].appendChild(opt);
+						});
+                    	selectPsgs = $(".modal-body #passanger_search_i")[0];
+						for(var i = 0; i < selectPsgs.length; i++) {
+						  selectPsgs[i].selectedIndex = 0;
+						}
+						$('.modal-body #passanger_search_i option:first-child').attr("selected", "selected");
 
 						var today = new Date();
 						var dd = today.getDate();
 						var mm = today.getMonth()+1; //January is 0!
 						var yyyy = today.getFullYear();
 						$(".modal-body #res_date").val(dd+"-"+mm+"-"+yyyy);
+						$(".modal-body #res_date_i").val(dd+"-"+mm+"-"+yyyy);
+						
 						$(".modal-body #left_to_pay_din")[0].innerHTML = "DIN: "+prd.left_to_pay_din;
 						if (prd.left_to_pay_din <= 0.0)
 							$(".modal-body #left_to_pay_din")[0].setAttribute("style","color:green");
@@ -95,6 +125,18 @@ $(function(){
 						else
 							$(".modal-body #left_to_pay_eur")[0].setAttribute("style","color:red");
 						globalPsgLeftToPay = prd.passanger_left_to_pay;
+						
+						$(".modal-body #left_to_pay_din_i")[0].innerHTML = "DIN: "+prd.left_to_pay_din_i;
+						if (prd.left_to_pay_din_i <= 0.0)
+							$(".modal-body #left_to_pay_din_i")[0].setAttribute("style","color:green");
+						else
+							$(".modal-body #left_to_pay_din_i")[0].setAttribute("style","color:red");
+						$(".modal-body #left_to_pay_eur_i")[0].innerHTML = "EUR: "+prd.left_to_pay_eur_i;
+						if (prd.left_to_pay_eur_i <= 0.0)
+							$(".modal-body #left_to_pay_eur_i")[0].setAttribute("style","color:green");
+						else
+							$(".modal-body #left_to_pay_eur_i")[0].setAttribute("style","color:red");
+						globalPsgLeftToPayI = prd.passanger_left_to_pay_i;
 	                }
 				}
 			});			
@@ -107,6 +149,16 @@ $(function(){
             $("#psg_left_to_pay_eur").text("EUR: 0");
             $(".modal-body #psg_left_to_pay_eur")[0].setAttribute("style","color:green");
     		$(".payment-table-data").hide();
+    		
+    		$("#left_to_pay_din_i").text("DIN: 0");
+			$(".modal-body #left_to_pay_din_i")[0].setAttribute("style","color:green");
+            $("#left_to_pay_eur_i").text("EUR: 0");
+            $(".modal-body #left_to_pay_eur_i")[0].setAttribute("style","color:green");
+            $("#psg_left_to_pay_din_i").text("DIN: 0");
+            $(".modal-body #psg_left_to_pay_din_i")[0].setAttribute("style","color:green");
+            $("#psg_left_to_pay_eur_i").text("EUR: 0");
+            $(".modal-body #psg_left_to_pay_eur_i")[0].setAttribute("style","color:green");
+            $(".payment-table-data-i").hide();
 		}
 	}
 

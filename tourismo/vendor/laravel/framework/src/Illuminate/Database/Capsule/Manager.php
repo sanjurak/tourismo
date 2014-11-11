@@ -24,10 +24,10 @@ class Manager {
 	 * @var \Illuminate\Database\DatabaseManager
 	 */
 	protected $manager;
-	
+
 	/**
 	 * The container instance.
-	 * 
+	 *
 	 * @var \Illuminate\Container\Container
 	 */
 	protected $container;
@@ -60,7 +60,10 @@ class Manager {
 	{
 		$this->container = $container ?: new Container;
 
-		$this->container->instance('config', new Fluent);
+		if ( ! $this->container->bound('config'))
+		{
+			$this->container->instance('config', new Fluent);
+		}
 	}
 
 	/**

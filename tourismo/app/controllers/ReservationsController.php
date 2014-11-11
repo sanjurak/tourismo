@@ -813,6 +813,11 @@ class ReservationsController extends \BaseController {
 			$psg_data = array($psg->id, $psg->name.' '.$psg->surname.' JMBG: '.$psg->jmbg);
 			array_push($prd->passanger_names, $psg_data);
 
+			$psgExcCount = PassangerExcursion::where('passangerId','=',$passanger->passanger_id)
+									->where('reservationId','=',$reservation->id)->count();
+			if ($psgExcCount >= 1)
+				array_push($prd->passanger_names_i, $psg_data);
+
 			$pltp = new PsgLeftToPay();
 			$psgPrices = PassangerPrice::where('reservation_id','=',$reservation->id)->
 											where('passanger_id','=',$psg->id)->get();
@@ -832,6 +837,27 @@ class ReservationsController extends \BaseController {
 				$pltp->left_to_pay_eur -= round($payment->amount_eur_din/$payment->exchange_rate, 2);
 			}
 			$prd->passanger_left_to_pay[$psg->id] = $pltp;
+
+			$pltpi = new PsgLeftToPay();
+			$psgExcursions = PassangerExcursion::where('reservationId','=',$reservation->id)
+									->where('passangerId','=',$psg->id)->get();
+			foreach ($psgExcursions as $psgExc) {
+				$excursion = Excursion::find($psgExc->excursion_id);
+				if (preg_match('/\bpopust\b/i', $excursion->excursionItem) == 1) {
+					$pltpi->left_to_pay_din -= ($excursion->priceDin);
+					$pltpi->left_to_pay_eur -= ($excursion->priceEur);
+				} else {
+					$pltpi->left_to_pay_din += ($excursion->priceDin);
+					$pltpi->left_to_pay_eur += ($excursion->priceEur);
+				}
+			}
+			$excursion_payments = Excursion_payment::where('reservation_id','=',$reservation->id)->
+									where('passanger_id','=',$psg->id)->get();
+			foreach ($excursion_payments as $exc_payment) {
+				$pltpi->left_to_pay_din -= $exc_payment->amount_din;
+				$pltpi->left_to_pay_eur -= round($exc_payment->amount_eur_din/$exc_payment->exchange_rate, 2);
+			}
+			$prd->passanger_left_to_pay_i[$psg->id] = $pltpi;
 		}
 		$payments = Payment::where('reservation_id','=',$reservation->id)->get();
 		$prd->left_to_pay_din = $reservation->price_total_din;
@@ -839,6 +865,18 @@ class ReservationsController extends \BaseController {
 		foreach ($payments as $payment) {
 			$prd->left_to_pay_din -= $payment->amount_din;
 			$prd->left_to_pay_eur -= round($payment->amount_eur_din/$payment->exchange_rate, 2);
+		}
+
+		$res_excs = Reservation_excursion::where('reservationId','=',$reservation->id)->get();
+		foreach ($res_excs as $res_exc) {
+			$excursion = Excursion::find($res_exc->excursionId);
+			$prd->left_to_pay_din_i += $excursion->priceDin*$res_exc->num;
+			$prd->left_to_pay_eur_i += $excursion->priceEur*$res_exc->num;
+		}
+		$excursion_payments = Excursion_payment::where('reservation_id','=',$reservation->id)->get();
+		foreach ($excursion_payments as $exc_payment) {
+			$prd->left_to_pay_din_i -= $exc_payment->amount_din;
+			$prd->left_to_pay_eur_i -= round($exc_payment->amount_eur_din/$exc_payment->exchange_rate, 2);
 		}
 
 		return Response::json(array('data' => json_encode($prd)));
@@ -850,9 +888,13 @@ class PaymentResDetails {
 	public $reservation_number;
 	public $reservation_id;
 	public $passanger_names = array();
+	public $passanger_names_i = array();
 	public $left_to_pay_din;
 	public $left_to_pay_eur;
 	public $passanger_left_to_pay = array();
+	public $left_to_pay_din_i;
+	public $left_to_pay_eur_i;
+	public $passanger_left_to_pay_i = array();
 }
 
 class PsgLeftToPay {

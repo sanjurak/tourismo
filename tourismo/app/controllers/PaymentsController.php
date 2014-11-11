@@ -51,6 +51,31 @@ class PaymentsController extends \BaseController {
 		return Response::json(array('status' => "success", 'id' => $payment->id));
 	}
 
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function storeExcursionPayment()
+	{
+		$payment = new Excursion_payment;
+		
+		$payment->reservation_id = Input::get('reservation_id');
+		$payment->passanger_id = Input::get('passanger_search');
+		$date = date('Y-m-d', strtotime(Input::get('res_date')));
+		if ((string)$date != "1970-01-01") {
+			$payment->date = $date;
+		}
+		$payment->exchange_rate = Input::get('exchange_rate');
+		$payment->amount_din = Input::get('amount_din');
+		$payment->amount_eur_din = Input::get('amount_eur_eur')*Input::get('exchange_rate');
+		$payment->description = Input::get('description');
+		
+		$payment->save();
+		
+		return Response::json(array('status' => "success", 'id' => $payment->id));
+	}
+
 	public function addNew() {
 		
 	}
