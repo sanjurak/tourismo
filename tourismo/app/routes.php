@@ -22,7 +22,7 @@ Route::get('/', array('as'=>'loginpage', function()
 
 Route::get('/hello', function()
 {
-	return View::make('reports/memo');
+	return View::make('emails/reservation_request');
 });
 
 Route::get('/homepage', function()
@@ -76,7 +76,8 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('reservation/delete/{id}', array('as' => 'reservation/delete', 'uses' => 'ReservationsController@destroy'));
 	Route::get('autocompleteRES', array('as' => 'autocompleteRES', 'uses' => 'ReservationsController@autosearch'));
 	Route::post('searchRes', array('as' => 'searchRes', 'uses' => 'ReservationsController@searchRes'));
-	
+	Route::get('reservation_request/{id}', array('as' => 'reservation_request','uses' => 'ReservationsController@reservation_request'));
+
 	Route::get('editReservation/{id}', array('as' => 'editReservation', 'uses' => 'ReservationsController@show'));
 	Route::post('updateReservation/{id}', array('as' => 'updateReservation', 'uses' => 'ReservationsController@update'));
 

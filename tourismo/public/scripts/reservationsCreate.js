@@ -835,6 +835,7 @@ $("#addPsgPaymentItem").click(function(event){
 
     $("#createReservationForm").submit(function(e){
        e.preventDefault();
+
        var internalChecked = $("#internal").is(":checked");
        var data = $("#createReservationForm").serialize() + "&" + $("#passangersDetailsForm").serialize() 
                 + "&" + "Internal="+internalChecked;
@@ -862,9 +863,16 @@ $("#addPsgPaymentItem").click(function(event){
             data: data,
             success:function(data)
             {
-                if(data.status == "success")
+                if(data.status == "success") {
                     window.open('contract/' + data.id);
-                  window.location.href = "reservations";
+
+                    var msg = 'Poslati zahtev za rezervacijom?';
+                    var answer = confirm (msg);
+                    if (answer) {
+                        window.open('reservation_request/' + data.id);
+                    }
+                }
+                window.location.href = "reservations";
             },
             error: function(){
 

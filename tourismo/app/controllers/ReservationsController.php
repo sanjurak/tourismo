@@ -420,6 +420,39 @@ class ReservationsController extends \BaseController {
 		return $pdf;
 	}
 
+	public function reservation_request($id)
+	{
+		$reservation = Reservation::find($id);
+		$passangers_query = Passanger::join("passangers","passanger.id","=","passangers.passanger_id")
+								->where("reservation_id","=",$reservation->id)
+								->select("passanger.name", "passanger.surname", "passanger.tel", "passanger.mob", "passanger.passport", "passanger.birth_date");
+		$passangers = $passangers_query->get();
+		$passangers_count = $passangers_query->count();
+		$trvl_dl = Travel_deals::find($reservation->travel_deal_id);
+		$organizer = Organizers::find($trvl_dl->organizer_id);
+		$destination = Destination::find($trvl_dl->destination_id);
+		$accomodation_unit = Accomodation_units::find($trvl_dl->accomodation_unit_id);
+		$accomodation = Accomodations::find($accomodation_unit->accommodations_id);
+
+		$sent = Mail::send('emails//reservation_request', array('reservation' => $reservation, 'passangers' => $passangers, 'organizer' => $organizer, 'travel_deal' => $trvl_dl, 'destination' => $destination, 'accomodation_unit' => $accomodation_unit, 'accomodation' => $accomodation, 'passangers_count' => $passangers_count), function($message) use ($organizer)
+		{
+		    $message->to($organizer->email, $organizer->name)->subject('Zahtev za rezervacijom');
+		});
+
+		if ($sent == 1) {
+			$pdf = null;
+			try{
+				$pdf = PDF::loadView('emails//reservation_request', array('reservation' => $reservation, 'passangers' => $passangers, 'organizer' => $organizer, 'travel_deal' => $trvl_dl, 'destination' => $destination, 'accomodation_unit' => $accomodation_unit, 'accomodation' => $accomodation, 'passangers_count' => $passangers_count),array(),'UTF-8')->stream('REQUEST.pdf');
+			}
+			catch(\Exception $e)
+			{
+				return Response::json(array('status' => "failure", 'message' => $e->getMessage()));
+			}
+			return $pdf;
+		}
+		return "Mail not sent...";
+	}
+
 	/**
 	 * Display the specified resource.
 	 *

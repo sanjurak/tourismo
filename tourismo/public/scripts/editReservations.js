@@ -715,8 +715,8 @@ $("#traveldealsSel").selectize({
                 + "TotalEUR" + "=" + $(".finalPayment #totalEUR").val();
 
        //alert(data);
-       
-     var resId = $("#reservationId").val();
+
+        var resId = $("#reservationId").val();
         $.ajax({
 
             url: "updateReservation/" + resId,
@@ -727,8 +727,14 @@ $("#traveldealsSel").selectize({
                 if(data.status == "success")
                 {
                     window.open('contract/' + data.id);
-                  window.location.href = "reservations";
+
+                    var msg = 'Poslati zahtev za rezervacijom?';
+                    var answer = confirm (msg);
+                    if (answer) {
+                        window.open('reservation_request/' + data.id);
+                    }
                 }
+                window.location.href = "reservations";
             },
             error: function(){
 
