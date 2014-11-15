@@ -434,12 +434,12 @@ class ReservationsController extends \BaseController {
 		$accomodation_unit = Accomodation_units::find($trvl_dl->accomodation_unit_id);
 		$accomodation = Accomodations::find($accomodation_unit->accommodations_id);
 
-		$sent = Mail::send('emails//reservation_request', array('reservation' => $reservation, 'passangers' => $passangers, 'organizer' => $organizer, 'travel_deal' => $trvl_dl, 'destination' => $destination, 'accomodation_unit' => $accomodation_unit, 'accomodation' => $accomodation, 'passangers_count' => $passangers_count), function($message) use ($organizer)
-		{
-		    $message->to($organizer->email, $organizer->name)->subject('Zahtev za rezervacijom');
-		});
-
-		if ($sent == 1) {
+//		$sent = Mail::send('emails//reservation_request', array('reservation' => $reservation, 'passangers' => $passangers, 'organizer' => $organizer, 'travel_deal' => $trvl_dl, 'destination' => $destination, 'accomodation_unit' => $accomodation_unit, 'accomodation' => $accomodation, 'passangers_count' => $passangers_count), function($message) use ($organizer)
+//		{
+//		    $message->to($organizer->email, $organizer->name)->subject('Zahtev za rezervacijom');
+//		});
+//
+//		if ($sent == 1) {
 			$pdf = null;
 			try{
 				$pdf = PDF::loadView('emails//reservation_request', array('reservation' => $reservation, 'passangers' => $passangers, 'organizer' => $organizer, 'travel_deal' => $trvl_dl, 'destination' => $destination, 'accomodation_unit' => $accomodation_unit, 'accomodation' => $accomodation, 'passangers_count' => $passangers_count),array(),'UTF-8')->stream('REQUEST.pdf');
@@ -449,8 +449,8 @@ class ReservationsController extends \BaseController {
 				return Response::json(array('status' => "failure", 'message' => $e->getMessage()));
 			}
 			return $pdf;
-		}
-		return "Mail not sent...";
+//		}
+//		return "Mail not sent...";
 	}
 
 	/**
