@@ -864,7 +864,8 @@ class ReservationsController extends \BaseController {
 				}
 			}
 			$payments = Payment::where('reservation_id','=',$reservation->id)->
-									where('passanger_id','=',$psg->id)->get();
+									where('passanger_id','=',$psg->id)->
+									where('status','=',1)->get();
 			foreach ($payments as $payment) {
 				$pltp->left_to_pay_din -= $payment->amount_din;
 				$pltp->left_to_pay_eur -= round($payment->amount_eur_din/$payment->exchange_rate, 2);
@@ -885,14 +886,16 @@ class ReservationsController extends \BaseController {
 				}
 			}
 			$excursion_payments = Excursion_payment::where('reservation_id','=',$reservation->id)->
-									where('passanger_id','=',$psg->id)->get();
+									where('passanger_id','=',$psg->id)->
+									where('status','=',1)->get();
 			foreach ($excursion_payments as $exc_payment) {
 				$pltpi->left_to_pay_din -= $exc_payment->amount_din;
 				$pltpi->left_to_pay_eur -= round($exc_payment->amount_eur_din/$exc_payment->exchange_rate, 2);
 			}
 			$prd->passanger_left_to_pay_i[$psg->id] = $pltpi;
 		}
-		$payments = Payment::where('reservation_id','=',$reservation->id)->get();
+		$payments = Payment::where('reservation_id','=',$reservation->id)->
+									where('status','=',1)->get();
 		$prd->left_to_pay_din = $reservation->price_total_din;
 		$prd->left_to_pay_eur = $reservation->price_total_eur;
 		foreach ($payments as $payment) {
@@ -906,7 +909,8 @@ class ReservationsController extends \BaseController {
 			$prd->left_to_pay_din_i += $excursion->priceDin*$res_exc->num;
 			$prd->left_to_pay_eur_i += $excursion->priceEur*$res_exc->num;
 		}
-		$excursion_payments = Excursion_payment::where('reservation_id','=',$reservation->id)->get();
+		$excursion_payments = Excursion_payment::where('reservation_id','=',$reservation->id)->
+									where('status','=',1)->get();
 		foreach ($excursion_payments as $exc_payment) {
 			$prd->left_to_pay_din_i -= $exc_payment->amount_din;
 			$prd->left_to_pay_eur_i -= round($exc_payment->amount_eur_din/$exc_payment->exchange_rate, 2);
