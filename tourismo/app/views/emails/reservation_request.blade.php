@@ -115,7 +115,8 @@
 <table>
 	<tr valign="bottom" rowspan='2'>
 		<td colspan='4'>
-			<b>NAPOMENA:</b>
+			<b>NAPOMENA: </b>
+			<p class="res-req-note">{{$}}</p>
 		</td>
 	</tr>
 </table>

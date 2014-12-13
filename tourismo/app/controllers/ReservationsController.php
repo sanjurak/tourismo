@@ -75,7 +75,9 @@ class ReservationsController extends \BaseController {
 							->where('reservation_number','=',$searchTerm)
 							->orWhere('reservations.passanger_id','=',$searchTerm)
 							->orWhere('passangers.passanger_id','=',$searchTerm)
-							->orderBy('reservations.travel_date', 'DESC')->paginate(20);
+							->orderBy('reservations.travel_date', 'DESC')
+							->groupBy("reservation_number")
+							->paginate(20);
 		
 
 		return View::make('reservationsPartial',array('reservations' => $reservations));
@@ -237,13 +239,16 @@ class ReservationsController extends \BaseController {
 			$items = $_POST["Item"];
 			$passangers = $_POST["Passangers"];
 			$passangersPrices = $_POST["PsgItem"];
-
 			
 			$res_num = "";
 
 			if($resNum != null && $resNum != "")
 			{
 				$res_num = $resNum;
+				if($internal == "true")
+				 	$internal = 1;
+				else
+					$internal = 0;
 			}
 			else
 			{

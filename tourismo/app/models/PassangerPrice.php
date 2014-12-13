@@ -55,8 +55,8 @@ class PassangerPrice extends Eloquent {
 				$debt->passanger_tel = $passanger->mob;
 			}
 
-			if ($reservation_id == 0 || $reservation_id != $reservation->id) {
-				if ($reservation_id != 0)
+			if ($reservation_id == 0 || $reservation->id > $reservation_id) {
+				if ($reservation_id > 0)
 					array_push($debt->reservations, $reservationPsg);
 				$reservation_id = $reservation->id;
 				$reservationPsg = new ReservationPsg();

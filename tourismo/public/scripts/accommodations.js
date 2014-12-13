@@ -4,6 +4,8 @@ $(function(){
 	$("#editUnitsModal").hide();
 	$("#addUnitModal").hide();
 	*/
+	$('#newAccModal .modal-body .btn').off('click');
+
 	$("[rel='tooltip']").popover();
 
 	$("#typeModNew").selectize({
@@ -91,6 +93,7 @@ $(function(){
 	
 	});
 
+	$("#newAccBtn").off("click");
 	$("#newAccBtn").click(function(event){
 		event.preventDefault();
 		$("#newAccForm").trigger("submit");
@@ -147,6 +150,19 @@ $(function(){
 
 	var counter = 0;
 
+	$("#addUnit").click(function(e){
+		e.preventDefault();
+		var units = $(".hiddenUnit").clone(true);
+		units.show().removeClass("hiddenUnit");
+		units.find("#nameUnitModNew").attr("name","Unit["+counter+"][name]");
+		units.find("#capacityUnitModNew").attr("name","Unit["+counter+"][capacity]");
+		units.find("#numberUnitModNew").attr("name","Unit["+counter+"][number]");
+
+		counter++;
+		$(units).appendTo("#units");
+	});
+
+	$(".addUnit").off("click");
 	$(".addUnit").click(function(event){
 		event.preventDefault();
 		$accid = $(this).attr("data-id");
@@ -156,6 +172,7 @@ $(function(){
 		$("#addNewUnit").trigger("click");
 	});
 
+	$("#addNewUnit").off("click");
 	$("#addNewUnit").click(function(event){
 		event.preventDefault();
 		var units = $(".hiddenUnit").clone(true);
@@ -175,6 +192,7 @@ $(function(){
 		$("#addUnitModal").modal("close");
 	});
 
+	$("#addUnitConfirmed").off("click");
 	$("#addUnitConfirmed").click(function(event){
 		event.preventDefault();
 		
@@ -230,6 +248,7 @@ $(function(){
 		$("#deleteAccModal").modal("close");
 	});
 
+	$(".unit").off("click");
 	$(".unit").click(function(event){
 		event.preventDefault();
 		var accId = $(this).attr("acc-id");
@@ -268,4 +287,10 @@ $(function(){
 		event.preventDefault();
 		$("#editUnitsModal").modal("close");
 	});
+
+	$("closeNewAccModal").click(function(e){
+		e.preventDefault();
+		$("#units").empty();
+		$("#newAccModal").modal("close");
+	})
 });

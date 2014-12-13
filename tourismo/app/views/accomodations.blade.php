@@ -89,14 +89,13 @@
 	<div class="form-inline">
 		<fieldset>
 			<legend>Smestajna jedinica</legend>
-					    	<!--<select name='nameUnit[]' class='nameUnitModNew' placeholder="Tip smeštajne jedinice" class='form-control'></select>-->
+			<!--<select name='nameUnit[]' class='nameUnitModNew' placeholder="Tip smeštajne jedinice" class='form-control'></select>-->
 		    	<input type="text" id="nameUnitModNew" class="input-large input-size validate[required]" placeholder="Tip jedinice">
 		      <input type="text" id="capacityUnitModNew" class="input-large input-size validate[required]" placeholder="Broj kreveta">
 		      <input type="text" id="numberUnitModNew" class="input-large input-size validate[required]" placeholder="Broj jedinica">
 		      <a href="#" id="removeUnit" class="pull-right"><span class="icon icon-remove-sign"></span></a>
 		</fieldset>
-
-		  </div>
+	</div>
 </div>
 
 <div class="row">
