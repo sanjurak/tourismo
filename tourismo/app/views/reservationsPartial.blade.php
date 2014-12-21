@@ -25,6 +25,29 @@ $(function(){
 		});
 	});
 	
+	$(".resDelete").click(function(event){
+	
+		event.preventDefault();
+		
+		if(confirm ("Da li ste sigurni da želite da stornirate rezervaciju?"))
+		{
+			$resid = $(this).attr("data-id");
+			
+			$.ajax({
+				url: "reservation/delete/" + $resid,
+				type: "GET",
+				success: function(data)
+				{
+				if(data.status = "success")
+					window.location.href = "reservations";
+				},
+				error:function(data){
+					alert(data.message);
+				}
+			});
+		}
+	});
+	
 	
 	var list = $(".paymentNewModal");
 	for (i = 0, len = list.length; i < len; i++){
@@ -162,8 +185,19 @@ $(function(){
 		}
 	}
 
-
 });
+
+function storeReservation(id){
+    var answer = confirm ("Da li ste sigurni da želite da stornirate rezervaciju?");
+    alert(answer);
+    if (answer) {
+        var xmlHttp = null;
+        xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", "reservation/delete/"+id, false );
+        xmlHttp.send( null );
+        location.reload( true );
+    }
+}
 </script>
 
 {{$reservations->links()}}
@@ -202,32 +236,32 @@ $(function(){
 			
 			
 			@if($reservation->reservation_id)
-				<a role="button" class="paymentNewModal btn btn-default btn-small" name="{{$reservation->reservation_id}}" id="addNewPayment" data-toggle="modal" href="#paymentNewModal" title="Dodaj novo plaÄ‡anje">
+				<a role="button" class="paymentNewModal btn btn-default btn-small" name="{{$reservation->reservation_id}}" id="addNewPayment" data-toggle="modal" href="#paymentNewModal" title="Dodaj novo placanje">
 					<span class="icon-plus"></span>
 				</a>
-				<a role="button" class="btn btn-default btn-small" name="contract{{$reservation->reservation_id}}" id="printContract" href="contract/{{$reservation->reservation_id}}" target="_blank" title="Å tampa ugovora">
+				<a role="button" class="btn btn-default btn-small" name="contract{{$reservation->reservation_id}}" id="printContract" href="contract/{{$reservation->reservation_id}}" target="_blank" title="Štampa ugovora">
 					<span class="icon-print"></span>
 				</a>
 				<a role="button" class="btn btn-default btn-small editReservation" name="{{$reservation->reservation_id}}"  href="#" title="Izmena rezervacije">
 					<span class="icon-edit"></span>
 				</a>
 				@if (Auth::user()->isAdmin())
-				<a role="button" class="btn btn-default btn-small" name="delete{{$reservation->reservation_id}}" id="delReservation" href="reservation/delete/{{$reservation->reservation_id}}" title="Brisanje rezervacije">
+				<a role="button" class="btn btn-default btn-small resDelete" name="delete{{$reservation->reservation_id}}" id="delReservation{{$reservation->reservation_id}}" title="Brisanje rezervacije" data-id={{$reservation->reservation_id}} >
 					<span class="icon-trash"></span>
 				</a>
 				@endif
 			@else
-				<a role="button" class="paymentNewModal btn btn-default btn-small" name="{{$reservation->id}}" id="addNewPayment" data-toggle="modal" href="#paymentNewModal" title="Dodaj novo plaÄ‡anje">
+				<a role="button" class="paymentNewModal btn btn-default btn-small" name="{{$reservation->id}}" id="addNewPayment" data-toggle="modal" href="#paymentNewModal" title="Dodaj novo placanje">
 					<span class="icon-plus"></span>
 				</a>
-				<a role="button" class="btn btn-default btn-small" name="contract{{$reservation->id}}" id="printContract" href="contract/{{$reservation->id}}" target="_blank" title="Å tampa ugovora">
+				<a role="button" class="btn btn-default btn-small" name="contract{{$reservation->id}}" id="printContract" href="contract/{{$reservation->id}}" target="_blank" title="Štampa ugovora">
 					<span class="icon-print"></span>
 				</a>
 				<a role="button" class="btn btn-default btn-small editReservation" name="{{$reservation->id}}"  href="#" title="Izmena rezervacije">
 					<span class="icon-edit"></span>
 				</a>
 				@if (Auth::user()->isAdmin())
-				<a role="button" class="btn btn-default btn-small" name="delete{{$reservation->id}}" id="delReservation" href="reservation/delete/{{$reservation->id}}" title="Brisanje rezervacije">
+				<a role="button" class="btn btn-default btn-small resDelete" name="delete{{$reservation->id}}" id="delReservation{{$reservation->id}}" title="Brisanje rezervacije" data-id={{$reservation->id}} >
 					<span class="icon-trash"></span>
 				</a>
 				@endif

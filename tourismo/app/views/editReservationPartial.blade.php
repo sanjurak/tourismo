@@ -33,7 +33,7 @@
 <div class="row">
 	<div class="span12">
 	<form id="generalInfo" name="reservationGeneralInfo">
-		Broj rezervacije: <input type="text" name="reservation_number" id="resNum" value={{$reservation->reservation_number}} class="validate[required]" />
+		Broj rezervacije: <input type="text" name="reservation_number" id="resNum" value="{{$reservation->reservation_number}}" class="validate[required]" />
 		</form>
 	</div>
 </div>

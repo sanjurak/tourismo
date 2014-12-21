@@ -818,6 +818,7 @@ class ReservationsController extends \BaseController {
 		try{		
 			$affectedrows = Reservation_price::where("reservationId","=",$id)->delete();
 			$excursionrows = Reservation_excursion::where("reservationId","=",$id)->delete();
+			$excursionrows = PassangerExcursion::where("reservationId","=",$id)->delete();
 			$psgrows = Passangers::where("reservation_id","=",$id)->delete();
 			$resLog = ReservationsLog::where("reservation_id", "=", $id)->delete();
 			
@@ -829,8 +830,9 @@ class ReservationsController extends \BaseController {
 			return Response::json(array('status' => "failure", 'message' => $e->getMessage()));
 		}
 		DB::commit();
-		Session::flash('success',  "Uspešno brisanje rezervacije");
-		return Redirect::back();
+		/*Session::flash('success',  "Uspešno brisanje rezervacije");
+		return Redirect::back();*/
+		return Response::json(array('status' => "success", 'message' =>  "Uspešno brisanje rezervacije"));
 	}
 
 	/**
