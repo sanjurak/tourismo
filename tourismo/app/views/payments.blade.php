@@ -21,6 +21,9 @@
 	<div class="">
 		 <a role="button" class="btn btn-default btn-small" id="bresetPayment">Resetuj pretragu</a>
 	</div>
+	<div>
+		
+	</div>
 </div>
 
 <p/>

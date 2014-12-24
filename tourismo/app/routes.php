@@ -89,6 +89,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::post('passangerEdit/{id}', array('as'=>'passangerEdit', 'uses'=>'PassangersController@update'));
 	Route::get('autocompletePSG', array('as' => 'autocompletePSG', 'uses' => 'PassangersController@autosearch'));
 	Route::post('basicPsgSearch', array('as' => 'basicPsgSearch', 'uses' => 'PassangersController@basicSearch'));
+	Route::post('basicPsgForPeriodSearch', array('as' => 'basicPsgForPeriodSearch', 'uses' => 'PassangersController@basicPsgForPeriodSearch'));
 	Route::get('passangerDetails', array('as' => 'passangerDetails', 'uses' => 'PassangersController@details'));
 	Route::post('addPassanger', array('as' => 'addPassanger', 'uses' => 'PassangersController@addNew'));
 
@@ -172,7 +173,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('debts', array('as' => 'debts', 'uses' => 'PassangersController@debts'));
 	Route::get('dailyincome', function(){	return View::make('dailyincome'); });
 	Route::get('incomeforperiod', function(){	return View::make('incomeforperiod'); });
-	Route::get('passangersforperiod', function(){	return View::make('passangersforperiod'); });
+	Route::get('passangersforperiod', array('as' => 'passangersforperiod', 'uses' => 'PassangersController@psgforperiod'));
 	Route::get('excursions', function(){	return View::make('excursions'); });
 	Route::get('greenlist', function(){	return View::make('greenlist'); });
 });

@@ -21,6 +21,12 @@ class PassangersController extends \BaseController {
 		return View::make('debts')->nest('debtsPartial','debtsPartial', array('debts' => $debts));
 	}
 
+	public function psgforperiod()
+	{
+		$passangers = Passanger::orderBy('id', 'DESC')->get();
+		return View::make('passangersforperiod', array('passangers' => $passangers))->nest('psgForPeriodPartial','psgForPeriodPartial', array('passangers' => $passangers));
+	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -201,10 +207,54 @@ class PassangersController extends \BaseController {
 				$passangers = Passanger::whereRaw("CONCAT (name,' ',surname) LIKE '$searchTerm%'")->paginate(10);
 				if (count($passangers) == 0) {
 					$passangers = Passanger::whereRaw("CONCAT (name,' ',surname,' ',address) LIKE '$searchTerm%'")->paginate(10);
-			}
+				}
 			}
 		}
 		return View::make('psgPartial', array('passangers' => $passangers));
+	}
+
+	public function basicPsgForPeriodSearch()
+	{
+		$cat = Input::get('cat_item','');
+		$dst = Input::get('dst_item','');
+		$passangers = null;
+		
+		if (($cat == "" || $cat == null) && ($dst == "" || $dst == null))
+			$passangers = Passanger::orderBy('id', 'DESC')->get();
+		elseif ($dst == "") {
+			$passangers = DB::table('passanger')
+	            ->join('passangers', 'passangers.passanger_id', '=', 'passanger.id')
+	            ->join('reservations', 'reservations.id', '=', 'passangers.reservation_id')
+	            ->join('travel_deals', 'travel_deals.id', '=', 'reservations.travel_deal_id')
+	            ->join('categories', 'categories.id', '=', 'travel_deals.category_id')
+	            ->select('passanger.*')
+	            ->where('categories.name', 'LIKE', $cat)
+	            ->get();
+		} elseif ($cat == "") {
+			$dsts = explode(', ', $dst);
+			$passangers = DB::table('passanger')
+	            ->join('passangers', 'passangers.passanger_id', '=', 'passanger.id')
+	            ->join('reservations', 'reservations.id', '=', 'passangers.reservation_id')
+	            ->join('travel_deals', 'travel_deals.id', '=', 'reservations.travel_deal_id')
+	            ->join('destinations', 'destinations.id', '=', 'travel_deals.destination_id')
+	            ->select('passanger.*')
+	            ->where('destinations.town', 'LIKE', $dsts[0])->where('destinations.country', 'LIKE', $dsts[1])
+	            ->get();
+		} else {
+			$dsts = explode(', ', $dst);
+			$passangers = DB::table('passanger')
+	            ->join('passangers', 'passangers.passanger_id', '=', 'passanger.id')
+	            ->join('reservations', 'reservations.id', '=', 'passangers.reservation_id')
+	            ->join('travel_deals', 'travel_deals.id', '=', 'reservations.travel_deal_id')
+	            ->join('destinations', 'destinations.id', '=', 'travel_deals.destination_id')
+	            ->join('categories', 'categories.id', '=', 'travel_deals.category_id')
+	            ->select('passanger.*')
+	            ->where('categories.name', 'LIKE', $cat)
+	            ->where('destinations.town', 'LIKE', $dsts[0])->where('destinations.country', 'LIKE', $dsts[1])
+	            ->get();
+		}
+
+		return View::make('psgForPeriodPartial', array('passangers' => $passangers));
 	}
 
 	public function details()

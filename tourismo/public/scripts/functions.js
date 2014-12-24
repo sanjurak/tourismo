@@ -11,6 +11,22 @@ function SearchPsg(term)
 		});
 }
 
+function SearchPassangers(cat, dst)
+{
+	$.ajax({
+		url: 'basicPsgForPeriodSearch',
+		type: 'POST',
+		data: {
+			cat_item: cat,
+			dst_item: dst
+		},
+		dataType: 'html',
+		success: function(data){
+			$('#passangersData').empty().html(data);
+		}
+	});
+}
+
 function SearchPayments(term)
 {
 	$.ajax({
