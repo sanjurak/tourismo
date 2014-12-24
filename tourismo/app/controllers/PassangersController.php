@@ -229,6 +229,7 @@ class PassangersController extends \BaseController {
 	            ->join('categories', 'categories.id', '=', 'travel_deals.category_id')
 	            ->select('passanger.*')
 	            ->where('categories.name', 'LIKE', $cat)
+	            ->groupBy("passanger.id")
 	            ->get();
 		} elseif ($cat == "") {
 			$dsts = explode(', ', $dst);
@@ -239,6 +240,7 @@ class PassangersController extends \BaseController {
 	            ->join('destinations', 'destinations.id', '=', 'travel_deals.destination_id')
 	            ->select('passanger.*')
 	            ->where('destinations.town', 'LIKE', $dsts[0])->where('destinations.country', 'LIKE', $dsts[1])
+	            ->groupBy("passanger.id")
 	            ->get();
 		} else {
 			$dsts = explode(', ', $dst);
@@ -251,6 +253,7 @@ class PassangersController extends \BaseController {
 	            ->select('passanger.*')
 	            ->where('categories.name', 'LIKE', $cat)
 	            ->where('destinations.town', 'LIKE', $dsts[0])->where('destinations.country', 'LIKE', $dsts[1])
+	            ->groupBy("passanger.id")
 	            ->get();
 		}
 
