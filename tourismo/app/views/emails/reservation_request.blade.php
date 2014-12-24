@@ -116,13 +116,15 @@
 	<tr valign="bottom" rowspan='2'>
 		<td colspan='4'>
 			<b>NAPOMENA: </b>
-			<p class="res-req-note">{{$}}</p>
 		</td>
 	</tr>
 </table>
 <table border='1' width="100%">
 	<tr rowspan='3'>
-		<td><br><br><br></td>
+		<td>
+			<p class="res-req-note">{{$reservation->note}}</p>
+			<br><br>
+		</td>
 	</tr>
 </table>
 <p>
