@@ -54,7 +54,7 @@ $(function(){
 		<td>
 			{{ $debt->passanger_jmbg }}</td>
 		<td>
-			{{ number_format($debt->debt_eur, 2) }}</td>
+			{{ number_format($debt->debt_eur, 2) }}€</td>
 		<td>
 			{{ number_format($debt->debt_din, 2) }}</td>
 	</tr>
@@ -76,7 +76,7 @@ $(function(){
 					<td>{{ $resPsg->reservation_number }}</td>
 					<td>{{ $resPsg->res_start_date }}</td>
 					<td>{{ $resPsg->destination }}</td>
-					<td>{{ number_format($resPsg->left_to_pay_eur, 2) }}</td>
+					<td>{{ number_format($resPsg->left_to_pay_eur, 2) }}€</td>
 					<td>{{ number_format($resPsg->left_to_pay_din, 2) }}</td>
 				</tr>
 				@endforeach
