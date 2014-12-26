@@ -53,6 +53,7 @@ class PassangerPrice extends Eloquent {
 				$debt->passanger_jmbg = $passanger->jmbg;
 				$debt->passanger_address = $passanger->address;
 				$debt->passanger_tel = $passanger->mob;
+				$reservation_id = 0;
 			}
 
 			if ($reservation_id == 0 || $reservation->id > $reservation_id) {
@@ -64,18 +65,18 @@ class PassangerPrice extends Eloquent {
 				$reservationPsg->reservation_number = $reservation->reservation_number;
 				$reservationPsg->res_start_date = $reservation->start_date;
 				$reservationPsg->destination = $reservation->destination();
-			}
 
-			$payments = Payment::where('passanger_id', '=', $passanger_id)->
-									where('status', '=', 1)->get();
-			foreach ($payments as $payment) {
-				$paymentReservation = Reservation::find($payment->reservation_id);
-				if ($paymentReservation->id == $reservationPsg->reservation_id) {
-					$reservationPsg->left_to_pay_din -= floatval($payment->amount_din);
-					$reservationPsg->left_to_pay_eur -= round(floatval($payment->amount_eur_din)/$payment->exchange_rate,2);
-				
-					$debt->debt_din -= floatval($payment->amount_din);
-					$debt->debt_eur -= round(floatval($payment->amount_eur_din)/$payment->exchange_rate,2);
+				$payments = Payment::where('passanger_id', '=', $passanger_id)->
+										where('status', '=', 1)->get();
+				foreach ($payments as $payment) {
+					$paymentReservation = Reservation::find($payment->reservation_id);
+					if ($paymentReservation && $paymentReservation->id == $reservationPsg->reservation_id) {
+						$reservationPsg->left_to_pay_din -= floatval($payment->amount_din);
+						$reservationPsg->left_to_pay_eur -= round(floatval($payment->amount_eur_din)/$payment->exchange_rate,2);
+					
+						$debt->debt_din -= floatval($payment->amount_din);
+						$debt->debt_eur -= round(floatval($payment->amount_eur_din)/$payment->exchange_rate,2);
+					}
 				}
 			}
 
@@ -91,8 +92,10 @@ class PassangerPrice extends Eloquent {
 				$reservationPsg->left_to_pay_eur += ($psgPrice->price_eur*$psgPrice->num);
 			}
 		}
-		if ($debt->debt_din > 1 || $debt->debt_eur > 1)
+		if ($debt->debt_din > 1 || $debt->debt_eur > 1) {
+			array_push($debt->reservations, $reservationPsg);
 			array_push($debts, $debt);
+		}
 		return $debts;
 	}
 }

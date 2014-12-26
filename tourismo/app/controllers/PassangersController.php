@@ -16,14 +16,12 @@ class PassangersController extends \BaseController {
 	public function debts()
 	{
 		$debts = PassangerPrice::debts();
-
-		//dd($reservations->first()->traveldeal());
 		return View::make('debts')->nest('debtsPartial','debtsPartial', array('debts' => $debts));
 	}
 
 	public function psgforperiod()
 	{
-		$passangers = Passanger::orderBy('id', 'DESC')->get();
+		$passangers = Passanger::orderBy('id', 'DESC')->take(100)->get();
 		return View::make('passangersforperiod', array('passangers' => $passangers))->nest('psgForPeriodPartial','psgForPeriodPartial', array('passangers' => $passangers));
 	}
 
@@ -220,7 +218,7 @@ class PassangersController extends \BaseController {
 		$passangers = null;
 		
 		if (($cat == "" || $cat == null) && ($dst == "" || $dst == null))
-			$passangers = Passanger::orderBy('id', 'DESC')->get();
+			$passangers = Passanger::orderBy('id', 'DESC')->take(100)->get();
 		elseif ($dst == "") {
 			$passangers = DB::table('passanger')
 	            ->join('passangers', 'passangers.passanger_id', '=', 'passanger.id')

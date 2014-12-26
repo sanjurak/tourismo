@@ -13,22 +13,12 @@
 	<tbody>
 	@foreach ($passangers as $passanger)
 	<tr>
-		<td>
-			{{ $passanger->name }}
-		</td>
-		<td>
-			{{ $passanger->surname }}
-		</td>
-		<td>
-			{{ $passanger->address }}
-		</td>
-		<td>
-			{{ $passanger->mob }}</td>
-		<td>
-			{{ $passanger->passport }}</td>
-		<td>
-			{{ $passanger->jmbg }}
-		</td>
+		<td>{{ $passanger->name }}</td>
+		<td>{{ $passanger->surname }}</td>
+		<td>{{ $passanger->address }}</td>
+		<td>{{ $passanger->mob }}</td>
+		<td>{{ $passanger->passport }}</td>
+		<td>{{ $passanger->jmbg }}</td>
 	</tr>
 	@endforeach
 	</tbody>
