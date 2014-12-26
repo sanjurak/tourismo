@@ -1,0 +1,576 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"dir",
+				"director"
+			],
+			[
+				"dire",
+				"direct"
+			],
+			[
+				"show",
+				"show"
+			],
+			[
+				"a",
+				"about"
+			],
+			[
+				"star",
+				"starred"
+			],
+			[
+				"ta",
+				"taking"
+			],
+			[
+				"mo",
+				"movie"
+			],
+			[
+				"nominat",
+				"nomination"
+			],
+			[
+				"pla",
+				"playing"
+			],
+			[
+				"playing",
+				"playingAt"
+			],
+			[
+				"sa",
+				"says"
+			],
+			[
+				"ref",
+				"refCountc"
+			],
+			[
+				"re",
+				"redirectsc"
+			],
+			[
+				"red",
+				"redirects"
+			],
+			[
+				"te",
+				"templatesc"
+			],
+			[
+				"temp",
+				"templates"
+			],
+			[
+				"categ",
+				"categoriesc"
+			],
+			[
+				"on",
+				"ontologyClassesc"
+			],
+			[
+				"de",
+				"descriptionc"
+			],
+			[
+				"newRe",
+				"newRefCount"
+			],
+			[
+				"cat",
+				"categories"
+			],
+			[
+				"onto",
+				"ontologyClasses"
+			],
+			[
+				"aca",
+				"AcademyAwardWon"
+			],
+			[
+				"ac",
+				"actress"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "tourismo/app/views/debtsPartial.blade.php",
+			"settings":
+			{
+				"buffer_size": 2446,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "tourismo/app/views/psgForPeriodPartial.blade.php",
+			"settings":
+			{
+				"buffer_size": 864,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "tourismo/app/controllers/PassangersController.php",
+			"settings":
+			{
+				"buffer_size": 12245,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 58.0,
+		"selected_items":
+		[
+			[
+				"syntaxjso",
+				"Set Syntax: JSON"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"snipp",
+				"Snippet: html"
+			],
+			[
+				"regu",
+				"Set Syntax: Regular Expression"
+			],
+			[
+				"syntreg",
+				"Set Syntax: Regular Expressions (Python)"
+			],
+			[
+				"syntre",
+				"Set Syntax: Regular Expression"
+			],
+			[
+				"syntax re",
+				"Set Syntax: Regular Expression"
+			],
+			[
+				"side",
+				"View: Toggle Open Files in Side Bar"
+			],
+			[
+				"side bar",
+				"View: Toggle Open Files in Side Bar"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 153.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/controllers/ReservationsController.php",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/models/Passanger.php",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/models/Passangers.php",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/models/PassangerPrice.php",
+		"/D/eclipse/workspace/SprylogicsUIMA/resources/questionClassification/RegexToSemantics.txt",
+		"/D/eclipse/workspace/SprylogicsUIMA/resources/questionClassification/ParseTreeToSemantics.txt",
+		"/C/Users/andjelko/Desktop/SOLR scoring function.matlab",
+		"/D/eclipse/workspace/SprylogicsUIMA/resources/questionClassification/ContextRegex.txt",
+		"/D/eclipse/workspace/SprylogicsUIMA/resources/questionClassification/MovieVerticalRegex.txt",
+		"/D/eclipse/workspace/SprylogicsUIMA/resources/questionClassification/TVScheduleVerticalRegex.txt",
+		"/D/eclipse/workspace/publicLookup/lookup/src/main/scala/org/dbpedia/lookup/server/LookupResource.scala",
+		"/D/eclipse/workspace/publicLookup/lookup/src/main/scala/org/dbpedia/lookup/server/Result.scala",
+		"/D/eclipse/workspace/publicLookup/lookup/src/main/scala/org/dbpedia/lookup/server/Server.scala",
+		"/D/eclipse/workspace/publicLookup/lookup/src/main/scala/org/dbpedia/lookup/lucene/Searcher.scala",
+		"/D/eclipse/workspace/publicLookup/lookup/run",
+		"/D/eclipse/workspace/SprylogicsUIMA/resources/MovieKeyWordsDictionary.txt",
+		"/D/eclipse/workspace/SprylogicsUIMA/resources/MoviesDictionary.txt",
+		"/D/eclipse/workspace/SprylogicsUIMA/resources/FoodKeyWordsDictionary.txt",
+		"/D/eclipse/workspace/SprylogicsUIMA/resources/questionClassification/GenresMapping.txt",
+		"/D/Cluuz storage/SprylogicsUIMA/Movies/Out/MoviesDictionary.txt",
+		"/C/Users/andjelko/Desktop/1-5000.txt",
+		"/C/Users/andjelko/Desktop/1-1000.txt",
+		"/C/Users/andjelko/Desktop/ocene.txt",
+		"/C/Users/andjelko/Desktop/test.html",
+		"/C/Users/andjelko/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/C/Users/andjelko/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/andjelko/Documents/CluuzDescriptorsWord.xml"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"western",
+			"o1=number",
+			"with|",
+			"about|",
+			"<l8>",
+			"<l8>.*about\\|",
+			"<l8>.*about|",
+			"about|",
+			"[\\w]",
+			"about",
+			"with",
+			"has",
+			"<l8>",
+			"where)\\s+(?<o4>[\\w\\s\\d\\-'\\.]+?))|((\\s+and",
+			"<l8",
+			"?<t8",
+			"<t8",
+			"playingAt",
+			"(movie|film",
+			"(movie|film)",
+			"movie|film",
+			"movie",
+			"with",
+			"<o018>",
+			"018",
+			"<o18",
+			"<08",
+			"playing",
+			"best",
+			"play",
+			"?<t",
+			"t",
+			"on ",
+			" on",
+			" in ",
+			" ",
+			"with",
+			"o2",
+			"has",
+			"nominated",
+			"has",
+			"t8",
+			"are",
+			"<l",
+			" in",
+			"quote",
+			"oscar",
+			"nominated",
+			"oscar",
+			"nomination",
+			"oscar",
+			"first",
+			"o10",
+			"o16",
+			"o4",
+			"is",
+			"set",
+			"newest",
+			"popular",
+			"new",
+			"o4",
+			"has",
+			"( famous)",
+			"famous",
+			"wich ",
+			"(wich ",
+			"with",
+			"currently",
+			"curre",
+			"directed",
+			"director",
+			"t8",
+			"o9",
+			"\\\\n",
+			"\\\\\\n",
+			"\\\\n",
+			"\\n",
+			"\\\\n",
+			"\\n",
+			"who",
+			"t8",
+			"near me",
+			"l8",
+			"t8",
+			"producer",
+			"playing",
+			"p8",
+			"t8",
+			"o9",
+			"playing",
+			"movie",
+			"p9",
+			"^Oscar",
+			"an american",
+			"the american",
+			"american",
+			"^\\d\\d\\s*(\\n|\\r)",
+			"^\\d\\s*(\\n|\\r)",
+			"^a movie",
+			"^a movies",
+			"^the movie",
+			"the movie",
+			"\\bacademy\\b",
+			"academy",
+			"(\\n|\\r)\\s?\\d\\s?(\\n|\\r)",
+			"(\\n|\\r)\\s?\\d+\\s?(\\n|\\r)",
+			"\\b\\d\\s*\\b",
+			"\\b\\d\\s*\\n",
+			"\\r\\s*\\d\\s*\\n",
+			"\\n\\s*\\d\\s*\\n",
+			"\\b\\d\\b",
+			"?",
+			"p8=address ",
+			"<o8>",
+			"o8",
+			"o9=new",
+			"playing|showing",
+			"(\\s+(in|near|close)((\\s+|\\-)?(to|by)?)?(\\s+(?<o8>[\\w\\s]+))?)?",
+			"(<o8>",
+			"(to|by)",
+			"p9=new",
+			"o9=movie"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"(movie|film|flick|movie\\s+picture|moving\\s+picture)",
+			"<o08>",
+			"\\s+",
+			"( (famous|popular|(a )?star))",
+			"(which|that) ",
+			"((which|that) ",
+			"\\n",
+			"",
+			"<l8>",
+			"l8",
+			"o9=playing",
+			"\\s+(in|near|close)((\\s+|\\-)?(to|by)?)?\\s+(?<o8>[\\w\\s]+)",
+			"(?<o8>",
+			"(to|by)?",
+			"p9=is",
+			"o9=new"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "tourismo/app/views/debtsPartial.blade.php",
+					"settings":
+					{
+						"buffer_size": 2446,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								101,
+								101
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "tourismo/app/views/psgForPeriodPartial.blade.php",
+					"settings":
+					{
+						"buffer_size": 864,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								864,
+								864
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "tourismo/app/controllers/PassangersController.php",
+					"settings":
+					{
+						"buffer_size": 12245,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1486,
+								1486
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"psgforpe",
+				"app/views/psgForPeriodPartial.blade.php"
+			],
+			[
+				"reser",
+				"app/controllers/ReservationsController.php"
+			],
+			[
+				"psgcont",
+				"app/controllers/PassangersController.php"
+			],
+			[
+				"pasger",
+				"app/models/Passanger.php"
+			],
+			[
+				"pass",
+				"app/models/Passangers.php"
+			],
+			[
+				"passapri",
+				"app/models/PassangerPrice.php"
+			],
+			[
+				"debtspartial",
+				"app/views/debtsPartial.blade.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 199.0,
+	"status_bar_visible": true
+}

@@ -21,7 +21,16 @@ class PassangersController extends \BaseController {
 
 	public function psgforperiod()
 	{
-		$passangers = Passanger::orderBy('id', 'DESC')->take(100)->get();
+		$passangers = DB::table('passanger')
+	            ->join('passangers', 'passangers.passanger_id', '=', 'passanger.id')
+	            ->join('reservations', 'reservations.id', '=', 'passangers.reservation_id')
+	            ->join('travel_deals', 'travel_deals.id', '=', 'reservations.travel_deal_id')
+	            ->join('destinations', 'destinations.id', '=', 'travel_deals.destination_id')
+	            ->join('accomodation_units', 'accomodation_units.id', '=', 'travel_deals.accomodation_unit_id')
+	            ->join('accomodations', 'accomodations.id', '=', 'accomodation_units.accommodations_id')
+	            ->join('categories', 'categories.id', '=', 'travel_deals.category_id')
+	            ->select('passanger.*', 'reservations.reservation_number', 'reservations.start_date', 'destinations.country', 'destinations.town', 'accomodations.type', 'accomodations.name AS acc_name')
+	            ->take(100)->get();
 		return View::make('passangersforperiod', array('passangers' => $passangers))->nest('psgForPeriodPartial','psgForPeriodPartial', array('passangers' => $passangers));
 	}
 
@@ -218,17 +227,28 @@ class PassangersController extends \BaseController {
 		$passangers = null;
 		
 		if (($cat == "" || $cat == null) && ($dst == "" || $dst == null))
-			$passangers = Passanger::orderBy('id', 'DESC')->take(100)->get();
+			$passangers = DB::table('passanger')
+	            ->join('passangers', 'passangers.passanger_id', '=', 'passanger.id')
+	            ->join('reservations', 'reservations.id', '=', 'passangers.reservation_id')
+	            ->join('travel_deals', 'travel_deals.id', '=', 'reservations.travel_deal_id')
+	            ->join('destinations', 'destinations.id', '=', 'travel_deals.destination_id')
+	            ->join('accomodation_units', 'accomodation_units.id', '=', 'travel_deals.accomodation_unit_id')
+	            ->join('accomodations', 'accomodations.id', '=', 'accomodation_units.accommodations_id')
+	            ->join('categories', 'categories.id', '=', 'travel_deals.category_id')
+	            ->select('passanger.*', 'reservations.reservation_number', 'reservations.start_date', 'destinations.country', 'destinations.town', 'accomodations.type', 'accomodations.name AS acc_name')
+	            ->take(100)->get();
 		elseif ($dst == "") {
 			$passangers = DB::table('passanger')
 	            ->join('passangers', 'passangers.passanger_id', '=', 'passanger.id')
 	            ->join('reservations', 'reservations.id', '=', 'passangers.reservation_id')
 	            ->join('travel_deals', 'travel_deals.id', '=', 'reservations.travel_deal_id')
+	            ->join('destinations', 'destinations.id', '=', 'travel_deals.destination_id')
+	            ->join('accomodation_units', 'accomodation_units.id', '=', 'travel_deals.accomodation_unit_id')
+	            ->join('accomodations', 'accomodations.id', '=', 'accomodation_units.accommodations_id')
 	            ->join('categories', 'categories.id', '=', 'travel_deals.category_id')
-	            ->select('passanger.*')
+	            ->select('passanger.*', 'reservations.reservation_number', 'reservations.start_date', 'destinations.country', 'destinations.town', 'accomodations.type', 'accomodations.name AS acc_name')
 	            ->where('categories.name', 'LIKE', $cat)
-	            ->groupBy("passanger.id")
-	            ->get();
+	            ->take(100)->get();
 		} elseif ($cat == "") {
 			$dsts = explode(', ', $dst);
 			$passangers = DB::table('passanger')
@@ -236,7 +256,10 @@ class PassangersController extends \BaseController {
 	            ->join('reservations', 'reservations.id', '=', 'passangers.reservation_id')
 	            ->join('travel_deals', 'travel_deals.id', '=', 'reservations.travel_deal_id')
 	            ->join('destinations', 'destinations.id', '=', 'travel_deals.destination_id')
-	            ->select('passanger.*')
+	            ->join('accomodation_units', 'accomodation_units.id', '=', 'travel_deals.accomodation_unit_id')
+	            ->join('accomodations', 'accomodations.id', '=', 'accomodation_units.accommodations_id')
+	            ->join('categories', 'categories.id', '=', 'travel_deals.category_id')
+	            ->select('passanger.*', 'reservations.reservation_number', 'reservations.start_date', 'destinations.country', 'destinations.town', 'accomodations.type', 'accomodations.name AS acc_name')
 	            ->where('destinations.town', 'LIKE', $dsts[0])->where('destinations.country', 'LIKE', $dsts[1])
 	            ->groupBy("passanger.id")
 	            ->get();
@@ -247,8 +270,10 @@ class PassangersController extends \BaseController {
 	            ->join('reservations', 'reservations.id', '=', 'passangers.reservation_id')
 	            ->join('travel_deals', 'travel_deals.id', '=', 'reservations.travel_deal_id')
 	            ->join('destinations', 'destinations.id', '=', 'travel_deals.destination_id')
+	            ->join('accomodation_units', 'accomodation_units.id', '=', 'travel_deals.accomodation_unit_id')
+	            ->join('accomodations', 'accomodations.id', '=', 'accomodation_units.accommodations_id')
 	            ->join('categories', 'categories.id', '=', 'travel_deals.category_id')
-	            ->select('passanger.*')
+	            ->select('passanger.*', 'reservations.reservation_number', 'reservations.start_date', 'destinations.country', 'destinations.town', 'accomodations.type', 'accomodations.name AS acc_name')
 	            ->where('categories.name', 'LIKE', $cat)
 	            ->where('destinations.town', 'LIKE', $dsts[0])->where('destinations.country', 'LIKE', $dsts[1])
 	            ->groupBy("passanger.id")
@@ -267,4 +292,11 @@ class PassangersController extends \BaseController {
 		} else
 			return Response::json(array('data' => $passanger->toJson()));
 	}
+}
+
+class PsgForPeriod {
+	public $passanger;
+	public $reservation;
+	// public $destination;
+	// public $accomodation;
 }
