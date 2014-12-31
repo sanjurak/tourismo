@@ -13,7 +13,7 @@
 				CLOCK TRAVEL d.o.o.<br>
 				Adresa: Trg Republike 6, Niš<br>
 				mob: +381 66 00 555 6<br>
-				tel: +381 18 505 435<br>
+				tel: +381 18 305 435<br>
 				<br>
 				www.clocltravel.rs<br>
 				email: office@clocktravel.rs<br>
