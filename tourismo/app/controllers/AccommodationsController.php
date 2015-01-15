@@ -82,7 +82,10 @@ class AccommodationsController extends \BaseController {
 													$query->where('town','LIKE','%'.$town.'%')
 														->where('country','LIKE','%'.$country.'%');
 												})
-											->orderBy('destinations.id', 'DESC')->paginate(15);
+											->orderBy('destinations.id', 'DESC')
+											->select("accomodations.*","destinations.id as dstid")
+											->paginate(15);
+		
 		return View::make('accPartial', array('accomodations' => $accomodations));
 	}
 
