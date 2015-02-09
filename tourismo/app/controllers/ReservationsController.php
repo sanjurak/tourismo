@@ -69,7 +69,7 @@ class ReservationsController extends \BaseController {
 		$searchTerm = Input::get('search_item','');
 		$reservations = null;
 		if($searchTerm == "*")
-			$reservations = Reservation::orderBy('id', 'DESC')->paginate(20);
+			$reservations = Reservation::orderBy('travel_date', 'DESC')->paginate(20);
 		else
 			$reservations = Reservation::join("passangers","passangers.reservation_id","=","reservations.id")
 							->where('reservation_number','=',$searchTerm)
