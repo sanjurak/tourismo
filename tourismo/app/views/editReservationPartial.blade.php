@@ -133,7 +133,7 @@
 								@foreach($prices as $ind => $price)
 									<div id="paymentItem" class="paymentItem">
 									 <div class="form-inline">
-									      <input type="text" id="paymentItemName" class="input-medium validate[required]" name="PsgItem[{{$price->passanger_id}}][{{$ind}}][name]" value="{{$price->price_item}}" />
+									      <input type="text" id="paymentItemName" class="input-medium nameItem validate[required]" name="PsgItem[{{$price->passanger_id}}][{{$ind}}][name]" value="{{$price->price_item}}" />
 									      <input type="text" id="paymentItemEuro" class="input-medium euroItem validate[required]" name="PsgItem[{{$price->passanger_id}}][{{$ind}}][priceEur]" value="{{$price->price_eur}}" />
 									      <input type="text" id="paymentItemDin" class="input-medium dinItem validate[required]" name="PsgItem[{{$price->passanger_id}}][{{$ind}}][priceDin]" value="{{$price->price_din}}" />
 									      <input type="text" id="paymentItemNum" class="input-medium numItem validate[required]" name="PsgItem[{{$price->passanger_id}}][{{$ind}}][num]" value="{{$price->num}}" >
@@ -152,7 +152,7 @@
 								@foreach($excursions[$psg] as $ind => $excursion)
 									<div id="paymentItem" class="paymentItem">
 									 <div class="form-inline">
-									      <input type="text" id="paymentItemName" class="input-medium validate[required]" name="Excursion[{{$excursion->passangerId}}][{{$ind}}][name]" value="{{$excursion->excursionItem}}" />
+									      <input type="text" id="paymentItemName" class="input-medium nameItem validate[required]" name="Excursion[{{$excursion->passangerId}}][{{$ind}}][name]" value="{{$excursion->excursionItem}}" />
 									      <input type="text" id="paymentItemEuro" class="input-medium euroItem validate[required]" name="Excursion[{{$excursion->passangerId}}][{{$ind}}][priceEur]" value="{{$excursion->priceEur}}" />
 									      <input type="text" id="paymentItemDin" class="input-medium dinItem validate[required]" name="Excursion[{{$excursion->passangerId}}][{{$ind}}][priceDin]" value="{{$excursion->priceDin}}" />
 									      <input type="text" id="paymentItemNum" class="input-medium numItem validate[required]" name="Excursion[{{$excursion->passangerId}}][{{$ind}}][num]" value="{{$excursion->num}}" />
@@ -216,7 +216,7 @@
 										<div id="paymentItem" class="paymentItem">
 										 <div class="form-inline">
 										 	
-										      <input type="text" id="paymentItemName" class="input-medium validate[required]" name="PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][name]" value="{{$price->priceItem}}" />
+										      <input type="text" id="paymentItemName" class="input-medium nameItem validate[required]" name="PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][name]" value="{{$price->priceItem}}" />
 										      <input type="text" id="paymentItemEuro" class="input-medium euroItem validate[required]" name="PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][euro]" value="{{$price->priceEur}}" />
 										      <input type="text" id="paymentItemDin" class="input-medium dinItem validate[required]" name="PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][din]" value="{{$price->priceDin}}" />
 										      <input type="text" id="paymentItemNum" class="input-medium numItem validate[required]" name="PsgItemNew[{{$passanger->id}}][{{100 + $ind}}][num]" value="{{$price->num}}" >
@@ -235,7 +235,7 @@
 									@foreach($resExcursions as $ind => $excursion)
 									<div id="paymentItem" class="paymentItem">
 									 <div class="form-inline">
-									      <input type="text" id="paymentItemName" class="input-medium validate[required]" name="ExcursionNew[{{$excursion->passangerId}}][{{$ind}}][name]" value="{{$excursion->excursionItem}}" />
+									      <input type="text" id="paymentItemName" class="input-medium nameItem validate[required]" name="ExcursionNew[{{$excursion->passangerId}}][{{$ind}}][name]" value="{{$excursion->excursionItem}}" />
 									      <input type="text" id="paymentItemEuro" class="input-medium euroItem validate[required]" name="ExcursionNew[{{$excursion->passangerId}}][{{$ind}}][priceEur]" value="{{$excursion->priceEur}}" />
 									      <input type="text" id="paymentItemDin" class="input-medium dinItem validate[required]" name="ExcursionNew[{{$excursion->passangerId}}][{{$ind}}][priceDin]" value="{{$excursion->priceDin}}" />
 									      <input type="text" id="paymentItemNum" class="input-medium numItem validate[required]" name="ExcursionNew[{{$excursion->passangerId}}][{{$ind}}][num]" value="{{$excursion->num}}" >
@@ -307,7 +307,7 @@
 						@foreach($resPrices as $ind => $price)
 							<div id="paymentItem" class="paymentItem">
 							 <div class="form-inline">
-							      <input type="text" id="paymentItemName" class="input-medium validate[required]" name="Prices[{{$ind}}][name]" value="{{$price->priceItem}}" readonly />
+							      <input type="text" id="paymentItemName" class="input-medium nameItem validate[required]" name="Prices[{{$ind}}][name]" value="{{$price->priceItem}}" readonly />
 							      <input type="text" id="paymentItemEuro" class="input-medium euroItem validate[required]" name="Prices[{{$ind}}][priceEur]" value="{{$price->priceEur}}" readonly />
 							      <input type="text" id="paymentItemDin" class="input-medium dinItem validate[required]" name="Prices[{{$ind}}][priceDin]" value="{{$price->priceDin}}" readonly />
 							      <input type="text" id="paymentItemNum" class="input-medium numItem validate[required]" name="Prices[{{$ind}}][num]" value="{{$price->num}}" readonly />
