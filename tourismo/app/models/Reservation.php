@@ -54,12 +54,12 @@ class Reservation extends Eloquent {
 		}
 		
 		if ($left_to_pay_din <= 10 && $left_to_pay_eur <= 1)
-			return "tr-success $id";
+			return "tr-success";
 		if(time() > strtotime($this->travel_date))
-			return "tr-error $id";
+			return "tr-error";
 		if(time() > (strtotime($this->travel_date)-(60*60*24*5)))
-			return "tr-alert $id";
-		return "$id";
+			return "tr-alert";
+		return "";
 	}
 
 	public function destination()
