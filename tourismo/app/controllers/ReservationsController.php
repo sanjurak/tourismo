@@ -79,7 +79,7 @@ class ReservationsController extends \BaseController {
 							->groupBy("reservation_number")
 							->paginate(20);
 		
-
+		//dd($reservations->toArray());
 		return View::make('reservationsPartial',array('reservations' => $reservations));
 	}
 	/**

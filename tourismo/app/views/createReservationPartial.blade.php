@@ -41,7 +41,7 @@
 <div class="row">
 	<div class="span4">Datum rezervacije: {{date("d/m/Y")}}</div>
 	<div class="span4">Broj rezervacije: <input type="text" name="reservationNumber" id="resNum" placeholder="Unesite broj rezervacije" /></div>
-	<div class="span4"><div class="pull-right"><input type="checkbox" name="internal" id="internal">Interna </div></div>
+	<div class="span4" style="display:none"><div class="pull-right"><input type="checkbox" name="internal" id="internal">Interna </div></div>
 </div>
 
 <div class="row">

@@ -40,7 +40,11 @@ class Reservation extends Eloquent {
 	
 	public function payment_status()
 	{
-		$payments = Payment::where('reservation_id','=',$this->id)->get();
+		if($this->reservation_id)
+			$id = $this->reservation_id;
+		else
+			$id = $this->id;
+		$payments = Payment::where('reservation_id','=',$id)->get();
 		$left_to_pay_din = $this->price_total_din;
 		$left_to_pay_eur = $this->price_total_eur;
 		foreach ($payments as $payment) {
@@ -50,12 +54,12 @@ class Reservation extends Eloquent {
 		}
 		
 		if ($left_to_pay_din <= 10 && $left_to_pay_eur <= 1)
-			return "tr-success";
+			return "tr-success $id";
 		if(time() > strtotime($this->travel_date))
-			return "tr-error";
+			return "tr-error $id";
 		if(time() > (strtotime($this->travel_date)-(60*60*24*5)))
-			return "tr-alert";
-		return "";
+			return "tr-alert $id";
+		return "$id";
 	}
 
 	public function destination()

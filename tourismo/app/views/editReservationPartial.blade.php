@@ -387,13 +387,13 @@
 
 		<div class="row">
 				<div class="span4">
-					Popust:<br> <input type="text" style="height:100%" id="discount" value={{$reservation->discount}} name="discount" placeholder="Promoter"/>
+					Promoter:<br> <input type="text" style="height:100%" id="discount" value={{$reservation->discount}} name="discount" placeholder="Promoter"/>
 				</div>
 				<div class="span4">
 					Popust odobrio:<br> <input type="text" style="height:100%" id="discounter" name="discounter_name" value="{{$reservation->discounter_name}}" placeholder="Popust odobrio"/>
 				</div>
 				<div class="span4">
-					Clock Index:<br> <input type="text" style="height:100%" id="clockindex" name="clock_index" value={{$reservation->clock_index}}  placeholder="U BUSu"/>
+					U BUSu:<br> <input type="text" style="height:100%" id="clockindex" name="clock_index" value={{$reservation->clock_index}}  placeholder="U BUSu"/>
 				</div>
 		</div>
 
