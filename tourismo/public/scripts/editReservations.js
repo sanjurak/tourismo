@@ -1,4 +1,6 @@
 $(function(){
+
+    $("#passangerNew").hide();
     
     var TravelDealPriceEur = $("#TDPriceEur").val();
     var TravelDealPriceDin = $("#TDPriceDin").val();
@@ -90,31 +92,7 @@ $("#traveldealsSel").selectize({
         	var item = this.options[this.items[0]];
         	this.close();
 
-        	$("<div class='psg-item'>"+item.passanger
-                +"<input type='hidden' name='Passangers[" + psgCounter +"]' class='passangers' value='"+item.id+"'/>"
-                +"<a href='#' class='remove-psg pull-right'>"
-                +"<span class='icon icon-remove-sign'></span></a></div>")
-            .appendTo("#passangersDetails");
-            
-            var items = $(".hiddenPsgItems").clone(true);
-            items.show().removeClass("hiddenPsgItems").attr("id",item.id);
-            items.addClass("psgPayment");
-            items.find("#psgName").text("Detalji plaćanja za putnika: " + item.passanger.substring(0, item.passanger.indexOf("JMBG") - 1));
-           
-            items.find("#addPsgPaymentItem").trigger("click");
-            items.find("#paymentItems div").last().find("#paymentItemName").val("Smeštaj Adl");
-            items.find("#paymentItems div").last().find("#paymentItemEuro").val(TravelDealPriceEur);
-            items.find("#paymentItems div").last().find("#paymentItemDin").val(TravelDealPriceDin);
-            items.find("#paymentItems div").last().find("#paymentItemNum").val("1");
-
-            $(items).appendTo("#psgPaymentDetails");
-
-
-            items.find("#paymentItems div").first().find("#paymentItemEuro").trigger("focusin").trigger("focusout");
-            items.find("#paymentItems div").first().find("#paymentItemDin").trigger("focusin").trigger("focusout");
-            items.find("#paymentItems div").first().find("#paymentItemName").trigger("focusin");
-
-            psgCounter++;
+        	addPassangerItem(item);
         }
 	});
 	$('#start_datepicker input').datepicker({
@@ -772,4 +750,63 @@ $("#traveldealsSel").selectize({
             $("#editReservationForm").trigger("submit");
         
     });
+
+    $("#addNewPsg").click(function(event){
+        event.preventDefault();
+        if($("#passangerNew").is(":hidden")) {
+            $("#passangerNew").slideDown();
+        } else {
+            $("#passangerNew").slideUp();
+        }
+    });
+
+    $("#btnAddNewPsg").click(function(event){
+        event.preventDefault();
+
+        $.ajax({
+            url:'addPassanger',
+            type: 'POST',
+            data: $("#passangerNewForm").serialize(),
+            success: function(data){
+                $("#passangerNew").slideUp();
+                if (data.data) {           
+                    addPassangerItem(data.data[0]);
+                } else {
+                    $("#notifications").append("<div class='alert alert-error alert-block'><button type='button' class='close' data-dismiss='alert'>&times;</button><h4>Error</h4> Putnik sa tim JMBG već postoji! </div>");
+    //              $("#passangersDetails").show();
+                }
+            }
+        });
+        
+        $("#passangerNew").find("input").val("");
+        $("#passangerNew #gender")[0].value = "";
+    });
+
+    function addPassangerItem(item) {
+        $("<div class='psg-item'>"+item.passanger
+                +"<input type='hidden' name='Passangers[" + psgCounter +"]' class='passangers' value='"+item.id+"'/>"
+                +"<a href='#' class='remove-psg pull-right'>"
+                +"<span class='icon icon-remove-sign'></span></a></div>")
+            .appendTo("#passangersDetails");
+            
+            var items = $(".hiddenPsgItems").clone(true);
+            items.show().removeClass("hiddenPsgItems").attr("id",item.id);
+            items.addClass("psgPayment");
+            items.find("#psgName").text("Detalji plaćanja za putnika: " + item.passanger.substring(0, item.passanger.indexOf("JMBG") - 1));
+           
+            items.find("#addPsgPaymentItem").trigger("click");
+            items.find("#paymentItems div").last().find("#paymentItemName").val("Smeštaj Adl");
+            items.find("#paymentItems div").last().find("#paymentItemEuro").val(TravelDealPriceEur);
+            items.find("#paymentItems div").last().find("#paymentItemDin").val(TravelDealPriceDin);
+            items.find("#paymentItems div").last().find("#paymentItemNum").val("1");
+
+            $(items).appendTo("#psgPaymentDetails");
+
+
+            items.find("#paymentItems div").first().find("#paymentItemEuro").trigger("focusin").trigger("focusout");
+            items.find("#paymentItems div").first().find("#paymentItemDin").trigger("focusin").trigger("focusout");
+            items.find("#paymentItems div").first().find("#paymentItemName").trigger("focusin");
+
+            psgCounter++;
+    }
 });

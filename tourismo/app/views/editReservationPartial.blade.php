@@ -68,6 +68,55 @@
 <div class="row">
 	<div class="span12">						
 		<select name='passangers' id='passangersSel' placeholder="Dodajte putnika" class='form-control'></select>
+		<a href="#" class="btn btn-small btn-default pull-right" id="addNewPsg">Dodaj novog putnika</a>
+	</div>
+</div>
+
+<div class="row" id="passangerNew">
+	<div class="span12">
+		<form id="passangerNewForm" name="passangerNewForm" autocomplete="off">
+			<div>
+				<div class="span3 input-control text">
+					<input type="text" name="name" id="name" class="validate[required]" placeholder="Ime"/>
+				</div>
+				<div class="span3 input-control text">
+					<input type="text" name="surname" id="surname" class="validate[required]" placeholder="Prezime"/>
+				</div>
+				<div class="span3 input-control text">
+					<input type="text" name="address" id="address" class="validate[required]" placeholder="Adresa"/>
+				</div>
+				<div class="span3 input-control text select">
+					<select class="span2" name="gender" id="gender">
+						<option value="" disabled selected="selected" style='display:none;'>Pol...</option>
+						<option value="m">m</option>
+						<option value="f">ž</option>
+					</select>
+				</div>
+			</div>
+			<div>
+				<div class="span3 input-control text">
+					<input type="text" name="tel" id="tel" placeholder="Telefon"/>
+				</div>
+				<div class="span3 input-control text">
+					<input type="text" name="mob" id="mob" placeholder="Mobilni"/>
+				</div>
+				<div class="span3 input-control text">
+					<input type="text" name="jmbg"  class="validate[required]" id="jmbg" placeholder="JMBG"/>
+				 </div>
+				<div class="span3 input-control text">
+					<input type="text" name="passport" id="passport" placeholder="Broj Pasoša"/>
+				</div>
+			</div>
+			<div>
+				<div class="span3" id="birth_datepicker">
+					<input type="text" class="span2" style="height:100%" id="birth_date" name="birth_date" placeholder="d-m-yy" autocomplete="off"/>
+					<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
+				</div>
+				<div class="span2">
+					<span class="btn btn-default" id="btnAddNewPsg">Dodaj</span>
+				</div>
+			</div>
+		</form>
 	</div>
 </div>
 
