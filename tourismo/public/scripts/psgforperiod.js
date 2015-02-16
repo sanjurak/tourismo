@@ -37,7 +37,8 @@ $(document).ready(function(){
         },
         onChange: function(){
             var term = this.items[0];
-            SearchPassangers(term, $("#dstCountryTownSelect")[0].value);
+            SearchPassangers(term, $("#dstCountryTownSelect")[0].value,
+                $("#from_date")[0].value, $("#to_date")[0].value);
         }
     });
 
@@ -78,7 +79,8 @@ $(document).ready(function(){
         },
         onChange: function(){
             var term = this.items[0];
-            SearchPassangers( $("#categoriesSelect")[0].value, term);
+            SearchPassangers($("#categoriesSelect")[0].value, term,
+                $("#from_date")[0].value, $("#to_date")[0].value);
         }
     });
 
@@ -89,7 +91,9 @@ $(document).ready(function(){
         selectize = $("#dstCountryTownSelect")[0].selectize;
         selectize.clear();
         selectize.clearOptions();
-        SearchPassangers("", "");        
+        $("#from_date")[0].value = "";
+        $("#to_date")[0].value = "";
+        SearchPassangers("", "", "", "");        
     });
 
     $("#dstCountryTownSelect").click(function(){
@@ -97,4 +101,16 @@ $(document).ready(function(){
         selectize.load();
     });
 
+    $('#from_date').datepicker();
+    $('#from_date').datepicker( "option", "dateFormat", 'd-m-yy' );
+
+    $('#to_date').datepicker();
+    $('#to_date').datepicker( "option", "dateFormat", 'd-m-yy' );
+
+    $('#searchBtn').click(function(){
+        SearchPassangers($("#categoriesSelect")[0].value,
+                        $("#dstCountryTownSelect")[0].value,
+                        $("#from_date")[0].value,
+                        $("#to_date")[0].value);
+    });
 });

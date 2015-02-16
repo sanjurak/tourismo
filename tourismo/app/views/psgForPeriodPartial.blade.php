@@ -5,10 +5,10 @@
 			<td></td>
 			<td>Ime</td>
 			<td>Prezime</td>
-			<td>Adresa</td>
+			<td style="width: 250px;">Adresa</td>
 			<td>Mobilni</td>
-			<td>Broj Pasoša</td>
-			<td>JMBG</td>
+			<!-- <td>Broj Pasoša</td> -->
+			<!-- <td>JMBG</td> -->
 			<td>Broj rezervacije</td>
 			<td>Polazak</td>
 			<td>Destinacija</td>
@@ -23,10 +23,10 @@
 		<td>{{ $passanger->surname }}</td>
 		<td>{{ $passanger->address }}</td>
 		<td>{{ $passanger->mob }}</td>
-		<td>{{ $passanger->passport }}</td>
-		<td>{{ $passanger->jmbg }}</td>
+		<!-- <td>{{ $passanger->passport }}</td> -->
+		<!-- <td>{{ $passanger->jmbg }}</td> -->
 		<td>{{ $passanger->reservation_number }}</td>
-		<td>{{ $passanger->start_date }}</td>
+		<td>{{ $passanger->travel_date }}</td>
 		<td>{{ $passanger->country.', '.$passanger->town }}</td>
 		<td>{{ $passanger->type.', '.$passanger->acc_name}}</td>
 	</tr>

@@ -21,16 +21,7 @@ class PassangersController extends \BaseController {
 
 	public function psgforperiod()
 	{
-		$passangers = DB::table('passanger')
-	            ->join('passangers', 'passangers.passanger_id', '=', 'passanger.id')
-	            ->join('reservations', 'reservations.id', '=', 'passangers.reservation_id')
-	            ->join('travel_deals', 'travel_deals.id', '=', 'reservations.travel_deal_id')
-	            ->join('destinations', 'destinations.id', '=', 'travel_deals.destination_id')
-	            ->join('accomodation_units', 'accomodation_units.id', '=', 'travel_deals.accomodation_unit_id')
-	            ->join('accomodations', 'accomodations.id', '=', 'accomodation_units.accommodations_id')
-	            ->join('categories', 'categories.id', '=', 'travel_deals.category_id')
-	            ->select('passanger.*', 'reservations.reservation_number', 'reservations.start_date', 'destinations.country', 'destinations.town', 'accomodations.type', 'accomodations.name AS acc_name')
-	            ->take(100)->get();
+		$passangers = Passanger::psgForPeriod("", "", "" , "");
 		return View::make('passangersforperiod', array('passangers' => $passangers))->nest('psgForPeriodPartial','psgForPeriodPartial', array('passangers' => $passangers));
 	}
 
@@ -224,61 +215,9 @@ class PassangersController extends \BaseController {
 	{
 		$cat = Input::get('cat_item','');
 		$dst = Input::get('dst_item','');
-		$passangers = null;
-		
-		if (($cat == "" || $cat == null) && ($dst == "" || $dst == null))
-			$passangers = DB::table('passanger')
-	            ->join('passangers', 'passangers.passanger_id', '=', 'passanger.id')
-	            ->join('reservations', 'reservations.id', '=', 'passangers.reservation_id')
-	            ->join('travel_deals', 'travel_deals.id', '=', 'reservations.travel_deal_id')
-	            ->join('destinations', 'destinations.id', '=', 'travel_deals.destination_id')
-	            ->join('accomodation_units', 'accomodation_units.id', '=', 'travel_deals.accomodation_unit_id')
-	            ->join('accomodations', 'accomodations.id', '=', 'accomodation_units.accommodations_id')
-	            ->join('categories', 'categories.id', '=', 'travel_deals.category_id')
-	            ->select('passanger.*', 'reservations.reservation_number', 'reservations.start_date', 'destinations.country', 'destinations.town', 'accomodations.type', 'accomodations.name AS acc_name')
-	            ->take(100)->get();
-		elseif ($dst == "") {
-			$passangers = DB::table('passanger')
-	            ->join('passangers', 'passangers.passanger_id', '=', 'passanger.id')
-	            ->join('reservations', 'reservations.id', '=', 'passangers.reservation_id')
-	            ->join('travel_deals', 'travel_deals.id', '=', 'reservations.travel_deal_id')
-	            ->join('destinations', 'destinations.id', '=', 'travel_deals.destination_id')
-	            ->join('accomodation_units', 'accomodation_units.id', '=', 'travel_deals.accomodation_unit_id')
-	            ->join('accomodations', 'accomodations.id', '=', 'accomodation_units.accommodations_id')
-	            ->join('categories', 'categories.id', '=', 'travel_deals.category_id')
-	            ->select('passanger.*', 'reservations.reservation_number', 'reservations.start_date', 'destinations.country', 'destinations.town', 'accomodations.type', 'accomodations.name AS acc_name')
-	            ->where('categories.name', 'LIKE', $cat)
-	            ->take(100)->get();
-		} elseif ($cat == "") {
-			$dsts = explode(', ', $dst);
-			$passangers = DB::table('passanger')
-	            ->join('passangers', 'passangers.passanger_id', '=', 'passanger.id')
-	            ->join('reservations', 'reservations.id', '=', 'passangers.reservation_id')
-	            ->join('travel_deals', 'travel_deals.id', '=', 'reservations.travel_deal_id')
-	            ->join('destinations', 'destinations.id', '=', 'travel_deals.destination_id')
-	            ->join('accomodation_units', 'accomodation_units.id', '=', 'travel_deals.accomodation_unit_id')
-	            ->join('accomodations', 'accomodations.id', '=', 'accomodation_units.accommodations_id')
-	            ->join('categories', 'categories.id', '=', 'travel_deals.category_id')
-	            ->select('passanger.*', 'reservations.reservation_number', 'reservations.start_date', 'destinations.country', 'destinations.town', 'accomodations.type', 'accomodations.name AS acc_name')
-	            ->where('destinations.town', 'LIKE', $dsts[0])->where('destinations.country', 'LIKE', $dsts[1])
-	            ->groupBy("passanger.id")
-	            ->get();
-		} else {
-			$dsts = explode(', ', $dst);
-			$passangers = DB::table('passanger')
-	            ->join('passangers', 'passangers.passanger_id', '=', 'passanger.id')
-	            ->join('reservations', 'reservations.id', '=', 'passangers.reservation_id')
-	            ->join('travel_deals', 'travel_deals.id', '=', 'reservations.travel_deal_id')
-	            ->join('destinations', 'destinations.id', '=', 'travel_deals.destination_id')
-	            ->join('accomodation_units', 'accomodation_units.id', '=', 'travel_deals.accomodation_unit_id')
-	            ->join('accomodations', 'accomodations.id', '=', 'accomodation_units.accommodations_id')
-	            ->join('categories', 'categories.id', '=', 'travel_deals.category_id')
-	            ->select('passanger.*', 'reservations.reservation_number', 'reservations.start_date', 'destinations.country', 'destinations.town', 'accomodations.type', 'accomodations.name AS acc_name')
-	            ->where('categories.name', 'LIKE', $cat)
-	            ->where('destinations.town', 'LIKE', $dsts[0])->where('destinations.country', 'LIKE', $dsts[1])
-	            ->groupBy("passanger.id")
-	            ->get();
-		}
+		$from = DateTime::createFromFormat('d-m-Y', Input::get('from_item',''));
+		$to = DateTime::createFromFormat('d-m-Y', Input::get('to_item',''));
+		$passangers = Passanger::psgForPeriod($cat, $dst, $from, $to);
 
 		return View::make('psgForPeriodPartial', array('passangers' => $passangers));
 	}
