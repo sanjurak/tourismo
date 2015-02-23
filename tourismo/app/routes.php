@@ -73,7 +73,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::post('createReservation', array('as' => 'createReservation','uses' => 'ReservationsController@store'));
 	Route::get('paymentRsrvDetails', array('as' => 'paymentRsrvDetails', 'uses' => 'ReservationsController@detailsPayment'));
 	Route::get('contract/{id}', array('as' => 'contract','uses' => 'ReservationsController@contract'));
-	Route::post('reservation/delete', array('as' => 'reservation/delete', 'uses' => 'ReservationsController@destroy'));
+	Route::get('reservation/delete/{id}', array('as' => 'reservation/delete', 'uses' => 'ReservationsController@destroy'));
 	Route::get('autocompleteRES', array('as' => 'autocompleteRES', 'uses' => 'ReservationsController@autosearch'));
 	Route::post('searchRes', array('as' => 'searchRes', 'uses' => 'ReservationsController@searchRes'));
 	Route::get('reservation_request/{id}', array('as' => 'reservation_request','uses' => 'ReservationsController@reservation_request'));

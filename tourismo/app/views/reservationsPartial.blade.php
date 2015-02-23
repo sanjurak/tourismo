@@ -28,12 +28,8 @@ $(function(){
 	$(".resDelete").click(function(event){
 	
 		event.preventDefault();
-
-		$resid = $(this).attr("data-id");
-		$("#stornoResId").val($resid);
-		$("#storno").modal("show");
 		
-		/*if(confirm ("Da li ste sigurni da želite da stornirate rezervaciju?"))
+		if(confirm ("Da li ste sigurni da želite da stornirate rezervaciju?"))
 		{
 			$resid = $(this).attr("data-id");
 			
@@ -49,31 +45,7 @@ $(function(){
 					alert(data.message);
 				}
 			});
-		}*/
-	});
-
-	$("#stornoOK").click(function(event){
-		event.preventDefault();
-
-		$.ajax({
-				url: "reservation/delete",
-				type: "POST",
-			data: $("#stornoForm").serialize(),
-				success: function(data)
-				{
-				if(data.status = "success")
-					window.location.href = "reservations";
-				},
-				error:function(data){
-					alert(data.message);
-					$("#storno").modal("close");
-				}
-			});
-
-	});
-
-	$("#stornoCancel").click(function(event){
-		$("#storno").modal("close");
+		}
 	});
 	
 	
@@ -215,6 +187,17 @@ $(function(){
 
 });
 
+function storeReservation(id){
+    var answer = confirm ("Da li ste sigurni da želite da stornirate rezervaciju?");
+    alert(answer);
+    if (answer) {
+        var xmlHttp = null;
+        xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", "reservation/delete/"+id, false );
+        xmlHttp.send( null );
+        location.reload( true );
+    }
+}
 </script>
 
 {{$reservations->links()}}
@@ -263,7 +246,7 @@ $(function(){
 					<span class="icon-edit"></span>
 				</a>
 				@if (Auth::user()->isAdmin())
-				<a role="button" class="btn btn-default btn-small resDelete" name="delete{{$reservation->reservation_id}}" id="delReservation{{$reservation->reservation_id}}" data-toggle="modal" title="Storniranje rezervacije" data-id={{$reservation->reservation_id}} >
+				<a role="button" class="btn btn-default btn-small resDelete" name="delete{{$reservation->reservation_id}}" id="delReservation{{$reservation->reservation_id}}" title="Brisanje rezervacije" data-id={{$reservation->reservation_id}} >
 					<span class="icon-trash"></span>
 				</a>
 				@endif
@@ -278,7 +261,7 @@ $(function(){
 					<span class="icon-edit"></span>
 				</a>
 				@if (Auth::user()->isAdmin())
-				<a role="button" class="btn btn-default btn-small resDelete" name="delete{{$reservation->id}}" id="delReservation{{$reservation->id}}" data-toggle="modal" title="Storniranje rezervacije" data-id={{$reservation->id}} >
+				<a role="button" class="btn btn-default btn-small resDelete" name="delete{{$reservation->id}}" id="delReservation{{$reservation->id}}" title="Brisanje rezervacije" data-id={{$reservation->id}} >
 					<span class="icon-trash"></span>
 				</a>
 				@endif
