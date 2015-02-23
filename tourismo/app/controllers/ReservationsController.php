@@ -811,18 +811,46 @@ class ReservationsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy()
 	{
 		DB::beginTransaction();
 		
 		try{		
-			$affectedrows = Reservation_price::where("reservationId","=",$id)->delete();
+			/*$affectedrows = Reservation_price::where("reservationId","=",$id)->delete();
 			$excursionrows = Reservation_excursion::where("reservationId","=",$id)->delete();
 			$excursionrows = PassangerExcursion::where("reservationId","=",$id)->delete();
 			$psgrows = Passangers::where("reservation_id","=",$id)->delete();
 			$resLog = ReservationsLog::where("reservation_id", "=", $id)->delete();
 			
-			Reservation::destroy($id);
+			Reservation::destroy($id);*/
+
+			$id = Input::get("resId");
+			$amount = Input::get("stornoAmount");
+
+			Reservation::where("id","=",$id)->update(array("status" => "Storno"));
+			Payment::where('reservation_id','=',$id)->update(array('status'=>2));
+
+			if($amount > 0)
+			{
+				$oldPayment = Payment::where("reservation_id","=",$id)->first();
+				$stornoPayment = new Payment;
+
+				$stornoPayment->reservation_id = $id;
+				$stornoPayment->passanger_id = $oldPayment->passanger_id;
+				$stornoPayment->payment_type = $oldPayment->payment_type;
+
+				$date = date('Y-m-d');
+				if ((string)$date != "1970-01-01") {
+					$stornoPayment->date = $date;
+				}
+				$stornoPayment->exchange_rate = $oldPayment->exchange_rate;
+				$stornoPayment->amount_din = $amount;
+				$stornoPayment->fiscal_slip = $oldPayment->fiscal_slip;
+				
+				$stornoPayment->save();
+
+			}
+
 		}
 		catch(\Excception $e)
 		{
@@ -832,7 +860,7 @@ class ReservationsController extends \BaseController {
 		DB::commit();
 		/*Session::flash('success',  "Uspešno brisanje rezervacije");
 		return Redirect::back();*/
-		return Response::json(array('status' => "success", 'message' =>  "Uspešno brisanje rezervacije"));
+		return Response::json(array('status' => "success", 'message' =>  "Uspešno storniranje rezervacije"));
 	}
 
 	/**

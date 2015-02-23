@@ -46,6 +46,30 @@
 	</div>
 </div>
 
+<div id="storno" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">			
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">x</a>
+		<h3>Storniranje rezervacije</h3>
+	</div>
+
+	<div class="modal-body">
+		<form id="stornoForm" name="stornoForm" class="form-horizontal">
+		  <div class="control-group">
+		    <label class="control-label" for="type">Iznos koji ostaje agenciji (RSD):</label>
+		    <div class="controls">
+		    	<input type="text" name='stornoAmount' id='stornoAmount' placeholder="0" class='form-control'/>
+		    	<input type="hidden" name="resId" id="stornoResId" />
+		    </div>
+		  </div>
+		</form>
+	</div>
+
+	<div class="modal-footer">  
+		<a id="stornoOK" class="btn btn-success">Storniraj</a>  
+		<a  id="stornoCancel" class="btn" data-dismiss="modal">Odustani</a>  		
+	</div>
+</div>
+
 <div class="container" id="paymentModal">
 	<div class="row">
 		<div id="paymentNewModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" style="display: none;">
