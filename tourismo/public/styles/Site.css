@@ -83,6 +83,11 @@ form:legend{
     color: black;
 }
 
+.stored-res {
+    background-color: #DDDDDD;
+    color: black;
+}
+
 .ui-datepicker{
 	z-index: 1154 !important;
 }

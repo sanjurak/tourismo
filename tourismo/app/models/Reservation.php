@@ -40,6 +40,9 @@ class Reservation extends Eloquent {
 	
 	public function payment_status()
 	{
+		if ($this->status == "Storno")
+			return "stored-res";
+
 		if($this->reservation_id)
 			$id = $this->reservation_id;
 		else

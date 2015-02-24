@@ -277,7 +277,7 @@ $(function(){
 				<a role="button" class="btn btn-default btn-small editReservation" name="{{$reservation->id}}"  href="#" title="Izmena rezervacije">
 					<span class="icon-edit"></span>
 				</a>
-				@if (Auth::user()->isAdmin())
+				@if (Auth::user()->isAdmin() && $reservation->status != "Storno")
 				<a role="button" class="btn btn-default btn-small resDelete" name="delete{{$reservation->id}}" id="delReservation{{$reservation->id}}" data-toggle="modal" title="Storniranje rezervacije" data-id={{$reservation->id}} >
 					<span class="icon-trash"></span>
 				</a>
