@@ -31,4 +31,10 @@ class Excursion_payment extends Eloquent {
 	{
 		return $this->belongsTo('Reservation', 'reservation_id');
 	}
+
+	public function getReservation()
+	{
+		$res = Reservation::find($this->reservation_id);
+		return $res;
+	}
 }

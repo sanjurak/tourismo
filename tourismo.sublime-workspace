@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"ex",
+				"excursion"
+			],
+			[
+				"json",
+				"json_encode"
+			],
+			[
+				"excurs",
+				"excursion"
+			],
+			[
 				"dir",
 				"director"
 			],
@@ -104,10 +116,10 @@
 	"buffers":
 	[
 		{
-			"file": "tourismo/app/views/debtsPartial.blade.php",
+			"file": "tourismo/app/views/passangersforperiod.blade.php",
 			"settings":
 			{
-				"buffer_size": 2446,
+				"buffer_size": 1717,
 				"line_ending": "Windows"
 			}
 		},
@@ -115,7 +127,31 @@
 			"file": "tourismo/app/views/psgForPeriodPartial.blade.php",
 			"settings":
 			{
-				"buffer_size": 864,
+				"buffer_size": 923,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "tourismo/app/views/paymentsPartial.blade.php",
+			"settings":
+			{
+				"buffer_size": 5144,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "tourismo/app/views/excursions.blade.php",
+			"settings":
+			{
+				"buffer_size": 1781,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "tourismo/app/views/excursionsPartial.blade.php",
+			"settings":
+			{
+				"buffer_size": 1027,
 				"line_ending": "Windows"
 			}
 		},
@@ -123,7 +159,31 @@
 			"file": "tourismo/app/controllers/PassangersController.php",
 			"settings":
 			{
-				"buffer_size": 12245,
+				"buffer_size": 7306,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "tourismo/app/controllers/ReservationsController.php",
+			"settings":
+			{
+				"buffer_size": 31358,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "tourismo/app/controllers/ReportsController.php",
+			"settings":
+			{
+				"buffer_size": 4950,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "tourismo/app/models/Excursion.php",
+			"settings":
+			{
+				"buffer_size": 2131,
 				"line_ending": "Windows"
 			}
 		}
@@ -188,8 +248,25 @@
 	},
 	"file_history":
 	[
-		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/controllers/ReservationsController.php",
 		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/models/Passanger.php",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/controllers/PaymentsController.php",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/models/Payment.php",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/routes.php",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/public/scripts/functions.js",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/public/scripts/excursions.js",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/views/debtsPartial.blade.php",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/views/reservationsPartial.blade.php",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/models/PassangerExcursion.php",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/views/reports.blade.php",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/views/home.blade.php",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/controllers/ExcursionsController.php",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/models/Excursion_payment.php",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/models/Reservation.php",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/views/excursions.blade.php",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/.gitignore",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/.gitignore",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/public/styles/Site.css",
+		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/controllers/ReservationsController.php",
 		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/models/Passangers.php",
 		"/C/Users/andjelko/Documents/GitHub/tourismo/tourismo/app/models/PassangerPrice.php",
 		"/D/eclipse/workspace/SprylogicsUIMA/resources/questionClassification/RegexToSemantics.txt",
@@ -222,7 +299,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
 		]
@@ -387,23 +464,50 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "tourismo/app/views/debtsPartial.blade.php",
+					"file": "tourismo/app/views/passangersforperiod.blade.php",
 					"settings":
 					{
-						"buffer_size": 2446,
+						"buffer_size": 1717,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								101,
-								101
+								1642,
+								1642
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 114.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "tourismo/app/views/psgForPeriodPartial.blade.php",
+					"settings":
+					{
+						"buffer_size": 923,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								197,
+								197
 							]
 						],
 						"settings":
@@ -418,25 +522,81 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "tourismo/app/views/psgForPeriodPartial.blade.php",
+					"buffer": 2,
+					"file": "tourismo/app/views/paymentsPartial.blade.php",
 					"settings":
 					{
-						"buffer_size": 864,
+						"buffer_size": 5144,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								864,
-								864
+								3425,
+								3425
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1270.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "tourismo/app/views/excursions.blade.php",
+					"settings":
+					{
+						"buffer_size": 1781,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								766,
+								766
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 171.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "tourismo/app/views/excursionsPartial.blade.php",
+					"settings":
+					{
+						"buffer_size": 1027,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								809,
+								809
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -447,23 +607,23 @@
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
-					"buffer": 2,
+					"buffer": 5,
 					"file": "tourismo/app/controllers/PassangersController.php",
 					"settings":
 					{
-						"buffer_size": 12245,
+						"buffer_size": 7306,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1486,
-								1486
+								6954,
+								6954
 							]
 						],
 						"settings":
@@ -472,7 +632,88 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 513.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "tourismo/app/controllers/ReservationsController.php",
+					"settings":
+					{
+						"buffer_size": 31358,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								31028,
+								31028
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 17963.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "tourismo/app/controllers/ReportsController.php",
+					"settings":
+					{
+						"buffer_size": 4950,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1578,
+								1578
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 171.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "tourismo/app/models/Excursion.php",
+					"settings":
+					{
+						"buffer_size": 2131,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1191,
+								1191
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 99.0,
+						"translation.y": 225.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -508,7 +749,7 @@
 		"cols":
 		[
 			0.0,
-			0.5,
+			0.485145172181,
 			1.0
 		],
 		"rows":
@@ -529,12 +770,92 @@
 		"selected_items":
 		[
 			[
-				"psgforpe",
-				"app/views/psgForPeriodPartial.blade.php"
+				"reservco",
+				"app/controllers/ReservationsController.php"
+			],
+			[
+				"pasangerc",
+				"app/controllers/PassangersController.php"
+			],
+			[
+				"passa",
+				"app/models/Passanger.php"
+			],
+			[
+				"paymencon",
+				"app/controllers/PaymentsController.php"
+			],
+			[
+				"paymen",
+				"app/models/Payment.php"
+			],
+			[
+				"rou",
+				"app/routes.php"
+			],
+			[
+				"excu",
+				"app/models/Excursion.php"
+			],
+			[
+				"pasforpe",
+				"app/views/passangersforperiod.blade.php"
+			],
+			[
+				"excbla",
+				"app/views/excursions.blade.php"
+			],
+			[
+				"repo",
+				"app/views/reports.blade.php"
+			],
+			[
+				"home",
+				"app/views/home.blade.php"
+			],
+			[
+				"reportsc",
+				"app/controllers/ReportsController.php"
+			],
+			[
+				"paymntcon",
+				"app/controllers/PaymentsController.php"
+			],
+			[
+				"excursco",
+				"app/controllers/ExcursionsController.php"
+			],
+			[
+				"paymenspa",
+				"app/views/paymentsPartial.blade.php"
+			],
+			[
+				"paymr",
+				"app/controllers/PaymentsController.php"
+			],
+			[
+				"reservcontro",
+				"app/controllers/ReservationsController.php"
 			],
 			[
 				"reser",
-				"app/controllers/ReservationsController.php"
+				"app/models/Reservation.php"
+			],
+			[
+				".css",
+				"public/styles/Site.css"
+			],
+			[
+				"reservation.",
+				"app/models/Reservation.php"
+			],
+			[
+				"reservationpar",
+				"app/views/reservationsPartial.blade.php"
+			],
+			[
+				"psgforpe",
+				"app/views/psgForPeriodPartial.blade.php"
 			],
 			[
 				"psgcont",

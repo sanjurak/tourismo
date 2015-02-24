@@ -9,7 +9,7 @@ class PaymentsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$payments = Payment::orderBy('id', 'DESC')->paginate(15);
+		$payments = Payment::orderBy('date', 'DESC')->paginate(15);
 		return View::make('payments', array('payments' => $payments))->nest('paymentsPartial','paymentsPartial', array('payments' => $payments));
 	}
 

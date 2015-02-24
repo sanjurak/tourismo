@@ -171,10 +171,11 @@ Route::group(array('before' => 'auth'), function(){
 	Route::post('newCategory', array('as' => 'newCategory', 'uses' => 'CategoriesController@store'));
 
 	Route::get('debts', array('as' => 'debts', 'uses' => 'PassangersController@debts'));
-	Route::get('dailyincome', function(){	return View::make('dailyincome'); });
-	Route::get('incomeforperiod', function(){	return View::make('incomeforperiod'); });
+	Route::get('dailyincome', function(){ return View::make('dailyincome'); });
+	Route::get('incomeforperiod', function(){ return View::make('incomeforperiod'); });
 	Route::get('passangersforperiod', array('as' => 'passangersforperiod', 'uses' => 'PassangersController@psgforperiod'));
-	Route::get('excursions', function(){	return View::make('excursions'); });
+	Route::get('excursions', array('as' => 'excursions', 'uses' => 'ReportsController@excursions'));
+	Route::post('basicExcursionsSearch', array('as' => 'basicExcursionsSearch', 'uses' => 'ReportsController@basicExcursionsSearch'));
 	Route::get('greenlist', function(){	return View::make('greenlist'); });
 });
 

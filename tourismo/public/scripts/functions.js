@@ -11,6 +11,24 @@ function SearchPsg(term)
 		});
 }
 
+function SearchExcursions(cat, dst, from, to)
+{
+	$.ajax({
+		url: 'basicExcursionsSearch',
+		type: 'POST',
+		data: {
+			cat_item: cat,
+			dst_item: dst,
+			from_item: from,
+			to_item: to
+		},
+		dataType: 'html',
+		success: function(data){
+			$('#excursionsData').empty().html(data);
+		}
+	});
+}
+
 function SearchPassangers(cat, dst, from, to)
 {
 	$.ajax({

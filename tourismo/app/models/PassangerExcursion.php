@@ -23,5 +23,25 @@ class PassangerExcursion extends Eloquent {
 		return $this->id;
 	}
 
+	public function passangerId()
+	{
+		return $this->belongsTo('Passanger', 'passanger_id');
+	}
 
+	public function reservationId()
+	{
+		return $this->belongsTo('Reservation', 'reservation_id');
+	}
+
+	public function getPassanger()
+	{
+		$pas = Passanger::find($this->passangerId);
+		return $pas;
+	}
+
+	public function getReservation()
+	{
+		$res = Reservation::find($this->reservationId);
+		return $res;
+	}
 }

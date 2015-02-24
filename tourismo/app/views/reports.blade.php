@@ -26,15 +26,14 @@
               </div>
 	        </div>
 	      </a>
-	      <a href="dailyincome">
+	      <!-- <a href="dailyincome">
 	        <div class="tile double live bg-gray" data-role="live-tile" data-effect="slideUp">
-	          <!-- <div class="tile-content image"><img src="images/travelers.png"></div> -->
-	          <!-- <div class="tile-content image"><img src="images/travelers2.jpg"></div> -->
+	          <div class="tile-content image"><img src="images/travelers2.jpg"></div>
 	          <div class="tile-status bg-dark opacity">
                  <span class="label" style="font-size: 12pt">Specifikacija dnevnog pazara</span>
               </div>
 	        </div>
-	      </a>
+	      </a> -->
 	      <a href="incomeforperiod">
 	        <div class="tile double live bg-lightBlue" data-role="live-tile" data-effect="slideUp">
 	          <!-- <div class="tile-content image"><img src="images/destinations.jpg"></div> -->
