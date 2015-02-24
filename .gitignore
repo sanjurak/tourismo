@@ -1,1 +1,3 @@
 *.bak
+/tourismo/vendor/
+/tourismo/vendor/.git
