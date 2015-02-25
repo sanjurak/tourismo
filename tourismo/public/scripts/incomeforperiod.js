@@ -37,7 +37,7 @@ $(document).ready(function(){
         },
         onChange: function(){
             var term = this.items[0];
-            SearchExcursions(term, $("#dstCountryTownSelect")[0].value,
+            SearchIncome(term, $("#dstCountryTownSelect")[0].value,
                 $("#from_date")[0].value, $("#to_date")[0].value);
         }
     });
@@ -79,7 +79,7 @@ $(document).ready(function(){
         },
         onChange: function(){
             var term = this.items[0];
-            SearchExcursions($("#categoriesSelect")[0].value, term,
+            SearchIncome($("#categoriesSelect")[0].value, term,
                 $("#from_date")[0].value, $("#to_date")[0].value);
         }
     });
@@ -93,7 +93,7 @@ $(document).ready(function(){
         selectize.clearOptions();
         $("#from_date")[0].value = "";
         $("#to_date")[0].value = "";
-        SearchExcursions("", "", "", "");        
+        SearchIncome("", "", "", "");        
     });
 
     $("#dstCountryTownSelect").click(function(){
@@ -108,17 +108,17 @@ $(document).ready(function(){
     $('#to_date').datepicker( "option", "dateFormat", 'd-m-yy' );
 
     $('#searchBtn').click(function(){
-        SearchExcursions($("#categoriesSelect")[0].value,
+        SearchIncome($("#categoriesSelect")[0].value,
                         $("#dstCountryTownSelect")[0].value,
                         $("#from_date")[0].value,
                         $("#to_date")[0].value);
     });
 });
 
-function SearchExcursions(cat, dst, from, to)
+function SearchIncome(cat, dst, from, to)
 {
     $.ajax({
-        url: 'basicExcursionsSearch',
+        url: 'basicIncomesSearch',
         type: 'POST',
         data: {
             cat_item: cat,
@@ -128,7 +128,7 @@ function SearchExcursions(cat, dst, from, to)
         },
         dataType: 'html',
         success: function(data){
-            $('#excursionsData').empty().html(data);
+            $('#incomeData').empty().html(data);
         }
     });
 }

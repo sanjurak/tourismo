@@ -56,4 +56,45 @@ class Excursion extends Eloquent {
 							->get();
 		return $excursions;
 	}
+
+	public static function excursionSearch($cat, $dst, $from, $to) {
+		$excursionSer = Excursion::search($cat, $dst, $from, $to);
+		$exc_map = array();
+		foreach ($excursionSer as $excSer) {
+			if (isset($exc_map[$excSer->passangerId.'-'.$excSer->reservationId])) {
+				$excursion = $exc_map[$excSer->passangerId.'-'.$excSer->reservationId];
+				$old_exc = $excursion;
+				$excursion->excursionItem .= ', '.$excSer->excursionItem;
+				$excursion->amount_din += $excSer->priceDin;
+				$excursion->amount_eur += $excSer->priceEur;
+				$exc_map[$excSer->passangerId.'-'.$excSer->reservationId] = $excursion;
+				continue;
+			}
+			$excursion = new Excursions();
+			$excursion->id = $excSer->excursion_id;
+			$excursion->passanger_id = $excSer->passangerId;
+			$excursion->res_id = $excSer->reservationId;
+			$excursion->name = $excSer->name;
+			$excursion->surname = $excSer->surname;
+			$excursion->jmbg = $excSer->jmbg;
+			$excursion->reservation_number = $excSer->reservation_number;
+			$excursion->excursionItem = $excSer->excursionItem;
+			$excursion->amount_din = $excSer->priceDin;
+			$excursion->amount_eur = $excSer->priceEur;
+			$exc_map[$excSer->passangerId.'-'.$excSer->reservationId] = $excursion;
+		}
+
+		$excPayms = Excursion_payment::all();
+		foreach ($excPayms as $excPaym) {
+			if (isset($exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id])) {
+				$excursion = $exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id];
+				$excursion->amount_din -= $excPaym->amount_din;
+				$excursion->amount_eur -= round(floatval($excPaym->amount_eur_din/$excPaym->exchange_rate), 2);
+				$exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id] = $excursion;
+			}
+		}
+
+		$excursions = array_values($exc_map);
+		return $excursions;
+	}
 }

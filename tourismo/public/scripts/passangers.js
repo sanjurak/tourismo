@@ -154,3 +154,16 @@ $(document).ready(function(){
 function padStr(i) {
     return (i < 10) ? "0" + i : "" + i;
 }
+
+function SearchPsg(term)
+{
+    $.ajax({
+            url:"basicPsgSearch",
+            type:"POST",
+            data: {search_item: term },
+            dataType:"html",
+            success: function(data){
+                $("#passangersData").empty().html(data);
+            }
+        });
+}

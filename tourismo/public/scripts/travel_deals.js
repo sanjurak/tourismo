@@ -425,3 +425,19 @@ $(document).ready(function(){
 	//	$("#addAccomodationModal").modal("show");
 	//});
 });
+
+function SearchTrvlDls(cat, dst)
+{
+    $.ajax({
+        url: 'basicTrvlDlsSearch',
+        type: 'POST',
+        data: {
+            cat_item: cat,
+            dst_item: dst
+        },
+        dataType: 'html',
+        success: function(data){
+            $('#list_view').empty().html(data);
+        }
+    });
+}

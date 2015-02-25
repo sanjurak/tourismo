@@ -70,3 +70,16 @@ $(document).ready(function(){
 function padStr(i) {
     return (i < 10) ? "0" + i : "" + i;
 }
+
+function SearchPayments(term)
+{
+    $.ajax({
+            url:"basicPaymentsSearch",
+            type:"POST",
+            data: {search_item: term },
+            dataType:"html",
+            success: function(data){
+                $("#paymentsData").empty().html(data);
+            }
+        });
+}

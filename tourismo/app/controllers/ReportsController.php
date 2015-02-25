@@ -14,43 +14,7 @@ class ReportsController extends \BaseController {
 
 	public function excursions()
 	{
-		$excursionSer = Excursion::search("", "", "", "");
-		$exc_map = array();
-		foreach ($excursionSer as $excSer) {
-			if (isset($exc_map[$excSer->passangerId.'-'.$excSer->reservationId])) {
-				$excursion = $exc_map[$excSer->passangerId.'-'.$excSer->reservationId];
-				$old_exc = $excursion;
-				$excursion->excursionItem .= ', '.$excSer->excursionItem;
-				$excursion->amount_din += $excSer->priceDin;
-				$excursion->amount_eur += $excSer->priceEur;
-				$exc_map[$excSer->passangerId.'-'.$excSer->reservationId] = $excursion;
-				continue;
-			}
-			$excursion = new Excursions();
-			$excursion->id = $excSer->excursion_id;
-			$excursion->passanger_id = $excSer->passangerId;
-			$excursion->res_id = $excSer->reservationId;
-			$excursion->name = $excSer->name;
-			$excursion->surname = $excSer->surname;
-			$excursion->jmbg = $excSer->jmbg;
-			$excursion->reservation_number = $excSer->reservation_number;
-			$excursion->excursionItem = $excSer->excursionItem;
-			$excursion->amount_din = $excSer->priceDin;
-			$excursion->amount_eur = $excSer->priceEur;
-			$exc_map[$excSer->passangerId.'-'.$excSer->reservationId] = $excursion;
-		}
-
-		$excPayms = Excursion_payment::all();
-		foreach ($excPayms as $excPaym) {
-			if (isset($exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id])) {
-				$excursion = $exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id];
-				$excursion->amount_din -= $excPaym->amount_din;
-				$excursion->amount_eur -= round(floatval($excPaym->amount_eur_din/$excPaym->exchange_rate), 2);
-				$exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id] = $excursion;
-			}
-		}
-
-		$excursions = array_values($exc_map);
+		$excursions = Excursion::excursionSearch("", "", "", "");
 		// dd(json_encode($exc_map));
 		return View::make('excursions', array('excursions' => $excursions))->nest('excursionsPartial','excursionsPartial', array('excursions' => $excursions));
 	}
@@ -62,44 +26,25 @@ class ReportsController extends \BaseController {
 		$from = DateTime::createFromFormat('d-m-Y', Input::get('from_item',''));
 		$to = DateTime::createFromFormat('d-m-Y', Input::get('to_item',''));
 		
-		$excursionSer = Excursion::search($cat, $dst, $from, $to);
-		$exc_map = array();
-		foreach ($excursionSer as $excSer) {
-			if (isset($exc_map[$excSer->passangerId.'-'.$excSer->reservationId])) {
-				$excursion = $exc_map[$excSer->passangerId.'-'.$excSer->reservationId];
-				$old_exc = $excursion;
-				$excursion->excursionItem .= ', '.$excSer->excursionItem;
-				$excursion->amount_din += $excSer->priceDin;
-				$excursion->amount_eur += $excSer->priceEur;
-				$exc_map[$excSer->passangerId.'-'.$excSer->reservationId] = $excursion;
-				continue;
-			}
-			$excursion = new Excursions();
-			$excursion->id = $excSer->excursion_id;
-			$excursion->passanger_id = $excSer->passangerId;
-			$excursion->res_id = $excSer->reservationId;
-			$excursion->name = $excSer->name;
-			$excursion->surname = $excSer->surname;
-			$excursion->jmbg = $excSer->jmbg;
-			$excursion->reservation_number = $excSer->reservation_number;
-			$excursion->excursionItem = $excSer->excursionItem;
-			$excursion->amount_din = $excSer->priceDin;
-			$excursion->amount_eur = $excSer->priceEur;
-			$exc_map[$excSer->passangerId.'-'.$excSer->reservationId] = $excursion;
-		}
-
-		$excPayms = Excursion_payment::all();
-		foreach ($excPayms as $excPaym) {
-			if (isset($exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id])) {
-				$excursion = $exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id];
-				$excursion->amount_din -= $excPaym->amount_din;
-				$excursion->amount_eur -= round(floatval($excPaym->amount_eur_din/$excPaym->exchange_rate), 2);
-				$exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id] = $excursion;
-			}
-		}
-
-		$excursions = array_values($exc_map);
+		$excursions = Excursion::excursionSearch($cat, $dst, $from, $to);
 		return View::make('excursionsPartial', array('excursions' => $excursions));
+	}
+
+	public function incomeforperiod()
+	{
+		$incomes = Payment::incomesForPeriod("", "", "", "");
+		return View::make('incomeforperiod', array('incomes' => $incomes))->nest('incomeForPeriodPartial','incomeForPeriodPartial', array('incomes' => $incomes));
+	}
+
+	public function basicIncomesSearch()
+	{
+		$cat = Input::get('cat_item','');
+		$dst = Input::get('dst_item','');
+		$from = DateTime::createFromFormat('d-m-Y', Input::get('from_item',''));
+		$to = DateTime::createFromFormat('d-m-Y', Input::get('to_item',''));
+		
+		$incomes = Payment::incomesForPeriod($cat, $dst, $from, $to);
+		return View::make('incomeForPeriodPartial', array('incomes' => $incomes));
 	}
 
 	/**
