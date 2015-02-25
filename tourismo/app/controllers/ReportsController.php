@@ -42,10 +42,12 @@ class ReportsController extends \BaseController {
 
 		$excPayms = Excursion_payment::all();
 		foreach ($excPayms as $excPaym) {
-			$excursion = $exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id];
-			$excursion->amount_din -= $excPaym->amount_din;
-			$excursion->amount_eur -= round(floatval($excPaym->amount_eur_din/$excPaym->exchange_rate), 2);
-			$exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id] = $excursion;
+			if (isset($exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id])) {
+				$excursion = $exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id];
+				$excursion->amount_din -= $excPaym->amount_din;
+				$excursion->amount_eur -= round(floatval($excPaym->amount_eur_din/$excPaym->exchange_rate), 2);
+				$exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id] = $excursion;
+			}
 		}
 
 		$excursions = array_values($exc_map);
@@ -85,6 +87,17 @@ class ReportsController extends \BaseController {
 			$excursion->amount_eur = $excSer->priceEur;
 			$exc_map[$excSer->passangerId.'-'.$excSer->reservationId] = $excursion;
 		}
+
+		$excPayms = Excursion_payment::all();
+		foreach ($excPayms as $excPaym) {
+			if (isset($exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id])) {
+				$excursion = $exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id];
+				$excursion->amount_din -= $excPaym->amount_din;
+				$excursion->amount_eur -= round(floatval($excPaym->amount_eur_din/$excPaym->exchange_rate), 2);
+				$exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id] = $excursion;
+			}
+		}
+
 		$excursions = array_values($exc_map);
 		return View::make('excursionsPartial', array('excursions' => $excursions));
 	}

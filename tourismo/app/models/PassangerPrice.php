@@ -35,7 +35,8 @@ class PassangerPrice extends Eloquent {
 		$reservation_id = 0;
 		foreach ($passangerPrices as $psgPrice) {
 			$reservation = Reservation::find($psgPrice->reservation_id);
-			if ($reservation->payment_status() == "tr-success") {
+			if ($reservation->status == 'Storno' 
+				|| $reservation->payment_status() == "tr-success") {
 				continue;
 			}
 

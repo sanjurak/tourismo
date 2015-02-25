@@ -36,7 +36,8 @@ class Passanger extends Eloquent {
 	            ->join('accomodation_units', 'accomodation_units.id', '=', 'travel_deals.accomodation_unit_id')
 	            ->join('accomodations', 'accomodations.id', '=', 'accomodation_units.accommodations_id')
 	            ->join('categories', 'categories.id', '=', 'travel_deals.category_id')
-	            ->select('passanger.*', 'reservations.reservation_number', 'reservations.travel_date', 'destinations.country', 'destinations.town', 'accomodations.type', 'accomodations.name AS acc_name');
+	            ->select('passanger.*', 'reservations.reservation_number', 'reservations.travel_date', 'destinations.country', 'destinations.town', 'accomodations.type', 'accomodations.name AS acc_name')
+	            ->where('reservations.status', '!=', 'Storno');
 		if ($cat != null && $cat != "")
 			$psgsel = $psgsel->where('categories.name', 'LIKE', $cat);
 		if ($dst != null && $dst != "") {

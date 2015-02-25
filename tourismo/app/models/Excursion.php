@@ -34,7 +34,8 @@ class Excursion extends Eloquent {
 	            ->join('excursion', 'excursion.id', '=', 'passanger_excursions.excursion_id')
 	            ->join('excursion_payments', 'passanger.id', '=', 'passanger_excursions.passangerId')
 	            ->join('categories', 'categories.id', '=', 'travel_deals.category_id')
-	            ->select('passanger_excursions.*', 'passanger.name', 'passanger.surname', 'passanger.jmbg', 'reservations.reservation_number', 'reservations.travel_date', 'destinations.country', 'destinations.town', 'excursion.*');
+	            ->select('passanger_excursions.*', 'passanger.name', 'passanger.surname', 'passanger.jmbg', 'reservations.reservation_number', 'reservations.travel_date', 'destinations.country', 'destinations.town', 'excursion.*')
+	            ->where('reservations.status', '!=', 'Storno');
 		if ($cat != null && $cat != "")
 			$excsel = $excsel->where('categories.name', 'LIKE', $cat);
 		if ($dst != null && $dst != "") {
