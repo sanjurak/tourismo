@@ -15,7 +15,6 @@ class ReportsController extends \BaseController {
 	public function excursions()
 	{
 		$excursionSer = Excursion::search("", "", "", "");
-		$excursions = array();
 		$exc_map = array();
 		foreach ($excursionSer as $excSer) {
 			if (isset($exc_map[$excSer->passangerId.'-'.$excSer->reservationId])) {
@@ -24,11 +23,6 @@ class ReportsController extends \BaseController {
 				$excursion->excursionItem .= ', '.$excSer->excursionItem;
 				$excursion->amount_din += $excSer->priceDin;
 				$excursion->amount_eur += $excSer->priceEur;
-				$key = array_search($old_exc, $excursions);
-				if($key!==false){
-    				unset($excursions[$key]);
-				}
-				array_push($excursions, $excursion);
 				$exc_map[$excSer->passangerId.'-'.$excSer->reservationId] = $excursion;
 				continue;
 			}
@@ -43,9 +37,18 @@ class ReportsController extends \BaseController {
 			$excursion->excursionItem = $excSer->excursionItem;
 			$excursion->amount_din = $excSer->priceDin;
 			$excursion->amount_eur = $excSer->priceEur;
-			array_push($excursions, $excursion);
 			$exc_map[$excSer->passangerId.'-'.$excSer->reservationId] = $excursion;
 		}
+
+		$excPayms = Excursion_payment::all();
+		foreach ($excPayms as $excPaym) {
+			$excursion = $exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id];
+			$excursion->amount_din -= $excPaym->amount_din;
+			$excursion->amount_eur -= round(floatval($excPaym->amount_eur_din/$excPaym->exchange_rate), 2);
+			$exc_map[$excPaym->passanger_id.'-'.$excPaym->reservation_id] = $excursion;
+		}
+
+		$excursions = array_values($exc_map);
 		// dd(json_encode($exc_map));
 		return View::make('excursions', array('excursions' => $excursions))->nest('excursionsPartial','excursionsPartial', array('excursions' => $excursions));
 	}
@@ -58,7 +61,6 @@ class ReportsController extends \BaseController {
 		$to = DateTime::createFromFormat('d-m-Y', Input::get('to_item',''));
 		
 		$excursionSer = Excursion::search($cat, $dst, $from, $to);
-		$excursions = array();
 		$exc_map = array();
 		foreach ($excursionSer as $excSer) {
 			if (isset($exc_map[$excSer->passangerId.'-'.$excSer->reservationId])) {
@@ -67,11 +69,6 @@ class ReportsController extends \BaseController {
 				$excursion->excursionItem .= ', '.$excSer->excursionItem;
 				$excursion->amount_din += $excSer->priceDin;
 				$excursion->amount_eur += $excSer->priceEur;
-				$key = array_search($old_exc, $excursions);
-				if($key!==false){
-    				unset($excursions[$key]);
-				}
-				array_push($excursions, $excursion);
 				$exc_map[$excSer->passangerId.'-'.$excSer->reservationId] = $excursion;
 				continue;
 			}
@@ -86,9 +83,9 @@ class ReportsController extends \BaseController {
 			$excursion->excursionItem = $excSer->excursionItem;
 			$excursion->amount_din = $excSer->priceDin;
 			$excursion->amount_eur = $excSer->priceEur;
-			array_push($excursions, $excursion);
 			$exc_map[$excSer->passangerId.'-'.$excSer->reservationId] = $excursion;
 		}
+		$excursions = array_values($exc_map);
 		return View::make('excursionsPartial', array('excursions' => $excursions));
 	}
 
