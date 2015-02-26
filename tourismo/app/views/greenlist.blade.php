@@ -14,6 +14,7 @@
 </div>
 
 @include('notifications')
+@include('searchArea')
 <br>
 <div class="container" id="reservations">
 <div class="row">
