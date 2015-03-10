@@ -541,6 +541,12 @@ class ReservationsController extends \BaseController {
 			$reservation->note= Input::get("note");			
 			$reservation->note_internal= Input::get("note_internal");			
 			$reservation->travel_deal_id = Input::get("traveldeal_id");
+			$internal = Input::get("Internal");
+			
+			if($internal == "true")
+				$reservation->internal = 1;
+			else
+				$reservation->internal = 0;	
 			
 			$reservation->save();
 			

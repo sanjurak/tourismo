@@ -674,6 +674,8 @@ $("#traveldealsSel").selectize({
        
        var data = $("#editReservationForm").serialize() + "&" + $("#passangersDetailsForm").serialize() 
        			+ "&" + $("#generalInfo").serialize();
+       			
+       	data += "&Internal=" + $("#internal").is(":checked");
 
         $(".psgPayment").each(function(){
             $(this).find("input:text").each(function(){

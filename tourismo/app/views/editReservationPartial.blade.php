@@ -31,11 +31,18 @@
 	
 </style>
 <div class="row">
-	<div class="span12">
 	<form id="generalInfo" name="reservationGeneralInfo">
+		<div class="span6">
 		Broj rezervacije: <input type="text" name="reservation_number" id="resNum" value="{{$reservation->reservation_number}}" class="validate[required]" />
+		</div>
+		<div class="span6"><div class="pull-right">
+		@if($reservation->internal)
+		<input type="checkbox" name="internal" id="internal" checked/>
+		@else
+		<input type="checkbox" name="internal" id="internal"/>
+		@endif
+		Interna </div></div>
 		</form>
-	</div>
 </div>
 <div class="row">
 	<div class="span12">
@@ -436,7 +443,7 @@
 
 		<div class="row">
 				<div class="span4">
-					Promoter:<br> <input type="text" style="height:100%" id="discount" value={{$reservation->discount}} name="discount" placeholder="Promoter"/>
+					Promoter:<br> <input type="text" style="height:100%" id="discount"  name="discount" value={{$reservation->discount}} placeholder="Promoter"/>
 				</div>
 				<div class="span4">
 					Popust odobrio:<br> <input type="text" style="height:100%" id="discounter" name="discounter_name" value="{{$reservation->discounter_name}}" placeholder="Popust odobrio"/>
