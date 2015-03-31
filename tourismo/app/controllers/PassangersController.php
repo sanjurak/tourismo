@@ -25,6 +25,12 @@ class PassangersController extends \BaseController {
 		return View::make('passangersforperiod', array('passangers' => $passangers))->nest('psgForPeriodPartial','psgForPeriodPartial', array('passangers' => $passangers));
 	}
 
+	public function psggreenlist()
+	{
+		$passangers = Passanger::psgGreenList("", "", "" , "");
+		return View::make('greenlist', array('passangers' => $passangers))->nest('psgGreenListPartial','psgGreenListPartial', array('passangers' => $passangers));
+	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -220,6 +226,17 @@ class PassangersController extends \BaseController {
 		$passangers = Passanger::psgForPeriod($cat, $dst, $from, $to);
 
 		return View::make('psgForPeriodPartial', array('passangers' => $passangers));
+	}
+
+	public function basicPsgGreenListSearch()
+	{
+		$cat = Input::get('cat_item','');
+		$dst = Input::get('dst_item','');
+		$from = DateTime::createFromFormat('d-m-Y', Input::get('from_item',''));
+		$to = DateTime::createFromFormat('d-m-Y', Input::get('to_item',''));
+		$passangers = Passanger::psgGreenList($cat, $dst, $from, $to);
+
+		return View::make('psgGreenListPartial', array('passangers' => $passangers));
 	}
 
 	public function details()

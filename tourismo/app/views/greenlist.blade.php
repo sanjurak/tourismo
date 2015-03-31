@@ -1,7 +1,7 @@
 @extends('home')
 @section('content')
 
-{{HTML::script('scripts/reservations.js')}}
+{{HTML::script('scripts/psggreenlist.js')}}
 
 <div class="container">
 	<nav class="breadcrumbs large">
@@ -15,15 +15,11 @@
 
 @include('notifications')
 @include('searchArea')
-<br>
-<div class="container" id="reservations">
-<div class="row">
 
-	<div class="row">
-		<div id="reservationsPartial">
-			
-		</div>
-	</div>
+<br>
+<p/>
+<div  id="passangersData">
+	{{ $psgGreenListPartial }}
 </div>
 
 @stop

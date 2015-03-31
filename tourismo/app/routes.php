@@ -177,7 +177,11 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('passangersforperiod', array('as' => 'passangersforperiod', 'uses' => 'PassangersController@psgforperiod'));
 	Route::get('excursions', array('as' => 'excursions', 'uses' => 'ReportsController@excursions'));
 	Route::post('basicExcursionsSearch', array('as' => 'basicExcursionsSearch', 'uses' => 'ReportsController@basicExcursionsSearch'));
-	Route::get('greenlist', function(){	return View::make('greenlist'); });
+	Route::get('greenlist', array('as' => 'greenlist', 'uses' => 'PassangersController@psggreenlist'));
+	Route::post('basicPsgGreenListSearch', array('as' => 'basicPsgGreenListSearch', 'uses' => 'PassangersController@basicPsgGreenListSearch'));
+	Route::get('promoters', array('as' => 'promoters', 'uses' => 'ReportsController@promoters'));
+	Route::post('basicPromotersSearch', array('as' => 'basicPromotersSearch', 'uses' => 'ReportsController@basicPromotersSearch'));
+	
 });
 
 Route::filter('admin', function(){
