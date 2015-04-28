@@ -49,8 +49,8 @@ class ReportsController extends \BaseController {
 
 	public function promoters()
 	{
-		$promoters = Passanger::promoters("", "", "", "");
-		return View::make('promoters', array('promoters' => $promoters))->nest('promotersPartial','promotersPartial', array('promoters' => $promoters));
+		$passangers = Passanger::promoters("", "", "", "");
+		return View::make('promoters', array('passangers' => $passangers))->nest('promotersPartial','promotersPartial', array('passangers' => $passangers));
 	}
 
 	public function basicPromotersSearch()
@@ -60,8 +60,8 @@ class ReportsController extends \BaseController {
 		$from = DateTime::createFromFormat('d-m-Y', Input::get('from_item',''));
 		$to = DateTime::createFromFormat('d-m-Y', Input::get('to_item',''));
 		
-		$promoters = Passanger::promoters($cat, $dst, $from, $to);
-		return View::make('promotersPartial', array('promoters' => $promoters));
+		$passangers = Passanger::promoters($cat, $dst, $from, $to);
+		return View::make('promotersPartial', array('passangers' => $passangers));
 	}
 
 	/**

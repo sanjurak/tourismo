@@ -70,13 +70,13 @@
               </div>
 	        </div>
 	      </a>
-	      <!-- <a href="promoters">
+	      <a href="promoters">
 	        <div class="tile double live bg-gray" data-role="live-tile" data-effect="slideUp">
 	           <div class="tile-status bg-dark opacity">
                  <span class="label" style="font-size: 12pt">Promoteri</span>
               </div>
 	        </div>
-	      </a> -->
+	      </a>
 		</div>
 	</div>
 </div>
