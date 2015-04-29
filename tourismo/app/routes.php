@@ -171,6 +171,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::post('newCategory', array('as' => 'newCategory', 'uses' => 'CategoriesController@store'));
 
 	Route::get('debts', array('as' => 'debts', 'uses' => 'PassangersController@debts'));
+	Route::post('debtsSearch', array('as' => 'debtsSearch', 'uses' => 'PassangersController@debtsSearch'));
 	Route::get('dailyincome', function(){ return View::make('dailyincome'); });
 	Route::get('incomeforperiod', array('as' => 'incomeforperiod', 'uses' => 'ReportsController@incomeforperiod'));
 	Route::post('basicIncomesSearch', array('as' => 'basicIncomesSearch', 'uses' => 'ReportsController@basicIncomesSearch'));

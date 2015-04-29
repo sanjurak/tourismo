@@ -1,7 +1,7 @@
 @extends('home')
 @section('content')
 
-{{HTML::script('scripts/reservations.js')}}
+{{HTML::script('scripts/debts.js')}}
 
 <div class="container">
 	<nav class="breadcrumbs large">

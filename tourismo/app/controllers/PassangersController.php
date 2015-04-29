@@ -15,8 +15,19 @@ class PassangersController extends \BaseController {
 
 	public function debts()
 	{
-		$debts = PassangerPrice::debts();
+		$debts = PassangerPrice::debts("", "", "", "");
 		return View::make('debts')->nest('debtsPartial','debtsPartial', array('debts' => $debts));
+	}
+
+	public function debtsSearch()
+	{
+		$cat = Input::get('cat_item','');
+		$dst = Input::get('dst_item','');
+		$from = DateTime::createFromFormat('d-m-Y', Input::get('from_item',''));
+		$to = DateTime::createFromFormat('d-m-Y', Input::get('to_item',''));
+		
+		$debts = PassangerPrice::debts($cat, $dst, $from, $to);
+		return View::make('debtsPartial', array('debts' => $debts));
 	}
 
 	public function psgforperiod()

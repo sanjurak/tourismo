@@ -25,10 +25,59 @@ class PassangerPrice extends Eloquent {
 		return $this->id;
 	}
 
-	public static function debts()
+	public static function debts($cat, $dst, $from, $to)
+	{
+		$passangers = null;
+		$psgsel = DB::table('passanger_prices')
+				->join('passanger', 'passanger_prices.passanger_id', '=', 'passanger.id')
+	            ->join('reservations', 'reservations.id', '=', 'passanger_prices.reservation_id')
+	            ->join('travel_deals', 'travel_deals.id', '=', 'reservations.travel_deal_id')
+	            ->join('destinations', 'destinations.id', '=', 'travel_deals.destination_id')
+	            ->join('accomodation_units', 'accomodation_units.id', '=', 'travel_deals.accomodation_unit_id')
+	            ->join('accomodations', 'accomodations.id', '=', 'accomodation_units.accommodations_id')
+	            ->join('categories', 'categories.id', '=', 'travel_deals.category_id')
+	            ->select('passanger.*', 'reservations.id AS reservation_id', 'reservations.reservation_number', 
+	            	'reservations.travel_date', 'destinations.country', 'destinations.town', 'accomodations.type',
+	            	 'accomodations.name AS acc_name', 'passanger_prices.price_item', 'passanger_prices.price_din', 
+	            	 'passanger_prices.price_eur', 'passanger_prices.num', 'passanger.id AS passanger_id')
+	            ->where('reservations.status', '!=', 'Storno')
+	            ->where(function ($query) {
+	            	$query->where('passanger_prices.price_din', '>', 0)
+	            	      ->orWhere('passanger_prices.price_eur', '>', 0);
+	            	});
+		if ($cat != null && $cat != "")
+			$psgsel = $psgsel->where('categories.name', 'LIKE', $cat);
+		if ($dst != null && $dst != "") {
+			$dsts = explode(', ', $dst);
+			$psgsel = $psgsel->where('destinations.town', 'LIKE', $dsts[0])->where('destinations.country', 'LIKE', $dsts[1]);
+		}
+		if ($from != null && $from != "") {
+			$from = $from->sub(new DateInterval('P1D'));
+			$psgsel = $psgsel->where('reservations.travel_date', '>=', $from);
+		}
+		if ($to != null && $to != "") {
+			$psgsel = $psgsel->where('reservations.travel_date', '<=', $to);
+		}
+
+		$passangers = $psgsel
+					->orderBy('passanger_id')
+					->orderBy('reservation_id')
+					->get();
+
+		// dd($passangers);
+		$debts = PassangerPrice::debtsCalculus($passangers);
+		return $debts;
+	}
+
+	public static function debtsOld()
 	{
 		$passangerPrices = PassangerPrice::orderBy("passanger_id", "ASC")
 							->orderBy("reservation_id", "ASC")->get();
+		return debtsCalculus($passangerPrices);
+	}
+
+	public static function debtsCalculus($passangerPrices)
+	{
 		$debts = array();
 		$passanger_id = 0;
 		$debt = new Debt();
@@ -49,11 +98,10 @@ class PassangerPrice extends Eloquent {
 				$debt = new Debt();
 				$passanger_id = $psgPrice->passanger_id;
 				$debt->passanger_id = $passanger_id;
-				$passanger = Passanger::find($passanger_id);
-				$debt->passanger_name = $passanger->name.' '.$passanger->surname;
-				$debt->passanger_jmbg = $passanger->jmbg;
-				$debt->passanger_address = $passanger->address;
-				$debt->passanger_tel = $passanger->mob;
+				$debt->passanger_name = $psgPrice->name.' '.$psgPrice->surname;
+				$debt->passanger_jmbg = $psgPrice->jmbg;
+				$debt->passanger_address = $psgPrice->address;
+				$debt->passanger_tel = $psgPrice->mob;
 				$reservation_id = 0;
 			}
 
@@ -68,16 +116,14 @@ class PassangerPrice extends Eloquent {
 				$reservationPsg->destination = $reservation->destination();
 
 				$payments = Payment::where('passanger_id', '=', $passanger_id)->
+										where('reservation_id', '=', $reservationPsg->reservation_id)->
 										where('status', '=', 1)->get();
 				foreach ($payments as $payment) {
-					$paymentReservation = Reservation::find($payment->reservation_id);
-					if ($paymentReservation && $paymentReservation->id == $reservationPsg->reservation_id) {
-						$reservationPsg->left_to_pay_din -= floatval($payment->amount_din);
-						$reservationPsg->left_to_pay_eur -= round(floatval($payment->amount_eur_din)/$payment->exchange_rate,2);
-					
-						$debt->debt_din -= floatval($payment->amount_din);
-						$debt->debt_eur -= round(floatval($payment->amount_eur_din)/$payment->exchange_rate,2);
-					}
+					$reservationPsg->left_to_pay_din -= floatval($payment->amount_din);
+					$reservationPsg->left_to_pay_eur -= round(floatval($payment->amount_eur_din)/$payment->exchange_rate,2);
+				
+					$debt->debt_din -= floatval($payment->amount_din);
+					$debt->debt_eur -= round(floatval($payment->amount_eur_din)/$payment->exchange_rate,2);
 				}
 			}
 
