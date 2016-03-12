@@ -47,6 +47,9 @@ $(function(){
                             var date = new Date(psg.birth_date);
     	                    $(".modal-body #birth_date").val(date.format("d-m-yyyy"));
     	            	}
+                        if(psg.email != null){
+                            $(".modal-body #email")[0].setAttribute("value", psg.email);
+                        }
                     };
                 }
             });
@@ -69,6 +72,7 @@ $(function(){
 			<!-- <td>Datum rođenja</td> -->
 			<td>Broj Pasoša</td>
 			<td>JMBG</td>
+			<td>Email</td>
 			<td></td>
 			<td></td>
 		</tr>
@@ -97,6 +101,9 @@ $(function(){
 			{{ $passanger->passport }}</td>
 		<td>
 			{{ $passanger->jmbg }}
+		</td>
+		<td>
+			{{ $passanger->email }}
 		</td>
 		<td>
 			<a class="passangerDetails btn btn-primary pull-right" name="{{$passanger->id}}" role="button" data-toggle="modal" href="#psgDetailModal">

@@ -43,6 +43,9 @@ $(document).ready(function(){
                             var date = new Date(psg.birth_date);
     	                    $(".modal-body #birth_date").val(date.format("d-m-yyyy"));
     	            	}
+                        if(psg.email != null){
+                            $(".modal-body #email")[0].setAttribute("value", psg.email);
+                        }
                     };
                 }
             });

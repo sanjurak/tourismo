@@ -75,7 +75,8 @@ class PassangersController extends \BaseController {
 				'tel' => Input::get('tel'),
 				'mob' => Input::get('mob'),
 				'passport' => Input::get('passport'),
-				'birth_date' => $birth_date
+				'birth_date' => $birth_date,
+				'email' => Input::get('email')
 			));
 		} else {
 			$passanger->jmbg = Input::get('jmbg');
@@ -90,6 +91,7 @@ class PassangersController extends \BaseController {
 			if ((string)$birth_date != "1970-01-01") {
 				$passanger->birth_date = $birth_date;
 			}
+			$passanger->email = Input::get('email');
 			$passanger->save();
 		}
 		return Redirect::back();
@@ -112,6 +114,7 @@ class PassangersController extends \BaseController {
 			if ((string)$birth_date != "1970-01-01") {
 				$passanger->birth_date = $birth_date;
 			}
+			$passanger->email = Input::get('email');
 	
 			$passanger->save();
 	

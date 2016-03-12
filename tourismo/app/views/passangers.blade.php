@@ -77,6 +77,11 @@
 							<input type="text" name="passport" id="passport" placeholder="Broj Pasoša"/>
 						</div></td>
 					</tr>
+					<tr>
+						<td><div class="input-control text">
+							<input type="text" name="email" id="email" placeholder="Email"/>
+						</div></td>
+					</tr>
 				</table>
 				<input type="hidden" name="id" id="id"/>
 			</div>

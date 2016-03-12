@@ -119,6 +119,9 @@
 					<input type="text" class="span2" style="height:100%" id="birth_date" name="birth_date" placeholder="d-m-yy" autocomplete="off"/>
 					<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
 				</div>
+					<div class="span3 input-control text">
+						<input type="email" name="email" id="email" placeholder="Email" />
+					</div>
 				<div class="span2">
 					<span class="btn btn-default" id="btnAddNewPsg">Dodaj</span>
 				</div>
@@ -443,7 +446,7 @@
 
 		<div class="row">
 				<div class="span4">
-					Promoter:<br> <input type="text" style="height:100%" id="discount"  name="discount" value={{$reservation->discount}} placeholder="Promoter"/>
+					Promoter:<br> <input type="text" style="height:100%" id="discount"  name="discount" placeholder="Promoter" value={{$reservation->discount}} />
 				</div>
 				<div class="span4">
 					Popust odobrio:<br> <input type="text" style="height:100%" id="discounter" name="discounter_name" value="{{$reservation->discounter_name}}" placeholder="Popust odobrio"/>

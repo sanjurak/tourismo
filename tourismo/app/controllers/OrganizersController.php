@@ -127,6 +127,7 @@ class OrganizersController extends \BaseController {
 		$phone = Input::get('phone');
 		$provision = Input::get('provision');
 		$licence = Input::get('licence');
+		$licencetext = Input::get('licence_text');
 		$bankaccount = Input::get('bankaccount');
 
 		$organizator = new Organizers;
@@ -140,6 +141,7 @@ class OrganizersController extends \BaseController {
 		$organizator->phone = $phone;
 		$organizator->provision = $provision;
 		$organizator->licence = $licence;
+		$organizator->licence_text = $licencetext;
 		$organizator->bankAccount = $bankaccount;
 
 		$organizator->Save();
@@ -202,13 +204,14 @@ class OrganizersController extends \BaseController {
 		$phone = Input::get('phone');
 		$provision = Input::get('provision');
 		$licence = Input::get('licence');
+		$licencetext = Input::get('licence_text');
 		$bankAccount = Input::get('bankaccount');
 		Organizers::where('pib','=',$id)->
 			update(array("mat_br" => $matbr,
 				"email" => $email, "address" => $address,
 				"web" => $web, "name" => $name, "phone" => $phone,
 				"provision" => $provision, "licence" => $licence,
-				"bankAccount" => $bankAccount));
+				"licence_text" => $licencetext, "bankAccount" => $bankAccount));
 		
 	}
 

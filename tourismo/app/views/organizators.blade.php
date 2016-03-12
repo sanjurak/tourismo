@@ -129,6 +129,12 @@
 				    </div>
 				  </div>
 				  <div class="control-group">
+				    <label class="control-label" for="licence_text">Text Licence</label>
+				    <div class="controls">
+				      <textarea rows="4" id="lecenceTextModNew" name="licence_text" placeholder="Text licence"></textarea>
+				    </div>
+				  </div>
+				  <div class="control-group">
 				    <label class="control-label" for="bankaccount">Br. Računa</label>
 				    <div class="controls">
 				      <input type="text" id="bankaccountModNew" name="bankaccount" placeholder="Broj računa">
@@ -212,9 +218,9 @@
 				    </div>
 				  </div>
 				  <div class="control-group">
-				    <label class="control-label" for="licence_text">Text Licence Git</label>
+				    <label class="control-label" for="licence_text">Text Licence</label>
 				    <div class="controls">
-				      <input type="text" id="licenceTextMod" name="licence_text" placeholder="Text licence">
+				      <textarea rows="4" id="licenceTextMod" name="licence_text" placeholder="Text licence"></textarea>
 				    </div>
 				  </div>
 				  <div class="control-group">

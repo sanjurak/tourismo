@@ -216,6 +216,9 @@
 											<input type="text" class="span2" style="height:100%" id="birth_date" name="birth_date" placeholder="d-m-yy" autocomplete="off"/>
 											<span class="add-on" style="height:100%"><i class="icon-calendar"></i></span>
 										</div>
+										<div class="span3 input-control text">
+											<input type="email" name="email" id="email" placeholder="Email" />
+										</div>
 										<div class="span2">
 											<span class="btn btn-default" id="btnAddNewPsg">Dodaj</span>
 										</div>

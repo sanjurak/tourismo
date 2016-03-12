@@ -22,7 +22,12 @@
 	</tr>
 	<tr class="font12">
 		<td class="textcenter">
-			<p><b>Organizator putovanja:</b> {{$organizer->name}}, <b>Licenca:</b> {{$organizer->licence}}</p>
+			<b>Organizator putovanja:</b> {{$organizer->name}}, <b>Licenca:</b> {{$organizer->licence}}
+		</td>
+	</tr>
+	<tr class="font8">
+		<td class="textjustify">
+			<b>Potvrda o garanciji putovanja:</b><br/>{{$organizer->licence_text}}
 		</td>
 	</tr>
 	<tr>
@@ -89,6 +94,8 @@
 		<th>Red. Br.</th>
 		<th>Prezime i Ime putnika</th>
 		<th>JMBG</th>
+		<th>Email</th>
+		<th class="address">Adresa</th>
 		<th>Br. Pasoša</th>
 		<th>Telefon</th>
 	</tr>
@@ -97,6 +104,8 @@
 		<td>{{$psgiterator++}}.</td>
 		<td>{{$psg->surname}} {{$psg->name}}</td>
 		<td>{{$psg->jmbg}}</td>
+		<td>{{$psg->email}}</td>
+		<td class="address">{{$psg->address}}</td>
 		<td>{{$psg->passport}}</td>
 		<td>{{$psg->mob}}</td>
 	</tr>
