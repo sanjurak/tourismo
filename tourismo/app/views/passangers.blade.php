@@ -79,7 +79,7 @@
 					</tr>
 					<tr>
 						<td><div class="input-control text">
-							<input type="text" name="email" id="email" placeholder="Email"/>
+							<input type="email" name="email" id="email" placeholder="Email"/>
 						</div></td>
 					</tr>
 				</table>
