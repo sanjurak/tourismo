@@ -212,6 +212,12 @@
 				    </div>
 				  </div>
 				  <div class="control-group">
+				    <label class="control-label" for="licence_text">Text Licence Git</label>
+				    <div class="controls">
+				      <input type="text" id="licenceTextMod" name="licence_text" placeholder="Text licence">
+				    </div>
+				  </div>
+				  <div class="control-group">
 				    <label class="control-label" for="bankaccount">Br. Računa</label>
 				    <div class="controls">
 				      <input type="text" id="bankaccountMod" name="bankaccount" placeholder="Broj računa">
